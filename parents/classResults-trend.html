@@ -1,0 +1,159 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/highcharts.js"></script>
+    <!--<script type="text/javascript" src="assets/js/main.js"></script>-->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jedate.js"></script>
+</head>
+<body>
+<style>
+    * {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .biao {
+        width: 45%;
+        text-align: center;
+        /*padding: 40px;*/
+        display: inline-block;
+    }
+
+    .actions {
+        position: relative;
+        margin: 40px 0;
+    }
+
+    button {
+        display: block;
+        margin: 5px 0;
+        width: 100px;
+    }
+
+    .actions .buttom {
+        position: absolute;
+        left: 45px;
+        top: 75px;
+        display: block;
+        width: 100px;
+    }
+
+    .actions .text {
+
+        position: absolute;
+        right: -12px;
+        top: 84px;
+        display: block;
+        width: 150px;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    .last {
+        display: block;
+        margin-bottom: 70px;
+    }
+
+    .last button {
+        float: right;
+        width: 60px;
+        margin: 10px;
+        display: inline-block;
+    }
+</style>
+<div id="app">
+    <div class="actions">
+        <div class="buttom">
+            <button class="switcher btn badge-danger" id="column">条形图</button>
+            <button class="switcher  btn badge-danger" id="area">线型面积图</button>
+            <button class="switcher  btn badge-danger" id="line">线型图</button>
+            <button class="switcher  btn badge-danger" id="spline">样条图</button>
+            <button class="switcher  btn badge-danger" id="areaspline">面积样条图</button>
+        </div>
+        <div id="container" style="width: 80%; height: 400px; margin: 0 auto"></div>
+    </div>
+</div>
+<script language="JavaScript">
+    $(document).ready(function () {
+        var teacherId = localStorage.getItem("teacherId");
+        var chart = {
+            type: 'column'
+        };
+        var title = {
+            text: '每月月考考试成绩'
+        };
+        var subtitle = {
+            text: ''
+        };
+        var xAxis = {
+            categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            crosshair: true
+        };
+        var yAxis = {
+            min: 0,
+            title: {
+                text: '考试成绩'
+            }
+        };
+        var tooltip = {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        };
+        var plotOptions = {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        };
+        var credits = {
+            enabled: false
+        };
+
+        var series = [{
+            name: '',
+            data: []
+        }];
+
+
+        var json = {};
+        //teacherId
+        var parentId = localStorage.getItem("parentId");
+        $.post("http://localhost:8080/custromjl/selectStudentCustromjldto.do", "parentId=" + parentId, function (results) {
+            console.log(results)
+
+            json.chart = chart;
+            json.title = title;
+            json.subtitle = subtitle;
+            json.tooltip = tooltip;
+            json.xAxis = xAxis;
+            json.yAxis = yAxis;
+            json.series = results;
+            json.plotOptions = plotOptions;
+            json.credits = credits;
+            $('#container').highcharts(json);
+        }, "json")
+        $('.switcher').click(function () {
+            var newType = $(this).attr('id');
+            json.chart.type = newType
+            $('#container').highcharts(json);
+        });
+
+    });
+
+
+</script>
+</body>
+</html>

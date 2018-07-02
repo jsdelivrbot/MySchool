@@ -1,0 +1,484 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 历史 - 测试</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <!--VUE-->
+    <script src="js/vue.js"></script>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <!--人脸识别-->
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+    <!--通知模块-->
+    <script src="dist/js/lobibox.min.js"></script>
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+
+
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+    }
+
+    .container {
+        width: 100%;
+        margin-top: 20px;
+        background-color: #ffffff;
+    }
+
+    /*模态框样式*/
+
+    .modal {}
+
+    canvas {
+        left: 0px;
+        position: absolute;
+    }
+
+    .examSubject {
+        width: 300px;
+
+    }
+
+    .container-top {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        position: relative;
+        text-indent: 2em;
+
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+</style>
+
+<body>
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+        <div class="main-panel" style="float: none">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--【右半部分主体内容】-->
+            <div class="container">
+                <div class="container-top">
+                    <i class="pe-7s-pin" style="font-weight: bold;font-size: 30px;position: relative;left: -60px;top: 3px;width: 20px;"></i>
+                    统考 ▪ 历史
+                </div>
+                <table style="width: 98%;float: right" class="table table-hover">
+                    <thead>
+                        <th>编号</th>
+                        <th style="width: 300px">考试科目</th>
+                        <th>题型</th>
+                        <th>参考人</th>
+                        <th>成绩</th>
+                        <th>交卷时间</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        <tr v-if="examDate==''">
+                            <td colspan="7" style="text-align: center;font-weight: bold;color: #6f6f6f">没有历史记录哦~</td>
+                        </tr>
+                        <tr v-for="(item,index) in examDate">
+                            <td>{{index+1}}</td>
+                            <td class="examSubject">
+                                {{item.questionName}}
+                            </td>
+                            <td>{{item.opicTypeName}}</td>
+                            <td>{{userInfo.studentName}}</td>
+                            <td>{{item.score}}</td>
+                            <td>{{item.endDate}}</td>
+                            <td>
+                                <button class="btn btn-primary " @click="lookReport(item.customId,item.studentId,item.questionName,item.questionId)">
+                                    查看报告
+                                </button>
+                                <button class="btn btn-danger" @click="lookAnalysis(item.opicTypeId,item.questionId,item.customId,item.questionName)">
+                                    查看解析
+                                </button>
+                                <button class="btn btn-warning" @click="lookRankings(item.customId,item.questionName)">查看排行
+                                </button>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!--底部-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy; 2018
+                        <a href="#">云校园</a>，梦想带你起航
+                    </p>
+                </div>
+            </footer>
+            <!--显示排行榜的模态框-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close
+                            </button>
+                            <button type="button" class="btn btn-success btn-fill">Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    var lo = "localhost";
+    var userInfoInit;//用户信息
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userInfo: {},
+            examDate: []
+
+        },
+        methods: {
+            getDate() {
+                $.post("http://" + lo + ":8080/custromjl/selectCustromjlByStudentId", { "studentId": this.userInfo.studentId }, function (dates) {
+                    app.examDate = dates;
+                    console.log(dates);
+                }, "json");
+            },
+            lookReport(a, b, c, d) {
+                $.post("http://" + lo + ":8080/Questiondetail/selectQuestiondetailById", { "questionId": d }, function (date) {
+                    localStorage.setItem("customId", a);
+                    localStorage.setItem("studentId", b);
+                    localStorage.setItem("questionName", c);
+                    localStorage.setItem("count", date.length)
+                    Lobibox.notify('success', {
+                        msg: '调取报告成功，请稍等...'
+                    });
+                    var i = 0;
+                    $(".progress").css('display', 'block');
+                    var timer = setInterval(function () {
+                        i += 20;
+                        $("#bar").css("width", "" + i + "%");
+                        $("#bar").text(i + "%");
+                        if (i >= 100) {
+                            clearInterval(timer);
+                            //发送请求
+                            setTimeout(function () {
+                                parent.location = "alone_testReport.html";
+                            }, 1500);
+
+                        }
+                    }, 200);
+
+
+                }, "json");
+
+
+            },
+            lookAnalysis(a, b, c, d) {
+                var newtimestamps = localStorage.getItem("newtimestamps");
+                var timestamp = Date.parse(new Date());
+                var timestamps = timestamp / 1000;
+                console.log(timestamps);
+                if (newtimestamps <= timestamps) {
+                    console.log("查看解析" + a);
+                    localStorage.setItem("questionId", b);
+                    localStorage.setItem("customId", c);
+                    localStorage.setItem("questionName", d);
+                    Lobibox.notify('success', {
+                        msg: '调取试题解析成功，请稍等...'
+                    });
+                    console.log("查看解析2")
+                    var i = 0;
+                    if (a == 1) {
+                        console.log("查看解析3")
+                        //查看选择题的试题解析
+                        $(".progress").css('display', 'block');
+                        var timer = setInterval(function () {
+                            i += 20;
+                            $("#bar").css("width", "" + i + "%");
+                            $("#bar").text(i + "%");
+                            if (i >= 100) {
+                                clearInterval(timer);
+                                //发送请求
+                                parent.location = "module_choiceQuestionAnalysis.html";
+                            }
+                        }, 200);
+
+                    } else if (a == 2) {
+                        //查看判断题的试题解析
+                        $(".progress").css('display', 'block');
+                        var timer = setInterval(function () {
+                            i += 20;
+                            $("#bar").css("width", "" + i + "%");
+                            $("#bar").text(i + "%");
+                            if (i >= 100) {
+                                clearInterval(timer);
+                                //发送请求
+                                parent.location = "module_judgeQuestionAnalysis.html";
+                            }
+                        }, 200);
+
+                    }
+                } else {
+                    Lobibox.notify('error', {
+                        msg: '考试时间还未结束，不可查看解析...'
+                    });
+                }
+
+
+            },
+            lookRankings(a, b) {
+                //questionName
+
+                localStorage.setItem("customId", a);
+                localStorage.setItem("questionName", b);
+                Lobibox.notify('success', {
+                    msg: '调取测试排名成功，请稍等...'
+                });
+                var i = 0;
+                $(".progress").css('display', 'block');
+                var timer = setInterval(function () {
+                    i += 20;
+                    $("#bar").css("width", "" + i + "%");
+                    $("#bar").text(i + "%");
+                    if (i >= 100) {
+                        clearInterval(timer);
+                        //发送请求
+                        parent.location = "alone_testRankings.html";
+                    }
+                }, 200);
+            },
+            //初始化头像
+            imgLogoInit() {
+                //获取用户信息 转为JSON
+                var userInfo = localStorage.getItem("user");
+                var obj = JSON.parse(userInfo);
+                this.userInfo = obj;
+                userInfoInit = obj;
+                $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+            }
+
+        },
+        beforeCreate() {
+            //取出主题并设置上
+            var getTheme = localStorage.getItem("theme");
+            $(".sidebar").attr("data-color", getTheme);
+            var imgPath = localStorage.getItem("imgPath");
+            $(".sidebar").attr("data-image", imgPath);
+            $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+
+        },
+        created() {
+            this.imgLogoInit();
+            //加载数据
+            this.getDate();
+
+        },
+    })
+</script>
+<script>
+    //var gui = require('nw.gui');
+    //退出应用程序
+    function clostExamSystem() {
+        //gui.App.quit()
+    }
+</script>
+<!--右键菜单-->
+<script type="text/javascript">
+    var menu = document.getElementById("menu");
+    document.oncontextmenu = function (ev) {
+        var oEvent = ev || event;
+        //自定义的菜单显示
+        menu.style.display = "block";
+        //让自定义菜单随鼠标的箭头位置移动
+        menu.style.left = oEvent.clientX + "px";
+        menu.style.top = oEvent.clientY + "px";
+        //return false阻止系统自带的菜单，
+        //return false必须写在最后，否则自定义的右键菜单也不会出现
+        return false;
+
+    }
+    //实现点击document，自定义菜单消失
+    document.onclick = function () {
+
+        menu.style.display = "none";
+    }
+    function shuaxin() {
+        location.reload();
+    }
+</script>
+<!--导入JS-->
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+<script src="newStyle/js/aa743e8f448a4792bad10d201a7080f6.js"></script>
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+</html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 导入link -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+</head>
+<style>
+    .chufa {
+        background-color: rgba(255, 250, 248, 0);
+        transition: all 1s;
+    }
+    tr, td {
+        transition: all .3s;
+    }
+    .table-hover > tbody > tr:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+    .chufa:hover {
+        background-color: #f26e0d;
+    }
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+    .progress_bar_body {
+        width: 20%;
+    }
+
+    .progress-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+        margin: 0 0 20px;
+    }
+
+    .progress {
+        margin: 8% 13% 3px;
+        height: 5px;
+        background: #333;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .progress .progress-bar {
+        position: relative;
+        -webkit-animation: animate-positive 2s;
+        animation: animate-positive 2s;
+    }
+
+    .progress .progress-bar:after {
+        content: "";
+        display: inline-block;
+        width: 9px;
+        background: #fff;
+        position: absolute;
+        top: -10px;
+        bottom: -10px;
+        right: -1px;
+        z-index: 1;
+        transform: rotate(35deg);
+    }
+
+    .progress .progress-value {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        position: absolute;
+        top: -25px;
+        right: -25px;
+    }
+
+    .form-group {
+        display: inline-block;
+
+    }
+
+    .progress_margin {
+        margin: 0px 0px 0px 0px;
+    }
+
+    @-webkit-keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+
+    @keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+
+</style>
+<body>
+<div style="padding:0 5%;margin-top: 1%">
+    <form id="formPaper" name="formPaper" method="post">
+        <div class="form-group" style="width: 20%">
+            <label for="dutyId">班级</label>
+            <select id="dutyId" name="dutyId" class="form-control selectpicker " data-live-search="true"
+                    placeholder="请选择班级">
+                <option value="">请选择</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+                <option value="">TCMP058</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+            <button type="button" class="btn btn-success radius" id="btnQuery" @click="btnQuery()">
+                <i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+        </div>
+    </form>
+
+    <table id="zidong" class="table  table-hover">
+        <thead>
+        <tr class="text-c">
+            <th>编号</th>
+            <th>姓名</th>
+            <th>总用时(分钟)</th>
+            <th>平均时长(秒)</th>
+            <th>最后上线时间</th>
+            <th class="progress_bar_body">总进度</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <th class="gun-scusses">
+                1
+            </th>
+            <td class="gun-scusses">朱晓宇</td>
+            <td class="gun-scusses">2分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-1-4 12:33:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:70%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                2
+            </th>
+            <td class="gun-scusses">郭计腾</td>
+            <td class="gun-scusses">4分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-2 21:25:52</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:80%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">80%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                3
+            </th>
+            <td class="gun-scusses">龚京丽</td>
+            <td class="gun-scusses">6分22秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-3 21:12:42</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:22%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">22%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                4
+            </th>
+            <td class="gun-scusses">陈玲</td>
+            <td class="gun-scusses">8分21秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-2 12:12:25</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:43%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">43%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                5
+            </th>
+            <td class="gun-scusses">朱子豪</td>
+            <td class="gun-scusses">10分33秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-3 14:61:62</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:54%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">54%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                6
+            </th>
+            <td class="gun-scusses">张宏泽</td>
+            <td class="gun-scusses">12分11秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 12:52:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:23%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">23%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                7
+            </th>
+            <td class="gun-scusses">权晓鹏</td>
+            <td class="gun-scusses">14分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 22:46:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:12%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">12%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                8
+            </th>
+            <td class="gun-scusses">李世园</td>
+            <td class="gun-scusses">16分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 12:42:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:43%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">43%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                9
+            </th>
+            <td class="gun-scusses">王碧瑶</td>
+            <td class="gun-scusses">17分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 14:55:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:21%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">21%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                10
+            </th>
+            <td class="gun-scusses">秦梦瑶</td>
+            <td class="gun-scusses">18分22秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-2 13:32:52</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:51%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">51%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                11
+            </th>
+            <td class="gun-scusses">李鹏翔</td>
+            <td class="gun-scusses">19分43秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-3 12:54:42</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:62%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">62%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                12
+            </th>
+            <td class="gun-scusses">王旭东</td>
+            <td class="gun-scusses">30分22秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 15:34:54</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:63%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">63%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                13
+            </th>
+            <td class="gun-scusses">崔佳伟</td>
+            <td class="gun-scusses">27分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 21:45:31</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:35%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">35%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                14
+            </th>
+            <td class="gun-scusses">解珺</td>
+            <td class="gun-scusses">82分22秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 12:45:45</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:34%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">34%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                15
+            </th>
+            <td class="gun-scusses">王子竣</td>
+            <td class="gun-scusses">32分13秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 16:26:38</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:54%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">54%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                16
+            </th>
+            <td class="gun-scusses">刘少鸿</td>
+            <td class="gun-scusses">72分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 14:56:49</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:16%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">16%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                17
+            </th>
+            <td class="gun-scusses">齐腾飞</td>
+            <td class="gun-scusses">54分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 13:17:25</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:42%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">42%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                18
+            </th>
+            <td class="gun-scusses">王云</td>
+            <td class="gun-scusses">44分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 11:55:53</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:17%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">17%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                19
+            </th>
+            <td class="gun-scusses">杨水军</td>
+            <td class="gun-scusses">46分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 13:48:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:63%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">63%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                20
+            </th>
+            <td class="gun-scusses">余家胜</td>
+            <td class="gun-scusses">27分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 18:27:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:72%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">72%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                21
+            </th>
+            <td class="gun-scusses">兰宇</td>
+            <td class="gun-scusses">74分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 19:13:45</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:46%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">46%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                22
+            </th>
+            <td class="gun-scusses">水坤祥</td>
+            <td class="gun-scusses">82分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 13:25:46</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:100%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                23
+            </th>
+            <td class="gun-scusses">赵明</td>
+            <td class="gun-scusses">47分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 15:56:33</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:100%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                24
+            </th>
+            <td class="gun-scusses">赵恒</td>
+            <td class="gun-scusses">25分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 13:56:21</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:100%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                25
+            </th>
+            <td class="gun-scusses">朱凯丽</td>
+            <td class="gun-scusses">39分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 12:37:43</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:100%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                26
+            </th>
+            <td class="gun-scusses">石胜贤</td>
+            <td class="gun-scusses">25分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 17:24:53</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:1%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">1%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+        <tr>
+            <th class="gun-scusses">
+                27
+            </th>
+            <td class="gun-scusses">苗培全</td>
+            <td class="gun-scusses">66分23秒</td>
+            <td class="gun-scusses">23</td>
+            <td class="gun-scusses">2018-4-4 18:32:22</td>
+            <td class="gun-scusses">
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width:100%; background:#97c513; margin-bottom: 0px">
+                        <div class="progress-value">
+                            <span style="font-size: 14px;"> <span style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="gun-scusses"><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看</a></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+    <div id="pageList" style="float:right">
+        <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 60%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="font-weight:bold">学习进度 <span
+                        style="margin-left: 50px;font-weight: bold;font-size: 14px">TCMP028班</span></h4>
+            </div>
+            <div class="modal-body">
+                <!--进度条开始-->
+                <div class="panel-group" id="accordion" role="tablist" style="display: block;margin: 0 10%"
+                     aria-multiselectable="true">
+                    <h4 style="font-weight: bold">朱晓宇 </h4>
+                    <div class="panel panel-default ">
+                        <div class="panel-heading " role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <!--头部链接-->
+                                <a role="button" style="text-decoration: none" data-toggle="collapse"
+                                   data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">
+                                    <h3 class="progress-title" style="margin-bottom: -5px;">java-Y2</h3>
+                                    <span style=" position: relative;left: 85%;top: -12px;font-size: 14px; "> <span
+                                            style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                                    <div class="progress progress_margin" style="">
+                                        <div class="progress-bar"
+                                             style="width:70%; background:#97c513; margin-bottom: 0px">
+                                            <div class="progress-value"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h4>
+                        </div>
+
+                        <!--根据头部a标签collapseOne来寻找-->
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <!--条目-->
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    java新框架ssm </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">52%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    java老框架ssh </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">14%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:14%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    深度掌握mybatis </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">62%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    深度了解springmvc </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">74%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:74%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default ">
+                        <div class="panel-heading " role="tab" id="headingOne2">
+                            <h4 class="panel-title">
+                                <!--头部链接-->
+                                <a role="button" style="text-decoration: none" data-toggle="collapse"
+                                   data-parent="#accordion" href="#collapseOne2"
+                                   aria-expanded="true" aria-controls="collapseOne2">
+                                    <h3 class="progress-title" style="margin-bottom: -5px;">前端开发</h3>
+                                    <span style=" position: relative;left: 85%;top: -12px;font-size: 14px; "> <span
+                                            style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                                    <div class="progress progress_margin" style="">
+                                        <div class="progress-bar"
+                                             style="width:70%; background:#97c513; margin-bottom: 0px">
+                                            <div class="progress-value"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h4>
+                        </div>
+
+                        <!--根据头部a标签collapseOne来寻找-->
+                        <div id="collapseOne2" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <!--条目-->
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                   bootstrap </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">52%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    vue </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">14%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:14%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    Angela </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">62%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    css3-h5新特性 </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">74%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:74%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default ">
+                        <div class="panel-heading " role="tab" id="headingOne3">
+                            <h4 class="panel-title">
+                                <!--头部链接-->
+                                <a role="button" style="text-decoration: none" data-toggle="collapse"
+                                   data-parent="#accordion" href="#collapseOne3"
+                                   aria-expanded="true" aria-controls="collapseOne3">
+                                    <h3 class="progress-title" style="margin-bottom: -5px;">安卓开发</h3>
+                                    <span style=" position: relative;left: 85%;top: -12px;font-size: 14px; "> <span
+                                            style="color: #25f98f;">70%</span>&nbsp;22/432</span>
+                                    <div class="progress progress_margin" style="">
+                                        <div class="progress-bar"
+                                             style="width:70%; background:#97c513; margin-bottom: 0px">
+                                            <div class="progress-value"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </h4>
+                        </div>
+
+                        <!--根据头部a标签collapseOne来寻找-->
+                        <div id="collapseOne3" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <!--条目-->
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                   adapter的使用 </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">52%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    自定义view </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">14%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:14%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    Fragment熟练舒勇 </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">62%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:52%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding: 8px 50px">
+                                <h3 class="progress-title" style="font-size:14px;margin-bottom: -10px;">
+                                    animation动画效果 </h3>
+                                <span style="position: relative;left: 80%;top: -8px;font-size: 14px; "> <span
+                                        style="color: #25f98f;">74%</span>&nbsp;22/432</span>
+                                <div class="progress progress_margin" style="margin-bottom: 0px;height: 5px">
+                                    <div class="progress-bar" style="width:74%; background:#97c513; margin-bottom: 0px">
+                                        <div class="progress-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+</html>

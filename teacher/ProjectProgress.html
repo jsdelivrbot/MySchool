@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>云校园 ▪ 任务进度</title>
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        background-color: #de8b8b;
+    }
+
+    * {
+        -webkit-user-select: none;
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+    }
+
+    .top-container {
+        width: 100%;
+        height: 50px;
+        background-color: #FFFFFF;
+
+    }
+
+    .top-container p {
+        text-indent: 2em;
+        font-size: 16px;
+        line-height: 50px;
+        color: #7b7b7b;
+    }
+
+    .container-item-con {
+        padding-top: 20px;
+
+    }
+
+    .container-item-item {
+
+        cursor: pointer;
+        margin-bottom: 3px;
+        background-color: #ffffff;
+        width: 100%;
+        height: 60px;
+        position: relative;
+        border-bottom: 1px solid #dbdbdb;
+        padding-right: 15px;
+        padding-left: 15px;
+        line-height: 60px;
+    }
+
+    .container-item-item p {
+        top: 12px;
+        font-size: 13px;
+        position: relative;
+        border-left: 4px solid #7ec99c;
+        padding: 6px;
+        text-indent: 5px;
+    }
+
+    .container-item-item .container-item-item-text {
+        display: inline-block;
+        width: 200px;
+        text-indent: 1em;
+        color: #b7b7b7;
+        height: 35px;
+        -webkit-border-radius: 3px;
+        border: 1px solid #e8e8e8;
+        position: absolute;
+        top: 1px;
+        right: 10px;
+    }
+
+    .table-item-con {
+        padding-bottom: 10px;
+
+    }
+
+    .jinduTiao {
+        position: relative;
+    }
+
+    .progress {
+        width: 90%;
+        position: absolute;
+        top: 18px;
+        height: 20px;
+    }
+
+    .bar-item {
+        height: 20px;
+        background-color: #7ec99c;
+
+    }
+
+    .table-img {
+        width: 30px;
+        height: 30px;
+        -webkit-border-radius: 100%;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    tr {
+        cursor: pointer;
+    }
+</style>
+<body>
+
+
+<!--整体内容-->
+<div class="wrapper" id="app">
+
+    <!--右半部分内容-->
+    <div >
+        <!--右半部分主体内容-->
+        <div class="container-item">
+
+            <div class="container-item-con container-fluid">
+                <div class="container-item-item">
+                    <p>项目进度统计<input type="text" class="container-item-item-text" placeholder="搜索项目"></p>
+                </div>
+                <div class="container-item-item-bottom">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">项目</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>负责人</th>
+                            <th>状态</th>
+                            <th>待完成</th>
+                            <th>延期任务</th>
+                            <th>已完成</th>
+                            <th>项目进度</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(玩野俱乐部官网)</td>
+                            <td style="line-height: 40px">2018-05-02</td>
+                            <td style="line-height: 40px">2018-09-03</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">0</td>
+                            <td style="line-height: 40px">项目调试</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">项目基础编码</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 90%;">
+                                        90%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(豆瓣电影)</td>
+                            <td style="line-height: 40px">2017-08-02</td>
+                            <td style="line-height: 40px">2018-10-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">基础信息录入</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">bug修复</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 50%;">
+                                        50%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(金融理财管理系统)</td>
+                            <td style="line-height: 40px">2017-08-02</td>
+                            <td style="line-height: 40px">2018-10-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">高并发测试</td>
+                            <td style="line-height: 40px">延期</td>
+                            <td style="line-height: 40px">基础在线测试</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 85%;">
+                                        85%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">Spring Boot(航空订票系统)</td>
+                            <td style="line-height: 40px">2017-08-02</td>
+                            <td style="line-height: 40px">2018-10-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">漏洞检测</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">项目编码和调试</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 50%;">
+                                        50%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(企业论坛系统)</td>
+                            <td style="line-height: 40px">2015-10-02</td>
+                            <td style="line-height: 40px">2016-1-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">0</td>
+                            <td style="line-height: 40px">代码实现</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">数据库结构设计</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 70%;">
+                                        70%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSH(报价管理系统)</td>
+                            <td style="line-height: 40px">2018-08-02</td>
+                            <td style="line-height: 40px">2019-3-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">0</td>
+                            <td style="line-height: 40px">报价信息采集</td>
+                            <td style="line-height: 40px">延期</td>
+                            <td style="line-height: 40px">架构搭建</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 25%;">
+                                        25%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(在线考试系统)</td>
+                            <td style="line-height: 40px">2017-08-02</td>
+                            <td style="line-height: 40px">2018-10-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">试题录入</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">在线测试</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 50%;">
+                                        50%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">Spring Boot(客户关系管理系统)</td>
+                            <td style="line-height: 40px">2016-08-02</td>
+                            <td style="line-height: 40px">2017-1-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">客户信息采集</td>
+                            <td style="line-height: 40px">延期</td>
+                            <td style="line-height: 40px">数据添加</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 100%;">
+                                        100%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSM(新闻发布系统)</td>
+                            <td style="line-height: 40px">2015-08-02</td>
+                            <td style="line-height: 40px">2016-3-02</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">0</td>
+                            <td style="line-height: 40px">项目编码和测试</td>
+                            <td style="line-height: 40px">延期</td>
+                            <td style="line-height: 40px">交付用户</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 80%;">
+                                        80%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr @click="modalItem()">
+                            <td class="text-center" style="line-height: 40px">SSH(企业员工管理系统)</td>
+                            <td style="line-height: 40px">2016-08-02</td>
+                            <td style="line-height: 40px">2016-12-17</td>
+                            <td style="line-height: 40px">
+                                <img class="table-img"
+                                     src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+
+                            </td>
+                            <td style="line-height: 40px">1</td>
+                            <td style="line-height: 40px">物理代码实现</td>
+                            <td style="line-height: 40px">不延期</td>
+                            <td style="line-height: 40px">架构搭建和页面设计</td>
+                            <td style="line-height: 40px" class="jinduTiao">
+                                <!--进度条-->
+                                <div class="progress">
+                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: 70%;">
+                                        70%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--模态框部分-->
+<div class="modal fade" id="modalItem" aria-hidden="true" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">头部</h5>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-label="Close">取消</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--VUE模块-->
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userInfo: {}
+        },
+        methods: {
+            modalItem(){
+                $('#modalItem').modal('show')
+            }
+        },
+        created(){
+        }
+    })
+
+</script>
+
+</body>
+<!--导入JS-->
+
+
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+</html>

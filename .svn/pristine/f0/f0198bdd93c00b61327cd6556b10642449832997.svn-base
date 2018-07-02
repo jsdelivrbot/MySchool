@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 导入link -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/bootstrap-select.js"></script>
+
+    <script src="assets/js/radar.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    .container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        bottom: 190px;
+        left: 60px;
+    }
+
+    /*今日打卡--开始 */
+    .white-panel {
+        margin-left: 6px;
+        border: 1px solid #CCCCCC;
+        width: 435px;
+        background: #ffffff;
+        color: #6d726d;
+    }
+
+    .white-panel p {
+        font-weight: 700;
+    }
+
+    .white-panel .white-header {
+        background: #f4f4f4;
+        padding: 3px;
+        margin-bottom: 15px;
+        color: #c6c6c6;
+    }
+
+    .white-panel .small {
+        font-size: 15px;
+        color: #ccd1d9;
+    }
+
+    .container-fluid {
+
+    }
+
+    .white-panel i {
+        color: #68dff0;
+        padding-right: 4px;
+        font-size: 14px;
+    }
+
+    .pn {
+        display: inline-block;
+        height: 250px;
+
+    }
+
+    .pn:hover {
+
+    }
+
+    .mb {
+        width: 400px;
+        height: 300px;
+    }
+
+    /*今日打卡--结束 */
+    .bian {
+        margin-right: 1%;
+    }
+    .selectpicker {
+        border-radius: 4px;
+        width: 16%;
+        text-align: center;
+        line-height: 35px;
+        height: 35px;
+    }
+
+</style>
+<body>
+<div id="app">
+
+
+<div class="container-fluid" style="width: 90%;padding-top: 10px;">
+    <!--<form class="form-inline">-->
+
+        <!--<label for="select">学生姓名:&nbsp;</label>-->
+        <!--<select  id="select" class="selectpicker">-->
+            <!--<option value="-1">请选择</option>-->
+            <!--<option v-for="(item,index) in stuNameList" :value='item.studentName'>{{item.studentName}}</option>-->
+        <!--</select>-->
+        <!--<button type="submit" class="btn btn-success radius" @click="initLessonYi()"><i class="Hui-iconfont">&#xe665;</i> 搜索-->
+        <!--</button>-->
+
+    <!--</form>-->
+</div>
+<div class="tab-content" style="width: 90%;margin: 0 auto;padding-top: 10px;">
+    <div class="active  tab-pane" id="tab1" style="width: 100%">
+        <div class="container-fluid"
+             style="margin-top: 10px;display: inline-block;height: 500px ;width: 100%; overflow: auto;">
+            <table id="datatable-buttons" class="table  table-bordered" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th colspan="4">学生姓名：<span class="bian">{{attList[dateIndex].studentName}}</span>班级：<span class="bian">{{attList[dateIndex].className}}</span> 教员：<span
+                            class="bian">{{attList[dateIndex].teacherName}}</span>就业老师：<span class="bian">{{attList[dateIndex].teacherName1}}</span></th>
+                </tr>
+                <tr>
+                    <th>日期</th>
+                    <th>考勤情况</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr v-for="(item,index) in attList">
+                    <td style="width: 200px">{{item.classDate}}</td>
+                    <td v-if="item.state==1" style="background-color: #5CB85C">正常</td>
+                    <td v-if="item.state==2" style="background-color: #337AB7">请假</td>
+                    <td v-if="item.state==3" style="background-color: #F0AD4E">旷课</td>
+                    <td v-if="item.state==4" style="background-color: #D9534F">迟到</td>
+                    <td v-if="item.state==5" style="background-color: #e99391">早退</td>
+
+                </tr>
+
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="btn-group " style="float: left;margin-top: 15px;">
+            <button type="button" class="btn btn-success">正常</button>
+            <button type="button" class="btn btn-primary">请假</button>
+            <button type="button" class="btn btn-warning">旷课</button>
+            <button type="button" class="btn btn-danger">迟到</button>
+            <button type="button" class="btn btn-block"
+                    style="width: 50px;background-color: #e99391;border: 0;color: #ffffff;disabled:disabled;height: 34px ">早退
+            </button>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+<script type=" text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            attList: [],
+            dateIndex:0,
+            stuNameList:[],
+
+        },
+        methods: {
+            initLessonYi(){
+                var name="黄保霖";
+                $.post("http://localhost:8080/attendancel/selectAttendancelByStu.do", {name: name}, function (result) {
+                    app.attList = result;
+
+                }, "json");
+            },initName(){
+                $.post("http://localhost:8080/stuparent/ByStuId.do", "id=" + 1, function (result) {
+                    app.stuNameList = result;
+                }, "json");
+            }
+        }, created() {
+            this.initName();
+            this.initLessonYi();
+        }
+    })
+</script>
+</html>

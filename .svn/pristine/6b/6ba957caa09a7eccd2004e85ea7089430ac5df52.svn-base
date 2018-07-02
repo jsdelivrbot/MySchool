@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            font-family: "Microsoft Yahei", Verdana, sans-serif;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        address, cite, dfn, em, var {
+            font-style: normal;
+        }
+
+        .container {
+            margin-bottom: 20px;
+        }
+
+        .banner {
+            position: relative;
+            overflow: auto;
+            text-align: center;
+            width: 640px;
+            margin: 20px auto;
+        }
+
+        .banner .dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 70px;
+            z-index: 3;
+        }
+
+        .banner .dots li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            text-indent: -999em;
+            border: 2px solid #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            opacity: .4;
+            -webkit-transition: background .5s, opacity .5s;
+            -moz-transition: background .5s, opacity .5s;
+            transition: background .5s, opacity .5s
+        }
+
+        .banner .dots li.active {
+            background: #fff;
+            opacity: 1
+        }
+
+        .banner .arrow {
+            position: absolute;
+            width: 20px;
+            height: 37px;
+            top: 50%;
+            margin-top: -18px;
+            overflow: hidden;
+            z-index: 2;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -ms-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        .banner #al {
+            left: 15px
+        }
+
+        .banner #ar {
+            right: 15px
+        }
+
+        .banner ul {
+            z-index: 1;
+            width: 600%;
+            overflow: hidden;
+        }
+
+        .banner ul .slider-item {
+            width: 900px;
+            float: left;
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner ul .slider-item .slider-title {
+            position: absolute;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            max-height: 56px;
+            padding: 15px;
+            text-align: left;
+            line-height: 28px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            background: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.9));
+
+        }
+
+        .banner .progress {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 15%;
+            min-height: 3px;
+            overflow: hidden;
+            z-index: 2;
+            background: #f60
+        }
+
+        .moreContent {
+            background-color: white;
+            width: 59%;
+            height: 100%;
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+            -webkit-border-radius: 5px;
+            margin: 0px auto;
+        }
+
+        .more .moreContent li {
+            width: 100%;
+            height: 170px;
+            font-size: 22px;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .more .moreContent li div {
+            display: inline-block;
+            float: left;
+        }
+
+        .more .moreContent li .img {
+            width: 30%;
+            height: 90%;
+        }
+
+        .more .moreContent li .img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .more .moreContent li .content {
+            width: 65%;
+            height: 90%;
+            padding: 5px 20px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .more .moreContent li .content div {
+            display: block;
+            width: 100%;
+        }
+
+        h4 {
+            display: inline-block;
+            margin: 0px 0 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!--轮播-->
+    <div class="banner" id="b04">
+        <ul>
+            <li class="slider-item">
+                <a href="#">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg" alt="端午节活动通知" width="900"
+                         height="380">
+                    <span class="slider-title"><em>端午节活动通知</em>
+            </span>
+                </a>
+            </li>
+            <li class="slider-item">
+                <a href="#">
+                    <img src="http://pic.58pic.com/58pic/13/37/81/18K58PIC3qr_1024.jpg" alt="母亲节" width="900"
+                         height="380">
+                    <span class="slider-title"><em>母亲节活动</em>
+                </span>
+                </a>
+            </li>
+            <li class="slider-item">
+                <a href="#">
+                    <img src="http://www.hulushe.cn/uploads/allimg/170613/113211FM-0.jpg" alt="520UI设计大赛" width="900"
+                         height="380">
+                    <span class="slider-title"><em>520UI设计大赛</em>
+                </span>
+                </a>
+            </li>
+            <li class="slider-item">
+                <a href="#">
+                    <img src="http://img07.tooopen.com/images/20170614/tooopen_sy_214103342839.jpg" alt="拔河比赛"
+                         width="900" height="380"><span class="slider-title"><em>拔河比赛</em>
+            </span>
+                </a>
+            </li>
+            <li class="slider-item">
+                <a href="#">
+                    <img src="http://pic1.win4000.com/wallpaper/3/572aa30a3d67a.jpg" alt="青年节" width="900" height="380">
+                    <span class="slider-title"><em>青年节</em>
+                </span>
+                </a>
+            </li>
+        </ul>
+        <div class="progress"></div>
+        <a href="javascript:void(0);" class="unslider-arrow04 prev"><img class="arrow" id="al" src="img/arrowl.png"
+                                                                         alt="prev" width="20" height="35"></a>
+        <a href="javascript:void(0);" class="unslider-arrow04 next"><img class="arrow" id="ar" src="img/arrowr.png"
+                                                                         alt="next" width="20" height="37"></a>
+    </div>
+    <!--详细-->
+    <div class="more">
+        <ul class="moreContent">
+            <li>
+                <div class="img">
+                    <img src="http://www.hulushe.cn/uploads/allimg/170613/113211FM-0.jpg">
+                </div>
+                <div class="content">
+                    <div class="rowone"><h4>UI设计大赛</h4><span style="float: right">2010-10-10</span></div>
+                    <div class="rowtwo">
+                        520UI设计大赛
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <img src="http://www.hulushe.cn/uploads/allimg/170613/113211FM-0.jpg">
+                </div>
+                <div class="content">
+                    <div class="rowone"><h4>UI设计大赛</h4><span style="float: right">2010-10-10</span></div>
+                    <div class="rowtwo">
+                        520UI设计大赛
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <img src="http://www.hulushe.cn/uploads/allimg/170613/113211FM-0.jpg">
+                </div>
+                <div class="content">
+                    <div class="rowone"><h4>UI设计大赛</h4><span style="float: right">2010-10-10</span></div>
+                    <div class="rowtwo">
+                        520UI设计大赛
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="img">
+                    <img src="http://www.hulushe.cn/uploads/allimg/170613/113211FM-0.jpg">
+                </div>
+                <div class="content">
+                    <div class="rowone"><h4>UI设计大赛</h4><span style="float: right">2010-10-10</span></div>
+                    <div class="rowtwo">
+                        520UI设计大赛
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="js/unslider.min.js"></script>
+<script>
+    $(document).ready(function (e) {
+        var progress = $(".progress"), li_width = $("#b04 li").length;
+        var unslider04 = $('#b04').unslider({
+                dots: true,
+                complete: function (index) {//自己添加的，官方没有
+                    progress.animate({"width": (100 / li_width) * (index + 1) + "%"});
+                }
+            }),
+            data04 = unslider04.data('unslider');
+        $('.unslider-arrow04').click(function () {
+            var fn = this.className.split(' ')[1];
+            data04[fn]();
+        });
+    });
+</script>
+</body>
+</html>

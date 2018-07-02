@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            width: 90%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-group {
+            margin: 10px;
+        }
+
+        .selectpicker {
+            border-radius: 4px;
+            width: 16%;
+            text-align: center;
+            line-height: 35px;
+            height: 35px;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+
+        tr {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="panel" id="editor-container">
+        <form class="form-inline" id="evaluationInfo">
+            <label for="detailID">职位</label>
+            <select name="detailID" class="selectpicker detailID" id="detailID" data-live-search="true">
+                <option value="-1">请选择</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label for="teacherId">老师姓名</label>
+            <select name="teacherId" class="selectpicker teacherId" id="teacherId" data-live-search="true">
+                <option value="-1">请选择</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label for="classId">测评班级</label>
+            <select class="selectpicker classId" name="classId" data-live-search="true" id="classId">
+                <option value="-1">请选择</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn btn-primary radius" id="beginARL">
+                开始评教老师
+            </button>
+        </form>
+    </div>
+    <table class="table table-hover" id="evaluationTeacherInfo">
+        <thead>
+        <tr>
+            <td>测评老师</td>
+            <td>职位</td>
+            <td>测评时间</td>
+            <td>班级</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+    </table>
+</div>
+</div>
+<script>
+    $(function () {
+        //查询正在进行的测评班级
+        function sel() {
+            $.post("http://localhost:8080/evaluationTeacher/selByState.do", function (result2) {
+                console.log(result2);
+                var str1 = ""
+                for (var i = 0; i < result2.length; i++) {
+                    str1 += "<tr> <td>" + result2[i].teacherName + "</td> <td>" + result2[i].attrName + "</td> <td>" + result2[i].createDate + "</td> <td>" + result2[i].className + "</td> <td>" + result2[i].state + "</td> <td>  <button type='button' class='btn btn btn-primary radius' onclick='endAppraisal(" + result2[i].evaluationID + "," + result2[i].classId + ")' id='endARL'>结束评教</button></td> </tr>"
+                }
+                $("#evaluationTeacherInfo tr:gt(0)").remove();//移除第一行以后的数据
+                $("#evaluationTeacherInfo").append(str1);
+            }, "json");
+        }
+
+
+        sel();
+        //三级联查
+        $.post("http://localhost:8080/dictionary/selDictionaryByType.do", {dictionaryCode: "teacherType"}, function (result) {
+            var html = "";
+            for (var i = 0; i < result.length; i++) {
+                $("#detailID").append("<option value=" + result[i].detailID + ">" + result[i].attrName + "</option>");
+            }
+        }, "json");
+
+        $("#detailID").change(function () {
+            $("#teacherId").empty();
+            $("#teacherId").append("<option value='-1'>请选择</option>");
+            var options = $("#detailID option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            console.log(selectVal);
+            if (selectVal != -1) {
+                $.post("http://localhost:8080/teacher/selectTeacherByAttrNameTest.do", {dutyId: selectVal}, function (result) {
+                    var html = "";
+                    for (var i = 0; i < result.length; i++) {
+                        console.log("result[i].teacherId:" + result[i].teacherId)
+                        $("#teacherId").append("<option value=" + result[i].teacherId + ">" + result[i].teacherName + "</option>");
+                    }
+                }, "json");
+            }
+        })
+        $("#teacherId").change(function () {
+            $("#classId").empty();
+            $("#classId").append("<option value='-1'>请选择</option>");
+            var options = $("#teacherId option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            console.log(selectVal);
+            if (selectVal != -1) {
+                $.post("http://localhost:8080/classInfo/selectClassInfo.do", {teacherId: selectVal}, function (result) {
+                    var html = "";
+                    for (var i = 0; i < result.length; i++) {
+                        console.log("result[i].classId:" + result[i].classId)
+                        $("#classId").append("<option value=" + result[i].classId + ">" + result[i].className + "</option>");
+                    }
+                }, "json");
+            }
+        })
+
+        //开始评教老师
+        $("#beginARL").click(function () {
+            var evaluationInfo = $("#evaluationInfo").serialize();
+            var today = new Date();
+            var createDate = today.getFullYear() + "/" + parseInt(today.getMonth() + 1) + "/" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            evaluationInfo += "&createDate=" + createDate;
+            $.post("http://localhost:8080/evaluationTeacher/add.do", evaluationInfo, function (result) {
+                console.log(result);
+                sel();
+            }, "text")
+        })
+        //查询提交学生的信息并修改主表
+        endAppraisal = function (evaluationID, classId) {
+            $.post("http://localhost:8080/evaluationTeacher/selByClassIdAndEvaluationID.do", {
+                evaluationID: evaluationID,
+                classId: classId
+            }, function (result) {
+                console.log(result);
+                sel();
+            }, "text")
+        }
+    });
+</script>
+</body>
+</html>

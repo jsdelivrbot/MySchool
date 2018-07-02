@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>云校园·公告</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <!--日期控件-->
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <!--复选框样式-->
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <style>
+        .content-panel {
+            background: #ffffff;
+            box-shadow: 0px 3px 2px #aab2bd;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+
+        #noticeList {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeList tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+            height: auto;
+        }
+
+        .iconfont {
+            font-size: 12px;
+        }
+
+        table tr td .btn-primary {
+            height: 22.4px;
+        }
+
+        #editor-container {
+            height: 200px;
+        }
+
+        #up-editor-container {
+            height: 200px;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 34px;
+            border: 1px #ccc solid;
+        }
+
+        /*复选框样式*/
+        .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+            padding-top: 0px;
+        }
+
+        .checkbox-inline {
+            padding-top: 0px;
+            padding-left: 0px;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+
+        .form-horizontal .control-label {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="padding: 20px">
+    <div class="content-panel" id="app">
+        <form class="form-inline" id="noticeConditions">
+            <div class="form-group">
+                <label for="noticeTitle">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>
+                <input type="text" class="form-control noticeTitle" id="noticeTitle" name="noticeTitle"
+                       placeholder="请输入公告标题">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+                <label for="teacherName">发布人</label>
+                <input type="text" class="form-control teacherName" id="teacherName" name="teacherName"
+                       placeholder="请输入发布人">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <input id="pageIndex" value="1" type="hidden" v-model="pageIndex">
+
+            <button type="button" class="btn btn-success radius" name="" @click="selectAll()"><i class="Hui-iconfont">
+                &#xe665;</i> 搜索
+            </button>
+
+            <button type="button" class="btn btn-primary radius" id="btnAddAnn" data-toggle="modal"
+                    data-target="#addNotice">
+                <i class="Hui-iconfont">&#xe600;</i> 新增公告
+            </button>
+        </form>
+        <table class="table table-hover" id="noticeList">
+            <thead>
+            <tr class="table-one">
+                <td>公告标题</td>
+                <td>发布时间</td>
+                <td>发布人</td>
+                <td>可见级别</td>
+                <td>通知方式</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tr v-for="(item,index) in noticeList">
+                <td>{{item.noticeTitle}}</td>
+                <td>{{item.createDate}}</td>
+                <td>{{item.teacherName}}</td>
+                <td>{{item.visibleLevel}}</td>
+                <td>{{item.informWay}}</td>
+                <td>
+                    <button class="btn btn-xs btn-primary" @click="check(item.noticeID)"><i
+                            class="iconfont icon-yulan"></i>查看
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" data-toggle="modal"
+                            data-target="#updateNotice" @click="updateNoticeByID(item.noticeID)"><i
+                            class="Hui-iconfont">&#xe60c;</i>修改
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <button class="btn btn-default" id="sy" @click="sy()">首页</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class=" btn btn-default" id="syy" @click="syy()">上一页</button>
+                &nbsp;{{pageIndex}}/{{pageCount}}&nbsp;
+                <button class="btn btn-default" id="xyy" @click="xyy()">下一页</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-default" id="wy" @click="wy()">尾页</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <!--修改公告模态框-->
+        <div class="modal fade bs-example-modal-lg" id="updateNotice" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: white">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="color: #0a0a0a"><label>修改公告</label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel">
+                            <form class="form-horizontal" id="upNoticeInfo" method="post" enctype="multipart/form-data">
+                                <div class="form-group first">
+                                    <label for="upNoticeTitle" class="col-sm-2 control-label">公告标题</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="upNoticeTitle"
+                                               name="upNoticeTitle" v-model="noticeListItem.noticeTitle"
+                                               placeholder="请输入公告标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="upNoticePic"
+                                           class="col-sm-2 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="upNoticePic" name="file" class="upNoticePic">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="upAttachment"
+                                           class="col-sm-2 control-label">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="file" id="upAttachment" class="upAttachment">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="upCreateDate" class="col-sm-2 control-label">发布时间</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="upCreateDate" name="createDate"
+                                               class="form-control datainp" v-model="noticeListItem.createDate"
+                                               v-model="noticeListItem.createDate"
+                                               placeholder="请输入发布时间">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">可见级别</label>
+                                    <div class="col-sm-9" class="visibleLevel">
+                                        <input type="checkbox" class="upVisibleLevelID" id="upTeacher" value="老师"
+                                               data-labelauty="老师">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" class="upVisibleLevelID" id="upParents" value="家长"
+                                               data-labelauty="家长">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" class="upVisibleLevelID" id="upStudent" value="学生"
+                                               data-labelauty="学生">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">通知方式</label>
+                                    <div class="col-sm-9" class="informWay">
+                                        <input type="checkbox" class="upInformWayID" id="upWebSite" value="网站"
+                                               data-labelauty="网站">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" class="upInformWayID" id="upWeChat" value="微信"
+                                               data-labelauty="微信">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" class="upInformWayID" id="upSms" value="短信"
+                                               data-labelauty="短信">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>
+                                    <div class="col-sm-9">
+                                        <div>
+                                            <div id="up-standalone-container">
+                                                <div id="up-toolbar-container">
+			                                    <span class="ql-formats">
+			                                        <select class="ql-font"></select>
+			                                        <select class="ql-size"></select>
+			                                    </span>
+                                                    <span class="ql-formats">
+			                                        <button class="ql-bold"></button>
+			                                       <button class="ql-italic"></button>
+			                                       <button class="ql-underline"></button>
+			                                       <button class="ql-strike"></button>
+			                                    </span>
+                                                    <span class="ql-formats">
+                                                   <select class="ql-color"></select>
+			                                       <select class="ql-background"></select>
+                                                </span>
+                                                    <span class="ql-formats">
+                                                    <button class="ql-script" value="sub"></button>
+                                                    <button class="ql-script" value="super"></button>
+                                                </span>
+                                                    <span class="ql-formats">
+			                                        <button class="ql-header" value="1"></button>
+                                                    <button class="ql-header" value="2"></button>
+			                                        <button class="ql-blockquote"></button>
+			                                        <button class="ql-code-block"></button>
+                                                </span>
+                                                    <span class="ql-formats">
+			                                        <button class="ql-list" value="ordered"></button>
+			                                        <button class="ql-list" value="bullet"></button>
+			                                        <button class="ql-indent" value="-1"></button>
+			                                        <button class="ql-indent" value="+1"></button>
+                                                </span>
+                                                    <span class="ql-formats">
+			                                        <button class="ql-direction" value="rtl"></button>
+                                                    <select class="ql-align"></select>
+                                                </span>
+                                                    <span class="ql-formats">
+                                                    <button class="ql-link"></button>
+                                                    <button class="ql-image"></button>
+                                                    <button class="ql-video"></button>
+                                                    <button class="ql-formula"></button>
+                                                </span>
+                                                    <span class="ql-formats">
+			                                        <button class="ql-clean"></button>
+			                                    </span>
+                                                </div>
+                                                <div id="up-editor-container">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="upSave" class="btn btn-primary" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" id="upCancel" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--新增公告模态框-->
+    <div class="modal fade bs-example-modal-lg" id="addNotice" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="noticeContent">
+                <div class="modal-header" style="background-color: white">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #0a0a0a"><label>新增公告</label></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <form class="form-horizontal" id="noticeInfo" method="post" enctype="multipart/form-data">
+                            <div class="form-group first">
+                                <label for="noticeTitle" class="col-sm-2 control-label">公告标题</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="noticeTitle2"
+                                           name="noticeTitle"
+                                           placeholder="请输入公告标题">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="noticePic"
+                                       class="col-sm-2 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="noticePic" name="file" class="noticePic">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="attachment"
+                                       class="col-sm-2 control-label">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="file" id="attachment" class="attachment">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="createDate" class="col-sm-2 control-label">发布时间</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="createDate" name="createDate" class="form-control datainp"
+                                           placeholder="请输入发布时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">可见级别</label>
+                                <div class="col-sm-9" class="visibleLevel">
+                                    <input type="checkbox" class="visibleLevelID" id="teacher" value="老师"
+                                           data-labelauty="老师">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" class="visibleLevelID" id="parents" value="家长"
+                                           data-labelauty="家长">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" class="visibleLevelID" id="student" value="学生"
+                                           data-labelauty="学生">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">通知方式</label>
+                                <div class="col-sm-9" class="informWay">
+                                    <input type="checkbox" class="informWayID" id="webSite" value="网站"
+                                           data-labelauty="网站">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" class="informWayID" id="weChat" value="微信"
+                                           data-labelauty="微信">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" class="informWayID" id="sms" value="短信" data-labelauty="短信">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <div id="standalone-container">
+                                            <div id="toolbar-container">
+			                    <span class="ql-formats">
+			                        <select class="ql-font"></select>
+			                        <select class="ql-size"></select>
+			                    </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-bold"></button>
+			                        <button class="ql-italic"></button>
+			                        <button class="ql-underline"></button>
+			                        <button class="ql-strike"></button>
+			                    </span>
+                                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+			                                    <select class="ql-background"></select>
+                                </span>
+                                                <span class="ql-formats">
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-header" value="1"></button>
+			                        <button class="ql-header" value="2"></button>
+			                        <button class="ql-blockquote"></button>
+			                        <button class="ql-code-block"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-list" value="ordered"></button>
+			                        <button class="ql-list" value="bullet"></button>
+			                        <button class="ql-indent" value="-1"></button>
+			                        <button class="ql-indent" value="+1"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-direction" value="rtl"></button>
+                                    <select class="ql-align"></select>
+                                </span>
+                                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                    <button class="ql-video"></button>
+                                    <button class="ql-formula"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-clean"></button>
+			                    </span>
+                                            </div>
+                                            <div id="editor-container">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="save" class="btn btn-primary" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                    </button>
+                    <button class="btn btn-warning" id="cancel" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script src="dist/katex.min.js"></script>
+<script src="dist/highlight.min.js"></script>
+<script src="dist/quill.js"></script>
+<script src="js/vue.js"></script>
+<script>
+    jeDate({
+        dateCell: "#createDate",
+        format: "YYYY/MM/DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: '请输入内容...',
+        theme: 'snow',
+    });
+    //    var toolbar = quill.getModule('toolbar');
+    //    toolbar.addHandler('image', function () {
+    //        var fileInput = this.container.querySelector('input.ql-image[type=file]');
+    //        if (fileInput == null) {
+    //            fileInput = document.createElement('input');
+    //            fileInput.setAttribute('type', 'file');
+    //            fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+    //            fileInput.classList.add('ql-image');
+    //            fileInput.addEventListener('change', function () {
+    //                if (fileInput.files != null && fileInput.files[0] != null) {
+    //                    var formData = new FormData();
+    //                    formData.append('file', fileInput.files[0]);
+    //                    $.ajax({
+    //                        url: 'http://localhost:8080/notice/upload.do',
+    //                        type: 'POST',
+    //                        cache: false,
+    //                        data: formData,
+    //                        processData: false,
+    //                        contentType: false,
+    //                        success: function (res) {
+    //                            //你的图片上传成功后的返回值...所以格式由你来定!
+    //                            console.log(res);
+    //                            var range = quill.getSelection(true);
+    //                            quill.insertEmbed(range.index, 'image', res.data[0]);
+    //                            quill.setSelection(range.index + 1);
+    //                        }
+    //                    });
+    //                }
+    //            });
+    //            this.container.appendChild(fileInput);
+    //        }
+    //        fileInput.click();
+    //    });
+    //    quill.on('text-change', function (delta, oldDelta, source) {
+    //        //监听文本变化..将值赋给 vue 的shop 对象...
+    //        /*   if (source == 'api') {
+    //         console.log("An API call triggered this change.");
+    //         } else if (source == 'user') {
+    //
+    //         }*/
+    //        t.shop.introduce = quill.container.firstChild.innerHTML;
+    //    });
+
+
+    var quill2 = new Quill('#up-editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#up-toolbar-container'
+        },
+        theme: 'snow'
+    });
+    $(function () {
+        $(':input').labelauty();
+    });
+</script>
+<script>
+    var noticeConditions = $("#noticeConditions").serialize();
+    var app = new Vue({
+        el: "#app",
+        data: {
+            noticeList: [],
+            noticeListItem: {},
+            pageCount: 0,
+            pageIndex: 1
+        },
+        methods: {
+            getNoticeAll(data) {
+                data += "&visibleLevel=老师&informWay=网站";
+                $.post("http://localhost:8080/notice/page.do", data, function (result) {
+                    console.log(result);
+                    app.noticeList = result.noticeList;
+                    //设置总页数
+                    app.pageCount = result.page.pageCount;
+                }, "json");
+            },
+            //搜索
+            selectAll(){
+                this.pageIndex = 1;
+                noticeConditions = $("#noticeConditions").serialize();
+                noticeConditions += "&pageIndex=" + this.pageIndex;
+                this.getNoticeAll(noticeConditions);
+            },
+            //首页
+            sy(){
+                if (this.pageIndex != 1) {
+                    this.pageIndex = 1;
+                    noticeConditions = $("#noticeConditions").serialize();
+                    noticeConditions += "&pageIndex=" + this.pageIndex;
+                    this.getNoticeAll(noticeConditions);
+                }
+            },
+            //上一页
+            syy(){
+                if (this.pageIndex - 1 < 1) {
+                    this.pageIndex = 1;
+                } else {
+                    this.pageIndex -= 1;
+                    noticeConditions = $("#noticeConditions").serialize();
+                    noticeConditions += "&pageIndex=" + this.pageIndex;
+                    this.getNoticeAll(noticeConditions);
+                }
+            },
+
+            //下一页
+            xyy(){
+                if (this.pageIndex + 1 > this.pageCount) {
+                    this.pageIndex = this.pageCount;
+                } else {
+                    this.pageIndex++;
+                    noticeConditions = $("#noticeConditions").serialize();
+                    noticeConditions += "&pageIndex=" + this.pageIndex;
+                    this.getNoticeAll(noticeConditions);
+                }
+            },
+
+            //尾页
+            wy(){
+                if (this.pageIndex != this.pageCount) {
+                    this.pageIndex = this.pageCount;
+                    noticeConditions = $("#noticeConditions").serialize();
+                    noticeConditions += "&pageIndex=" + this.pageIndex;
+                    this.getNoticeAll(noticeConditions)
+                }
+            },
+            //查看
+            check(id){
+                //单击查看的条目
+                //跳转页面i的存入session
+                sessionStorage.setItem("noticeIteamID", id);
+                window.location.href = "notice-iteam.html";
+            },
+            //修改
+            updateNoticeByID(id) {
+                $.post("http://localhost:8080/notice/byid.do", {id: id}, function (result) {
+                    app.noticeListItem = result;
+                    var date = new Date(app.noticeListItem.createDate);
+                    app.noticeListItem.createDate = date.Format("yyyy/MM/dd HH:mm:ss");
+                    $("#up-editor-container .ql-editor").html(app.noticeListItem.content)
+                }, "json")
+            },
+
+        },
+        //页面加载时调用
+        created() {
+            noticeConditions += "&pageIndex=" + this.pageIndex;
+            this.getNoticeAll(noticeConditions);
+        }
+    });
+    jeDate({
+        dateCell: "#upCreateDate",
+        format: "YYYY/MM/DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+</script>
+<script>
+    //增加公告
+    var formData = new FormData();
+    $("#save").click(function () {
+        var noticePic = $("#noticePic").get(0).files[0];
+        var attachment = $("#attachment").get(0).files[0];
+        var visibleLevel = "";
+        var informWay = "";
+        var content = quill.container.firstChild.innerHTML;
+
+        if (noticePic != null) {
+            //上传图片大小不能超过5M,
+            if (noticePic.size > 5242880) {
+                alert('图片大小超过5M,请重新选择');
+                return;
+            }
+            formData.append("noticePicFile", noticePic);
+        }
+        if (attachment != null) {
+            //上传附件大小不能超过10M,
+            if (attachment.size > 10485760) {
+                alert('附件大小超过10M,请重新选择');
+                return;
+            }
+            formData.append("attachmentFile", attachment);
+            console.log(attachment)
+        }
+        formData.append("noticeTitle", $("#noticeTitle2").val());
+        formData.append("createDate", $("#createDate").val());
+        //拿出选择的可见级别并追加
+
+        var visibleLevelID = $(".visibleLevelID");
+        for (var i in visibleLevelID) {
+            if (visibleLevelID[i].checked) {
+                visibleLevel += visibleLevelID[i].value + " ";
+            }
+        }
+        formData.append("visibleLevel", visibleLevel);
+        //拿出选择的通知方式并追加
+
+        var informWayID = $(".informWayID");
+        for (var i in informWayID) {
+            if (informWayID[i].checked) {
+                informWay += informWayID[i].value + " ";
+            }
+        }
+        formData.append("informWay", informWay);
+        formData.append("content", content);
+        console.log(content);
+        formData.append("teacher", localStorage.getItem("id"));
+        $.ajax({
+            url: "http://localhost:8080/notice/add.do",
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result == 1) {
+                    noticeConditions += "&pageIndex=" + this.pageIndex;
+                    app.getNoticeAll(noticeConditions);
+                }
+            }
+        });
+    })
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //清空模态框内容
+    function clear() {
+        $("#noticeTitle2").val("");
+        $("#noticePic").val("");
+        $("#attachment").val("");
+        //获取当前时间
+        var today = new Date();
+        var s = today.getFullYear() + "/" + today.getMonth() + "/" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+        $("#createDate").val(s);
+
+        //清空复选框
+        var visibleLevelID = document.getElementsByClassName("visibleLevelID");
+        var informWayID = document.getElementsByClassName("informWayID");
+        for (i = 0; i < 3; i++) {
+            if (visibleLevelID[i].checked) {
+                visibleLevelID[i].checked = false;
+            }
+            if (informWayID[i].checked) {
+                informWayID[i].checked = false;
+            }
+        }
+        //清空富文本编辑器中的内容
+        var qlBlank = document.getElementsByClassName("ql-editor")[0];
+        while (qlBlank.hasChildNodes()) //当div下还存在子节点时 循环继续
+        {
+            qlBlank.removeChild(qlBlank.firstChild);
+        }
+    }
+
+    $("#cancel").click(function () {
+        clear();
+    })
+</script>
+</body>
+</html>

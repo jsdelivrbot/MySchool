@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <!--复选框样式-->
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <style>
+        /*复选框样式*/
+        .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+            padding-top: 0px;
+        }
+
+        .checkbox-inline {
+            padding-top: 0px;
+            padding-left: 0px;
+        }
+
+        .content-panel {
+            background: #ffffff;
+            box-shadow: 0px 3px 2px #aab2bd;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+
+        #decisionInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #decisionInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td .btn-primary {
+            height: 22.4px;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 30px;
+            border: 1px #ccc solid;
+        }
+
+        #editor-container {
+            height: 200px;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+
+        .votingOptions {
+            width: 100%;
+            height: 150px;
+            overflow: scroll;
+        }
+
+        .votingOptions input {
+            width: 90%;
+            margin: 5px 0px;
+        }
+
+        .addOption {
+            display: inline-block;
+            margin-top: 5px;
+            text-decoration: none;
+        }
+
+        .addOption:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="padding:0 5%">
+    <div class="content-panel">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="announcementTitle">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>
+                <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入公告标题">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+                <label for="releasePeople">发布人</label>
+                <input type="text" class="form-control releasePeople" id="releasePeople" placeholder="请输入发布人">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+            <button type="button" class="btn btn-primary radius" id="btnAddAnn" data-toggle="modal"
+                    data-target="#addDecisionMaking">
+                <i class="Hui-iconfont">&#xe600;</i> 新增决策
+            </button>
+        </form>
+        <table class="table table-hover table-striped" id="decisionInfo">
+            <thead>
+            <tr class="table-one">
+                <td>标题</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>发起时间</td>
+                <td>发布人</td>
+                <td>参与人数</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tr>
+                <td>互联网的利弊</td>
+                <td>2018-05-20</td>
+                <td>2010-05-30</td>
+                <td>2018-05-20</td>
+                <td>马守斌</td>
+                <td>10</td>
+                <td>正在报名</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-success" href="#"><i class="Hui-iconfont">&#xe615;</i>启用</button>
+                </td>
+            </tr>
+            <tr>
+                <td>互联网IT行业开发语言投票</td>
+                <td>2018-05-20</td>
+                <td>2010-05-30</td>
+                <td>2018-05-20</td>
+                <td>马守斌</td>
+                <td>10</td>
+                <td>已结束</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-success" href="#"><i class="Hui-iconfont">&#xe615;</i>启用</button>
+                </td>
+            </tr>
+            <tr>
+                <td>互联网的利弊</td>
+                <td>2018-05-20</td>
+                <td>2010-05-30</td>
+                <td>2018-05-20</td>
+                <td>马守斌</td>
+                <td>10</td>
+                <td>已结束</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                </td>
+            </tr>
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <!--新增公告模态框-->
+    <div class="modal fade bs-example-modal-lg" id="addDecisionMaking" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><label>添加决策</label></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <form class="form-horizontal">
+                            <div class="form-group first">
+                                <label for="decisionMakingTitle" class="col-sm-2 control-label">决策主题</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="decisionMakingTitle"
+                                           name="decisionMakingTitle"
+                                           placeholder="请输入决策标题">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="picture"
+                                       class="col-sm-2 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="picture" name="" class="picture">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">投票选项</label>
+                                <div class="col-sm-9">
+                                    <div class="votingOptions">
+                                        <input type="text" class="form-control option1" id="option1" name="option1"
+                                               placeholder="选项1">
+                                        <input type="text" class="form-control option1" id="option2" name="option1"
+                                               placeholder="选项2">
+                                        <input type="text" class="form-control option1" id="option3" name="option1"
+                                               placeholder="选项3">
+                                    </div>
+                                    <a class="addOption"><i class="Hui-iconfont">&#xe600;</i>添加选项</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">选择模式</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="singleChoice" data-labelauty="单选" checked="checked">
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="multipleChoice" value="option2" data-labelauty="多选">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">截止时间</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control datainp" id="stopDate"
+                                           name="stopDate"
+                                           placeholder="请选择截止时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">投票隐私</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="public" data-labelauty="公开" checked="checked">
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="private" value="option2" data-labelauty="匿名">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">可见级别</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="teacher" value="option1" data-labelauty="老师">
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="parents" value="option2" data-labelauty="家长">
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="student" value="option3" data-labelauty="学生">
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script>
+    jeDate({
+        dateCell: "#stopDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    $(function () {
+        $(':input').labelauty();
+    });
+</script>
+</body>
+</html>

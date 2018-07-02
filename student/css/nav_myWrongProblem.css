@@ -1,0 +1,177 @@
+
+.icon-suo {
+    font-size: 70px;
+    color: #595959;
+}
+
+.icon-suo:hover {
+    cursor: pointer;
+    color: #4d994d;
+}
+
+.tileBottom {
+    width: 100%;
+    height: 270px;
+    padding-top: 60px;
+}
+
+* {
+    -webkit-user-select: none;
+}
+
+.main_right {
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    margin-top: 50px;
+    width: 100%;
+    float: right;
+    background-color: #ffffff;
+    position: relative;
+    margin-bottom: 25px;
+    box-shadow: 1px 1px 1px 1px #dedede;
+}
+
+@media screen and (min-width: 1201px) {
+    .main_right {
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width: 1700px) {
+    .main_right {
+        width: 100%;
+    }
+}
+
+/*@media screen and (max-width: 1200px) {*/
+/*.main_right {*/
+/*width: 800px;*/
+/*}*/
+/*}*/
+
+/*@media screen and (max-width: 900px) {*/
+/*.main_right {*/
+/*width: 500px;*/
+/*}*/
+/*}*/
+
+.main_right .main_right_item {
+    width: 100%;
+    height: 100%;
+
+}
+
+.title {
+    background-color: #FFFFFF;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    /*column 纵向  row:横向  -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-between;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    text-indent: 2em;
+    border-top: 1px solid #ece9ea;
+    border-left: 1px solid #ece9ea;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: 1px 1px 1px 1px #ece9ea;
+
+}
+
+.title .main_right_title {
+    font-size: 18px;
+    width: 80%;
+    padding-left: 20px;
+}
+
+.answer {
+    position: relative;
+    width: 100%;
+
+    background-color: #FFFFFF;
+    border-left: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    -webkit-border-bottom-left-radius: 5px;
+
+}
+
+.answer p {
+    text-indent: 4em;
+    line-height: 50px;
+    background-color: #f8ffea;
+    -webkit-border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+}
+
+.returnTop {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid #9e9be1;
+    -webkit-border-radius: 100%;
+    background-color: #eaeaea;
+    position: fixed;
+    right: 130px;
+    bottom: 50px;
+    color: #707070;
+
+    cursor: pointer;
+}
+
+.topicAnalysis {
+    text-indent: 2.6em;
+    font-size: 16px;
+    width: 80%;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.topicAnalysis1 {
+    text-indent: 2.6em;
+    font-size: 16px;
+    padding-left: 20px;
+
+}
+
+.tuichu {
+    position: absolute;
+    right: 0;
+}
+
+.container-main {
+    width: 100%;
+    background-color: #ffdfda;
+}
+
+.iframeItem {
+    width: 100%;
+    height: 100%;
+}
+
+.wuTheme:hover {
+    border: 2px solid #a68dff;
+}
+
+.closeItem {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    color: #4fcb3f;
+}
+
+.closeItem:hover {
+    color: #cb6366;
+}

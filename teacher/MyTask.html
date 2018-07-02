@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>云校园 ▪ 我的任务</title>
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<style>
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        background-color: #d4d4d4;
+        /*de8b8b*/
+    }
+
+    * {
+        -webkit-user-select: none;
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+    }
+
+    html, body {
+        height: 100%;
+
+    }
+
+    .top-container {
+        width: 100%;
+        height: 50px;
+        background-color: #FFFFFF;
+
+    }
+
+    .top-container p {
+        text-indent: 2em;
+        font-size: 16px;
+        line-height: 50px;
+        color: #7b7b7b;
+    }
+
+    .top-container-btn {
+
+        height: 20px;
+        font-size: 12px;
+        padding-top: 2px;
+        padding-bottom: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .main-container {
+        background-color: rgba(236, 237, 255, 0.7);
+        width: 100%;
+        height: 620px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap; /* 不换行 */
+
+    }
+
+    .main-item {
+        padding: 5px;
+        border: 1px solid #f4f4f4;
+        -webkit-border-radius: 3px;
+        display: inline-block;
+        width: 300px;
+        background-color: #ffffff;
+        height: 100%;
+        margin-right: 15px;
+
+        box-shadow: 1px 1px 1px rgba(182, 182, 182, 0.3);
+    }
+
+    .main-item-con {
+        padding-right: 5px;
+        width: 100%;
+        background-color: #ffffff;
+        height: 500px;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    .progress {
+
+        height: 5px;
+    }
+
+    .bar-item {
+        height: 5px;
+        background-color: #7ec99c;
+    }
+
+    .main-item-top {
+
+        width: 100%;
+        height: 55px;
+
+    }
+
+    .mian-item-item {
+        -webkit-border-radius: 2px;
+        width: 100%;
+        height: 90px;
+        background-color: #ffffff;
+        margin-top: 10px;
+
+        cursor: pointer;
+        box-shadow: 1px 2px 1px rgb(241, 241, 241);
+        display: flex;
+        /*column 纵向  row:横向  -reverse 倒过来了*/
+        flex-direction: row;
+        /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+        justify-content: space-between;
+        /*纵轴对齐方式flex-end*/
+        align-items: center;
+        flex-wrap: wrap-reverse;
+        position: relative;
+
+    }
+
+    .mian-item-item p {
+        color: rgba(80, 80, 80, 0.7);
+    }
+
+    .mian-item-item:hover {
+        box-shadow: 1px 2px 1px rgb(207, 207, 207);
+    }
+
+    .main-item-top p {
+        font-size: 13px;
+        color: rgba(126, 126, 126, 0.9);
+    }
+
+    .main-item-top-i {
+        color: #a0a0a0;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer
+    }
+
+    .main-item-top p span {
+        color: rgba(151, 151, 151, 0.82);
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .main-item-bottom {
+        width: 100%;
+        height: 40px;
+    }
+
+    .main-item-bottom p {
+        font-size: 13px;
+        line-height: 40px;
+        color: rgba(127, 127, 127, 0.9);
+        cursor: pointer;
+    }
+
+    .main-item-bottom p span {
+        font-size: 20px;
+    }
+
+    .main-item-bottom p:hover {
+        color: rgba(67, 67, 67, 0.82);
+    }
+
+    .mian-item-item-checkbox {
+        width: 15px;
+        height: 15px;
+    }
+
+    .mian-item-item-centenr {
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+
+    }
+
+    .mian-item-item-centenr p {
+
+        padding-right: 70px;
+        text-indent: 3em;
+        font-size: 13px;
+        display: block; /*转为块级元素*/
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    .mian-item-item-centenr img {
+        position: absolute;
+
+        width: 25px;
+        height: 25px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 100%;
+        right: 10px;
+        bottom: 5px;
+    }
+
+    .mian-item-item-centenr .checkbox-custom {
+        position: absolute;
+        left: 10px;
+        top: 32px;
+    }
+
+    /* Custom Checkbox
+           =================================================================== */
+    .checkbox-custom {
+        position: relative;
+        padding: 0 0 0 25px;
+        margin-bottom: 7px;
+        margin-top: 0;
+    }
+
+    .checkbox-custom.checkbox-inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .form-group .checkbox-custom.checkbox-inline {
+        margin-top: 7px;
+        padding-top: 0;
+    }
+
+    .checkbox-custom:last-child, .checkbox-custom:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .checkbox-custom input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 3px;
+        margin: -6px 0 0 0;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .checkbox-custom input[type="checkbox"]:checked + label:after {
+        position: absolute;
+        display: inline-block;
+        font-family: 'FontAwesome';
+        content: '\F00C';
+        top: 50%;
+        left: 4px;
+        margin-top: -5px;
+        font-size: 11px;
+        line-height: 1;
+        width: 16px;
+        height: 16px;
+        color: #333;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled {
+        cursor: not-allowed;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled:checked + label:after {
+        color: #999;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled + label {
+        cursor: not-allowed;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled + label:before {
+        background-color: #eee;
+    }
+
+    .checkbox-custom label {
+        cursor: pointer;
+        margin-bottom: 0;
+        text-align: left;
+        line-height: 1.2;
+        font-weight: normal;
+    }
+
+    .checkbox-custom label:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -9px;
+        width: 19px;
+        height: 18px;
+        display: inline-block;
+        border-radius: 2px;
+        border: 1px solid #bbb;
+        background: #fff;
+    }
+
+    .checkbox-custom label + label.error {
+        display: block;
+    }
+
+    .checkbox-primary input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-primary label:before {
+        background: #2693FF;
+        border-color: #2693FF;
+    }
+
+    .checkbox-text-primary input[type="checkbox"]:checked + label:after {
+        color: #cccccc;
+    }
+
+    .checkbox-success input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-success label:before {
+        background: #47a447;
+        border-color: #3f923f;
+    }
+
+    .checkbox-text-success input[type="checkbox"]:checked + label:after {
+        color: #47a447;
+    }
+
+    .checkbox-warning input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-warning label:before {
+        background: #ed9c28;
+        border-color: #e89113;
+    }
+
+    .checkbox-text-warning input[type="checkbox"]:checked + label:after {
+        color: #ed9c28;
+    }
+
+    .checkbox-danger input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-danger label:before {
+        background: #d2322d;
+        border-color: #bd2d29;
+    }
+
+    .checkbox-text-danger input[type="checkbox"]:checked + label:after {
+        color: #d2322d;
+    }
+
+    .checkbox-info input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-info label:before {
+        background: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .checkbox-text-info input[type="checkbox"]:checked + label:after {
+        color: #5bc0de;
+    }
+
+    .checkbox-dark input[type="checkbox"]:checked + label:after {
+        color: #fff;
+    }
+
+    .checkbox-dark label:before {
+        background: #171717;
+        border-color: #0a0a0a;
+    }
+
+    .checkbox-text-dark input[type="checkbox"]:checked + label:after {
+        color: #171717;
+    }
+.text-decoration-Item{
+    text-decoration:line-through;
+    background-color:#e0f3f1;
+
+}
+</style>
+<body>
+
+<!--整体内容-->
+<div class="wrapper" id="app">
+
+    <!--右半部分内容-->
+    <div class="">
+        <!--右半部分主体内容-->
+        <div class="container-item container-fluid">
+            <div class="top-container" style="position: relative">
+                <p>任务管理</p>
+                <div class="btn-group" style="position: absolute;right: 25px;top: 5px">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        看板试图
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="MyTask.html">看板试图</a></li>
+                        <li><a href="myParticipateInTask.html">列表试图</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main-container container-fluid" id="main">
+                <div class="main-item ">
+                    <div class="main-item-top">
+                        <p style="position: relative">今天要做的 <span>1/2</span><i class="pe-7s-more main-item-top-i"></i></p>
+                        <!--进度条-->
+                        <div class="progress">
+                            <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-item-con">
+                        <div class="mian-item-item text-decoration-Item" @click="modalItem()" >
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox" checked>
+											<label></label>
+									</span>
+                                <p>完成主页面构建</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>完成登录页面构建</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+
+
+                </div>
+                <div class="main-item ">
+                    <div class="main-item-top">
+                        <p style="position: relative">明天要做的 <span>0/3</span><i class="pe-7s-more main-item-top-i"
+                                                                              style=""></i></p>
+                        <!--进度条-->
+                        <div class="progress">
+                            <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width: 0%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-item-con">
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>实现登录页面实际代码</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>完成人脸识别前端代码</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>完成在线互动页面</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <div class="main-item ">
+                    <div class="main-item-top">
+                        <p style="position: relative">以后要做的 <span>0/4</span><i class="pe-7s-more main-item-top-i"
+                                                                              style=""></i></p>
+                        <!--进度条-->
+                        <div class="progress">
+                            <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width: 0%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-item-con">
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>完成在线互动代码</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>实现后台所有代码</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>检查项目漏洞并修复</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+                        <div class="mian-item-item" @click="modalItem()">
+                            <div class="mian-item-item-centenr">
+                                	<span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+											<input type="checkbox">
+											<label></label>
+									</span>
+                                <p>完成项目发布</p>
+                                <img src="https://s3.cn-north-1.amazonaws.com.cn/lcavatar/5f30384a-ca89-4bec-9d38-7890964c203e_80x80.png">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+             
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--模态框部分-->
+<div class="modal fade" id="modalItem" aria-hidden="true" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">头部</h5>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-label="Close">取消</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--VUE模块-->
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userInfo: {}
+        },
+        methods: {
+            modalItem(){
+                $('#modalItem').modal('show')
+            },
+            modalCheckbox(e){
+                console.log(e.currentTarget)
+//              alert( $(e.currentTarget).parent().children("p").html())
+                if ($(e.currentTarget).children("input").prop("checked")) {
+                    $(e.currentTarget).parent().parent().css("background-color", "#e0f3f1");
+                    $(e.currentTarget).parent().children("p").css("text-decoration", "line-through");
+                } else {
+                    $(e.currentTarget).parent().parent().css("background-color", "#ffffff");
+                    $(e.currentTarget).parent().children("p").css("text-decoration", "none");
+                }
+            }
+        },
+        created(){
+        }
+    })
+
+</script>
+
+</body>
+<!--导入JS-->
+
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+
+</html>

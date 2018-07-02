@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 导入link -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/radar.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    .form-group {
+        display: inline-block;
+    }
+
+    .container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        bottom: 180px;
+        left: 60px;
+    }
+
+    /*今日打卡--开始 */
+    .white-panel {
+
+        background: #ffffff;
+        color: #6d726d;
+    }
+
+    .white-panel p {
+        margin-top: 10px;
+        font-weight: 700;
+        margin-left: 20px;
+    }
+
+    .white-panel .white-header {
+        background: #f4f4f4;
+        padding: 3px;
+        margin-bottom: 15px;
+        color: #c6c6c6;
+    }
+
+    .white-panel .small {
+        font-size: 15px;
+        color: #ccd1d9;
+    }
+
+    .white-panel i {
+        color: #68dff0;
+        padding-right: 4px;
+        font-size: 14px;
+    }
+
+    .pn {
+        height: 280px;
+
+    }
+
+    .pn:hover {
+
+    }
+
+    .mb {
+        width: 400px;
+        height: 300px;
+    }
+
+    /*今日打卡--结束 */
+
+    #nav {
+        width: 90%;
+        margin: 0px auto;
+
+    }
+
+    .chufa {
+        background-color: rgba(255, 250, 248, 0);
+        transition: all 1s;
+    }
+
+    .chufa:hover {
+        background-color: #f26e0d;
+    }
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+</style>
+<body>
+
+<div class="tab-content" style="padding: 0 5%">
+    <div class="active  tab-pane" id="tab1">
+
+        <div style="margin: 0 auto;display: block">
+            <form id="formPaper" name="formPaper" method="post" style="width: 100%;background-color: #ffffff">
+                <input type="hidden" name="pageIndex" id="pageIndex" value="1">
+                <input type="hidden" name="studentId" id="studentId" value="1">
+
+
+            </form>
+        </div>
+
+        <div class="container-fluid">
+            <table id="zidong" class="table  table-hover" style="margin: 0 auto;">
+                <thead>
+                <tr class="text-c">
+                    <th>学生姓名</th>
+                    <th>作业</th>
+                    <th>成绩</th>
+                    <th>考勤</th>
+                    <th>自学进度</th>
+                    <th>博客</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div id="nav">
+    <div id="pageList" style="float: right;margin-top: 20px">
+        <a class="btn btn-default" id="firstIndex" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="lastIndex" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="nextIndex" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-default" id="endIndex" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="width:700px;height: 400px;margin: 0 auto">
+            <div class="col-md-4 mb" style="width: 700px;height: 600px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><span>学员量化评价</span></h4>
+                </div>
+
+                <div class="white-panel pn">
+
+                    <p style="margin-left: 20%;margin-top: 60px"><img src="assets/img/ui-zac.jpg" class="img-circle"
+                                                                      width="80"></p>
+                    <p id="studentName"><b style="margin-left: 20%"></b></p>
+                    <div class="row" style="margin-left: 20%">
+                        <div id="zy">作业：80分</div>
+                        <div id="cj">成绩：60分</div>
+                        <div id="kq">考勤：95分</div>
+                        <div id="zx">自学：85分</div>
+                        <div id="bk">博客：50分</div>
+
+
+                    </div>
+                    <div class="container" id="container">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+<script type=" text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    //页面加载默认显示一个班级
+    window.onload = function (ev) {
+        $("table tbody tr ").remove();
+        getJson();
+    };
+
+    /*选择班级的时候，绑定所有的数据，默认加载第一页的数据*/
+
+    function getJson() {
+        var formData = $("#formPaper").serialize();
+        $.post("http://localhost:8080/stu/getOverallResult.do", formData, function (res) {
+            pageCount = res.page.pageCount;
+            //var res = eval(result);
+            var temp = "";
+            for (var i = 0; i < res.list.length; i++) {
+                temp += " <tr class='tr'><th class='gun-scusses'>" + res.list[i].studentName + "</th>" +
+                    "<td class='gun-scusses'>" + Math.round(res.list[i].overalWork) + "</td>" +
+                    "<td class='gun-scusses'>" + Math.round(res.list[i].overalScore) + "分</td>" +
+                    "<td class='gun-scusses'>" + Math.round(res.list[i].overalCheck) + "分</td>" +
+                    "<td class='gun-scusses'>" + res.list[i].selfStudy + "%</td>" +
+                    "<td class='gun-scusses'>" + Math.round(res.list[i].overalScore) + "分</td>" +
+                    "<td class='gun-scusses' class='caoZuo'><a  onclick='selbtn(this)' class='btn btn-xs btn-info' data-toggle='modal' data-target='.bs-example-modal-lg'><i class='iconfont icon-yulan iconfont_size'></i> 查看</a></td></tr>";
+            }
+            $("table tbody tr ").remove();
+            $("table tbody").append(temp);
+            $("table tbody").selectpicker('val', 'Relish');
+        }, "json");
+
+    }
+
+    var obj = {};
+
+    //点击查看 赋值
+    function selbtn(obj) {
+        var oCon = document.querySelector("#container");
+        var oDiv = oCon.getElementsByTagName("div");
+        for (var i = 0; i < oCon.children.length; i++) {
+            if (i = oCon.children.length - 1) {
+                break;
+            }
+            oCon.removeChild(oDiv[i]);
+
+        }
+        //点击查看把所有数据绑定
+        var th = $(obj).parent().parent();
+        var name = th.find("th").text();
+        var tr = $(obj).parent().parent().find("td");
+        var zy = tr.eq(0).text();
+        var cj = tr.eq(1).text();
+        var kq = tr.eq(2).text();
+        var zx = tr.eq(3).text();
+        var bk = tr.eq(4).text();
+
+        //绑定查看里的显示数据 姓名
+        $("#studentName").html("<b style='margin-left:20%'></b>" + name);
+        //作业
+        $("#zy").html("作业：" + zy);
+        //成绩
+        $("#cj").html("成绩：" + cj);
+        //考勤
+        $("#kq").html("考勤：" + kq);
+        //自学
+        $("#zx").html("自学：" + zx);
+        //博客
+        $("#bk").html("博客：" + bk);
+        //截取成绩里的数字,
+
+
+        obj.zy = parseFloat(zy.valueOf().substring(0, zy.length - 1) / 10);
+        obj.cj = parseFloat(cj.valueOf().substring(0, cj.length - 1) / 100);
+        obj.kq = parseFloat(kq.valueOf().substring(0, kq.length - 1) / 100);
+        obj.zx = parseFloat(zx.valueOf().substring(0, zx.length - 1) / 100);
+        obj.bk = parseFloat(bk.valueOf().substring(0, bk.length - 1) / 100);
+
+
+        var rader = new Radar({
+            el: "#container",
+            width: 150,
+            height: 150,
+            data: [["考勤", obj.kq], ["作业", obj.zy], ["成绩", obj.cj], ["自学", obj.zx], ["博客", obj.bk]],
+        });
+    }
+
+
+    /*四个分页的按钮和查询按钮可以使用*/
+    $(function () {
+
+        $("#pageIndex").val(1);
+        getJson();
+        //1、点击查询按钮能够根据条件查询数据（显示第一页）
+        $("#btnQuery").click(function () {
+            $("table tbody tr ").remove();
+            $("#pageIndex").val(1);
+            getJson();
+            return false;
+        });
+        //2、四个分页按钮能用
+        $("#firstIndex").click(function () {
+            $("table tbody tr ").remove();
+            $("#pageIndex").val(1);
+            getJson();
+        });
+        $("#lastIndex").click(function () {
+            $("table tbody tr ").remove();
+            var index = $("#pageIndex").val();
+            if (index > 1) {
+                $("#pageIndex").val(parseInt(index) - 1);//转成int类型
+            } else {
+                $("#pageIndex").val(1);
+            }
+            //点击上一页时跟换按钮颜色
+            getJson();
+        });
+        $("#nextIndex").click(function () {
+            $("table tbody tr ").remove();
+            var index = $("#pageIndex").val();
+            if (index < pageCount) {
+                $("#pageIndex").val(parseInt(index) + 1);
+            } else {
+                $("#pageIndex").val(pageCount);
+            }
+            getJson();
+        });
+        $("#endIndex").click(function () {
+            $("table tbody tr ").remove();
+            $("#pageIndex").val(pageCount);
+            getJson();
+        });
+    });
+    $(function () {
+        $("#sel-btn").click(function () {
+            alert(1);
+        })
+    });
+</script>
+</html>

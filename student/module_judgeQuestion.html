@@ -1,0 +1,722 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>云校园</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/examingModel.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="fonts/font_suo/iconfont.css">
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css"/>
+</head>
+<style>
+    .icon-suo {
+        font-size: 70px;
+        color: #595959;
+    }
+
+    .icon-suo:hover {
+        cursor: pointer;
+        color: #76d076;
+    }
+
+    .tileBottom {
+        width: 100%;
+        height: 270px;
+        padding-top: 60px;
+    }
+</style>
+
+<body>
+<div class="container-fluid" id="app" style="background-color: #FFFFFF;">
+    <!--提示未答选项-->
+    <div class="modal" id="tishiWeiZuo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="tishiWeiZuo_p"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                    <button type="button" class="btn btn-primary" @click="jiXuJiaoJuan()">继续交卷</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!--是否交卷-->
+    <div class="modal" id="shiFouJiaoJuan" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p>是否交卷？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-primary" @click="shiJiaoJuan()">是</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="alert alert-warning alert-dismissible alertTop" role="alert">
+        <button type="button" class="close" @click="closeTitle"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>警告!</strong> 考试期间学生不可离开摄像区域、否则以零分计算
+    </div>
+    <div class="main_left">
+        <div class="main_left_top">
+            <video id="video" height="128" width="170" autoplay="autoplay" preload loop
+                   style=" box-shadow: 1px 1px 1px 1px #918e8f;margin-bottom: 10px;-webkit-border-radius: 8px;"
+                   muted="muted"></video>
+            <canvas id="canvas" width="170" height="128"></canvas>
+            <label>&nbsp;准考证号：<span style="color: #749ed9">S00012</span></label>
+            <label>&nbsp;考生姓名：<span>{{stu.studentName}}</span></label>
+        </div>
+        <div class="main_left_bottom">
+            <!-- onclick='showI(" + (i) + ")'-->
+            <div class="div_item" v-for="(item,index) in examTopic" @click="showI(index)"><span>{{item}}</span></div>
+        </div>
+    </div>
+    <div class="main_right">
+
+        <!--单选多选-->
+        <div class="onOrDuo">
+            {{onOrDuo}}
+        </div>
+        <div class="main_right_item" v-for="(item,index) in examDate">
+            <div class="title"><p class="main_right_title">{{index+1}}、{{item.topicName}}</p></div>
+            <div class="answer">
+                <!--onclick="selectdOption(1)"-->
+
+                <p v-if="item.optionA!=''" @click="selectdOption(1)" class="bg-success"><span class="optionA">正确</span>
+                </p>
+                <p v-if="item.optionB!=''" @click="selectdOption(2)" class="bg-success"><span class="optionB">错误</span>
+                </p>
+
+            </div>
+        </div>
+        <!--放时间-->
+        <div class="timeRemaining">
+            <span id="timeCounter">60:00</span>
+        </div>
+    </div>
+    <!--放操作-->
+    <div class="bottomCao">
+        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">退出考试</button>
+        <!--<button class="btn btn-danger" @click="tongjiZongFen()">测试统计答案</button>-->
+        <button class="btn btn-success prev" @click="prev()">上一题</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#myModal1" onclick="shangSuoCss()">暂停休息
+        </button>
+        <button class="btn btn-success next" @click="next()">下一题</button>
+        <button class="btn btn-success" @click="jiaoJuan()">交卷</button>
+    </div>
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">退出考试</h4>
+                </div>
+                <div class="modal-body">
+                    <!--内容-->
+                    <p>如果您退出考试则将以0分计算本次考试，请谨慎!!!</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="closeExam" onclick="closeExam()">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="suoDing" id="suoDing">
+    </div>
+    <div class="suoDingCon">
+
+        <div class="suoDingConItem">
+            <div class="tileCon">锁屏</div>
+            <div class="tileBottom">
+                <i class="iconfont icon-suo" onclick="jieSuo()" title="点击解锁"></i>
+                <p class="dianjijiesuo">
+                <span style="color: #bb2521;font-weight: bold;">提示：<span
+                        style="color: #313131">您已经进入休息状态，点击解锁即可继续答题</span></span>
+                </p>
+            </div>
+
+        </div>
+        <div class="shuoDingConItem02">
+            <div class="shuoDingConItem02_con">
+                <span style="font-weight: bold;">人脸识别 ▪ 考试</span>
+                <video id="video1" height="300" width="380" autoplay="autoplay" preload loop
+
+                       muted="muted"></video>
+                <canvas id="canvas1" height="300" width="380"></canvas>
+                <p class="titleChongshi">
+                    <span style="text-indent: 2em;font-weight: bold;color: #a52521;margin-left: 10px;">如果视频内未出现识别框或长时间未响应</span><a
+                        onclick="chongshi()">请单击此处</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="dist/js/lobibox.min.js"></script>
+<script src="demo/demo.js"></script>
+</body>
+</html>
+
+<script>
+    var lo = "localhost";
+    var index = 0;
+    var pageRow = 0;
+    var countA = true;
+    var countB = true;
+    var countC = true;
+    var countD = true;
+    var countE = true;
+    var countF = true;
+    var strems;
+    var uuId = "";
+    var stuName = "";
+    var topicType = 1;//默认选择题 测试
+    var selectd = "";
+    var selectd1 = "";
+    var res = 0;
+    var bbbbb = new Array()
+    var stuId = 0;
+    var customId = 0;
+    var tishiWeiZuo = "";//提示未做的题
+    var allocation;//分值
+    //var gui = require("nw.gui");
+    //var win = gui.Window.get();
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            examDate: [0],
+            examTopic: [],
+            onOrDuo: "",
+            stu: {},
+            questionId: 0,
+
+        },
+        methods: {
+            //设置小圆点定位功能
+            showI(i){
+                index = i;
+                $(".main_right_item").css("display", "none");
+                $(".main_right_item:eq(" + index + ")").css("display", "block");
+                this.oneOrDuo();
+                //getIndexDate();
+            },
+            //上一题
+            prev(){
+                if (index <= 0) {
+                    alert("第一页")
+                } else {
+                    index--;
+                    $(".main_right_item").css("display", "none");
+                    $(".main_right_item:eq(" + index + ")").css("display", "block");
+                    this.oneOrDuo();
+
+                }
+            },
+            //下一题
+            next(){
+
+                if (index >= pageRow - 1) {
+                    alert("最后一页")
+                } else {
+                    index++;
+                    console.log(index + "-----index")
+                    $(".main_right_item").css("display", "none");
+                    $(".main_right_item:eq(" + index + ")").css("display", "block");
+                    this.oneOrDuo();
+
+
+                }
+            },
+            //设置单选/多选
+            oneOrDuo() {
+                console.log(this.examDate[index]);
+                if (this.examDate[index].isEnabled == 1) {
+                    //单选
+                    this.onOrDuo = "单选";
+                } else {
+                    //多选
+                    this.onOrDuo = "多选";
+                }
+            },
+            //加载数据
+            getIndexDate(){
+                $.post("http://" + lo + ":8080/Questiondetail/selectQuestiondetailById", {"questionId": this.questionId}, function (date) {
+                    for (var i = 0, len = date.length; i < len; i++) {
+                        // 随机选择一个队友，为增加随机性，选中后的不能再次被选中
+                        var randomIndex = i + Math.floor(Math.random() * (len - i));
+                        // 咱俩换换
+                        var temp = date[i];
+                        date[i] = date[randomIndex];
+                        date[randomIndex] = temp;
+                    }
+
+                    var timestamp = Date.parse(new Date());
+                    var timestamps = timestamp / 1000;
+                    var newtimestamps = timestamps + date[0].answerDate * 60;
+                    localStorage.setItem("newtimestamps", newtimestamps);//设置到期时间
+
+                    app.examDate = date;//设置题
+                    bbbbb = date;
+                    app.examTopic = app.examDate.length;//设置题号
+                    pageRow = app.examDate.length;
+                    app.oneOrDuo();//数据加载完毕设置单选/多选
+
+                    app.timeCounter((date[0].answerDate * 60) - 1);//设置倒计时
+                }, "json");
+            },
+            //手动关闭顶部提示
+            closeTitle(){
+                $(".alertTop").slideUp();
+            },
+            //定时关闭顶部提示
+            timeOutClostTitle(){
+                setTimeout(function () {
+                    $(".alertTop").slideUp();
+                }, 3500);
+            },
+            //倒计时
+            timeCounter(time){
+                var countDownTime = parseInt(time);    //在这里设置每道题的答题时长
+                function countDown(countDownTime) {
+                    var timer = setInterval(function () {
+                        if (countDownTime >= 0) {
+                            showTime(countDownTime);
+                            countDownTime--;
+                            if (countDownTime == 1800) {
+                                Lobibox.notify('warning', {
+                                    msg: '距离考试结束还剩最后30分钟，请考生抓紧时间答题...'
+                                });
+                            }
+                            if (countDownTime == 600) {
+                                Lobibox.notify('warning', {
+                                    msg: '距离考试结束还剩最后10分钟，请考生抓紧时间答题...'
+                                });
+                            }
+                            if (countDownTime == 180) {
+                                Lobibox.notify('warning', {
+                                    msg: '距离考试结束还剩最后3分钟，请考生抓紧时间答题...'
+                                });
+                            }
+                        } else {
+                            clearInterval(timer);
+                            //时间到了
+                            Lobibox.notify('warning', {
+                                msg: '时间到了，系统将自动提交试卷...'
+                            });
+                            setTimeout(function () {
+                                app.tongjiZongFen();
+                            }, "json")
+                        }
+
+                    }, 1000);
+
+                }
+
+                countDown(countDownTime);
+                function showTime(countDownTime) {      //这段是计算分和秒的具体数
+                    var minute = Math.floor(countDownTime / 60);
+                    var second = countDownTime - minute * 60;
+                    if (minute < 10) {
+                        $("#timeCounter").text("0" + minute + ":" + second);
+                        if (second < 10) {
+                            $("#timeCounter").text("0" + minute + ":" + "0" + second);
+                        }
+                    } else {
+                        if (second < 10) {
+                            $("#timeCounter").text(minute + ":" + "0" + second);
+                        } else {
+                            $("#timeCounter").text(minute + ":" + second);
+                        }
+                    }
+                }
+            },
+            //选题功能
+            selectdOption(i){
+                //首先的判断是多选还是单选 如果是单选只可以选择一个 如果是多选就任意选择
+                //设置小圆点变色
+
+                //每次点击能获取到点击的是谁
+                //点击下一题拿到上一题最后点击的ID 直接给算题
+                //如果正确了直接加分
+                //如果错误了减分 前提是在他已经选择的情况下
+                if (this.examDate[index].isEnabled == 1) {
+                    var bian = false;
+                    //单选
+                    if (i == 1) {
+                        $(".main_right_item:eq(" + index + ")").children(".answer").children().children().parent().css("background-color", "#f8ffea");
+                        $(".main_right_item:eq(" + index + ")").children(".answer").children().children(".optionA").parent().css("background-color", "#cbddcd");
+                        bian = true;
+                    }
+                    if (i == 2) {
+                        $(".main_right_item:eq(" + index + ")").children(".answer").children().children().parent().css("background-color", "#f8ffea");
+                        $(".main_right_item:eq(" + index + ")").children(".answer").children().children(".optionB").parent().css("background-color", "#cbddcd");
+                        bian = true;
+                    }
+
+                    if (bian) {
+                        $(".main_left_bottom").children(":eq(" + index + ")").css("background-color", "#34be6e");
+                    }
+                }
+            },
+            //开启全屏
+            openFullWindow(){
+                //win.enterFullscreen();//进入全屏
+            },
+            //交卷
+            jiaoJuan(){
+                //先判断用户是否每一题都有选中
+                //如果没有则提示用户那些题没选 然后跳转到最先的那题
+                //如果选完了则提示用户是否交卷
+                console.log("分值：" + allocation);
+                var str = "";
+                //rgb(52, 190, 110)
+                console.log($(".main_left_bottom .div_item:eq(0)").css("background-color"));
+                for (var i = 0; i < pageRow; i++) {
+                    if ($(".main_left_bottom .div_item:eq(" + (i) + ")").css("background-color") != "rgb(52, 190, 110)") {
+                        //未选中
+                        if (i < 9) {
+                            str += "0" + (i + 1) + "、";
+                        } else if (i == pageRow - 1) {
+                            str += (i + 1);
+                        } else {
+                            str += (i + 1) + "、";
+                        }
+                    }
+                }
+                tishiWeiZuo = "您第" + str + "题未做答...";
+                if (str == "") {
+                    //询问他是否交卷
+                    $('#shiFouJiaoJuan').modal('show');
+                } else {
+                    $(".tishiWeiZuo_p").text(tishiWeiZuo);
+                    $('#tishiWeiZuo').modal('show');
+                    var tiHao = str[0] + str[1];
+                    var one = parseInt(tiHao);
+                    index = (one - 1);
+                    $(".main_right_item").css("display", "none");
+                    $(".main_right_item:eq(" + index + ")").css("display", "block");
+                }
+
+
+            },
+            //确定交卷
+            shiJiaoJuan(){
+
+                //拿到50个div
+                this.tongjiZongFen();
+
+            },
+            tongjiZongFen(){
+                var zf = 0;
+                var mycars = new Array()
+                var aaa;
+                for (var j = 0; j < pageRow; j++) {
+                    for (var i = 0; i < $(".main_right_item:eq(" + j + ") .answer:eq(" + 0 + ")").children(".bg-success").length; i++) {
+                        // var obj = array[i];
+                        //rgb(203, 221, 205)  选中
+                        if ($(".main_right_item:eq(" + j + ") .answer:eq(" + 0 + ")").children(".bg-success:eq(" + i + ")").css("background-color") == "rgb(203, 221, 205)") {
+                            //每一题的选中的是啥
+                            //多选把题号记录一下
+                            var da = (i + 1);
+                            var str = "";
+                            if (da == 1) {
+                                str = "正确";
+                            } else if (da == 2) {
+                                str = "错误";
+                            }
+                            //console.log("第" + (j + 1) + "题的选中项是" + str);
+                            if (str == app.examDate[j].modelAnswer) {
+                                //选对了 +2分
+                                zf += parseInt(allocation);
+                                mycars[j] = {
+                                    "topicId": app.examDate[j].topicId,
+                                    "topicName": app.examDate[j].topicName,
+                                    "Choice": str,
+                                    "modelAnswer": app.examDate[j].modelAnswer
+                                }
+                            } else {
+                                mycars[j] = {
+                                    "topicId": app.examDate[j].topicId,
+                                    "topicName": app.examDate[j].topicName,
+                                    "Choice": str,
+                                    "modelAnswer": app.examDate[j].modelAnswer
+                                }
+                            }
+                            //console.log("该题的正确答案：" + app.examDate[j].modelAnswer)
+
+                            aaa = j;
+                        }
+                    }
+
+                }
+                console.log("总分：" + zf);
+                console.log(mycars);
+                //传入数据库
+                localStorage.setItem("zf", zf);
+                localStorage.setItem("json", mycars);
+                for (var i = 0; i < mycars.length; i++) {
+                    $.post("http://" + lo + ":8080/testcore/insertTesCore", {
+                        "topicId": mycars[i].topicId,
+                        "studentAnswer": mycars[i].Choice,
+                        "customId": customId,
+                        "studentId": stuId
+                    }, function (date) {
+                        console.log(date);
+                    }, "test");
+                }
+                $.post("http://" + lo + ":8080/custromjl/inserCustromjl", {
+                    "customId": customId,
+                    "studentId": stuId,
+                    "score": zf
+                }, function (date) {
+
+                });
+                //记录考试次数
+                $.post("http://" + lo + ":8080/student/selectStudetCustromjCount", {"studentId": app.stu.studentId}, function (date) {
+                    console.log("个数：" + date);
+                    date++;
+                    console.log("new：" + date);
+                    $.post("http://" + lo + ":8080/student/updateStudentByStudentId", {
+                        "custromjCount": date,
+                        "studentId": app.stu.studentId
+                    }, function () {
+                    }, "json")
+                })
+                Lobibox.notify('success', {
+                    msg: '考试完成！您本次的总成绩为：' + zf + '分，具体详情可查询历史考试！3秒后自动跳转...'
+                });
+                localStorage.setItem("count", app.examTopic);
+                setTimeout(function () {
+                    //退出全屏
+                    //win.leaveFullscreen();
+                    location.href = "alone_testReport.html";
+
+                }, 3000);
+            },
+            jiXuJiaoJuan(){
+                //继续交卷
+                //this.tongjiZongFen();
+                alert("暂未开放")
+            },
+            //初始化localStorage
+            initLocalStorage(){
+                allocation = localStorage.getItem("allocation");
+                customId = localStorage.getItem("customId");
+                var questionId = localStorage.getItem("questionId");
+                this.questionId = questionId; //获取试题编号
+                var stu = localStorage.getItem("user");//登录用户
+                var obj = JSON.parse(stu);//获取登录对象信息
+                uuId = obj.uuId;
+                stuName = obj.studentName;
+                stuId = obj.studentId;
+                this.stu = obj;
+            }
+        },
+        created(){
+            this.initLocalStorage();
+            this.getIndexDate();//获取数据
+            this.timeOutClostTitle();//定时关闭顶部提示
+
+        }
+    })
+
+</script>
+<script>
+    $(function () {
+        jianCeRen();//进入检测人脸
+        Lobibox.notify('info', {
+            msg: '考试期间禁止离开电脑，禁止找人代考，希望各位考生尊重考试纪律...'
+        });
+        $(document).keydown(function (e) {
+            var keyCode = e.keyCode || e.which || e.charCode;
+            var ctrlKey = e.ctrlKey || e.metaKey;
+            if (ctrlKey && keyCode == 66) {
+                //按住ctrl+B
+                alert("本题的正确答案是：" + bbbbb[index].modelAnswer);
+            }
+        });
+    });
+    //点击解锁
+    function jieSuo() {
+        $(".suoDingConItem").css("display", "none");//关闭当前 打开人脸识别
+        $(".shuoDingConItem02").css("display", "block")
+        console.log("点击了——解锁")
+        jianceRen1();
+    }
+    //退出系统
+    function closeExam() {
+        //退出全屏
+        // win.leaveFullscreen();
+        window.history.back(-1);
+        // location.href = "nav_historyTest.html";
+    }
+    //上锁
+    function shangSuoCss() {
+        $(".suoDing").css("display", "block");
+        $(".suoDingCon").css("display", "block");
+    }
+    //解锁
+    function jieSuoCss() {
+        $(".suoDing").css("display", "none");
+        $(".suoDingCon").css("display", "none");
+
+        $(".suoDingConItem").css("display", "block");
+        $(".shuoDingConItem02").css("display", "none");
+
+    }
+    //重试
+    function chongshi() {
+        console.log("点击了——重试")
+        jianceRen1();
+    }
+    //检测出问题了调用
+    function jianceRen1() {
+        console.log("========================进入人脸检测");
+        var video = document.getElementById('video1');
+        var canvas = document.getElementById('canvas1');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video1', tracker, {camera: true});
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            event.data.forEach(function (rect) {
+                //检测到人脸了
+                while (i >= 0) {
+                    i--;
+                    console.log("检测到人脸了");
+                    Lobibox.notify('success', {
+                        msg: '提示！正在解锁'
+                    });
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                    //发送请求 判断是否是本人或者判断是否离开
+                    $.post("http://" + lo + ":8080/topic/getRenLianBase64", {"base": canvas.toDataURL()}, function (date) {
+                        console.log(date);
+                        if (date.result != null) {
+                            console.log(date.result[0].scores);
+                            var scores = parseInt(date.result[0].scores);
+                            console.log(scores);
+                            console.log("百度云：" + date.result[0].uid);
+                            console.log("数据库：" + uuId);
+                            if (date.result[0].uid == uuId && scores > 70) {
+                                //人脸库查询出来的code跟登录用户的名称一样是本人
+                                Lobibox.notify('success', {
+                                    msg: '提示！解锁成功'
+                                });
+                                //解放
+                                jieSuoCss();
+                            } else {
+                                $(".dianjijiesuo").html('<span style="color: #bb2521;font-weight: bold;">警告：<span style="color: #313131">系统检测到您不是本人，请重新扫脸进入答题！</span></span>')
+                                Lobibox.notify('error', {
+                                    msg: '警告！系统检测到您不是' + stuName + '本人,请重试'
+                                });
+                                //document.getElementById("p1").innerHTML="";
+                                jieSuoCss();
+                                shangSuoCss();
+                            }
+                        } else {
+
+                        }
+                    }, "json");
+                }
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                context.font = '11px Helvetica';
+                context.fillStyle = "#fff";
+                context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+            });
+        });
+    }
+    function jianCeRen() {
+        console.log("========================进入人脸检测");
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, {camera: true});
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+        });
+        var abc = setInterval(function () {
+            var a = 0;
+            while (a >= 0) {
+                a--;
+                //绘制视频区域内的图片
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                //发送请求 判断是否是本人或者判断是否离开
+                console.log("发送请求 判断是否是本人或者判断是否离开");
+                $.post("http://" + lo + ":8080/topic/getRenLianBase64", {"base": canvas.toDataURL()}, function (date) {
+                    console.log(date);
+                    if (date.result != null) {
+                        console.log(date.result[0].scores);
+                        var scores = parseInt(date.result[0].scores);
+                        console.log(scores);
+                        console.log(date.result[0].uid);
+                        console.log(uuId);
+                        if (date.result[0].uid == uuId && scores > 70) {
+                            //人脸库查询出来的code跟登录用户的名称一样是本人
+                            console.log("是本人");
+                        } else {
+                            console.log("警告！您不是" + stuName + "本人!")
+                            $(".dianjijiesuo").html('<span style="color: #bb2521;font-weight: bold;">警告：<span style="color: #313131">系统检测到您不是本人，请重新扫脸进入答题！</span></span>')
+
+                            Lobibox.notify('error', {
+                                msg: '警告！系统检测到您不是' + stuName + '本人,请重试'
+
+                            });
+                            //document.getElementById("p1").innerHTML="";
+                            shangSuoCss();
+                            //弹出锁定框
+                        }
+                    } else {
+                        console.log("没有人脸");
+                        $(".dianjijiesuo").html('<span style="color: #bb2521;font-weight: bold;">提示：<span style="color: #313131">系统检测到您离开摄像范围，已自动为您锁屏！</span></span>')
+
+                        Lobibox.notify('error', {
+                            msg: '系统检测到您离开摄像范围，已自动为您锁屏！'
+
+                        });
+                        shangSuoCss();
+                    }
+                }, "json");
+            }
+        }, 60000);
+
+
+    }
+</script>

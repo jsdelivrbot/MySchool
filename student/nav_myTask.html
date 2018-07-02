@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 测试 - 错题</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="css/nav_myWrongProblem.css" rel="stylesheet" />
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font_x1oq2ao31fdjwcdi/iconfont.css">
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+    <link rel="stylesheet" href="css/j-select.css" />
+    <script src="js/nicescroll/jquery-nicescroll.js"></script>
+    <!-- 使用了nicescroll插件美化下拉框的滚动条 -->
+    <script src="js/jquery-jSelect.min.js"></script>
+
+
+</head>
+
+<style>
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    /*定义滑块 内阴影+圆角*/
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+
+        -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        background-color: #d4d4d4;
+        /*de8b8b*/
+    }
+
+    * {
+        -webkit-user-select: none;
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+    }
+
+    html,
+    body {
+        height: 100%;
+
+    }
+
+    .top-container {
+        width: 100%;
+        height: 50px;
+        background-color: #FFFFFF;
+
+    }
+
+    .top-container p {
+        text-indent: 2em;
+        font-size: 16px;
+        line-height: 50px;
+        color: #7b7b7b;
+    }
+
+    .top-container-btn {
+
+        height: 20px;
+        font-size: 12px;
+        padding-top: 2px;
+        padding-bottom: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    img {
+        cursor: pointer;
+    }
+
+    .main-container {
+        background-color: rgba(236, 237, 255, 0.7);
+        width: 100%;
+        height: 620px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        /* 不换行 */
+    }
+
+    .main-item {
+        padding: 5px;
+        border: 1px solid #f4f4f4;
+        -webkit-border-radius: 3px;
+        display: inline-block;
+        width: 260px;
+        background-color: #ffffff;
+        height: 100%;
+        margin-right: 15px;
+
+        box-shadow: 1px 1px 1px rgba(182, 182, 182, 0.3);
+    }
+
+    .main-item-con {
+        padding-right: 5px;
+        width: 100%;
+        background-color: #ffffff;
+        height: 500px;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    .progress {
+
+        height: 5px;
+    }
+
+    .bar-item {
+        height: 5px;
+        background-color: #7ec99c;
+    }
+
+    .main-item-top {
+
+        width: 100%;
+        height: 55px;
+
+    }
+
+    .mian-item-item {
+        -webkit-border-radius: 2px;
+        width: 100%;
+        height: 90px;
+        background-color: #ffffff;
+        margin-top: 10px;
+
+        cursor: pointer;
+        box-shadow: 1px 2px 1px rgb(241, 241, 241);
+        display: flex;
+        /*column 纵向  row:横向  -reverse 倒过来了*/
+        flex-direction: row;
+        /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+        justify-content: space-between;
+        /*纵轴对齐方式flex-end*/
+        align-items: center;
+        flex-wrap: wrap-reverse;
+        position: relative;
+
+    }
+
+    .mian-item-item p {
+        color: rgba(80, 80, 80, 0.7);
+    }
+
+    .mian-item-item:hover {
+        box-shadow: 0px 0px 9px 0px rgb(207, 207, 207);
+    }
+
+    .main-item-top p {
+        font-size: 13px;
+        color: rgba(126, 126, 126, 0.9);
+    }
+
+    .main-item-top-i {
+        color: #a0a0a0;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer
+    }
+
+    .main-item-top p span {
+        color: rgba(151, 151, 151, 0.82);
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .main-item-bottom {
+        width: 100%;
+        height: 40px;
+    }
+
+    .main-item-bottom p {
+        font-size: 13px;
+        line-height: 40px;
+        color: rgba(127, 127, 127, 0.9);
+        cursor: pointer;
+    }
+
+    .main-item-bottom p span {
+        font-size: 20px;
+    }
+
+    .main-item-bottom p:hover {
+        color: rgba(67, 67, 67, 0.82);
+    }
+
+    .mian-item-item-checkbox {
+        width: 15px;
+        height: 15px;
+    }
+
+    .mian-item-item-centenr {
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+
+    }
+
+    .mian-item-item-centenr p {
+
+        padding-right: 70px;
+        text-indent: 3em;
+        font-size: 13px;
+        display: block;
+        /*转为块级元素*/
+        white-space: nowrap;
+        /* 不换行 */
+        overflow: hidden;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis;
+        /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+        ;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    .mian-item-item-centenr img {
+        position: absolute;
+
+        width: 25px;
+        height: 25px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 100%;
+        right: 10px;
+        bottom: 5px;
+    }
+
+    .mian-item-item-centenr .checkbox-custom {
+        position: absolute;
+        left: 10px;
+        top: 32px;
+    }
+
+    /* Custom Checkbox
+           =================================================================== */
+
+    .checkbox-custom {
+        position: relative;
+        padding: 0 0 0 25px;
+        margin-bottom: 7px;
+        margin-top: 0;
+    }
+
+    .checkbox-custom.checkbox-inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .form-group .checkbox-custom.checkbox-inline {
+        margin-top: 7px;
+        padding-top: 0;
+    }
+
+    .checkbox-custom:last-child,
+    .checkbox-custom:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .checkbox-custom input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 3px;
+        margin: -6px 0 0 0;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .checkbox-custom input[type="checkbox"]:checked+label:after {
+        position: absolute;
+        display: inline-block;
+        font-family: 'FontAwesome';
+        content: '\F00C';
+        top: 50%;
+        left: 4px;
+        margin-top: -5px;
+        font-size: 11px;
+        line-height: 1;
+        width: 16px;
+        height: 16px;
+        color: #333;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled {
+        cursor: not-allowed;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled:checked+label:after {
+        color: #999;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled+label {
+        cursor: not-allowed;
+    }
+
+    .checkbox-custom input[type="checkbox"]:disabled+label:before {
+        background-color: #eee;
+    }
+
+    .checkbox-custom label {
+        cursor: pointer;
+        margin-bottom: 0;
+        text-align: left;
+        line-height: 1.2;
+        font-weight: normal;
+    }
+
+    .checkbox-custom label:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -9px;
+        width: 19px;
+        height: 18px;
+        display: inline-block;
+        border-radius: 2px;
+        border: 1px solid #bbb;
+        background: #fff;
+    }
+
+    .checkbox-custom label+label.error {
+        display: block;
+    }
+
+    .checkbox-primary input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-primary label:before {
+        background: #2693FF;
+        border-color: #2693FF;
+    }
+
+    .checkbox-text-primary input[type="checkbox"]:checked+label:after {
+        color: #cccccc;
+    }
+
+    .checkbox-success input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-success label:before {
+        background: #47a447;
+        border-color: #3f923f;
+    }
+
+    .checkbox-text-success input[type="checkbox"]:checked+label:after {
+        color: #47a447;
+    }
+
+    .checkbox-warning input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-warning label:before {
+        background: #ed9c28;
+        border-color: #e89113;
+    }
+
+    .checkbox-text-warning input[type="checkbox"]:checked+label:after {
+        color: #ed9c28;
+    }
+
+    .checkbox-danger input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-danger label:before {
+        background: #d2322d;
+        border-color: #bd2d29;
+    }
+
+    .checkbox-text-danger input[type="checkbox"]:checked+label:after {
+        color: #d2322d;
+    }
+
+    .checkbox-info input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-info label:before {
+        background: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .checkbox-text-info input[type="checkbox"]:checked+label:after {
+        color: #5bc0de;
+    }
+
+    .checkbox-dark input[type="checkbox"]:checked+label:after {
+        color: #fff;
+    }
+
+    .checkbox-dark label:before {
+        background: #171717;
+        border-color: #0a0a0a;
+    }
+
+    .checkbox-text-dark input[type="checkbox"]:checked+label:after {
+        color: #171717;
+    }
+
+    .modal-body-Top {
+        width: 100%;
+        height: 100px;
+
+    }
+
+    .modal-body-Top .modal-body-Top-Left {
+        width: 65%;
+        height: 100%;
+
+        float: left;
+    }
+
+    .modal-body-Top .modal-body-Top-Right {
+        width: 35%;
+        height: 100%;
+
+        float: left;
+
+    }
+
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Left {
+        width: 50%;
+        height: 100%;
+        float: left;
+
+
+
+    }
+
+    .modal-body-Top .modal-body-Top-Left p {
+        font-size: 12px;
+
+    }
+
+    .modal-body-Top .modal-body-Top-Left p span {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Left p,
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Right p {
+        font-size: 12px;
+    }
+
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Left img {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        margin-right: 5px;
+    }
+
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Left span {
+        font-size: 13px;
+
+
+    }
+
+    .modal-body-Top .modal-body-Top-Right .modal-body-Top-Right-Right {
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        float: left;
+
+    }
+
+    .modal-body-Bottom {
+        width: 100%;
+
+
+    }
+
+    .modal-body-Bottom .modal-body-Bottom-Top {
+        width: 100%;
+        height: 30px;
+
+    }
+
+    .modal-body-Bottom .modal-body-Bottom-Top p {
+        font-size: 14px;
+        display: inline-block;
+
+    }
+
+    .modal-body-Bottom-Bottom-Item {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        margin-right: 3px;
+    }
+
+    .modal-body-Bottom-Bottom-Item-Jia {
+        cursor: pointer;
+        width: 29px;
+        height: 29px;
+        border-radius: 100%;
+
+    }
+
+    .color-ccc {
+        color: #a0a0a0;
+    }
+
+    .color-c2 {
+
+        margin-left: 5px;
+        color: rgb(99, 99, 99);
+        font-family: 黑体;
+    }
+
+    .color-green {
+        color: rgb(102, 194, 41);
+    }
+
+    .font-family {
+        font-family: 黑体;
+    }
+
+    .progress-modal {
+        position: relative;
+
+
+    }
+
+    .progress-modal span {
+        font-size: 12px;
+    }
+
+    .progress-modal .progress {
+        position: relative;
+        top: 10px;
+
+        display: inline-block;
+        width: 800px;
+
+    }
+
+    .insertPeople {
+        margin-left: 10px;
+        font-size: 12px;
+        color: rgb(12, 130, 248);
+        text-decoration: underline;
+        cursor: pointer;
+
+    }
+
+    .progress-count {
+        position: relative;
+        top: -10px;
+
+    }
+
+    .progress-modal-insert {
+        width: 70%;
+        border-radius: 2px;
+        border: 1px solid #ebebeb;
+        padding: 10px;
+        display: none;
+        transition: all linear 2s;
+
+    }
+
+    .progress-modal-insert-text {
+        width: 300px;
+        height: 30px;
+
+        border: 1px solid #ccc;
+        text-indent: 5px;
+        font-size: 12px;
+        color: rgb(90, 90, 90);
+        font-family: 黑体;
+        box-shadow: 0px 0px 5px 1px rgb(206, 206, 206);
+
+    }
+
+    .select {
+        width: 100px;
+    }
+
+    .current_select_text,
+    .city_current_select_text {
+
+        font-size: 12px;
+        font-family: 黑体;
+
+    }
+
+    .success-modal {
+        background-color: #FFFFFF;
+        height: 30px;
+        box-shadow: 0px 0px 5px 1px rgb(206, 206, 206);
+        width: 70px;
+        border: 1px solid #cfcfcf;
+        font-family: 黑体;
+        margin-left: 10px;
+        font-size: 12px;
+
+    }
+
+
+
+    .selectItem {
+        color: rgb(94, 94, 94);
+        font-size: 12px;
+        border: 1px solid #cfcfcf;
+        box-shadow: 0px 0px 5px 1px rgb(206, 206, 206);
+        width: 100px;
+        height: 30px;
+    }
+
+    .selectItem option {
+        font-size: 12px;
+    }
+
+    .modal-body-Bottom-Bottom {
+        padding: 20px 0px;
+
+    }
+
+    .progress-modal img {
+        margin-left: 3px;
+    }
+
+    .TaskName {
+        height: 25px;
+        border-radius: 5px;
+        margin-left: 20px;
+        font-size: 12px;
+        text-indent: 3px;
+        border: 1px solid #dadada;
+    }
+
+    .mian-item-item-centenr-from {
+        height: 35px;
+        padding: 5px;
+    }
+
+    .colorFontSize {
+        font-size: 14px;
+        color: rgb(63, 63, 63);
+    }
+
+    .from-input {
+        width: 150px;
+        height: 30px;
+
+        border: 1px solid #ccc;
+        text-indent: 5px;
+        font-size: 12px;
+        color: rgb(90, 90, 90);
+        font-family: 黑体;
+        box-shadow: 0px 0px 5px 1px rgb(206, 206, 206);
+    }
+</style>
+
+<body>
+
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <div id="bdtts_div_id">
+        <audio id="tts_autio_id" autoplay="autoplay">
+            <source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=9&text=" type="audio/mpeg">
+            <embed id="tts_embed_id" height="0" width="0" src="">
+        </audio>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+        <!--右半部分内容-->
+        <div class="main-panel" style="float: none">
+
+            <!--右半部分主体内容-->
+            <div class="container-item">
+                <div class="top-container" style="position: relative">
+                    <p>项目管理</p>
+                    <div class="btn-group" style="position: absolute;right: 25px;top: 5px">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            看板试图
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="nav_myTask.html">看板试图</a>
+                            </li>
+                            <li>
+                                <a href="nav_myParticipateInTask.html">列表试图</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="main-container container-fluid" id="main">
+                    <div class="main-item ">
+                        <div class="main-item-top">
+                            <p style="position: relative">我发起的任务
+                                <span>{{myLaunchBarCount}}/{{myLaunch.length}}</span>
+                                <i class="pe-7s-more main-item-top-i" style=""></i>
+                            </p>
+                            <!--进度条-->
+                            <div class="progress">
+                                <div class="progress-bar bar-item myLaunch-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-item-con">
+                            <div class="mian-item-item" @click="modalItem(index,item.taskID)" v-for="(item,index) in myLaunch">
+                                <div class="mian-item-item-centenr">
+                                    <span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+                                        <input type="checkbox" @click="progress($event)">
+                                        <label></label>
+                                    </span>
+                                    <p>{{item.taskName}}</p>
+                                    <img :src="item.imgFilePath">
+                                </div>
+                            </div>
+                            <div class="mian-item-item" @click="insertTaskModel()">
+                                <div class="mian-item-item-centenr">
+                                    <p style="height: 20px;position: relative;left: 40px;">点击添加任务</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="main-item ">
+                        <div class="main-item-top">
+                            <p style="position: relative">我参与的任务
+                                <span>{{myinvolvedBarCount}}/{{myinvolved.length}}</span>
+                                <i class="pe-7s-more main-item-top-i" style=""></i>
+                            </p>
+                            <!--进度条-->
+                            <div class="progress">
+                                <div class="progress-bar bar-item  myinvolved-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-item-con">
+                            <div class="mian-item-item" @click="modalItemMyinvolved(index,item.taskId)" v-for="(item,index) in myinvolved">
+                                <div class="mian-item-item-centenr">
+                                    <span class="checkbox-custom" @click.stop="modalCheckbox($event)">
+                                        <input type="checkbox" @click="progressMyinvolved($event)">
+                                        <label></label>
+                                    </span>
+                                    <p>{{item.detailName}}</p>
+                                    <img :src="item.imgFilePath">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="main-item ">
+                        <div class="main-item-top">
+                            <p style="position: relative">下一步要做的
+                                <span>0/0</span>
+                                <i class="pe-7s-more main-item-top-i" style=""></i>
+                            </p>
+                            <!--进度条-->
+                            <div class="progress">
+                                <div class="progress-bar bar-item  " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-item-con">
+
+                            <div class="mian-item-item">
+                                <div class="mian-item-item-centenr">
+                                    <p style="height: 20px;position: relative;left: 40px;">
+                                        <i class="pe-7s-note" style="font-size: 22px;position: absolute;bottom: 2px;left: -25px;"></i>点击添加任务</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="main-item ">
+                        <div class="main-item-top">
+                            <p style="position: relative">以后要做的
+                                <span>0/0</span>
+                                <i class="pe-7s-more main-item-top-i" style=""></i>
+                            </p>
+                            <!--进度条-->
+                            <div class="progress">
+                                <div class="progress-bar bar-item  " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-item-con">
+
+                            <div class="mian-item-item">
+                                <div class="mian-item-item-centenr">
+                                    <p style="height: 20px;position: relative;left: 40px;">
+                                        <i class="pe-7s-note" style="font-size: 22px;position: absolute;bottom: 2px;left: -25px;"></i>点击添加任务</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!--模态框部分-->
+                    <div class="modal fade" id="modalItem" aria-hidden="true" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document" style="width: 1000px">
+                            <div class="modal-content" style="width: 1000px">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title " id="myModalLabel ">任务</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body-Top">
+                                        <div class="modal-body-Top-Left">
+                                            <h5 class="font-family">{{TaskModal.taskName}}
+
+                                            </h5>
+
+                                            <p v-if="TaskModal.remark!=''" class="color-ccc font-family">任务描述：{{TaskModal.remark}}</p>
+                                            <p v-if="TaskModal.remark==''" class="color-ccc font-family">暂无详细描述
+                                                <span class="color-green font-family">添加描述</span>
+                                            </p>
+
+                                        </div>
+                                        <div class="modal-body-Top-Right">
+                                            <div class="modal-body-Top-Right-Left">
+                                                <p class="color-ccc font-family">负责人</p>
+                                                <img :src="TaskModal.imgFilePath" :title="TaskModal.imgFilePath">
+                                                <span class="font-family">{{TaskModal.studentName}}</span>
+                                            </div>
+                                            <div class="modal-body-Top-Right-Right">
+                                                <p class="color-ccc font-family">截止日期</p>
+                                                <p>{{TaskModal.endDate}}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-body-Bottom">
+                                        <div class="modal-body-Bottom-Top">
+                                            <p class="color-ccc font-family">参与人</p>
+                                            <span class="insertPeople  font-family" @click="insert(TaskModal.classId)">新增</span>
+                                        </div>
+                                        <div class="modal-body-Bottom-Bottom">
+
+                                            <div v-for="(item,index) in TaskList" class="progress-modal">
+                                                <img class="modal-body-Bottom-Bottom-Item" :src="item.imgFilePath" :title="item.studentName">
+                                                <span class="color-c2">{{item.studentName}}:</span>
+                                                <span class="color-c2">{{item.detailName}}</span>
+                                                <br/>
+                                                <div class="progress" v-if="item.isComplete==1">
+                                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                                </div>
+                                                <span class="progress-count color-ccc" v-if="item.isComplete==1">100%</span>
+                                                <div class="progress" v-if="item.isComplete==0">
+                                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                                </div>
+                                                <span class="progress-count color-ccc" v-if="item.isComplete==0">0%</span>
+                                            </div>
+                                            <div class="progress-modal-insert">
+
+
+                                                <select id="city" class="selectItem" v-model="selected">
+                                                    <option value="-1">请选择参与人</option>
+                                                    <!-- <option v-for="item in classData" :value="item.studentName">asdas</option> -->
+                                                    <option v-for="(items,index) in classData" :value="items.studentId">{{items.studentName}}</option>
+                                                </select>
+
+                                                <input type="text" class="progress-modal-insert-text" placeholder="添加任务" id="taskdetailText">
+                                                <button class="success-modal" @click="saveInsert(TaskModal.taskID)">完成</button>
+                                                <button class="success-modal" @click="closeInsert()">取消</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--模态框部分-->
+                    <div class="modal fade" id="modalItem01" aria-hidden="true" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document" style="width: 1000px">
+                            <div class="modal-content" style="width: 1000px">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title " id="myModalLabel ">任务</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body-Top">
+                                        <div class="modal-body-Top-Left">
+
+                                            <h5 class="font-family">{{TaskModal.taskName}}
+
+                                            </h5>
+                                            <span style="font-size: 12px;margin-bottom: 10px;display: block" class="color-ccc  font-family" v-if="TaskModal.detailName!=''">我负责的：{{TaskModal.detailName}}</span>
+                                            <p v-if="TaskModal.remark!=''" class="color-ccc font-family">任务描述：{{TaskModal.remark}}</p>
+                                            <p v-if="TaskModal.remark==''" class="color-ccc font-family">暂无详细描述
+                                                <span class="color-green font-family">添加描述</span>
+                                            </p>
+
+                                        </div>
+                                        <div class="modal-body-Top-Right">
+                                            <div class="modal-body-Top-Right-Left">
+                                                <p class="color-ccc font-family">负责人</p>
+                                                <img :src="TaskModal.imgFilePath">
+                                                <span class="font-family">{{TaskModal.fstudentId}}</span>
+                                            </div>
+                                            <div class="modal-body-Top-Right-Right">
+                                                <p class="color-ccc font-family">截止日期</p>
+                                                <p>{{TaskModal.endDate}}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-body-Bottom">
+
+                                        <div class="modal-body-Bottom-Bottom">
+
+                                            <div v-for="(item,index) in TaskList" class="progress-modal" v-if="TaskModal.studentId==item.studentId">
+                                                <img class="modal-body-Bottom-Bottom-Item" :src="item.imgFilePath" :title="item.studentName">
+                                                <span class="color-c2">{{item.studentName}}:</span>
+                                                <span class="color-c2">{{item.detailName}}</span>
+                                                <br/>
+
+                                                <div class="progress" v-if="item.isComplete==1">
+                                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                                </div>
+                                                <span class="progress-count color-ccc" v-if="item.isComplete==1">100%</span>
+                                                <div class="progress" v-if="item.isComplete==0">
+                                                    <div class="progress-bar bar-item" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                                </div>
+                                                <span class="progress-count color-ccc" v-if="item.isComplete==0">0%</span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--模态框部分-->
+                    <div class="modal fade" id="modalItem02" aria-hidden="true" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document" style="width: 1000px">
+                            <div class="modal-content" style="width: 1000px">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title " id="myModalLabel ">新建任务</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="dataFrom">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>任务名称</label>
+                                                    <input type="text" class="form-control" id="taskName" name="taskName" placeholder="任务描述">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label>任务为期</label>
+                                                    <input type="text" class="form-control" placeholder="开始日期 - 结束日期" id="test6"> </div>
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>任务描述</label>
+                                                    <textarea rows="5" class="form-control" name="remark" id="remark" placeholder="填写任务描述"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-info btn-fill pull-right" onclick="saveTask()">保存任务
+                                        </button>
+
+                                        <div class="clearfix"></div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--加载基本信息-->
+    <script>
+        var lo = "localhost";
+        var userInfoInit;//用户信息
+        var btn = true;//导航栏状态
+        //var gui = require('nw.gui');
+        $(function () {
+            notice();
+            getUserInfo();
+            getTheme();
+        });
+        //取出主题并设置上
+        function getTheme() {
+            var getTheme = localStorage.getItem("theme");
+            $(".sidebar").attr("data-color", getTheme);
+            var imgPath = localStorage.getItem("imgPath");
+            $(".sidebar").attr("data-image", imgPath);
+            $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+
+        }
+        //设置通知
+        function notice() {
+            demo.showNotification('bottom', 'right', 'warning', '温馨提示', '看完错题可点击右上角✘忽略掉本题', 'pe-7s-smile');
+
+        }
+        //初始化用户信息&设置
+        function getUserInfo() {
+            var userInfo = localStorage.getItem("user");
+            var obj = JSON.parse(userInfo);
+            userInfoInit = obj;
+            $(".userName").html(userInfoInit.studentName + '  <b class="caret"></b>')
+            imgLogoInit();
+        }
+        //初始化头像
+        function imgLogoInit() {
+            $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+        }
+        //退出程序
+        //退出应用程序
+        function clostExamSystem() {
+            //gui.App.quit()
+        }
+
+    </script>
+    <!--VUE模块-->
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                userInfo: {},//个人信息
+                myLaunch: [],//我发起的任务 未完成的
+                myLaunchBar: 0,//完成任务百分比
+                myLaunchBarCount: 0,//完成任务个数
+                TaskList: [],//参与人
+                TaskModal: {},//查看详情
+                myinvolved: [],//我参与的
+                myinvolvedBar: 0,//我参与的任务百分比
+                myinvolvedBarCount: 0,//我参与的任务任务个数
+                classData: [],//班级信息
+                selected: '-1'
+            },
+            methods: {
+                modalItem(index, taskId) {
+                    //http://localhost:8080/TaskList/selectTasListByTaskId?taskId=1 获取参与人
+                    $.post("http://" + lo + ":8080/Taskdetail/selectTaskDetailByTaskId", { "taskId": taskId }, function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].imgFilePath = 'http://localhost:8080/upload/' + data[i].imgFilePath + '.jpg';
+                        }
+                        app.TaskList = data;
+                    }, "json");
+                    this.TaskModal = this.myLaunch[index];
+                    console.log("=======================================")
+                    console.log(this.myLaunch[index]);
+                    $('#modalItem').modal('show');
+
+                },
+                modalItemMyinvolved(index, taskId) {
+                    console.log("index：" + index + "  taskId：" + taskId);
+                    $.post("http://" + lo + ":8080/Taskdetail/selectTaskDetailByTaskId", { "taskId": taskId }, function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].imgFilePath = 'http://localhost:8080/upload/' + data[i].imgFilePath + '.jpg';
+                        }
+
+                        app.TaskList = data;
+                        console.log(data);
+                    }, "json");
+
+                    console.log(this.myinvolved[index]);
+                    this.TaskModal = this.myinvolved[index];
+                    $('#modalItem01').modal('show');
+                },
+                modalCheckbox(e) {
+                    if ($(e.currentTarget).children("input").prop("checked")) {
+                        $(e.currentTarget).parent().parent().css("background-color", "#e0f3f1");
+                        $(e.currentTarget).parent().children("p").css("text-decoration", "line-through");
+                    } else {
+                        $(e.currentTarget).parent().parent().css("background-color", "#ffffff");
+                        $(e.currentTarget).parent().children("p").css("text-decoration", "none");
+                    }
+                },
+                progress(e) {
+                    //计算进度
+                    let bar = (1 / this.myLaunch.length) * 100;
+                    if ($(e.currentTarget).prop("checked")) {
+                        app.myLaunchBar += bar;
+                        app.myLaunchBarCount += 1;
+                        $(".myLaunch-bar").css("width", app.myLaunchBar + "%");
+                    } else {
+                        app.myLaunchBar -= bar;
+                        app.myLaunchBarCount -= 1;
+                        $(".myLaunch-bar").css("width", app.myLaunchBar + "%");
+                    }
+                },
+                progressMyinvolved(e) {
+                    //计算进度
+                    let bar = (1 / this.myinvolved.length) * 100;
+                    if ($(e.currentTarget).prop("checked")) {
+                        app.myinvolvedBar += bar;
+                        app.myinvolvedBarCount += 1;
+                        $(".myinvolved-bar").css("width", app.myinvolvedBar + "%");
+                    } else {
+                        app.myinvolvedBar -= bar;
+                        app.myinvolvedBarCount -= 1;
+                        $(".myinvolved-bar").css("width", app.myinvolvedBar + "%");
+                    }
+                },
+                getMyLaunchTask() {
+                    //获取我发起的任务 未完成的
+                    $.post("http://" + lo + ":8080/Task/selectTaskbyStudent", { "studentId": this.userInfo.studentId }, function (data) {
+                        app.myLaunch = data;
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].imgFilePath = 'http://localhost:8080/upload/' + data[i].imgFilePath + '.jpg';
+                        }
+                        console.log(data);
+                        console.log(data.length);
+                    }, "json");
+                },
+                getMyinvolved() {
+                    $.post("http://" + lo + ":8080/Taskdetail/selectTaskDetailByStudentId", { "studentId": this.userInfo.studentId }, function (data) {
+                        console.log("我参与的");
+                        for (var i = 0; i < data.length; i++) {
+                            data[i].imgFilePath = 'http://localhost:8080/upload/' + data[i].imgFilePath + '.jpg';
+                        }
+                        console.log(data);
+                        app.myinvolved = data;
+                    }, "json");
+                },
+                insert(classId) {
+                    $.post("http://" + lo + ":8080/student/selectStudentByClassId", { "classId": classId }, function (data) {
+                        app.classData = data;
+                    }, "json");
+                    $(".progress-modal-insert").css("display", "block");
+
+                },
+                saveInsert(taskId) {
+                    console.log(taskId);
+                    //保存信息
+                    let text = $("#taskdetailText").val()
+                    if (this.selected != -1 && text != "") {
+                        //增加
+                        $.post("http://" + lo + ":8080/Taskdetail/insertDetailByStudent", {
+                            "detailName": text,
+                            "taskId": taskId,
+                            "studentId": this.selected,
+                        }, function (data) {
+                            $("#taskdetailText").val("")
+                            app.selected = -1;
+                            $.post("http://" + lo + ":8080/Taskdetail/selectTaskDetailByTaskId", { "taskId": taskId }, function (data) {
+                                for (var i = 0; i < data.length; i++) {
+                                    data[i].imgFilePath = 'http://localhost:8080/upload/' + data[i].imgFilePath + '.jpg';
+                                }
+                                app.TaskList = data;
+                            }, "json");
+
+                        }, "json");
+
+                    } else {
+                        demo.showNotification('bottom', 'right', 'warning', '警告', '输入信息不完整', 'pe-7s-smile');
+                    }
+
+                },
+                closeInsert() {
+                    //关闭
+                    $(".progress-modal-insert").css("display", "none");
+
+                },
+                getUserInfo() {
+                    var userInfo = localStorage.getItem("user");
+                    var obj = JSON.parse(userInfo);
+                    this.userInfo = obj;
+                    var objStu = JSON.parse(userInfo);
+                    userInfoInit = objStu;
+                    this.getMyLaunchTask();
+                    this.getMyinvolved()
+                },
+                insertTaskModel: function () {
+                    $('#modalItem02').modal('show');
+
+                },
+
+            },
+            created() {
+                this.getUserInfo();
+            }
+        })
+
+    </script>
+
+</body>
+<!--导入JS-->
+
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+<!--右键菜单-->
+<script type="text/javascript">
+    var menu = document.getElementById("menu");
+    document.oncontextmenu = function (ev) {
+        var oEvent = ev || event;
+        //自定义的菜单显示
+        menu.style.display = "block";
+        //让自定义菜单随鼠标的箭头位置移动
+        menu.style.left = oEvent.clientX + "px";
+        menu.style.top = oEvent.clientY + "px";
+        //return false阻止系统自带的菜单，
+        //return false必须写在最后，否则自定义的右键菜单也不会出现
+        return false;
+
+    }
+    //实现点击document，自定义菜单消失
+    document.onclick = function () {
+        menu.style.display = "none";
+    }
+    function shuaxin() {
+        location.reload();
+    }
+    function saveTask() {
+
+        var paramDate = $("#test6").val();
+        var beginDate = paramDate.substring(0, 10);
+        var endDate = "&endDate=" + paramDate.substring(12, 23);
+        var studentId = userInfoInit.studentId;
+        var task = $("#dataFrom").serialize();
+        task += "&studentId=" + studentId;
+
+        // //参数
+        $.post("http://" + lo + ":8080/Task/insertStak", task, function (data) {
+            demo.showNotification('bottom', 'right', 'warning', '成功', '新增任务成功！', 'pe-7s-smile');
+            location.reload();
+
+        }, "json")
+    }
+
+</script>
+<!--通知模块-->
+<script src="dist/js/lobibox.min.js"></script>
+<script src="laydate/laydate.js"></script>
+<!-- 改成你的路径 -->
+<script>
+    lay('#version').html('-v' + laydate.v);
+
+    //执行一个laydate实例
+    //常规用法
+    laydate.render({
+        elem: '#endDate' //指定元素
+    });
+    laydate.render({
+        elem: '#beginDate' //指定元素
+    });
+    //国际版
+    laydate.render({
+        elem: '#test1-1'
+        , lang: 'en'
+    });
+    //年选择器
+    laydate.render({
+        elem: '#test2'
+        , type: 'year'
+    });
+    //年月选择器
+    laydate.render({
+        elem: '#test3'
+        , type: 'month'
+    });
+    //时间选择器
+    laydate.render({
+        elem: '#test4'
+        , type: 'time'
+    });
+    //时间选择器
+    laydate.render({
+        elem: '#test5'
+        , type: 'datetime'
+    });
+    //日期范围
+    laydate.render({
+        elem: '#test6'
+        , range: true
+    });
+    //年范围
+    laydate.render({
+        elem: '#test7'
+        , type: 'year'
+        , range: true
+    });
+    //年月范围
+    laydate.render({
+        elem: '#test8'
+        , type: 'month'
+        , range: true
+    });
+    //时间范围
+    laydate.render({
+        elem: '#test9'
+        , type: 'time'
+        , range: true
+    });
+    //日期时间范围
+    laydate.render({
+        elem: '#test10'
+        , type: 'datetime'
+        , range: true
+    });
+    //墨绿主题
+    laydate.render({
+        elem: '#test29'
+        , theme: 'molv'
+    });
+    //自定义颜色
+    laydate.render({
+        elem: '#test30'
+        , theme: '#393D49'
+    });
+    //格子主题
+    laydate.render({
+        elem: '#test31'
+        , theme: 'grid'
+    });
+
+</script>
+
+</html>

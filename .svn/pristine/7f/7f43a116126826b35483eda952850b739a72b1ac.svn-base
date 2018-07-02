@@ -1,0 +1,755 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="css/statisticalTest.css" rel="stylesheet">-->
+    <!--BootStarp日期控件-->
+    <link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="./css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="bootJs/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="bootJs/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <!--复选框，单选按钮-->
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <style>
+        * {
+            font-family: "宋体";
+            margin: 0 auto;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+            width: 130px;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 90%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        a {
+            color: #00CC00;
+        }
+
+        .title {
+            display: inline-block;
+            left: 20px;
+            margin: 20px 0px 20px 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        h4 {
+            color: #c0c0c0;
+        }
+
+        .context {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        p {
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+
+        .selectpicker {
+            border-radius: 4px;
+            width: 130px;
+            text-align: center;
+            line-height: 35px;
+            height: 35px;
+        }
+
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 80px auto;
+
+        }
+
+        form {
+            margin-left: 10px;
+        }
+
+        .datainp {
+            width: 12%;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 5px;
+        }
+
+        .rev {
+            position: relative;
+        }
+
+        .check .dowebok ul {
+            list-style-type: none;
+        }
+
+        .check .dowebok li {
+            display: inline-block;
+        }
+
+        .check .dowebok li {
+            margin: 0.5% 5px;
+        }
+
+        .check .dowebok2 li {
+            display: inline-block;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+            width: 100px;
+            font: 12px "Microsoft Yahei";
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 90%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+        }
+
+        .check .dowebok {
+            white-space: normal;
+            text-align: left;
+            margin-left: 3%;
+            padding: 0 6%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        .check .dowebok2 {
+            white-space: normal;
+            text-align: left;
+            margin: 30px 20% 10px;
+        }
+
+        .check .dowebok2 ul li {
+            margin: 0px 20px !important;
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        #history_home button {
+            margin-bottom: 5px;
+        }
+
+        #history_home button {
+            width: 100%;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .rev {
+            position: relative;
+        }
+
+        .container .qxfx {
+            display: inline-block;
+            float: right;
+            margin-right: 15%;
+        }
+
+        <!--
+        -->
+        .check .dowebok2 li {
+            display: inline-block;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+            width: 100px;
+            font: 12px "Microsoft Yahei";
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        .context p {
+            margin: 10px;
+        }
+
+        #name {
+            margin: 10px;
+        }
+        body{
+            font-size:12px;
+        }
+        label{
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        /*页面加载时，查询所有的教员记录，给下拉框绑定数据源*/
+        $(function () {
+            $.post("http://localhost:8080/classInfo/selClass.do", {}, function (result) {
+                var res = eval(result);
+                var temp = "";
+                for (var i = 0; i < res.length; i++) {
+                    temp += "<option value='" + res[i].classId + "'>" + res[i].className + "</option>";
+                }
+                $("#selectClass").append(temp);
+                $(".selectpicker").selectpicker('refresh');
+            }, "json");
+            /*选择完班级之后，动态绑定考试数据*/
+            $("#selectClass").change(function () {
+                $("#selectExam").html("");
+                var classId = $("#selectClass").val();
+                var date = '';
+                var url = "http://localhost:8080/questionPaper/getQuestionPaperNameByClassId.do";
+                $.post(url, {classId: classId}, function (res) {
+                    var data = eval(res);
+                    var temp = "";
+                    for (var i = 0; i < data.length; i++) {
+                        temp += "<option value='" + data[i].questionId + "'>" + data[i].questionName + "</option>";
+                    }
+                    $("#selectExam").append(temp);
+                    $(".selectpicker").selectpicker('refresh');
+                }, "json");
+            });
+
+            /*选择考试之后，从后台获取学生信息列表
+             *        包括：   学生学号，学生姓名，学生电话，学生邮箱，家长电话，家长邮箱
+             *        在Ajax请求成功的回调函数中，对学生列表进行数据绑定
+             * */
+            $("#selectExam").change(function () {
+                var classId = $("#selectClass").val();
+                var questionId = $("#selectExam").val();
+                var url = "http://localhost:8080/student/getStudentMapForScoreResult.do";
+                $.post(url, {classId: classId, questionId: questionId}, function (res) {
+                    /*给班级前10名绑定数据*/
+                    var topData=res.top;
+                    var tempTopStuName="";
+                    for(var i=0;i<topData.length;i++){
+                        tempTopStuName+=topData[i].studentName+",&nbsp;";
+                    }
+                    $(".top10List").html("");
+                    $(".top10List").html("学生："+tempTopStuName);
+
+                    /*给低于班级平均分的学员，绑定数据*/
+                    var underData=res.underAverageList;
+                    var tempUnderStuName="";
+                    for(var j=0;j<underData.length;j++){
+                        tempUnderStuName+=underData[j].studentName+",&nbsp;";
+                    }
+                    $(".underList").html("");
+                    $(".underList").html("学生："+tempUnderStuName);
+
+                    /*给成绩前进5个及以上名次的学员绑定数据*/
+                    var backData=res.backStudent;
+                    var tempBackStuName="";
+                    for(var k=0;k<backData.length;k++){
+                        tempBackStuName+=backData[k].studentName+",&nbsp;";
+                    }
+                    $(".backList").html("");
+                    $(".backList").html("学生："+tempUnderStuName);
+
+                    /*给成绩退步5个及以上名词的学员绑定数据*/
+                    var driverData=res.driverStudent;
+                    var tempDriverStuName="";
+                    for(var q=0;q<driverData.length;q++){
+                        tempDriverStuName+=driverData[q].studentName+",&nbsp;";
+                    }
+                    $(".driverList").html("");
+                    $(".driverList").html("学生："+tempUnderStuName);
+                },"json");
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default rev">
+        <br/>
+        <form style="">
+            <label for="selectClass">选择班级:</label>
+            <select class="selectpicker" data-live-search="true" id="selectClass">
+                <option value="-1">---请选择---</option>
+                <!--<option value="">TCMP059</option>
+                <option value="">TCMP060</option>
+                <option value="">TCMP062</option>-->
+            </select>
+            <label for="selectExam">选择考试:</label>
+            <select class="selectpicker" data-live-search="true" id="selectExam" @change="getExamScore">
+                <option value="-1">---请选择---</option>
+                <!--<option value="">TCMP059</option>
+                <option value="">TCMP060</option>
+                <option value="">TCMP062</option>-->
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success radius" style="margin-left: -3px" name=""><i
+                    class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+            <hr/>
+        </form>
+        <div class="context">
+            <h4>
+                <a href="#" data-target='#addDialog' data-toggle='modal'>他们需要鼓励</a>(最近考试成绩低于平均分)&nbsp;
+                    <button class="btn btn-info" data-target='#underModelBox' data-toggle='modal'>发送
+            </button>
+            </h4>
+            <p>
+                待人较为宽容，不与同学斤斤计较；能严格遵守各项规章制度，积极参加各项体育活动；有较明确的学习目标，
+                能专心听课，自觉完成各项练习，希今后，注意培养良好的学习方法，遇事多与老师、同学交流。期待下学期更上一层楼</p>
+        </div>
+        <hr/>
+        <div class="context">
+            <h4><a href="#" onMouseOver="javascript:show(this,'mydiv2');" onMouseOut="hide(this,'mydiv2')">他们可以表扬</a>(最近考试成绩班级前10名)&nbsp;&nbsp;<button
+                    class="btn btn-info" data-target='#topModelBox' data-toggle='modal'>发送
+            </button>
+            </h4>
+            <p>
+                不要幻想，通过一天的努力，就能够获取一个巨大的终身受益的收获，每天走好一步，就能够得到点滴的回报，
+                积少成多。本学期你学习中的努力与勤奋，给你带来一些成就，但是你还是要明白追求无极限，因为你的力量还没有完全发挥出来，
+                时间上略显不紧，所以还需要你再努力，再坚持，争取每天都能够有一点收获，最后达到你的目标！
+           </p>
+        </div>
+        <hr/>
+        <div class="context">
+            <h4><a href="#" onMouseOver="javascript:show(this,'mydiv3');" onMouseOut="hide(this,'mydiv3')">他们进步明显</a>(相对上次考试前进五名及以上)&nbsp;&nbsp;<button
+                    class="btn btn-info" data-target='#driverModelBox' data-toggle='modal'>发送
+            </button>
+            </h4>
+            <p>
+                理想信念常常会产生不可预料的效果，因为人常常会超越自身的束缚，释放出最大的能量。其实在你的体内有很惊人的能量，
+                你的才智在目前只是流露出一点，并没有完全发挥出来，我觉得主要的一点就是缺少激励，缺少激情，。
+                从现在开始，给自己一个目标，争取在这个目标的激励下挖掘你的潜力，静下心来，实现你的愿望！
+            </p>
+        </div>
+        <hr/>
+        <div class="context">
+            <h4><a href="#" onMouseOver="javascript:show(this,'mydiv3');" onMouseOut="hide(this,'mydiv3')">他们退步明显</a>(相对上次考试后退五名及以上)&nbsp;&nbsp;<button
+                    class="btn btn-info" data-target='#backModelBox' data-toggle='modal'>发送
+            </button>
+            </h4>
+            <p>
+                理想信念常常会产生不可预料的效果，因为人常常会超越自身的束缚，释放出最大的能量。其实在你的体内有很惊人的能量，
+                你的才智在目前只是流露出一点，并没有完全发挥出来，我觉得主要的一点就是缺少激励，缺少激情，。从现在开始，给自己一个目标，
+                争取在这个目标的激励下挖掘你的潜力，静下心来，实现你的愿望！
+           </p>
+        </div>
+    </div>
+
+    <!-- 班级前10名的评语模态框 -->
+    <div class="modal fade bs-example-modal-lg" id="topModelBox" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #ffffff;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><span style="color: #000000">老师点评</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="modal-body">
+                        <table class="table table-dialog table-bordered">
+                            <tr>
+                                <td colspan="2">
+                                    <!--在这里绑定学生列表姓名-->
+                                    <label>学生:</label>
+                                    <p class="top10List"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                  <textarea style="width: 100%" cols="30" rows="10" class="form-control" id="topText">  有较明确的学习目标，能专心听课，自觉完成各项练习，再坚持，争取每天都能够有一点收获，最后达到你的目标！</textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 0" id="sendTypeForTop">
+                                    <label for="check"> 通知方式:</label>
+                                    <ul class="dowebok2"  style="margin: 10px 0">
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="微信" value="sendType1"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="短信" value="sendType2"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="网站" value="sendType3"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="邮箱" value="sendType4"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="topTenSend();">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>发送
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 班级成绩低于平均分的学员的评语模态框 -->
+    <div class="modal fade bs-example-modal-lg" id="underModelBox" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-color: #ffffff;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2"><span style="color: #000000">老师点评</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="modal-body">
+                        <table class="table table-dialog table-bordered">
+                            <tr>
+                                <td colspan="2">
+                                    <label>学生:</label>
+                                    <p class="underList">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                  <textarea style="width: 100%" cols="30" rows="10" class="form-control" id="underText">  不要幻想，通过一天的努力，就能够获取一个巨大的终身受益的收获，每天走好一步，就能够得到点滴的回报，积少成多。希今后，注意培养良好的学习方法，遇事多与老师、同学交流 </textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 0" id="sendTypeForUnder">
+                                    <label for="check"> 通知方式:</label>
+                                    <ul class="dowebok2" style="margin: 10px 0">
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox"  data-labelauty="微信" value="sendType1"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox"  data-labelauty="短信" value="sendType2"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="网站" value="sendType3"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="邮箱" value="sendType4"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="underSend();">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>发送
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 班级中成绩前进5个及以上名次学员的评语模态框 -->
+    <div class="modal fade bs-example-modal-lg" id="driverModelBox" role="dialog" aria-labelledby="myModalLabel3">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #ffffff;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel3"><span style="color: #000000">老师点评</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="modal-body">
+                        <table class="table table-dialog table-bordered">
+                            <tr>
+                                <td colspan="2">
+                                    <label>学生:</label>
+                                    <p class="driverList">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                  <textarea style="width: 100%" cols="30" rows="10" class="form-control" id="driverText">   待人较为宽容，不与同学斤斤计较；能严格遵守各项规章制度，积极参加各项体育活动；有较明确的学习目标，能专心听课，自觉完成各项练习，希今后，注意培养良好的学习方法，遇事多与老师、同学交流。期待下学期更上一层楼
+                                  </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 0" id="sendTypeForDriver">
+                                    <label for="check"> 通知方式:</label>
+                                    <ul class="dowebok2" id="check" style="margin: 10px 0">
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="微信" value="sendType1"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="短信" value="sendType2"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="网站" value="sendType3"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="邮箱" value="sendType4"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="driverSend();">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>发送
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 班级中成绩后退5个及以上名次学员的评语模态框 -->
+    <div class="modal fade bs-example-modal-lg" id="backModelBox" role="dialog" aria-labelledby="myModalLabel4">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-color: #ffffff;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel4"><span style="color: #000000">老师点评</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="modal-body">
+                        <table class="table table-dialog table-bordered">
+                            <tr>
+                                <td colspan="2">
+                                    <label>学生:</label>
+                                    <p class="backList">
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                  <textarea style="width: 100%" cols="30" rows="10" class="form-control" id="backText">  你的才智在目前只是流露出一点，并没有完全发挥出来，我觉得主要的一点就是缺少激励，缺少激情，。从现在开始，给自己一个目标，争取在这个目标的激励下挖掘你的潜力，静下心来，实现你的愿望！ </textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 0" id="sendTypeForBack">
+                                    <label for="check"> 通知方式:</label>
+                                    <ul class="dowebok2" style="margin: 10px 0">
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="微信" value="sendType1"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="短信" value="sendType2"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="网站" value="sendType3"></li>
+                                        <li style="display: inline-block"><input type="checkbox" name="checkbox" data-labelauty="邮箱" value="sendType4"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="backSend();">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>发送
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    //jeDate.skin('gray');
+    jeDate({
+        dateCell: "#dateinfo",
+        format: "YYYY-MM-DD",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    });
+    jeDate({
+        dateCell: "#dateinfo2",
+        format: "YYYY-MM-DD",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+
+    //alert("YYYY/MM".match(/\w+|d+/g).join("-"))
+</script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script>
+    $(function () {
+        $(':input').labelauty();
+    });
+</script>
+<script>
+        var url="http://localhost:8080/evaluation/saveEvauation.do";
+        /*用来标志数据库的存储类型*/
+        var saveType="";
+        /*本次考试中，班级前10名*/
+        function topTenSend() {
+            var questionId = $("#selectExam").val();
+            var classId = $("#selectClass").val();
+            var sendTypeArr="";
+            var topText=$("#topText").val();
+
+            var sendType = $("#sendTypeForTop .dowebok2 input:checkbox");
+            for (var j in sendType) {
+                if(sendType[j].checked){
+                    if(sendType[j].value!=null && sendType[j].value!=undefined){
+                        sendTypeArr+=sendType[j].value+",";
+                    }
+                }
+            }
+            var sendData = {
+                evaluationType:25,
+                questionId:questionId,
+                classId:classId,
+                sendType:sendTypeArr,
+                evaluationText:topText,
+                saveType:"top"
+            };
+            $.post(url,sendData,function (res) {
+                alert(11);
+            },"text");
+
+        }
+
+        /*班级比较上次考试，前进5个名次及以上的学员的发送通知*/
+        function driverSend() {
+            var questionId = $("#selectExam").val();
+            var classId = $("#selectClass").val();
+            var sendTypeArr="";
+            var driverText=$("#driverText").val();
+            $(function () {
+                /*获取所有的发送方式*/
+                var sendType = $("#sendTypeForDriver .dowebok2 input:checkbox");
+                for (var i in sendType) {
+                    if(sendType[i].checked){
+                        if(sendType[i].value!=null && sendType[i].value!=undefined){
+                            sendTypeArr+=sendType[i].value+",";
+                        }
+                    }
+                }
+                alert(driverText);
+                alert(sendTypeArr);
+                /*这里是Ajax请求发送消息的地址*/
+                $.post(url,{evaluationType:26,questionId:questionId,classId:classId,sendType:sendTypeArr,evaluationText:driverText,saveType:"driver"},function (res) {
+                    if(res==='true'){
+                        alert("数据发送成功");
+                    }
+                },"text");
+            });
+        }
+
+        /*与上次相比，成绩退步5个名次及以上的学员*/
+        function backSend() {
+            var questionId = $("#selectExam").val();
+            var classId = $("#selectClass").val();
+            var sendTypeArr="";
+            var backText=$("#backText").val();
+            $(function () {
+                /!*获取所有的发送方式*!/
+                var sendType = $("#sendTypeForBack .dowebok2 input:checkbox");
+                for (var j in sendType) {
+                    if(sendType[j].checked){
+                        if(sendType[j].value!=null && sendType[j].value!=undefined){
+                            sendTypeArr+=sendType[j].value+",";
+                        }
+                    }
+                }
+                alert(backText);
+                alert(sendTypeArr);
+                /!*这里是Ajax请求发送消息的地址*!/
+                $.post(url,{evaluationType:27,questionId:questionId,classId:classId,sendType:sendTypeArr,evaluationText:backText,saveType:"back"},function (res) {
+                    if(res==='true'){
+                        alert("数据发送成功");
+                    }
+                },"text");
+            });
+
+        }
+
+        /*本次考试中，成绩低于班级平均分的学员*/
+        function underSend() {
+            var questionId = $("#selectExam").val();
+            var classId = $("#selectClass").val();
+            var sendTypeArr="";
+            var underText=$("#underText").val();
+            $(function () {
+                /*获取所有的发送方式**/
+                var sendType = $("#sendTypeForUnder .dowebok2 input:checkbox");
+                for (var j in sendType) {
+                    if(sendType[j].checked){
+                        if(sendType[j].value!=null && sendType[j].value!=undefined){
+                            sendTypeArr+=sendType[j].value+",";
+                        }
+                    }
+                }
+                alert(underText);
+                alert(sendTypeArr);
+                /*这里是Ajax请求发送消息的地址**/
+                /*这里是Ajax请求发送消息的地址**/
+                $.post(url,{evaluationType:27,questionId:questionId,classId:classId,sendType:sendTypeArr,evaluationText:underText,saveType:"under"},function (res) {
+                    if(res==='true'){
+                        alert("数据发送成功");
+                    }
+                },"text");
+            });
+        }
+
+</script>
+</html>

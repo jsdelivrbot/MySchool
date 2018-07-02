@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>云校园 ▪ 登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
+    <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="login/css/animate.css">
+    <link rel="stylesheet" href="login/css/style.css">
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+    <script src="login/js/modernizr-2.6.2.min.js"></script>
+    <script src="login/js/respond.min.js"></script>
+    <script src="dist/js/lobibox.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="fonts/font_renlian/iconfont.css">
+    <style>
+        * {
+
+            -webkit-user-select: none;
+            font-size: 14px;
+            font-family: 黑体;
+        }
+
+        #myModal .modal-content {
+
+            height: 600px;
+        }
+
+        canvas {
+            left: 0px;
+            position: absolute;
+        }
+
+        .progress {
+
+            height: 3px;
+        }
+
+        #bar {
+            height: 3px;
+        }
+
+        #form {
+            position: relative;
+        }
+
+        .faceRecognitionDiv {
+            width: 50px;
+            height: 70px;
+            background-color: #e0403e;
+            position: absolute;
+            right: 15px;
+            top: -2px;
+            line-height: 70px;
+            text-align: center;
+
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+            border-top-right-radius: 2px;
+            border-top-left-radius: 3px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .faceRecognitionDiv i {
+            font-size: 20px;
+        }
+    </style>
+
+    <script>
+        $(function () {
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <!--进度条-->
+    <div class="progress" style="margin: 0px;">
+        <div class="progress-bar" role="progressbar" id="bar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        </div>
+    </div>
+    <div class="container">
+        <!--登录-->
+        <div class="row">
+            <div class="" style="position: absolute;width: 600px;height: 500px;text-align: center;line-height: 600px">
+                <img src="http://www.51eduline.com/images/pic3.png">
+            </div>
+            <div class="col-md-4 col-md-push-8">
+                <form action="" id="form" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                    <div class="faceRecognitionDiv">
+                        <i style="cursor: pointer" class="iconfont icon-renlianshibie" id="faceRecognition" title="扫脸登录 前提是您已经采摘过人脸才能使用人脸登录" data-toggle="modal"
+                            data-target="#myModal"></i>
+                    </div>
+                    <h2 style="color: #888888">云校园 ▪ 登录</h2>
+                    <div class="form-group">
+                        <label for="studentCode" class="sr-only">用户名</label>
+                        <input type="text" class="form-control" id="studentCode" name="studentCode" placeholder="用户名" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword" class="sr-only">密码</label>
+                        <input type="password" class="form-control" id="studentPassword" name="studentPassword" placeholder="密码" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="remember">
+                            <input type="checkbox" id="remember"> 记住密码</label>
+                    </div>
+                    <div class="form-group">
+                        <p>没有账号?
+                            <a href="out_register.html">立即注册</a> |
+                            <a href="忘记密码.html">忘记密码?</a>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" value="登录" class="btn btn-primary" id="login">
+
+                        <a onclick="closequit()" style="display: inline-block;width: 80px;text-align: center;cursor: pointer">关闭</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!--人脸识别模态框-->
+        <div class="modal fade" id="myModal" aria-hidden="true" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel" style="display: inline-block">人脸识别 ▪ 登录</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="position: relative">
+                        <!--内容-->
+                        <p>请将头部放在视频区域内,匹配成功将会自动登入系统</p>
+                        <p style="color: red">如果视频内未出现识别框或长时间未响应
+                            <a onclick="faceRecognition()" style="cursor: pointer">请单击此处</a>
+                        </p>
+
+                        <video id="video" width="420" height="340" preload autoplay loop muted></video>
+                        <canvas id="canvas" width="420" height="340"></canvas>
+                        <div class="modal-body-right" style="display: inline-block">
+
+                            <p class="navbar-text">
+                                1.请先确保摄像头设备已连接并能正常工作；
+                                <br/> 2.请保持光源充足，不要逆光操作；
+                                <br/> 3.请保证脸部正面面向摄像头，并适当调整姿势保证整个脸部能够进入识别画面；
+                                <br/> 4.系统识别通过后，将自动跳转进入系统；
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="login/js/jquery.placeholder.min.js"></script>
+    <script src="login/js/jquery.waypoints.min.js"></script>
+    <script src="login/js/main.js"></script>
+    <script>
+        //设置端口号
+        var lo = "localhost";
+        //var gui = require('nw.gui');
+        $(function () {
+            //输入账号密码登录
+            $("#login").click(function () {
+                var studentCode = $("#studentCode").val();
+                var studentPassword = $("#studentPassword").val();
+                if (studentCode != "" && studentPassword != "") {
+                    var i = 0;
+                    var param = $("#form").serialize();
+                    $(".progress").css('display', 'block');
+                    var timer = setInterval(function () {
+                        i += 20;
+                        $("#bar").css("width", "" + i + "%");
+                        $("#bar").text(i + "%");
+                        if (i >= 100) {
+                            clearInterval(timer);
+                            //发送请求
+                            $.post("http://" + lo + ":8080/student/loginByStudentCodeAndStudentPassword", param, function (date) {
+                                console.log(date);
+                                if (date != "") {
+                                    //放入localStorage
+                                    localStorage.setItem("user", date);
+                                    location.href = "nav_index.html";
+                                } else {
+                                    Lobibox.notify('error', {
+                                        msg: '用户名或秘密输入错误!'
+                                    });
+                                    $("#bar").css("width", "" + 0 + "%");
+                                }
+                            });
+                        }
+                    }, 200);
+                } else {
+                    Lobibox.notify('warning', {
+                        msg: '用户名或账号不允许为空!'
+                    });
+                }
+            });
+            //使用人脸识别登录
+            $("#faceRecognition").click(function () {
+                faceRecognition();
+            });
+            //使用回车键登录
+            $(document).keydown(function (e) {
+                if (e.keyCode == 13) {
+                    var studentCode = $("#studentCode").val();
+                    var studentPassword = $("#studentPassword").val();
+                    if (studentCode != "" && studentPassword != "") {
+                        var i = 0;
+                        var param = $("#form").serialize();
+                        $(".progress").css('display', 'block');
+                        var timer = setInterval(function () {
+                            i += 20;
+                            $("#bar").css("width", "" + i + "%");
+                            $("#bar").text(i + "%");
+                            if (i >= 100) {
+                                clearInterval(timer);
+                                //发送请求
+                                $.post("http://" + lo + ":8080/student/loginByStudentCodeAndStudentPassword", param, function (date) {
+                                    console.log(date);
+                                    if (date != "") {
+                                        //放入localStorage
+                                        localStorage.setItem("user", date);
+                                        location.href = "nav_index.html";
+                                    } else {
+                                        Lobibox.notify('error', {
+                                            msg: '用户名或秘密输入错误!'
+                                        });
+                                        $("#bar").css("width", "" + 0 + "%");
+                                    }
+                                });
+                            }
+                        }, 200);
+                    } else {
+                        Lobibox.notify('warning', {
+                            msg: '用户名或账号不允许为空!'
+                        });
+                    }
+                }
+
+            });
+        });
+        //退出应用程序
+        function closequit() {
+            //gui.App.quit()
+        }
+        //人脸识别方法
+        function faceRecognition() {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var tracker = new tracking.ObjectTracker('face');
+            var i = 0;
+            tracker.setInitialScale(4);
+            tracker.setStepSize(2);
+            tracker.setEdgesDensity(0.1);
+            tracking.track('#video', tracker, {
+                camera: true
+            });
+            tracker.on('track', function (event) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                event.data.forEach(function (rect) {
+                    //检测到人脸了
+                    while (i >= 0) {
+                        i--;
+                        console.log("检测到人脸了");
+                        Lobibox.notify('warning', {
+                            msg: '系统正在识别，请稍等...'
+                        });
+                        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                        //发送请求 判断是否存在
+                        $.post("http://" + lo + ":8080/topic/getRenLianBase64", { "base": canvas.toDataURL() }, function (date) {
+                            if (date.result != null) {
+                                console.log(date.result[0].uid);
+                                if (date.result[0].scores > 80) {
+                                    Lobibox.notify('success', {
+                                        msg: '识别成功，正在加载数据...'
+                                    }); //启动进度条
+                                    console.log("UUID:" + date.result[0].uid);
+                                    //验证成功 去数据库查询对应对象返回
+                                    $.post("http://" + lo + ":8080/student/loginByUUId", { "uuId": date.result[0].uid }, function (date) {
+                                        console.log(date);
+                                        if (date != "" && date != null) {
+                                            console.log("登录成功");
+                                            setTimeout(function () {
+                                                Lobibox.notify('success', {
+                                                    msg: '获取数据成功，正在登录...'
+                                                }); //启动进度条
+                                                localStorage.setItem("user", date);
+                                                location.href = "nav_index.html";
+                                            }, 1000);
+                                        } else {
+                                            console.log("登录失败")
+                                            Lobibox.notify('error', {
+                                                msg: '您的账号已到期!请重新注册'
+                                            });
+                                            setTimeout(function () {
+                                                location.href = "out_register.html";
+                                            }, 1000);
+                                        }
+                                    });
+                                } else {
+                                    Lobibox.notify('error', {
+                                        msg: '匹配失败！您还未采摘人脸，请先使用账号密码登录采摘人脸方可使用'
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000)
+                                }
+                            } else {
+                                Lobibox.notify('error', {
+                                    msg: '匹配失败！您还未采摘人脸，请先使用账号密码登录采摘人脸方可使用'
+                                });
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        }, "json");
+                    }
+                    context.strokeStyle = '#a64ceb';
+                    context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                    context.font = '11px Helvetica';
+                    context.fillStyle = "#fff";
+                    context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                    context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

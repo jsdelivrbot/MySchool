@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生信息</title>
+
+    <!--BootStarp下拉框-->
+    <script src="js/vue.js"></script>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/xlsx.full.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap-select.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-select-lg.css">
+    <!--HUI矢量图-->
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--阿里巴巴矢量图-->
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--复选框样式-->
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+
+</head>
+<style>
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .group {
+        display: inline-block;
+
+    }
+    .modal-body  td {
+        border: 1px solid transparent !important;
+    }
+    .input_width{
+        width: 120px;
+        font-size: 14px;
+    }
+    .input_width_ss{
+        width: 80px;
+        font-size: 14px;
+    }
+    .input_idCard_width{
+        width: 150px;
+        font-size: 14px;
+    }
+    .modal-input{
+        width: 80%;
+    }
+    .body_middle td{
+        vertical-align: middle;
+    }
+    .icon-Location{
+        position: absolute;
+        left: 73%;
+        top: 6px;
+    }
+    .modal-position{
+        position: relative;
+    }
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    #formStudent{
+        width: 90%;
+        margin: 20px auto;
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #faf9fb inset !important;//关于解决输入框背景颜色
+        -webkit-text-fill-color: rgba(255,255,255,1)!important;//关于接输入框文字颜色
+    }
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+    table th{
+        text-align: center;
+    }
+
+</style>
+<body>
+<div class="container-fluid" id="app">
+    <div class="main">
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formStudent" name="formStudent" method="post" >
+                        <div class="form-group group"  >
+                           <span>学生姓名：</span><input style="padding-top: 4px" type="text" class="form-control input_width_ss" id="studentName" name="studentName" placeholder="学生姓名">
+                        </div>
+                        <div class="form-group group"  >
+                            <span>家长姓名：</span><input type="text" class="form-control input_width_ss" id="parentName" name="parentName" placeholder="家长姓名">
+                        </div>
+                        <div class="form-group group" >
+                            <span>学生电话：</span><input type="text" class="form-control input_width" id="phone" name="phone" placeholder="学生电话">
+                        </div>
+                        <div class="form-group group">
+                            <span>班级：</span>
+                            <select id="tjClassId" name="classId" class="form-control selectpicker" data-live-search="true"
+                                    style="width: 110px;">
+                                <option value="-1">请选择</option>
+                            </select>
+                        </div>
+                        <div class="form-group group" >
+                            <span>身份证号：</span>
+                            <input type="text" class="form-control input_idCard_width" id="idcard" name="idcard" placeholder="身份证号">
+                        </div>
+                        <div class="form-group" style="display: inline-block" >
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" style="display: inline-block" class="btn btn-success radius" id="btnQuery"  @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+                            <button type="button" style="display: inline-block" class="btn btn-primary radius" id="btnInsert" data-toggle='modal' data-target='#addDialog'>
+                                <i class="Hui-iconfont">&#xe600;</i> 新增
+                            </button>
+
+                            <button type="button" style="display: inline-block" class="btn btn-info radius" id="btnImport"  data-toggle='modal' data-target='#importDialog'>
+                                <i class="Hui-iconfont">&#xe645;</i>导入
+                            </button>
+                            <button type="button" style="display: inline-block" class="btn btn-warning radius" id="btnShift"  data-toggle='modal' data-target='#Shift' @click="shiftClass()">
+                                <i class="Hui-iconfont">&#xe63c;</i>调班
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-hover" id="noticeInfo">
+                    <thead>
+                    <tr>
+                        <td style="padding-top: 10px"><input id="selectAll" type="checkbox" style="vertical-align: middle" name="checkbox" value="1"></td>
+                        <td>学生姓名</td>
+                        <td>家长姓名</td>
+                        <td>电话</td>
+                        <td>班级</td>
+                        <td >状态</td>
+                        <td >地址</td>
+                        <td>最后登陆时间</td>
+                        <td>最后登陆IP</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!---->
+                    <tr v-for="(item,index) in studentList">
+                        <td > <input type="checkbox" class="checkboxSel"  name="checkbox" :value="item.studentId"> </td>
+                        <td v-text="item.studentName"></td>
+                        <td v-text="item.parentName">
+
+                            <!--<span v-for="(parentNameItem,parenNameIndex) in item.parentList">-->
+                                <!--{{parentNameItem.parentName}}-->
+                            <!--</span>-->
+                        </td>
+                        <td v-text="item.phone"></td>
+                        <td v-text="item.className"></td>
+                        <td  v-if="item.isEnabled==0">正常</td>
+                        <td  v-if="item.isEnabled==1">已停用</td>
+                        <td v-text="item.address"></td>
+                        <td v-text="item.lastLoginTime"></td>
+                        <td v-text="item.loginIp"></td>
+                        <td v-text="item.remark"></td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog' @click="selStuById(item.studentId)"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.teacherId)">&#xe615;</i>停用</button>
+                        </td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<td>张三</td>-->
+                        <!--<td>李四，王五</td>-->
+                        <!--<td>13800138000,13800139000</td>-->
+                        <!--<td>TCAS1296</td>-->
+                        <!--<td>启用</td>-->
+                        <!--<td>北京</td>-->
+                        <!--<td>2018-05-06 18:00:00</td>-->
+                        <!--<td>172.16.2.03</td>-->
+                        <!--<td>家比较远</td>-->
+                        <!--<td>-->
+                            <!--<button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog' @click="updById(item.teacherId)"><i class="Hui-iconfont">&#xe60c;</i>修改</button>-->
+                            <!--&nbsp;&nbsp;-->
+                            <!--<button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.teacherId)">&#xe615;</i>停用</button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+
+                <!--<div id="pageList"  style="float: right">-->
+                    <!--<a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <!--<a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <!--<a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <!--<a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--</div>-->
+            </div>
+
+        </div>
+        <!--修改模态框-->
+        <div class="modal fade bs-example-modal-xs" id="updDialog" role="dialog" >
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">修改学生</h4>
+                    </div>
+                    <div class="modal-body modal-position">
+                        <form id="formUpd" class="form-horizontal" >
+                            <div class="form-group" style="display: none">
+                                <span for="upd_studentId" class="col-sm-3 control-label ">学生编号：</span>
+                                <div class="col-sm-9">
+
+                                    <input type="text" class="form-control modal-input" id="upd_studentId" name="studentId"
+                                           placeholder="学生编号...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_studentName" class="col-sm-3 control-label ">姓名：</span>
+                                <div class="col-sm-9">
+
+                                    <input type="text" class="form-control modal-input" id="upd_studentName" name="studentName"
+                                           placeholder="学生姓名...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_classId" class="col-sm-3 control-label">班级：</span>
+                                <div class="col-sm-9">
+                                    <select id="updClassId" name="classId" class=" selectpicker"  data-live-search="true">
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_password" class="col-sm-3 control-label">密码：</span>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control modal-input" id="upd_studentPassword" name="studentPassword"
+                                           placeholder="password"><i class="iconfont icon-yulan icon-Location"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_phone" class="col-sm-3 control-label ">电话：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" id="upd_phone" class="form-control modal-input" name="phone"
+                                           placeholder="学生电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_email" class="col-sm-3 control-label">邮箱：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input " id="upd_email" name="email"
+                                           placeholder="学生邮箱：abc@163.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_address" class="col-sm-3 control-label">地址：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input " id="upd_address" name="address"
+                                           placeholder="现居地址...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_isEnable" class="col-sm-3 control-label">状态：</span>
+                                <div class="col-sm-9" id="upd_isEnable">
+                                    <div class="radio" style="display: inline-block">
+                                        <input type="radio" name="isEnabled" id="upd_Enable" value="0" checked>
+                                        <label for="upd_Enable">
+                                            启用
+                                        </label>
+                                    </div>
+                                    <div class="radio" style="display: inline-block">
+                                        <input type="radio" name="isEnabled" id="upd_NoEnable" value="1">
+                                        <label for="upd_NoEnable">
+                                            未启用
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_remark" class="col-sm-3 control-label">备注：</span>
+                                <div class="col-sm-9">
+                                    <textarea id="upd_remark" name="remark" style="width: 80%;height: 80px;overflow: hidden"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" @click="updStuById()">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--添加模态框-->
+        <div class="modal fade bs-example-modal-xs" id="addDialog" role="dialog" >
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新增学员</h4>
+                    </div>
+                    <div class="modal-body modal-position">
+                        <form id="formAdd" class="form-horizontal" >
+                            <div class="form-group">
+                                <span for="add_studentName" class="col-sm-3 control-label">姓名：</span>
+                                <div class="col-sm-9">
+
+                                    <input type="text" class="form-control modal-input" id="add_teacherName" name="studentName"
+                                           placeholder="学员姓名...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_classId" class="col-sm-3 control-label">班级：</span>
+                                <div class="col-sm-9">
+                                <select id="addClassId" name="classId" class=" selectpicker"  data-live-search="true">
+                                    <option value="-1">请选择</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_password" class="col-sm-3 control-label  ">密码：</span>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control modal-input" id="add_studentPassword" name="studentPassword"
+                                           placeholder="password"><i class="iconfont icon-yulan icon-Location"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_phone" class="col-sm-3 control-label ">电话：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" name="phone"
+                                           placeholder="学员电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_email" class="col-sm-3 control-label">邮箱：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" id="add_email" name="email"
+                                           placeholder="学员邮箱：abc@163.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_address" class="col-sm-3 control-label">地址：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" id="add_address" name="address"
+                                           placeholder="学员地址...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_isEnable" class="col-sm-3 control-label">状态：</span>
+                                <div class="col-sm-9" id="add_isEnable">
+                                    <div class="radio" style="display: inline-block">
+                                        <input type="radio" name="isEnabled" id="add_Enable" value="1" checked>
+                                        <label for="add_Enable">
+                                            启用
+                                        </label>
+                                    </div>
+                                    <div class="radio" style="display: inline-block">
+                                        <input type="radio" name="isEnabled" id="add_NoEnable" value="0">
+                                        <label for="add_NoEnable">
+                                            未启用
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_remark" class="col-sm-3 control-label">备注：</span>
+                                <div class="col-sm-9">
+                                    <textarea id="add_remark" name="remark" style="width: 80%;height: 80px;overflow: hidden"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" @click="btnInsert()">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--调班模态框-->
+        <div class="modal fade bs-example-modal-xs" id="Shift" role="dialog" >
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">调换班级</h4>
+                    </div>
+                    <div class="modal-body modal-position">
+                        <form id="formShift" class="form-horizontal" >
+                            <div class="form-group">
+                                <span for="add_classId" class="col-sm-3 control-label">调换到：</span>
+                                <div class="col-sm-9">
+                                    <select id="shiftClassId" name="classId" class=" selectpicker"  data-live-search="true">
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" @click="btnShift()">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--导入的模态框-->
+        <div id="importDialog" role="dialog" class="modal fade bs-example-modal-lg">
+
+            <div class="modal-dialog" style="width: 90%">
+                <form class="addTeacher" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>导入学生信息 </span>
+                            <button class="btn btn-info" type="button" style="display: inline-block;margin-left: 10px" onclick="$('#FileInput')[0].click()"><i class="Hui-iconfont">&#xe613;</i> 选择文件</button>
+                            <input type="file" id="FileInput" hidden="hidden" style="display: none;" onchange="readfls(this.files)" />
+                            <div class="close" data-dismiss="modal">&bigotimes;</div>
+                        </div>
+                        <!--style="border:  0px solid transparent"-->
+                        <div class="modal-body">
+                            <table class="table table-dialog table-bordered"style="min-width: 100%;">
+
+                                <thead>
+                                <tr class="tableThead">
+                                    <th>#</th>
+
+                                </tr>
+                                </thead>
+                                <tbody class="tableTbody">
+
+                                </tbody>
+                            </table>
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" @click="insertExcelStu()">
+                                <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                            </button>
+                            <button class="btn btn-warning" data-dismiss="modal">
+                                <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    //初始进来时传入一个条件pageIndex=1
+    var Initdate = $("#formStudent").serialize();
+    var app = new Vue({
+        el: "#app",
+        data: {
+            stuArray:[],
+            studentList: [],
+            pageCount: 0,
+            classList:[],
+            JsonOverride:[]
+
+        }, methods: {
+            // 表格中的数据
+            getTableAll(date) {
+                $.post("http://localhost:8080/student/page.do", date, function (result) {
+                    console.log("返回的Json数据:" + result.studentList);
+//                    for (var i = 0; i < result.studentList.length; i++) {
+//                        console.log(result.studentList[i]);
+//                        var objCheck= {state:'false',studentId:0,studentName:'',parentName:'',phone:'',className:'',isEnabled:0,address:'',lastLoginTime:'',loginIp:'',remark:''};
+//                        objCheck.state="false";
+//                        objCheck.studentId=result.studentList[i].studentId;
+//                        objCheck.studentName=result.studentList[i].studentName;
+//                        objCheck.parentName=result.studentList[i].parentName;
+//                        objCheck.phone=result.studentList[i].phone;
+//                        objCheck.className=result.studentList[i].className;
+//                        objCheck.isEnabled=result.studentList[i].isEnabled;
+//                        objCheck.address=result.studentList[i].address;
+//                        objCheck.lastLoginTime=result.studentList[i].lastLoginTime;
+//                        objCheck.loginIp=result.studentList[i].loginIp;
+//                        objCheck.remark=result.studentList[i].remark;
+//
+////                        app.studentList.push(objCheck)
+//                    }
+////                    console.log("app.jsonCheck:"+app.jsonCheck)
+                    app.studentList = result.studentList;
+                    app.pageCount = result.page.pageCount;
+                }, "json");
+            },
+            btnQuery(){
+                $("#pageIndex").val(1);
+                var date = $("#formStudent").serialize();
+                this.getTableAll(date)
+            },
+            //添加学生
+            btnInsert(){
+                var formAdd=$("#formAdd").serialize();
+                $.post("http://localhost:8080/student/insertStudent", formAdd, function (result) {
+                    if(result){
+                        alert("添加成功");
+                        var date = $("#formStudent").serialize();
+                        app.getTableAll(date)
+                    }else {
+                        alert("添加失败");
+                    }
+                }, "json");
+            },
+            //修改按钮
+            selStuById(studentId){
+                $.post("http://localhost:8080/student/selectStudentById", {"studentId": studentId}, function (result) {
+                    console.log(result);
+                    console.log(result.studentName);
+                    // app.byIdInfo = result.classByList;
+                    $("#upd_studentId").val(result.studentId);
+                    $("#upd_studentName").val(result.studentName);
+                    $("#updClassId").selectpicker('val',(result.classId));
+                    $("#upd_studentPassword").val(result.studentPassword);
+                    $("#upd_phone").val(result.phone);
+                    $("#upd_email").val(result.email);
+                    $("#upd_address").val(result.address);
+                    $("#upd_remark").val(result.remark);
+                    if(result.isEnabled.isEnabled==1){
+                        $('input:radio:first').attr('checked', 'checked');
+                    }else {
+                        $('input:radio:last').attr('checked', 'checked');
+                    }
+
+                }, "json");
+            },
+            updStuById(){
+                var formUpd= $("#formUpd").serialize();
+                $.post("http://localhost:8080/student/updateStudentInfo", formUpd, function (result) {
+                    if(result){
+                        alert("修改成功");
+                        var date = $("#formStudent").serialize();
+                        app.getTableAll(date)
+                    }else {
+                        alert("修改失败");
+                    }
+                }, "json");
+            },
+            insertExcelStu(){
+                console.log("走了")
+                $.post("http://localhost:8080/student/insertStuExcel.do",{"jsonString":JSON.stringify(app.JsonOverride)}, function (result) {
+                    console.log("JSON.stringify(app.JsonOverride):"+JSON.stringify(app.JsonOverride))
+                    if(result){
+                        alert("添加成功");
+                        var date = $("#formStudent").serialize();
+                        app.getTableAll(date)
+                    }else {
+                        alert("添加失败");
+                    }
+                }, "text");
+            },
+            shiftClass(){
+                var studentId = $(".checkboxSel");
+                arr = [];
+                for (i in studentId) {
+                    if (studentId[i].checked)
+                        arr.push(studentId[i].value);
+                }
+                app.stuArray=arr;
+            },
+            btnShift(){
+                for (var j = 0; j < app.stuArray.length; j++) {
+                    var formShift = $("#formShift").serialize();
+                    formShift += "&studentId=" + app.stuArray[j];
+                    $.post("http://localhost:8080/student/updateStudentInfo.do", formShift, function (result) {
+                        if (result) {
+                            console.log("调班成功")
+                            var date = $("#formStudent").serialize();
+                            app.getTableAll(date)
+                        } else {
+                            alert("调班失败");
+                        }
+                    }, "json");
+                }
+            },
+            //首页
+            sy() {
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formStudent").serialize();
+                this.getTableAll(pageIn)
+            },
+            //下一页
+            xyy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formStudent").serialize();
+                this.getTableAll(pageIn);
+            },
+            //尾页
+            wy() {
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formStudent").serialize();
+                this.getTableAll(pageIn)
+            },
+
+        },
+        //页面加载时调用
+        created() {
+            this.getTableAll(Initdate);
+        }
+
+    })
+</script>
+
+
+<script>
+    var ImportFile = null;
+    function readfls(fls) {
+        if (fls && fls.length > 0) {
+            ImportFile = fls[0];
+            var fileX = ImportFile.name.split(".").reverse()[0];
+            var fileXyes = false;
+            ["xlsx", "xlc", "xlm", "xls", "xlt", "xlw", "csv"].forEach(function (value, index, array) {
+                if (fileX === value) {
+                    fileXyes = true;
+                }
+            });
+            if (fileXyes) {
+                // app.fileInfo.name = ImportFile.name;
+                // app.fileInfo.size = ImportFile.size;
+                file2Xce(ImportFile).then(function (t) {
+                    console.log("执行完毕");
+                    var tmpHead = [];
+                    var pmodel = {};
+                    if (t && t.length > 0) {
+
+                        for (var itm in t[0]) {
+                            tmpHead.push(itm);
+                            pmodel[itm] = itm;
+                            console.log( " pmodel[itm]"+pmodel[itm])
+                        }
+                        console.log("tmpHead:"+tmpHead[0])
+                        //数据库的字段名
+                        for (var i = 0; i < tmpHead.length; i++) {
+                            $(".tableThead").append("<th>"+tmpHead[i]+"</th>");
+                        }
+                        console.log(t.length);
+                        var jsonOverride=new Array();
+
+                        for (var i = 0; i < t.length; i++) {
+                            var obj={studentName:'',studentPassword:'',emergencyNumber:'',phone:'',age:'',idCard:'',email:'',address:'',remark:''}
+                            if(t[i].姓名!==undefined){
+                                obj.studentName=t[i].姓名;
+                            }else{
+                                obj.studentName='无';
+                            }
+                            if(t[i].密码!==undefined){
+                                obj.studentPassword=t[i].密码;
+                            }else{
+                                obj.studentPassword='无';
+                            }
+                            if(t[i].应急电话!==undefined){
+                                obj.emergencyNumber=t[i].应急电话;
+                            }else{
+                                obj.emergencyNumber='无';
+                            }
+                            if(t[i].电话!==undefined){
+                                obj.phone=t[i].电话;
+                            }else{
+                                obj.phone='无';
+                            }
+                            if(t[i].年龄!==undefined){
+                                obj.age=t[i].年龄;
+                            }else{
+                                obj.age='无';
+                            }
+                            if(t[i].身份证!==undefined){
+                                obj.idCard=t[i].身份证;
+                            }else{
+                                obj.idCard='无';
+                            }
+                            if(t[i].邮箱!==undefined){
+                                obj.email=t[i].邮箱;
+                            }else{
+                                obj.email='无';
+                            }
+                            if(t[i].地址!==undefined){
+                                obj.address=t[i].地址;
+                            }else{
+                                obj.address='无';
+                            }
+                            if(t[i].备注!==undefined){
+                                obj.remark=t[i].备注;
+                            }else{
+                                obj.remark='无';
+                            }
+                            jsonOverride.push(obj);
+                            console.log("studentName:"+jsonOverride[i].studentName)
+                        }
+                        app.JsonOverride=jsonOverride;
+
+                        for (var i = 0; i < jsonOverride.length; i++) {
+
+                             // 当t[i].属性名 的值是空的时候会显示undfind
+                             $(".tableTbody").append("" +
+                                 "<tr class='stuExcelTr'><td scope='row'>"+i+"</td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].studentName+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].studentPassword+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].emergencyNumber+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].phone+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].age+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].idCard+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].email+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].address+"</p></td>" +
+                                 "<td><p class='p-center'>"+jsonOverride[i].remark+"</p></td>" +
+
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].studentName+" name="+tmpHead[0]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].studentPassword+" name="+tmpHead[1]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].emergencyNumber+" name="+tmpHead[3]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].phone+" name="+tmpHead[4]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].age+" name="+tmpHead[5]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].idCard+" name="+tmpHead[6]+"> </p></td>"+
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].email+" name="+tmpHead[7]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].address+" name="+tmpHead[8]+"> </p></td>" +
+//                                 "<td><p class='p-center'><input style='border: 0px;width: 100px' type='text' value="+jsonOverride[i].remark+" name="+tmpHead[9]+"> </p></td>" +
+
+                                 "</tr>")
+                         }
+                    }
+                });
+            } else {
+                alert("格式错误！请重新选择");
+            }
+        }
+    }
+    var wb; //读取完成的数据　
+    function file2Xce(f) {
+        return new Promise(function (resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var data = e.target.result;
+                if (app.rABS) {
+                    wb = XLSX.read(btoa(fixdata(data)), { //手动转化
+                        type: 'base64'
+                    });
+                } else {
+                    wb = XLSX.read(data, {
+                        type: 'binary'
+                    });
+                }
+                resolve(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+            };
+            if (app.rABS) {
+                reader.readAsArrayBuffer(f);
+            } else {
+                reader.readAsBinaryString(f);
+            }
+        });
+    };
+
+    function fixdata(data) { //文件流转BinaryString
+        var o = "",
+            l = 0,
+            w = 10240;
+        for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+        return o;
+    }
+
+
+</script>
+
+<script>
+//    function insertExcelStu() {
+////     var tbodyarr= $(".tableTbody");
+////     var stuExcelTr=$(".stuExcelTr")
+////        for (var i = 0; i < tbodyarr.length; i++) {
+////            console.log(tbodyarr[i])
+////        }
+////        for (var i = 0; i < stuExcelTr.length; i++) {
+////           console.log(stuExcelTr[i]);
+////        }
+//    }
+
+    $(function () {
+        $.post("http://localhost:8080/classInfo/selClass.do", {}, function (result) {
+            console.log("返回的下拉框Json数据:" + result);
+            for (var i = 0; i < result.length; i++) {
+                console.log(result[i].className);
+                $("#tjClassId").append("<option value=" +  result[i].classId + ">" + result[i].className + "</option>");
+                $("#addClassId").append("<option value=" +  result[i].classId + ">" + result[i].className + "</option>");
+                $("#updClassId").append("<option value=" +  result[i].classId + ">" + result[i].className + "</option>");
+                $("#shiftClassId").append("<option value=" +  result[i].classId + ">" + result[i].className + "</option>");
+            }
+            $('#tjClassId').selectpicker('refresh');
+            $('#addClassId').selectpicker('refresh');
+            $('#updClassId').selectpicker('refresh');
+            $('#shiftClassId').selectpicker('refresh');
+        }, "json")
+    })
+    $(function () {
+        $(".icon-Location").mouseover(function(){
+            console.log("aaa")
+            $("#upd_studentPassword").attr("type","text");
+            $("#add_studentPassword").attr("type","text");
+
+        }).mouseout(function (){
+            $("#upd_studentPassword").attr("type","password");
+            $("#add_studentPassword").attr("type","password");
+        });
+    })
+
+
+    $(function () {
+        $(':checkbox').labelauty();
+//        $("tr").click(function () {
+//            if ($(this).find(":input")[0].checked == false) {
+//                $(this).find(":input")[0].checked = true
+//            } else {
+//                $(this).find(":input")[0].checked = false;
+//            }
+//        });
+    });
+    $("#selectAll").bind("click",function(){
+        if($(this).prop("checked")){
+            $("input[type='checkbox']").not(this).prop("checked",true);
+        }else{
+            $("input[type='checkbox']").not(this).prop("checked",false);
+        }
+    });
+
+
+
+
+</script>
+<script>
+    /*!
+     * LABELAUTY jQuery Plugin
+     *
+     * @file: jquery-labelauty.js
+     * @author: Francisco Neves (@fntneves)
+     * @site: www.francisconeves.com
+     * @license: MIT License
+     */
+
+    (function ($) {
+
+        $.fn.labelauty = function (options) {
+            /*
+             * Our default settings
+             * Hope you don't need to change anything, with these settings
+             */
+            var settings = $.extend(
+                {
+                    // Development Mode
+                    // This will activate console debug messages
+                    development: false,
+
+                    // Trigger Class
+                    // This class will be used to apply styles
+                    class: "labelauty",
+
+                    // Use text label ?
+                    // If false, then only an icon represents the input
+                    label: true,
+
+                    // Separator between labels' messages
+                    // If you use this separator for anything, choose a new one
+                    separator: "|",
+
+                    // Default Checked Message
+                    // This message will be visible when input is checked
+                    checked_label: "Checked",
+
+                    // Default UnChecked Message
+                    // This message will be visible when input is unchecked
+                    unchecked_label: "Unchecked",
+
+                    // Minimum Label Width
+                    // This value will be used to apply a minimum width to the text labels
+                    minimum_width: false,
+
+                    // Use the greatest width between two text labels ?
+                    // If this has a true value, then label width will be the greatest between labels
+                    same_width: true
+                }, options);
+
+            /*
+             * Let's create the core function
+             * It will try to cover all settings and mistakes of using
+             */
+            return this.each(function () {
+                var $object = $(this);
+                var use_labels = true;
+                var labels;
+                var labels_object;
+                var input_id;
+
+                // Test if object is a check input
+                // Don't mess me up, come on
+                if ($object.is(":checkbox") === false && $object.is(":radio") === false)
+                    return this;
+
+                // Add "labelauty" class to all checkboxes
+                // So you can apply some custom styles
+                $object.addClass(settings.class);
+
+                // Get the value of "data-labelauty" attribute
+                // Then, we have the labels for each case (or not, as we will see)
+                labels = $object.attr("data-labelauty");
+
+                use_labels = settings.label;
+
+                // It's time to check if it's going to the right way
+                // Null values, more labels than expected or no labels will be handled here
+                if (use_labels === true) {
+                    if (labels == null || labels.length === 0) {
+                        // If attribute has no label and we want to use, then use the default labels
+                        labels_object = new Array();
+                        labels_object[0] = settings.unchecked_label;
+                        labels_object[1] = settings.checked_label;
+                    }
+                    else {
+                        // Ok, ok, it's time to split Checked and Unchecked labels
+                        // We split, by the "settings.separator" option
+                        labels_object = labels.split(settings.separator);
+
+                        // Now, let's check if exist _only_ two labels
+                        // If there's more than two, then we do not use labels :(
+                        // Else, do some additional tests
+                        if (labels_object.length > 2) {
+                            use_labels = false;
+                            debug(settings.development, "There's more than two labels. LABELAUTY will not use labels.");
+                        }
+                        else {
+                            // If there's just one label (no split by "settings.separator"), it will be used for both cases
+                            // Here, we have the possibility of use the same label for both cases
+                            if (labels_object.length === 1)
+                                debug(settings.development, "There's just one label. LABELAUTY will use this one for both cases.");
+                        }
+                    }
+                }
+
+                /*
+                 * Let's begin the beauty
+                 */
+
+                // Start hiding ugly checkboxes
+                // Obviously, we don't need native checkboxes :O
+                $object.css({display: "none"});
+
+                // We don't need more data-labelauty attributes!
+                // Ok, ok, it's just for beauty improvement
+                $object.removeAttr("data-labelauty");
+
+                // Now, grab checkbox ID Attribute for "label" tag use
+                // If there's no ID Attribute, then generate a new one
+                input_id = $object.attr("id");
+
+                if (input_id == null) {
+                    var input_id_number = 1 + Math.floor(Math.random() * 1024000);
+                    input_id = "labelauty-" + input_id_number;
+
+                    // Is there any element with this random ID ?
+                    // If exists, then increment until get an unused ID
+                    while ($(input_id).length !== 0) {
+                        input_id_number++;
+                        input_id = "labelauty-" + input_id_number;
+                        debug(settings.development, "Holy crap, between 1024 thousand numbers, one raised a conflict. Trying again.");
+                    }
+
+                    $object.attr("id", input_id);
+                }
+
+                // Now, add necessary tags to make this work
+                // Here, we're going to test some control variables and act properly
+                $object.after(create(input_id, labels_object, use_labels));
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.minimum_width !== false)
+                    $object.next("label[for=" + input_id + "]").css({"min-width": settings.minimum_width});
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.same_width != false && settings.label == true) {
+                    var label_object = $object.next("label[for=" + input_id + "]");
+                    var unchecked_width = getRealWidth(label_object.find("span.labelauty-unchecked"));
+                    var checked_width = getRealWidth(label_object.find("span.labelauty-checked"));
+
+                    if (unchecked_width > checked_width)
+                        label_object.find("span.labelauty-checked").width(unchecked_width);
+                    else
+                        label_object.find("span.labelauty-unchecked").width(checked_width);
+                }
+            });
+        };
+
+        /*
+         * Tricky code to work with hidden elements, like tabs.
+         * Note: This code is based on jquery.actual plugin.
+         * https://github.com/dreamerslab/jquery.actual
+         */
+        function getRealWidth(element) {
+            var width = 0;
+            var $target = element;
+            var style = 'position: absolute !important; top: -1000 !important; ';
+
+            $target = $target.clone().attr('style', style).appendTo('body');
+            width = $target.width(true);
+            $target.remove();
+
+            return width;
+        }
+
+        function debug(debug, message) {
+            if (debug && window.console && window.console.log)
+                window.console.log("jQuery-LABELAUTY: " + message);
+        };
+
+        function create(input_id, messages_object, label) {
+            var block;
+            var unchecked_message;
+            var checked_message;
+
+            if (messages_object == null)
+                unchecked_message = checked_message = "";
+            else {
+                unchecked_message = messages_object[0];
+
+                // If checked message is null, then put the same text of unchecked message
+                if (messages_object[1] == null)
+                    checked_message = unchecked_message;
+                else
+                    checked_message = messages_object[1];
+            }
+
+            if (label == true) {
+
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+            else {
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+
+            return block;
+        };
+
+    }(jQuery));
+
+</script>
+
+</html>
+

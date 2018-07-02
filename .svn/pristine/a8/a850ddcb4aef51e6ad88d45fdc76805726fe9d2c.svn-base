@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+</head>
+<style>
+    table tr td a, table tr {
+        cursor: pointer;
+        text-align: center;
+    }
+
+    table th {
+        text-align: center;
+    }
+
+    input.labelauty + label {
+        display: inline-table;
+    !important;
+    }
+
+    .form-group {
+        display: inline-block;
+
+    }
+
+    .chufa {
+        background-color: rgba(255, 250, 248, 0);
+        transition: all 1s;
+    }
+
+    .chufa:hover {
+        background-color: #f26e0d;
+    }
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+    tr, td {
+        transition: all .5s;
+    }
+
+    .table-hover > tbody > tr:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+
+</style>
+<body>
+<div style="padding: 0 5%" id="app">
+    <div style="margin: 0 auto;display: block">
+        <form id="formPaper" name="formPaper" method="post" style="margin-top:2%;width: 100%;background-color: #ffffff">
+            <div class="form-group" style="width: 200px">
+                <label for="classNames">班级</label>
+                <select id="classNames" name="classId" class="form-control selectpicker" onchange="homeWorks()"
+                        data-live-search="true"
+                        placeholder="请选择班级">
+                    <option value="-1">请选择</option>
+                </select><br/>
+            </div>
+            <div class="form-group" style="width: 200px">
+                <label for="workName">作业名称</label>
+                <select onchange="checkHomeWorks()" id="workName" name="workId" class="form-control selectpicker "
+                        data-live-search="true"
+                        placeholder="请选择班级">
+
+                </select><br/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn  btn-primary  radius" id="btnAvg">
+                    <i class="Hui-iconfont">&#xe69d;</i> 参考依据
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success radius" id="btnOk">
+                    <i class="Hui-iconfont" onclick="batchOK()">&#xe6df;</i> 批量完成
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn  btn-danger radius" id="btnNoOk">
+                    <i class="Hui-iconfont" onclick="batchON()">&#xe6df;</i> 批量未完成
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <table id="zidong" class="table table-hover ">
+
+        <thead id="one_th" style="width: 100%;">
+        <tr class="text-c" id="one_tr">
+            <th width="5%">编号</th>
+            <th width="8%">学生姓名</th>
+            <th width="10%">作业用时(分钟)</th>
+            <th width="10%">字符总数(个)</th>
+            <th width="10%">作业截图(张)</th>
+            <th width="10%">复制次数(次)</th>
+            <th width="10%">作业日志(条)</th>
+            <th width="10%">完成状态</th>
+            <th width="25%">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- 提示 -->
+<div class="modal fade" id="myError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     style="margin-top: 15%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myErrorLabel">警告</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;font-size: 20px;font-weight: bold;"
+                 id="Error_body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 提示 -->
+<div class="modal fade" id="myTitle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     style="margin-top: 15%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myTitleLabel">警告</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;font-size: 20px;font-weight: bold;"
+                 id="Title_body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="title_ON" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-success" id="title_OK">继续</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--ajax定义的方法-->
+<script>
+    /*初始化班级*/
+    initClassName = function () {
+
+        $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", "teacherId=" + localStorage.getItem("id"), function (result) {
+            var html = "";
+            for (var i = 0; i < result.classList.length; i++) {
+                var obj = result.classList[i];
+                html += "<option value='" + obj.classId + "'>" + obj.className + "</option>"
+            }
+            $("#classNames option:gt(0)").remove();
+            $("#classNames").append(html);
+            $("#classNames").selectpicker('refresh');
+        }, "json");
+    }
+    /*联动时选择课程名称并绑定表格数据*/
+    homeWorks = function () {
+        $.post("http://localhost:8080/homework/classId.do", {"classId": $("#classNames option:checked").val()}, function (result) {
+            var html = "";
+            for (var i = 0; i < result.length; i++) {
+                var obj = result[i];
+                html += "<option value='" + obj.workid + "'>" + obj.workname + "</option>"
+            }
+            $("#workName option").remove();
+            $("#workName").append(html);
+            $("#workName").selectpicker('refresh');
+            checkHomeWorks();
+        }, "json");
+    }
+    /*绑定表格数据*/
+    checkHomeWorks = function () {
+        let param = $("#formPaper").serialize();
+        $.post("http://localhost:8080/student/selectStudentByCheckHomeWork", param, function (result) {
+            var html = " <tbody>";
+            var isOK = "";
+            for (var i = 0; i < result.length; i++) {
+                var obj = result[i];
+                if (obj.isComplete == 0||obj.isComplete==null||obj.isComplete=='') {
+                    isOK = "未检查"
+                } else if (obj.isComplete == 1) {
+                    isOK = "完成"
+                } else if (obj.isComplete == 2) {
+                    isOK = "未完成"
+                }
+                html += "       <tr >" +
+                    "<td class='gun-scusses'><span style='line-height: 13px'><input type='checkbox' name='homrwork' value='" + obj.historyID + "'>" + obj.studentId + "</span></td>" +
+                    "<td class='gun-scusses '>" + obj.studentName + "</td>" +
+                    "<td class='gun-scusses shijian'>" + obj.diffDate + "</td>" +
+                    "<td class='gun-scusses zifu'>" + obj.wordCount + "</td>" +
+                    "<td class='gun-scusses jietu' >" + obj.imgCount + "</td>" +
+                    "<td class='gun-scusses fuzhi'>" + obj.copyCount + "</td>" +
+                    "<td class='gun-scusses rizhi'>" + obj.logCount + "</td>" +
+                    "<td class='gun-scusses zhuangtai'>" + isOK + "</td>" +
+                    "<td class='gun-scusses'> " +
+                    "<a href='check_homework_info.html' target='_blank' onclick='check_homework_info(" + obj.studentId + ")' class='btn btn-xs btn-primary'><i class='iconfont icon-yulan'></i>查看</a>  " +
+                    "<button class='btn btn-xs btn-success' href='#' onclick='isOK(" + obj.historyID + ")' ><i class='Hui-iconfont'>&#xe615;</i>完成</button>  " +
+                    "<button class='btn btn-xs btn-danger'onclick='isON(" + obj.historyID + ")' ><i class='Hui-iconfont'>&#xe631;</i>未完成</button> " +
+                    "</td>" +
+                    "</tr>"
+            }
+            html += "</tbody>"
+            $("#zidong tr:gt(0)").remove();
+            $("#zidong").append(html);
+            $("#workName").selectpicker('refresh');
+            $(':checkbox').labelauty();
+            $(function () {
+                $("tr").click(function () {
+                    $(this).find(":input")[0].checked = !$(this).find(":input")[0].checked;
+                });
+                $("table tr .btn").click(function (event) {
+                    event.stopPropagation();
+                });
+            })
+        }, "json");
+    }
+
+    /**
+     * 修改作业完成的状态
+     * @param id 历史作业的编号
+     * @param isOK 历史作业的状态
+     */
+    function edit_isComplete(id, isOK) {
+        var ok = "";
+        var color = "";
+        if (isOK == 1) {
+            ok = "完成"
+            color = "#adffa4"
+        } else {
+            ok = "未完成"
+            color = "#ffacb0"
+        }
+        $.post("http://localhost:8080/workhistory/isen.do", {"id": id, "value": isOK}, function (result) {
+
+        }, "json");
+        let tr = $("input[value='" + id + "']").parents()[2];
+        $(tr).children(".zhuangtai").text(ok)
+        $(tr).css("background-color", color);
+    }
+
+    /**
+     * 修改状态为完成的状态
+     * @param id 历史作业的编号
+     */
+    isOK = function (id) {
+        edit_isComplete(id, 1)
+    }
+    /**
+     * 修改状态为未完成的状态
+     * @param id 历史作业的编号
+     */
+    isON = function (id) {
+        edit_isComplete(id, 2)
+    }
+    /**
+     * 根据学生编号等信息去查该学生的作业截图
+     * @param studentId 学生信息编号
+     */
+    check_homework_info = function (studentId) {
+        sessionStorage.setItem("studentId", studentId)
+        sessionStorage.setItem("classId", $("#classNames option:checked").val())
+        sessionStorage.setItem("workId", $("#workName option:checked").val())
+    }
+    /**
+     * 根据参数给出提示并修改状态
+     * @param isOK_text 提示内容
+     * @param isOK 修改状态为完成或未完成
+     * @param btn button触发时间的id
+     */
+    batchOK_ON = function (isOK_text, isOK, btn) {
+        if ($("input[name='homrwork']:checked").val() == undefined) {
+            $("#Error_body").text("请选择学生!!");
+            $("#" + btn + "").attr('data-toggle', "modal")
+            $("#" + btn + "").attr('data-target', "#myError")
+            $('tr').unbind().click(function () {
+                // console.log("看我重复多少次");
+            })
+            $("tr").click(function () {
+                $(this).find(":input")[0].checked = !$(this).find(":input")[0].checked;
+            });
+        } else if ($("input[name='homrwork']:checked").val() != undefined) {
+            $("#Title_body").text("是否批量" + isOK_text + "?");
+            $("#" + btn + "").attr('data-target', "#myTitle");
+            $("#" + btn + "").attr('data-toggle', "modal")
+            $("#title_ON").click(function () {
+                $('tr').unbind().click(function () {
+                    // console.log("看我重复多少次");
+                })
+                $("tr").click(function () {
+                    $(this).find(":input")[0].checked = !$(this).find(":input")[0].checked;
+                });
+            });
+            $('#title_OK').unbind().click(function () {
+                // console.log("看我重复多少次");
+            })
+            $("#title_OK").click(function () {
+                $('#myTitle').modal('hide')
+
+                for (var i = 0; i < $("input[name='homrwork']:checked").length; i++) {
+                    edit_isComplete($("input[name='homrwork']:checked:eq('" + i + "')").val(), isOK)
+                    console.log($("input[name='homrwork']")[i])
+                }
+                console.log($("input[name='homrwork']").length);
+                for (var i = 0; i < $("input[name='homrwork']").length; i++) {
+                    var obj = $("input[name='homrwork']")[i];
+                    $("tr").find(":checkbox")[i].checked = false
+                }
+                $('tr').unbind().click(function () {
+                    // console.log("看我重复多少次");
+                })
+                $("tr").click(function () {
+                    $(this).find(":input")[0].checked = !$(this).find(":input")[0].checked;
+                });
+            });
+        }
+    }
+
+</script>
+<!--调用方法-->
+<script>
+    $(function () {
+        $('#zidong :checkbox').labelauty();
+        //单机条目选中复选框
+        $("tr").click(function () {
+            $(this).find(":input")[0].checked = !$(this).find(":input")[0].checked;
+        });
+        $("#btnAvg").click(function () {
+            var lv = "#adffa4";
+            var hong = "#ffacb0";
+            var tr = $("tr");
+            var shiJian = [];
+            var ziFu = [];
+            var jieTu = [];
+            var avgShiJian = 0;
+            var avgZiFu = 0;
+            var avgJieTu = 0;
+            if ($("input[name='homrwork']:checked").val() == undefined) {
+                $("#Error_body").text("请选择学生!!");
+                $("#btnAvg").attr('data-toggle', "modal")
+                $("#btnAvg").attr('data-target', "#myError")
+            } else {
+                $("#btnAvg").attr('data-target', "#my")
+                for (var i = 1; i < tr.length; i++) {
+                    //更改tr的颜色以及拿到文本并添加到数组中
+                    $(tr[i]).css("background-color", "#ffffff");
+                    if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == true) {
+                        $(tr[i]).css("background-color", "#fff9b8");
+                        edit_isComplete($(tr[i]).children().children().children().val(), 1)
+                        $(tr[i]).children(".zhuangtai").text("已完成")
+                        shiJian.push($(tr[i]).children(".shijian").text());
+                        ziFu.push($(tr[i]).children(".zifu").text());
+                        jieTu.push($(tr[i]).children(".jietu").text());
+                    }
+                }
+                //循环相加结果
+                for (var i = 0; i < shiJian.length; i++) {
+                    avgShiJian += parseInt(shiJian[i]);
+                    avgZiFu += parseInt(ziFu[i]);
+                    avgJieTu += parseInt(jieTu[i]);
+                }
+                //计算平均分
+                avgShiJian = Math.floor(avgShiJian / shiJian.length + 1);
+                avgZiFu = Math.floor(avgZiFu / ziFu.length + 1);
+                avgJieTu = Math.floor(avgJieTu / jieTu.length + 1);
+                for (var i = 1; i < tr.length; i++) {
+                    //更改tr的颜色以及拿到文本并添加到数组中
+                    if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == false) {
+                        //算时间
+                        if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                            (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                            (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)
+                        ) {
+                            $(tr[i]).css("background-color", lv);
+                        } else {
+                            $(tr[i]).css("background-color", hong);
+                        }
+
+                        if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                            (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                            (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)) {
+                            edit_isComplete($(tr[i]).children().children().children().val(), 1)
+                            $(tr[i]).children(".zhuangtai").text("已完成")
+                        } else {
+                            edit_isComplete($(tr[i]).children().children().children().val(), 2)
+                            $(tr[i]).children(".zhuangtai").text("未完成")
+                        }
+                    }
+                    $("tr").find(":checkbox")[i - 1].checked = false
+                }
+
+            }
+
+        });
+
+    });
+    $(function () {
+        initClassName();
+        $("#btnOk").click(function () {
+            $("tr").unbind();
+            batchOK_ON("完成", 1, "btnOk");
+
+        });
+        $("#btnNoOk").click(function () {
+            $("tr").unbind();
+            batchOK_ON("未完成", 2, "btnNoOk")
+        });
+    })
+    /*冻结条件*/
+    window.onload = function () {
+        var oDiv = document.getElementById('formPaper');
+        var oTh = document.getElementById('one_th');
+
+        var oTable = document.getElementById("zidong");
+        var divT = oDiv.offsetTop;
+        var oTable_Margin_top = oDiv.offsetHeight;
+        //console.log(divT);
+        window.onscroll = function () {
+            // 获取当前页面的滚动条纵坐标位置 （依次为火狐谷歌、safari、IE678）
+            var scrollT = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+            if (scrollT >= divT) {
+                if (window.navigator.userAgent.indexOf('MSIE 6.0') != -1) {
+                    // 兼容IE6代码
+                    oDiv.style.position = 'absolute';
+                    oDiv.style.top = scrollT + 'px';
+                    oDiv.style.left = 0 + 'px';
+                    oDiv.style.padding = "0 5%";
+                    oTable.style.marginTop = (oTable_Margin_top) + "px"
+                } else {
+                    // 正常浏览器代码
+                    oDiv.style.position = 'fixed';
+                    oDiv.style.top = 0;
+                    oDiv.style.left = 0;
+                    oDiv.style.padding = "0 5%";
+                    oTable.style.marginTop = (oTable_Margin_top) + "px"
+                }
+            } else
+                oDiv.style.position = null;
+        }
+    }
+</script>
+<script>
+    /*!
+     * LABELAUTY jQuery Plugin
+     *
+     * @file: jquery-labelauty.js
+     * @author: Francisco Neves (@fntneves)
+     * @site: www.francisconeves.com
+     * @license: MIT License
+     */
+
+    (function ($) {
+
+        $.fn.labelauty = function (options) {
+            /*
+             * Our default settings
+             * Hope you don't need to change anything, with these settings
+             */
+            var settings = $.extend(
+                {
+                    // Development Mode
+                    // This will activate console debug messages
+                    development: false,
+
+                    // Trigger Class
+                    // This class will be used to apply styles
+                    class: "labelauty",
+
+                    // Use text label ?
+                    // If false, then only an icon represents the input
+                    label: true,
+
+                    // Separator between labels' messages
+                    // If you use this separator for anything, choose a new one
+                    separator: "|",
+
+                    // Default Checked Message
+                    // This message will be visible when input is checked
+                    checked_label: "Checked",
+
+                    // Default UnChecked Message
+                    // This message will be visible when input is unchecked
+                    unchecked_label: "Unchecked",
+
+                    // Minimum Label Width
+                    // This value will be used to apply a minimum width to the text labels
+                    minimum_width: false,
+
+                    // Use the greatest width between two text labels ?
+                    // If this has a true value, then label width will be the greatest between labels
+                    same_width: true
+                }, options);
+
+            /*
+             * Let's create the core function
+             * It will try to cover all settings and mistakes of using
+             */
+            return this.each(function () {
+                var $object = $(this);
+                var use_labels = true;
+                var labels;
+                var labels_object;
+                var input_id;
+
+                // Test if object is a check input
+                // Don't mess me up, come on
+                if ($object.is(":checkbox") === false && $object.is(":radio") === false)
+                    return this;
+
+                // Add "labelauty" class to all checkboxes
+                // So you can apply some custom styles
+                $object.addClass(settings.class);
+
+                // Get the value of "data-labelauty" attribute
+                // Then, we have the labels for each case (or not, as we will see)
+                labels = $object.attr("data-labelauty");
+
+                use_labels = settings.label;
+
+                // It's time to check if it's going to the right way
+                // Null values, more labels than expected or no labels will be handled here
+                if (use_labels === true) {
+                    if (labels == null || labels.length === 0) {
+                        // If attribute has no label and we want to use, then use the default labels
+                        labels_object = new Array();
+                        labels_object[0] = settings.unchecked_label;
+                        labels_object[1] = settings.checked_label;
+                    }
+                    else {
+                        // Ok, ok, it's time to split Checked and Unchecked labels
+                        // We split, by the "settings.separator" option
+                        labels_object = labels.split(settings.separator);
+
+                        // Now, let's check if exist _only_ two labels
+                        // If there's more than two, then we do not use labels :(
+                        // Else, do some additional tests
+                        if (labels_object.length > 2) {
+                            use_labels = false;
+                            debug(settings.development, "There's more than two labels. LABELAUTY will not use labels.");
+                        }
+                        else {
+                            // If there's just one label (no split by "settings.separator"), it will be used for both cases
+                            // Here, we have the possibility of use the same label for both cases
+                            if (labels_object.length === 1)
+                                debug(settings.development, "There's just one label. LABELAUTY will use this one for both cases.");
+                        }
+                    }
+                }
+
+                /*
+                 * Let's begin the beauty
+                 */
+
+                // Start hiding ugly checkboxes
+                // Obviously, we don't need native checkboxes :O
+                $object.css({display: "none"});
+
+                // We don't need more data-labelauty attributes!
+                // Ok, ok, it's just for beauty improvement
+                $object.removeAttr("data-labelauty");
+
+                // Now, grab checkbox ID Attribute for "label" tag use
+                // If there's no ID Attribute, then generate a new one
+                input_id = $object.attr("id");
+
+                if (input_id == null) {
+                    var input_id_number = 1 + Math.floor(Math.random() * 1024000);
+                    input_id = "labelauty-" + input_id_number;
+
+                    // Is there any element with this random ID ?
+                    // If exists, then increment until get an unused ID
+                    while ($(input_id).length !== 0) {
+                        input_id_number++;
+                        input_id = "labelauty-" + input_id_number;
+                        debug(settings.development, "Holy crap, between 1024 thousand numbers, one raised a conflict. Trying again.");
+                    }
+
+                    $object.attr("id", input_id);
+                }
+
+                // Now, add necessary tags to make this work
+                // Here, we're going to test some control variables and act properly
+                $object.after(create(input_id, labels_object, use_labels));
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.minimum_width !== false)
+                    $object.next("label[for=" + input_id + "]").css({"min-width": settings.minimum_width});
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.same_width != false && settings.label == true) {
+                    var label_object = $object.next("label[for=" + input_id + "]");
+                    var unchecked_width = getRealWidth(label_object.find("span.labelauty-unchecked"));
+                    var checked_width = getRealWidth(label_object.find("span.labelauty-checked"));
+
+                    if (unchecked_width > checked_width)
+                        label_object.find("span.labelauty-checked").width(unchecked_width);
+                    else
+                        label_object.find("span.labelauty-unchecked").width(checked_width);
+                }
+            });
+        };
+
+        /*
+         * Tricky code to work with hidden elements, like tabs.
+         * Note: This code is based on jquery.actual plugin.
+         * https://github.com/dreamerslab/jquery.actual
+         */
+        function getRealWidth(element) {
+            var width = 0;
+            var $target = element;
+            var style = 'position: absolute !important; top: -1000 !important; ';
+
+            $target = $target.clone().attr('style', style).appendTo('body');
+            width = $target.width(true);
+            $target.remove();
+
+            return width;
+        }
+
+        function debug(debug, message) {
+            if (debug && window.console && window.console.log)
+                window.console.log("jQuery-LABELAUTY: " + message);
+        };
+
+        function create(input_id, messages_object, label) {
+            var block;
+            var unchecked_message;
+            var checked_message;
+
+            if (messages_object == null)
+                unchecked_message = checked_message = "";
+            else {
+                unchecked_message = messages_object[0];
+
+                // If checked message is null, then put the same text of unchecked message
+                if (messages_object[1] == null)
+                    checked_message = unchecked_message;
+                else
+                    checked_message = messages_object[1];
+            }
+
+            if (label == true) {
+
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+            else {
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+
+            return block;
+        };
+
+    }(jQuery));
+
+</script>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .ok {
+            background-color: #adffa4;
+        }
+
+        .no {
+            background-color: #ffacb0;
+        }
+
+        .form-group {
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+            font-size: 12px;
+        }
+
+        #table {
+            width: 100%;
+            height: 600px;
+            overflow: auto;
+        }
+
+        table tr td {
+            width: 35px;
+        }
+    </style>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="jedate/jedate.js"></script>
+
+</head>
+<body style="padding: 0 5%;height: 100%">
+<div style="margin-top: 1%; display: block">
+    <form id="formPaper" name="formPaper" method="post">
+        <div class="form-group" style="width: 12%;">
+            <label for="classId">班级</label>
+            <select id="classId" name="classId" class="form-control selectpicker " data-live-search="true"
+                    style="width: 110px;margin-bottom: 1%" placeholder="请选择班级">
+                <option value="">请选择</option>
+                <option value="1">TCMP058--1</option>
+                <option value="2">TCMP058--2</option>
+            </select><br/>
+        </div>
+        <div class="form-group" style="display: inline-block;">
+            <label style="display: inline-block;">开始时间</label>
+            <input type="text" readonly style="background-color: #fff;width: 120px" id="dateinfo" name="testDate"
+                   class="  form-control" placeholder="请选择时间"
+                   style=" width: 120px;">
+        </div>
+        <div class="form-group" style="display: inline-block;">
+            <label>—</label>
+        </div>
+        <div class="form-group" style="display: inline-block;">
+            <label style="display: inline-block;">结束时间</label>
+            <input type="text" readonly style="background-color: #fff;width: 120px" id="dateinfo2" name="endDate"
+                   placeholder="请选择时间" class="form-control"
+                   style=" width: 120px;">
+        </div>
+        <div class="form-group" style="width: 25%;display: inline-block">
+            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+            <button type="button" style="display: inline-block;margin-bottom: 2%" class="btn btn-success radius"
+                    id="btnQuery"
+                    @click="btnQuery()">
+                <i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+        </div>
+    </form>
+</div>
+<div id="app">
+    <div id="table" style="width:100%;">
+
+        <!--<table class="table table-hover table-bordered" id="noticeInfo">-->
+        <!--<span v-for="(item,index) in studentListMonth[dataIndex]">-->
+        <!--{{item.createDate}}-->
+        <!--</span>-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<td></td>-->
+        <!--<td v-for="(item,index) in studentListMonth[dataIndex]"> <span>{{item.createDate}}</span></td>-->
+
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr  v-for="(item,indexM) in studentListMonth">-->
+        <!--<td v-text="item[0].studentID"></td>-->
+
+        <!--<td v-for="(items,index) in studentListMonth[dataIndex]" > 1</td>-->
+
+
+        <!--</tr>-->
+        <!--</tbody>-->
+
+
+        <!--</table>-->
+        <table class="table table-hover table-bordered" id="noticeInfo">
+
+        </table>
+    </div>
+</div>
+</body>
+<script src="js/vue.js"></script>
+
+<script type="text/javascript">
+    //jeDate.skin('gray');
+    jeDate({
+        dateCell: "#dateinfo",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-18",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+    jeDate({
+        dateCell: "#dateinfo2",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+
+    //alert("YYYY/MM".match(/\w+|d+/g).join("-"))
+</script>
+
+<script>
+    /**
+     * 初始化绑定班级
+     */
+    initClassName = function () {
+        $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", "teacherId=" + localStorage.getItem("id"), function (result) {
+            var html = "";
+            for (var i = 0; i < result.classList.length; i++) {
+                var obj = result.classList[i];
+                html += "<option   value='" + obj.classId + "'>" + obj.className + "</option>"
+            }
+            $("#classId option:gt(0)").remove();
+            $("#classId").append(html);
+            $("#classId").selectpicker('refresh');
+        }, "json");
+    }
+    $(function () {
+        initClassName();
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "H+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+
+
+        $("#btnQuery").click(function () {
+            //起始时间
+            var start = $("#dateinfo").val();
+            //结束时间
+            var end = $("#dateinfo2").val();
+            start = start.replace(/-/g, "/");
+            var startdate = new Date(start);
+            end = end.replace(/-/g, "/");
+            var enddate = new Date(end);
+            var time = enddate.getTime() - startdate.getTime();
+            //计算时间差
+            var days = parseInt(time / (1000 * 60 * 60 * 24));
+            //拿到起始时间
+            var date = new Date($("#dateinfo").val());
+            var head_date = "<thead> <tr> <td>                      </td> ";
+            var arr = [];
+            var date_info = new Date($("#dateinfo").val());
+            $.post("http://localhost:8080/student/selectStudentByClassId", {"classId": $("#classId option:checked").val()}, function (res) {
+                //取出所有学生信息存进数组
+                for (var i = 0; i < res.length; i++) {
+                    arr.push({"name": res[i].studentName, "id": res[i].studentID});
+                }
+
+                //遍历首行时间段
+                for (var i = 0; i < days + 1; i++) {
+                    var obj = days[i];
+                    //格式化时间
+                    var datenew = date.Format("MM-dd")
+                    head_date += " <td>" + datenew + "</td>"
+                    //给时间重新赋值
+                    date.setDate(date.getDate() + 1);
+                }
+                head_date += "</tr>  </thead>";
+                //追加
+                $("#noticeInfo tr").remove();
+                $("#noticeInfo").append(head_date);
+
+                //遍历身体
+                for (var i = 0; i < arr.length; i++) {
+                    //遍历身体的tr
+                    var body = "  <tbody> <tr>";
+                    $.ajaxSettings.async = false;
+                    $.post("http://localhost:8080/workhistory/where.do", {
+                        // "studentId":arr[i].id,
+                        "studentId": arr[i].id,
+                        "beginDate": $("#dateinfo").val(),
+                        "endDate": $("#dateinfo2").val()
+                    }, function (res) {
+                        for (var j = 0; j < days + 2; j++) {
+                            //遍历td 也就是学生信息  添加该学生是否完成作业
+                            if (j > 0) {
+                                //循环处理请求
+                                var flag = false;
+                                //拿到改学生的作业信息 循环进行逻辑判断
+                                for (var q = 0; q < res.length; q++) {
+                                    var obj = res[q];
+                                    //如果在今天有作业 记录一下 添加tr
+                                    if (new Date(obj.createDate).Format("yyyy-MM-dd") == date_info.Format("yyyy-MM-dd")) {
+                                        if(obj.isComplete==1){
+                                            body += "<td class='ok' title='"+obj.workname+"'> " + "  是" + "</td>";
+                                        }else if(obj.isComplete==2){
+                                            body += "<td class='no' title='"+obj.workname+"'> " + "  否" + "</td>";
+                                        }else{
+                                            body += "<td title='"+obj.workname+"'> " + "  未检查" + "</td>";
+                                        }
+                                        flag = true;
+                                    }
+                                }
+                                //如果他没有改作业 写入空
+                                if (!flag) {
+                                    body += "<td > " + "  " + "</td>";
+                                }
+                                //增加一天时间
+                                date_info.setDate(date_info.getDate() + 1)
+                            } else {
+                                //如果是第一次进来 就添加姓名
+                                body += "<td value='" + arr[i].id + "'> " + arr[i].name + "</td> ";
+                            }
+                        }
+                    }, "json")
+
+                    //追加tr
+                    date_info = new Date($("#dateinfo").val());
+                    body += "</tr>   </tbody>"
+                    $("#noticeInfo").append(body);
+                    body = "";
+                }
+            }, "json")
+        });
+
+        //默认加载一周之前的数据
+        load();
+        function load() {
+            var date = new Date();
+            var head_date = "<thead> <tr> <td>                      </td> ";
+            var arr = [];
+            for (var i = 0; i < 30; i++) {
+                arr.push("张" + i);
+            }
+            date.setDate(date.getDate() - 7);
+            for (var i = 0; i < 7; i++) {
+                //给时间重新赋值
+                date.setDate(date.getDate() + 1);
+                //格式化时间
+                var datenew = date.Format("MM-dd")
+                head_date += " <td>" + datenew + "</td>"
+            }
+            head_date += "</tr>  </thead>";
+            $("#noticeInfo tr").remove();
+            $("#noticeInfo").append(head_date);
+            for (var i = 0; i < arr.length; i++) {
+                var body = "  <tbody> <tr>";
+                for (var j = 0; j < 7 + 1; j++) {
+                    if (j > 0) {
+                        body += "<td> " + "是" + "</td> ";
+                    } else {
+                        body += "<td > " + arr[i] + "</td> ";
+                    }
+                }
+                body += "</tr>   </tbody>"
+                $("#noticeInfo").append(body);
+                body = "";
+            }
+
+        }
+    })
+
+
+</script>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!--<link href="css/style.css">-->
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <style>
+        body{
+            background-color: #fbfbfb;
+            box-shadow: 1px 1px 1px #e7e7e7;
+            font-size: 14px;
+            /*font-weight: bold;*/
+        }
+        .tree {
+            width: 60%;
+            height: 100%;
+            margin: 0 auto;
+            /*border: 1px solid #000000;*/
+            min-height: 20px;
+            padding: 19px;
+            margin-bottom: 20px;
+            /*background-color: #fbfbfb;*/
+            /*border:1px solid #999;*/
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+        }
+        .tree li {
+            list-style-type:none;
+            margin:0;
+            padding:10px 0px 0 5px;
+            position:relative
+        }
+
+        .tree li::before, .tree li::after {
+            content:'';
+            left:-20px;
+            position:absolute;
+            right:auto
+        }
+        .tree li span::after {
+            content:'';
+            left:-20px;
+            position:absolute;
+            right:auto
+        }
+        .tree li::before {
+            border-left:1px solid #999;
+            /*bottom:50px;*/
+            height:100%;
+            /*top:0;*/
+            width:1px
+        }
+        .tree li::after {
+            border-top:1px solid #999;
+            height:20px;
+            top:25px;
+            width:25px
+        }
+
+        .tree_li_span {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            /*border:1px solid #999;*/
+            width: auto;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 3px;
+            vertical-align: middle;
+            padding: 3px 8px;
+            /*text-decoration: none;*/
+            cursor:pointer;
+        }
+        .tree_li_span_iocn {
+            float: right;
+            padding-top: 3px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="tree">
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var menuArry = [
+            {id: 1, name: "java开发", pid: 0},
+            {id: 2, name: "MyBatis", pid: 1},
+            {id: 3, name: "Spring", pid: 1},
+            {id: 4, name: "Spring", pid: 1},
+            {id: 5, name: "SM整合", pid: 1},
+            {id: 6, name: "大数据", pid: 0},
+            {id: 7, name: "SM整合增删改查", pid: 5},
+            {id: 8, name: "Hadoop", pid: 6},
+            {id: 9, name: "HDFS实现分布式存储", pid: 6},
+        ];
+
+        GetData(0, menuArry)
+        $(".tree").append(menus);
+    });
+
+    //菜单列表html
+    var menus = '';
+    //根据菜单主键id生成菜单列表html
+    //id：菜单主键id
+    //arry：菜单数组信息
+    function GetData(id, arry) {
+        var childArry = GetParentArry(id, arry);
+        if (childArry.length > 0) {
+            menus += '<ul>';
+            for (var i in childArry) {
+                menus += '<li>' + '<span class="tree_li_span" onclick="toggleShrink(event)">' + childArry[i].name + '</span>' + '<span class="tree_li_span_iocn"><i class="Hui-iconfont">&#xe600;</i><i class="Hui-iconfont">&#xe60c;</i><i class="Hui-iconfont">&#xe6e2;</i> </span>';
+                GetData(childArry[i].id, arry);
+                menus += '</li>';
+            }
+            menus += '</ul>';
+        }
+    }
+
+    function toggleShrink(e){
+        $(e.target).next().next().slideToggle();
+    }
+    //根据菜单主键id获取下级菜单
+    //id：菜单主键id
+    //arry：菜单数组信息
+    function GetParentArry(id, arry) {
+        var newArry = new Array();
+        for (var i in arry) {
+            if (arry[i].pid == id)
+                newArry.push(arry[i]);
+        }
+        return newArry;
+    }
+</script>
+
+</body>
+</html>

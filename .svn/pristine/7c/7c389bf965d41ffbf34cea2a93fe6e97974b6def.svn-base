@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Annex - Responsive Bootstrap 4 Admin Dashboard</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Mannatthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+    </head>
+
+
+    <body>
+
+        <!-- Loader -->
+        <div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+
+
+
+        <div class="wrapper">
+            <div class="container-fluid">
+
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <div class="btn-group pull-right">
+                                <ol class="breadcrumb hide-phone p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="#">Annex</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Charts</a></li>
+                                    <li class="breadcrumb-item active">Other</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Other Charts</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">Jquery Knob</h4>
+                                <p class="text-muted m-b-30 font-14">Nice, downward compatible, touchable, jQuery dial</p>
+
+                                <div class="row text-center">
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20">Disable display input</h5>
+                                        <input class="knob" data-width="150" data-fgcolor="#0f9cf3" data-displayinput="false" value="35">
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20">Cursor mode</h5>
+                                        <input class="knob" data-width="150" data-cursor="true" data-fgcolor="#6fd088" value="29">
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20">Display previous value</h5>
+                                        <input class="knob" data-width="150" data-min="-100" data-fgcolor="#0097a7" data-displayprevious="true" value="44">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20">Angle offset</h5>
+                                        <input class="knob" data-width="150" data-angleoffset="90" data-linecap="round" data-fgcolor="#ffbb44" value="35">
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20"> 5-digit values, step 1000</h5>
+                                        <input class="knob" data-width="150" data-min="-15000" data-displayprevious="true" data-max="15000" data-step="1000" value="-11000" data-fgcolor="#f32f53">
+                                    </div>
+                                    <div class="col-lg-4 text-center">
+                                        <h5 class="font-16 m-b-20">Angle offset and arc</h5>
+                                        <input class="knob" data-width="150" data-cursor="true" data-fgcolor="#0a1832" value="29">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+
+            </div> <!-- end container -->
+        </div>
+        <!-- end wrapper -->
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        © 2018 Annex by Mannatthemes.
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+
+        <!-- jQuery  -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/modernizr.min.js"></script>
+        <script src="assets/js/waves.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+        <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+        <!-- KNOB JS -->
+        <script src="assets/plugins/jquery-knob/excanvas.js"></script>
+        <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+        <script>
+            $(function() {
+                $(".knob").knob();
+            });
+        </script>    
+
+    </body>
+</html>

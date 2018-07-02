@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 班级新鲜事</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="pinterest/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="pinterest/css/demo.css" />
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <!--VUE-->
+    <script src="js/vue.js"></script>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+    <!--时间控件-->
+    <script src="js/jedate.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="pinterest/js/modernizr.custom.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+
+</head>
+
+<style>
+    .bigImg li figure img {
+        width: 560px;
+        height: 320px;
+    }
+
+    .yuan {
+        width: 50px;
+        height: 50px;
+        -webkit-border-radius: 100%;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+        background-color: #6dc4ff;
+        position: fixed;
+        color: #fff;
+        top: 20px;
+        right: 50px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 39px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 4%;
+
+    }
+
+    .yuan:hover {
+        color: #fff;
+    }
+
+    .grid li {
+        width: 25%;
+        float: left;
+        cursor: pointer;
+    }
+
+    .grid li .LiImg {
+        width: 243px;
+        height: 240px;
+
+    }
+</style>
+<style>
+    * {
+        -webkit-user-select: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+
+    .buttom {
+        margin: 20px 70px 30px;
+    }
+
+    .buttom button {
+        display: inline-block;
+    }
+
+    /*.actions .buttom {*/
+
+    /*position: absolute;*/
+
+    /*left: -50px;*/
+
+    /*top: 45px;*/
+
+    /*display: block;*/
+
+    /*width: 100px;*/
+
+    /*}*/
+
+    table {
+        text-align: center;
+    }
+
+    .iframeItem {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wuTheme:hover {
+        border: 2px solid #a68dff;
+    }
+
+    .toolbar-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -40px;
+        left: -30px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+
+    }
+
+    .container-item {
+        -webkit-border-radius: 10px;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 70px;
+        background-color: #efeb73;
+    }
+
+    .header-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        left: -10px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #e1e1e1;
+    }
+
+    .fresh-datatables {
+
+        border: 1px solid #e3e3e3;
+        background-color: #ffffff;
+        -webkit-border-radius: 10px;
+        height: 500px;
+        overflow: auto;
+    }
+
+    .fresh-datatables table th {
+        text-align: center;
+    }
+
+    table tfoot th {
+        text-align: center;
+    }
+
+    .fresh-datatables table td {
+        text-align: center;
+    }
+
+    .ul-item {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .ul-item li {
+        -webkit-border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        list-style-type: none;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-indent: 1em;
+        background-color: #ffffff;
+        box-shadow: 1px 1px 1px 1px #eaeaea;
+    }
+
+    .ul-item li:hover {
+        background-color: #f9f9f9;
+
+    }
+
+    table tr td {
+        color: #696969;
+    }
+
+    tbody tr td {
+        text-align: center;
+    }
+
+    thead tr th {
+        text-align: center;
+    }
+
+    .bar-div {
+        width: 100%;
+        transition: width 2s;
+    }
+
+    .container-top {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        position: relative;
+        text-indent: 2em;
+        left: -20px;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    .last {
+        float: right;
+    }
+
+    form {
+        padding-bottom: 20px;
+    }
+</style>
+
+<body>
+
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+        <!--右半部分内容-->
+        <div class="main-panel">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--右半部分主体内容-->
+            <div class="content">
+                <!--左部展示标题名称-->
+                <!--右部显示统计图-->
+
+
+                <div class="btn  radius yuan" id="btnAddAnn" data-toggle="modal" data-target="#addNotice" title="点击新增新鲜事">
+                    +
+                </div>
+
+                <section class="grid-wrap">
+                    <ul class="grid">
+                        <li class="grid-sizer"></li>
+                        <!-- for Masonry column width -->
+
+                        <li v-for="(item,index) in articleList">
+                            <figure>
+                                <img :src="item.image" alt="img01" class="LiImg" />
+                                <figcaption>
+                                    <h3>{{item.articleTitle}}</h3>
+                                    <p>{{item.articleContent}}</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+
+
+
+
+
+                    </ul>
+                </section>
+                <!-- // grid-wrap -->
+                <section class="slideshow">
+                    <ul class="bigImg">
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>从五湖四海来，到天南地北去。</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>拔河比赛</h3>
+                                    <p>团结就是力量，挑战自我，突破极限</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>Brunch semiotics</h3>
+                                    <p>IPhone PBR polaroid before they sold out meh you probably haven't heard of them leggings
+                                        tattooed tote bag, butcher paleo next level single-origin coffee photo booth.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.png" alt="img03" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>母亲节</h3>
+                                    <p>Vice cliche locavore mumblecore vegan wayfarers asymmetrical letterpress hoodie mustache.
+                                        Shabby chic lomo polaroid, scenester 8-bit Portland Pitchfork VHS tote bag.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>青年节</h3>
+                                    <p>青春就是与畅想谈场永不退色的恋爱</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test4.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>从五湖四海来，到天南地北去。</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>拔河比赛</h3>
+                                    <p>团结就是力量，挑战自我，突破极限</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>Ex fashion axe</h3>
+                                    <p>Ennui Blue Bottle shabby chic, organic butcher High Life tattooed meggings jean shorts
+                                        Brooklyn sartorial polaroid. Cray raw denim +1, bespoke High Life Odd Future banh
+                                        mi chillwave Marfa kogi disrupt paleo direct trade 90's Godard. </p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test4.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>母亲节</h3>
+                                    <p>Typewriter authentic PBR, iPhone mixtape fixie post-ironic fingerstache Pitchfork artisan.
+                                        Wayfarers master cleanse occupy, Tonx lo-fi swag Truffaut irony whatever Blue Bottle
+                                        readymade PBR gluten-free. Lomo Pinterest Banksy fap. Retro ennui you probably haven't
+                                        heard of them iPhone, PBR fashion axe polaroid.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>青年节</h3>
+                                    <p>青春就是与畅想谈场永不退色的恋爱</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test4.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>从五湖四海来，到天南地北去。</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>从五湖四海来，到天南地北去。</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>拔河比赛</h3>
+                                    <p>团结就是力量，挑战自我，突破极限</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>Brunch semiotics</h3>
+                                    <p>Gentrify High Life adipisicing, duis slow-carb kogi Tumblr raw denim freegan Echo Park.
+                                        Fingerstache laboris pork belly messenger bag, you probably haven't heard of them
+                                        vegan twee Intelligentsia Vice Etsy pickled put a bird on it Godard roof party. Meggings
+                                        small batch dreamcatcher velit.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.png" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>母亲节</h3>
+                                    <p>Marfa exercitation non, beard +1 hashtag cardigan gluten-free mixtape church-key ugh
+                                        eu Portland leggings. Ennui farm-to-table fingerstache keytar Echo Park tattooed.
+                                        Seitan qui artisan, aliquip cupidatat sunt Portland wayfarers duis.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>青年节</h3>
+                                    <p>青春就是与畅想谈场永不退色的恋爱</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test4.jpg" alt="img05" />
+                            </figure>
+                        </li>
+
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>Viral roof party locavore flexitarian nihil fanny pack actually Odd Future anim commodo.
+                                        Sunt yr aute, enim quis plaid sartorial duis leggings lo-fi gluten-free. Tote bag
+                                        flexitarian pug stumptown, Cosby sweater try-hard ethnic scenester. Mumblecore +1
+                                        hoodie accusamus skateboard slow-carb, Thundercats Godard placeat craft beer meh
+                                        enim trust fund.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>拔河比赛</h3>
+                                    <p>团结就是力量，挑战自我，突破极限</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>母亲节</h3>
+                                    <p>Bespoke irony tousled nihil flexitarian, salvia tempor nostrud Bushwick hashtag Austin
+                                        ethnic disrupt. Beard Helvetica nihil, chia craft beer Wes Anderson keytar dolore.
+                                        Irure incididunt flexitarian photo booth cillum, YOLO deserunt Brooklyn artisan.
+                                        Brunch assumenda irony, Blue Bottle roof party DIY ullamco quis.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.jpg" alt="img03" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>母亲节</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test3.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>青年节</h3>
+                                    <p>青春就是与畅想谈场永不退色的恋爱</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test4.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>2074班毕业了</h3>
+                                    <p>Pork belly irony Shoreditch fashion axe DIY. Portland banjo irony, squid gentrify Austin
+                                        fixie church-key magna. Marfa artisan Echo Park, McSweeney's banjo sunt keytar tofu.
+                                        Brooklyn PBR single-origin coffee disrupt polaroid ut, gluten-free XOXO plaid magna.</p>
+                                </figcaption>
+                                <img src="pinterest/img/large/test1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                    </ul>
+                    <nav>
+                        <span class="icon nav-prev"></span>
+                        <span class="icon nav-next"></span>
+                        <span class="icon nav-close"></span>
+                    </nav>
+                    <div class="info-keys icon">Navigate with arrow keys</div>
+                </section>
+                <!-- // slideshow -->
+
+                <!--新增公告模态框-->
+                <div class="modal fade bs-example-modal-lg" id="addNotice" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <span>添加新鲜事</span>
+                                </h4>
+                            </div>
+                            <form class="form-horizontal">
+                                <div class="form-group first">
+                                    <label for="sceneryTitle" class="col-sm-3 control-label">标 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="sceneryTitle" name="annTitle" placeholder="请输入标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="picture" class="col-sm-3 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="picture" name="" class="picture">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display: none">
+                                    <label for="releaseTime" class="col-sm-3 control-label">发布时间</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="releaseTime" name="releaseTime" class="form-control datainp" placeholder="请输入发布时间">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>
+                                    <div class="col-sm-9">
+                                        <div style="width:80%;">
+                                            <div id="standalone-container">
+                                                <div id="toolbar-container">
+                                                    <span class="ql-formats">
+                                                        <select class="ql-font"></select>
+                                                        <select class="ql-size"></select>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-bold"></button>
+                                                        <button class="ql-italic"></button>
+                                                        <button class="ql-underline"></button>
+                                                        <button class="ql-strike"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <select class="ql-color"></select>
+                                                        <select class="ql-background"></select>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-script" value="sub"></button>
+                                                        <button class="ql-script" value="super"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-header" value="1"></button>
+                                                        <button class="ql-header" value="2"></button>
+                                                        <button class="ql-blockquote"></button>
+                                                        <button class="ql-code-block"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-list" value="ordered"></button>
+                                                        <button class="ql-list" value="bullet"></button>
+                                                        <button class="ql-indent" value="-1"></button>
+                                                        <button class="ql-indent" value="+1"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-direction" value="rtl"></button>
+                                                        <select class="ql-align"></select>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-link"></button>
+                                                        <button class="ql-image"></button>
+                                                        <button class="ql-video"></button>
+                                                        <button class="ql-formula"></button>
+                                                    </span>
+                                                    <span class="ql-formats">
+                                                        <button class="ql-clean"></button>
+                                                    </span>
+                                                </div>
+                                                <div id="editor-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" data-dismiss="modal">
+                                    <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                                </button>
+                                <button class="btn btn-warning" data-dismiss="modal">
+                                    <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="pinterest/js/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="pinterest/js/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="pinterest/js/classie.js"></script>
+    <script type="text/javascript" src="pinterest/js/cbpGridGallery.js"></script>
+    <script type="text/javascript">
+        new CBPGridGallery(document.getElementById('grid-gallery'));
+    </script>
+    <script src="dist/katex.min.js"></script>
+    <script src="dist/highlight.min.js"></script>
+    <script src="dist/quill.js"></script>
+    <script type="text/javascript">
+
+        //jeDate.skin('gray');
+        jeDate({
+            dateCell: "#dateinfo",
+            format: "YYYY-MM-DD",
+            isinitVal: false,
+            isTime: true, //isClear:false,
+            minDate: "2014-09-19",
+            okfun: function (val) {
+                alert(val)
+            }
+        })
+        jeDate({
+            dateCell: "#dateinfo2",
+            format: "YYYY-MM-DD",
+            isinitVal: false,
+            isTime: true, //isClear:false,
+            minDate: "2014-09-19",
+            okfun: function (val) {
+                alert(val)
+            }
+        })
+
+    //alert("YYYY/MM".match(/\w+|d+/g).join("-"))
+    </script>
+
+
+    <!--&lt;!&ndash;VUE模块&ndash;&gt;-->
+    <!--<script>-->
+
+    <!--var lo = "localhost";-->
+    <!--var app = new Vue({-->
+    <!--el: '#app',-->
+    <!--data: {-->
+    <!--skillData: [],-->
+    <!--SkillDateChildren: [],-->
+    <!--daId: [],-->
+    <!--itemCount: [],-->
+    <!--userInfo: {},-->
+    <!--rankings: [],-->
+    <!--correctRate: [],-->
+    <!--skillCountDT: [],-->
+    <!--progress: [],-->
+
+    <!--},-->
+    <!--methods: {-->
+    <!--//加载用户信息-->
+    <!--getUserInfo(){-->
+    <!--var userInfo = localStorage.getItem("user");-->
+    <!--var obj = JSON.parse(userInfo);-->
+    <!--this.userInfo = obj;-->
+    <!--},-->
+
+    <!--//加载排行榜-->
+    <!--getSpecialTrain(){-->
+    <!--console.log(this.userInfo.classId);-->
+    <!--$.post("http://" + lo + ":8080/SpecialTrain/selectSpecialTrainPHByClassId", {"classId": this.userInfo.classId}, function (date) {-->
+    <!--console.log("加载排行榜" + date);-->
+    <!--var arr = [];-->
+    <!--for (var i = 0; i < date.length; i++) {-->
+    <!--var num = date[i].sumCorrectCount / date[i].sumCount * 100;-->
+    <!--var newNum = Math.floor(num)-->
+    <!--arr[i] = newNum;-->
+    <!--}-->
+    <!--console.log("计算正确率" + arr);-->
+    <!--app.correctRate = arr;-->
+    <!--app.rankings = date;-->
+    <!--}, "json");-->
+    <!--},-->
+
+
+    <!--},-->
+    <!--created(){-->
+    <!--this.getUserInfo();-->
+    <!--this.getSpecialTrain();-->
+
+
+    <!--}-->
+    <!--})-->
+
+    <!--</script>-->
+</body>
+<!--导入JS-->
+
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+
+<!--通知模块-->
+<script src="dist/js/lobibox.min.js"></script>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            articleList: [],
+        },
+        methods: {
+            getArticle() {
+                $.post("http://localhost:8080/article/where.do", "", function (result) {
+                    console.log("返回的Json数据:" + result);
+
+                    app.articleList = result;
+                }, "json");
+            },
+
+        },
+
+        created() {
+            this.getArticle();
+        },
+
+    });
+
+</script>
+<!--<script>-->
+<!--var userInfoInit;//用户信息-->
+<!--var btn = true;//导航栏状态-->
+
+<!--//var gui = require('nw.gui');-->
+<!--$(function () {-->
+
+<!--var height = $(window).height();-->
+<!--$(".container-main").css("height", height);//设置初始化高度-->
+<!--$(window).resize(function () {//设置窗口改变时的高度-->
+<!--var height = $(window).height();-->
+<!--$(".container-main").css("height", height)-->
+<!--});-->
+<!--getUserInfo();-->
+<!--notice();-->
+<!--getTheme();-->
+
+<!--});-->
+<!--//退出应用程序-->
+<!--function clostExamSystem() {-->
+<!--//gui.App.quit()-->
+<!--}-->
+<!--//取出主题并设置上-->
+<!--function getTheme() {-->
+<!--var getTheme = localStorage.getItem("theme");-->
+<!--$(".sidebar").attr("data-color", getTheme);-->
+<!--var imgPath = localStorage.getItem("imgPath");-->
+<!--$(".sidebar").attr("data-image", imgPath);-->
+<!--$(".sidebar-background").css("background-image", 'url(' + imgPath + ')');-->
+<!--}-->
+<!--//设置通知-->
+<!--function notice() {-->
+
+<!--demo.showNotification('bottom', 'right', 'success', '专项训练排行榜', '记录了您所有的答题信息', 'pe-7s-smile');-->
+<!--}-->
+<!--//初始化用户信息&设置-->
+<!--function getUserInfo() {-->
+<!--var userInfo = localStorage.getItem("user");-->
+<!--var obj = JSON.parse(userInfo);-->
+<!--userInfoInit = obj;-->
+<!--$(".userName").html(userInfoInit.studentName + '  <b class="caret"></b>')-->
+<!--imgLogoInit();-->
+<!--}-->
+<!--//初始化头像-->
+<!--function imgLogoInit() {-->
+<!--$(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')-->
+<!--}-->
+<!--</script>-->
+
+<!--&lt;!&ndash;右键菜单&ndash;&gt;-->
+<!--<script type="text/javascript">-->
+<!--var menu = document.getElementById("menu");-->
+<!--document.oncontextmenu = function (ev) {-->
+<!--var oEvent = ev || event;-->
+<!--//自定义的菜单显示-->
+<!--menu.style.display = "block";-->
+<!--//让自定义菜单随鼠标的箭头位置移动-->
+<!--menu.style.left = oEvent.clientX + "px";-->
+<!--menu.style.top = oEvent.clientY + "px";-->
+<!--//return false阻止系统自带的菜单，-->
+<!--//return false必须写在最后，否则自定义的右键菜单也不会出现-->
+<!--return false;-->
+
+<!--}-->
+<!--//实现点击document，自定义菜单消失-->
+<!--document.onclick = function () {-->
+
+<!--menu.style.display = "none";-->
+<!--}-->
+<!--function shuaxin() {-->
+<!--location.reload();-->
+<!--}-->
+<!--</script>-->
+
+</html>

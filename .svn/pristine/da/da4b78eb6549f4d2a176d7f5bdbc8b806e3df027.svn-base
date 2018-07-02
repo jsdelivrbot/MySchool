@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理博客</title>
+</head>
+
+<link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link href="logo.ico" rel="shortcut icon" />
+<link rel="stylesheet" href="plugin/jquery.page.css">
+<!--<script src="plugin/jquery.min.js"></script>
+<script src="plugin/bootstrap/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript" src="plugin/jquery.page.js"></script>-->
+<!--<script src="js/common.js"></script>-->
+<!--<script src="js/snowy.js"></script>-->
+<link rel="stylesheet" type="text/css" href="../css/bootstrap-select.css">
+<link rel="stylesheet" href="../css/jquery-labelauty.css"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="plugin/jquery.page.js"></script>
+<style>
+    table tr td a,table tr{
+        cursor: pointer;
+    }
+    input.labelauty + label {
+        display: inline-table;
+    !important;
+    }
+
+    .form-group {
+        display: inline-block;
+
+    }
+
+    .chufa {
+        background-color: rgba(255, 250, 248, 0);
+        transition: all 1s;
+    }
+
+    .chufa:hover {
+        background-color: #f26e0d;
+    }
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+    tr, td {
+        transition: all 1s;
+    }
+
+    .contion {
+        margin-top: 20px;
+    }
+    .ulx li a{
+        text-decoration: none;
+    }
+
+    .ck {
+        text-decoration: none;
+      color: white;
+    }
+    .ck:hover{
+        color: white;
+        text-decoration: none;
+    }
+</style>
+<script type="text/javascript">
+
+    $(function(){
+        $("#page").Page({
+            totalPages: 7,//分页总数
+            liNums: 5,//分页的数字按钮数(建议取奇数)
+            activeClass: 'activP', //active 类样式定义
+            callBack : function(page){
+                //console.log(page)
+            }
+        });
+    })
+</script>
+<body>
+<div class="w_header">
+    <div class="container">
+        <div class="w_header_top">
+            <span class="w_header_nav">
+					<ul class="ulx">
+						<li><a href="index.html">首页</a></li>
+
+						<li><a href="Writing.html"  >写博客</a></li>
+						<li><a href="article.html">我的博客</a></li>
+                        <!--	<li><a href="moodList.html">说说</a></li>-->
+						<li><a href="comment.html">留言</a></li>
+								<li><a href="about.html">关于</a></li>
+						<li><a href="" class="active">管理博客</a></li>
+					</ul>
+				</span>
+            <div class="w_search">
+                <div class="w_searchbox">
+                    <input type="text" placeholder="请输入搜索内容..." />
+                    <button>搜索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w_container">
+    <div class="container">
+        <div class="row w_main_row">
+
+            <div style="padding: 0 5%" class="contion">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formPaper" name="formPaper" method="post">
+                        <div class="form-group" >
+                            <label>学生姓名</label>
+                            <input type="text" class="form-control" id="className" name="className" placeholder="学生姓名">
+                        </div>
+                        <div class="form-group" style="width: 20%">
+                            <label for="dutyId">班级</label>
+                            <select id="dutyId" name="dutyId" class="form-control selectpicker " data-live-search="true"
+                                    placeholder="请选择班级">
+                                <option value="">请选择</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP060</option>
+                                <option value="">TCMP062</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success radius" id="btnOk">
+                                <i class="Hui-iconfont">&#xe665;</i>搜索
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <table id="zidong" class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="text-c">
+                        <th>编号</th>
+                        <th>学生姓名</th>
+                        <th>学生班级</th>
+                        <th>文章标题</th>
+                        <th>文章摘要</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="4">4</span>
+                        </td>
+                        <td class="gun-scusses ">黄宝霖</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长222</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家11111....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="5">5</span>
+                        </td>
+                        <td class="gun-scusses ">朱晓宇</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                                 <a href="javascript:;">未完成</a>
+                                 <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="6">6</span>
+                        </td>
+                        <td class="gun-scusses ">林方政</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="7">7</span>
+                        </td>
+                        <td class="gun-scusses ">黄宝霖</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长222</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家11111....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="8">8</span>
+                        </td>
+                        <td class="gun-scusses ">朱晓宇</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                                 <a href="javascript:;">未完成</a>
+                                 <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="9">9</span>
+                        </td>
+                        <td class="gun-scusses ">林方政</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="10">10</span>
+                        </td>
+                        <td class="gun-scusses ">黄宝霖</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长222</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家11111....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="11">11</span>
+                        </td>
+                        <td class="gun-scusses ">朱晓宇</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                                 <a href="javascript:;">未完成</a>
+                                 <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="12">12</span>
+                        </td>
+                        <td class="gun-scusses ">林方政</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">纸短情长111</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gun-scusses">
+                            <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="13">13</span>
+                        </td>
+                        <td class="gun-scusses ">马守彬</td>
+                        <td class="gun-scusses shijian">TCMP058</td>
+                        <td class="gun-scusses zifu">msbmsbmsb</td>
+                        <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+                        <td class="gun-scusses">
+                            <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i><a href="moodList.html" class="ck">查看</a></button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                            <!--     <a href="../check_homework_info.html" target="_blank">查看</a>
+                         <a href="javascript:;">未完成</a>
+                         <a href="javascript:;">已完成</a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="pageList" style="float: right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(':checkbox').labelauty();
+        $("tr").click(function () {
+            if ($(this).find(":input")[0].checked == false) {
+                $(this).find(":input")[0].checked = true
+            } else {
+                $(this).find(":input")[0].checked = false;
+            }
+        });
+        $("#btnAvg").click(function () {
+            var lv = "#adffa4";
+            var hong = "#ff8a95";
+            var tr = $("tr");
+            var shiJian = [];
+            var ziFu = [];
+            var jieTu = [];
+            var avgShiJian = 0;
+            var avgZiFu = 0;
+            var avgJieTu = 0;
+            for (var i = 1; i < tr.length; i++) {
+                //更改tr的颜色以及拿到文本并添加到数组中
+                $(tr[i]).css("background-color", "#ffffff");
+                if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == true) {
+                    $(tr[i]).css("background-color", "#fff9b8");
+                    $(tr[i]).children(".zhuangtai").text("已完成")
+                    shiJian.push($(tr[i]).children(".shijian").text());
+                    ziFu.push($(tr[i]).children(".zifu").text());
+                    jieTu.push($(tr[i]).children(".jietu").text());
+                }
+
+            }
+            //循环相加结果
+            for (var i = 0; i < shiJian.length; i++) {
+                avgShiJian += parseInt(shiJian[i]);
+                avgZiFu += parseInt(ziFu[i]);
+                avgJieTu += parseInt(jieTu[i]);
+            }
+
+            //计算平均分
+            avgShiJian = Math.floor(avgShiJian / shiJian.length + 1);
+            avgZiFu = Math.floor(avgZiFu / ziFu.length + 1);
+            avgJieTu = Math.floor(avgJieTu / jieTu.length + 1);
+            for (var i = 1; i < tr.length; i++) {
+                //更改tr的颜色以及拿到文本并添加到数组中
+                if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == false) {
+                    console.log(" shijian:" + parseInt($(tr[i]).children(".shijian").text()));
+                    console.log(" zifu:" + parseInt($(tr[i]).children(".zifu").text()));
+                    console.log(" jietu:" + parseInt($(tr[i]).children(".jietu").text()));
+                    console.log("-----------------------------")
+                    //算时间
+                    if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20)&&
+                        (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)
+                    ) {
+                        $(tr[i]).css("background-color", lv);
+                    } else {
+                        $(tr[i]).css("background-color", hong);
+                    }
+                    //添加是否完成
+                    if ((avgShiJian >= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                        (avgZiFu >= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu >= parseInt($(tr[i]).children(".jietu").text()) + 5)) {
+                        $(tr[i]).children(".zhuangtai").text("未完成")
+                    } else if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                        (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)) {
+                        $(tr[i]).children(".zhuangtai").text("已完成")
+                    } else {
+                        $(tr[i]).children(".zhuangtai").text("可能未完成")
+                    }
+
+                }
+
+                $(tr[i]).find(":input")[0].checked = false;
+            }
+
+        });
+    });
+</script>
+
+
+<script>
+    /*!
+     * LABELAUTY jQuery Plugin
+     *
+     * @file: jquery-labelauty.js
+     * @author: Francisco Neves (@fntneves)
+     * @site: www.francisconeves.com
+     * @license: MIT License
+     */
+
+    (function ($) {
+
+        $.fn.labelauty = function (options) {
+            /*
+             * Our default settings
+             * Hope you don't need to change anything, with these settings
+             */
+            var settings = $.extend(
+                {
+                    // Development Mode
+                    // This will activate console debug messages
+                    development: false,
+
+                    // Trigger Class
+                    // This class will be used to apply styles
+                    class: "labelauty",
+
+                    // Use text label ?
+                    // If false, then only an icon represents the input
+                    label: true,
+
+                    // Separator between labels' messages
+                    // If you use this separator for anything, choose a new one
+                    separator: "|",
+
+                    // Default Checked Message
+                    // This message will be visible when input is checked
+                    checked_label: "Checked",
+
+                    // Default UnChecked Message
+                    // This message will be visible when input is unchecked
+                    unchecked_label: "Unchecked",
+
+                    // Minimum Label Width
+                    // This value will be used to apply a minimum width to the text labels
+                    minimum_width: false,
+
+                    // Use the greatest width between two text labels ?
+                    // If this has a true value, then label width will be the greatest between labels
+                    same_width: true
+                }, options);
+
+            /*
+             * Let's create the core function
+             * It will try to cover all settings and mistakes of using
+             */
+            return this.each(function () {
+                var $object = $(this);
+                var use_labels = true;
+                var labels;
+                var labels_object;
+                var input_id;
+
+                // Test if object is a check input
+                // Don't mess me up, come on
+                if ($object.is(":checkbox") === false && $object.is(":radio") === false)
+                    return this;
+
+                // Add "labelauty" class to all checkboxes
+                // So you can apply some custom styles
+                $object.addClass(settings.class);
+
+                // Get the value of "data-labelauty" attribute
+                // Then, we have the labels for each case (or not, as we will see)
+                labels = $object.attr("data-labelauty");
+
+                use_labels = settings.label;
+
+                // It's time to check if it's going to the right way
+                // Null values, more labels than expected or no labels will be handled here
+                if (use_labels === true) {
+                    if (labels == null || labels.length === 0) {
+                        // If attribute has no label and we want to use, then use the default labels
+                        labels_object = new Array();
+                        labels_object[0] = settings.unchecked_label;
+                        labels_object[1] = settings.checked_label;
+                    }
+                    else {
+                        // Ok, ok, it's time to split Checked and Unchecked labels
+                        // We split, by the "settings.separator" option
+                        labels_object = labels.split(settings.separator);
+
+                        // Now, let's check if exist _only_ two labels
+                        // If there's more than two, then we do not use labels :(
+                        // Else, do some additional tests
+                        if (labels_object.length > 2) {
+                            use_labels = false;
+                            debug(settings.development, "There's more than two labels. LABELAUTY will not use labels.");
+                        }
+                        else {
+                            // If there's just one label (no split by "settings.separator"), it will be used for both cases
+                            // Here, we have the possibility of use the same label for both cases
+                            if (labels_object.length === 1)
+                                debug(settings.development, "There's just one label. LABELAUTY will use this one for both cases.");
+                        }
+                    }
+                }
+
+                /*
+                 * Let's begin the beauty
+                 */
+
+                // Start hiding ugly checkboxes
+                // Obviously, we don't need native checkboxes :O
+                $object.css({display: "none"});
+
+                // We don't need more data-labelauty attributes!
+                // Ok, ok, it's just for beauty improvement
+                $object.removeAttr("data-labelauty");
+
+                // Now, grab checkbox ID Attribute for "label" tag use
+                // If there's no ID Attribute, then generate a new one
+                input_id = $object.attr("id");
+
+                if (input_id == null) {
+                    var input_id_number = 1 + Math.floor(Math.random() * 1024000);
+                    input_id = "labelauty-" + input_id_number;
+
+                    // Is there any element with this random ID ?
+                    // If exists, then increment until get an unused ID
+                    while ($(input_id).length !== 0) {
+                        input_id_number++;
+                        input_id = "labelauty-" + input_id_number;
+                        debug(settings.development, "Holy crap, between 1024 thousand numbers, one raised a conflict. Trying again.");
+                    }
+
+                    $object.attr("id", input_id);
+                }
+
+                // Now, add necessary tags to make this work
+                // Here, we're going to test some control variables and act properly
+                $object.after(create(input_id, labels_object, use_labels));
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.minimum_width !== false)
+                    $object.next("label[for=" + input_id + "]").css({"min-width": settings.minimum_width});
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.same_width != false && settings.label == true) {
+                    var label_object = $object.next("label[for=" + input_id + "]");
+                    var unchecked_width = getRealWidth(label_object.find("span.labelauty-unchecked"));
+                    var checked_width = getRealWidth(label_object.find("span.labelauty-checked"));
+
+                    if (unchecked_width > checked_width)
+                        label_object.find("span.labelauty-checked").width(unchecked_width);
+                    else
+                        label_object.find("span.labelauty-unchecked").width(checked_width);
+                }
+            });
+        };
+
+        /*
+         * Tricky code to work with hidden elements, like tabs.
+         * Note: This code is based on jquery.actual plugin.
+         * https://github.com/dreamerslab/jquery.actual
+         */
+        function getRealWidth(element) {
+            var width = 0;
+            var $target = element;
+            var style = 'position: absolute !important; top: -1000 !important; ';
+
+            $target = $target.clone().attr('style', style).appendTo('body');
+            width = $target.width(true);
+            $target.remove();
+
+            return width;
+        }
+
+        function debug(debug, message) {
+            if (debug && window.console && window.console.log)
+                window.console.log("jQuery-LABELAUTY: " + message);
+        };
+
+        function create(input_id, messages_object, label) {
+            var block;
+            var unchecked_message;
+            var checked_message;
+
+            if (messages_object == null)
+                unchecked_message = checked_message = "";
+            else {
+                unchecked_message = messages_object[0];
+
+                // If checked message is null, then put the same text of unchecked message
+                if (messages_object[1] == null)
+                    checked_message = unchecked_message;
+                else
+                    checked_message = messages_object[1];
+            }
+
+            if (label == true) {
+
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+            else {
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+
+            return block;
+        };
+
+    }(jQuery));
+
+</script>
+
+<script type="text/javascript"> $(function () {
+    $("a").click(function (event) {
+        event.stopPropagation();
+    });
+}); </script>
+<script type="text/javascript">
+    var $backToTopEle = $('<a href="javascript:void(0)" class="Hui-iconfont toTop" title="返回顶部" alt="返回顶部" style="display:none">^</a>').appendTo($("body")).click(function() {
+        $("html, body").animate({ scrollTop: 0 }, 120);
+    });
+    var backToTopFun = function() {
+        var st = $(document).scrollTop(),
+            winh = $(window).height();
+        (st > 0) ? $backToTopEle.show(): $backToTopEle.hide();
+        /*IE6下的定位*/
+        if(!window.XMLHttpRequest) {
+            $backToTopEle.css("top", st + winh - 166);
+        }
+    };
+
+    $(function() {
+        $(window).on("scroll", backToTopFun);
+        backToTopFun();
+    });
+</script>
+<script>
+    var app = new Vue({
+        el: "#wrapper",
+        data: {
+            wblogList: [],
+        }, methods: {
+            getWblogs(){
+                $.post("http://localhost:8080//wblogs/selectWblogsAll.do", {}, function (result) {
+                    console.log("返回的Json数据:" + result.wblogList);
+                    for (var i = 0; i < result.wblogList.length; i++) {
+                        console.log(result.wblogList[i]);
+                    }
+                    app.wblogList = result.wblogList;
+
+                }, "json");
+            },
+        },
+
+        //页面加载时去试卷信息表查询试卷编号和名称
+        created() {
+            this.getWblogs();
+        }
+
+    })
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.css">
+    <link rel="stylesheet" href="../css/jquery-labelauty.css"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+</head>
+<style>
+    table tr td a,table tr{
+        cursor: pointer;
+    }
+    input.labelauty + label {
+        display: inline-table;
+    !important;
+    }
+
+    .form-group {
+        display: inline-block;
+
+    }
+
+    .chufa {
+        background-color: rgba(255, 250, 248, 0);
+        transition: all 1s;
+    }
+
+    .chufa:hover {
+        background-color: #f26e0d;
+    }
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+    tr, td {
+        transition: all 1s;
+    }
+</style>
+<body>
+<div style="padding: 0 5%">
+    <div style="margin: 0 auto;display: block">
+        <form id="formPaper" name="formPaper" method="post">
+            <div class="form-group" >
+            <label>学生姓名</label>
+            <input type="text" class="form-control" id="className" name="className" placeholder="学生姓名">
+            </div>
+            <div class="form-group" style="width: 20%">
+                <label for="dutyId">班级</label>
+                <select id="dutyId" name="dutyId" class="form-control selectpicker " data-live-search="true"
+                        placeholder="请选择班级">
+                    <option value="">请选择</option>
+                    <option value="">TCMP058</option>
+                    <option value="">TCMP060</option>
+                    <option value="">TCMP062</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn  btn-primary  radius" id="btnAvg">
+                    <i class="Hui-iconfont">&#xe69d;</i> 新增
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success radius" id="btnOk">
+                    <i class="Hui-iconfont">&#xe665;</i>查询
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn  btn-danger radius" id="btnNoOk">
+                    <i class="Hui-iconfont">&#xe645;</i>删除
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <table id="zidong" class="table table-bordered table-hover">
+        <thead>
+        <tr class="text-c">
+            <th>编号</th>
+            <th>学生姓名</th>
+            <th>学生班级</th>
+            <th>文章标题</th>
+            <th>文章摘要</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="gun-scusses">
+                <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="1">1</span>
+            </td>
+            <td class="gun-scusses ">黄宝霖</td>
+            <td class="gun-scusses shijian">TCMP058</td>
+            <td class="gun-scusses zifu">纸短情长222</td>
+            <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家11111....</td>
+            <td class="gun-scusses">
+                <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                &lt;!&ndash;     <a href="../check_homework_info.html" target="_blank">查看</a>
+             <a href="javascript:;">未完成</a>
+             <a href="javascript:;">已完成</a>&ndash;&gt;
+            </td>
+        </tr>
+        <tr>
+            <td class="gun-scusses">
+                <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="2"> 2</span>
+            </td>
+            <td class="gun-scusses ">朱晓宇</td>
+            <td class="gun-scusses shijian">TCMP058</td>
+            <td class="gun-scusses zifu">纸短情长111</td>
+            <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+            <td class="gun-scusses">
+                <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+           &lt;!&ndash;     <a href="../check_homework_info.html" target="_blank">查看</a>
+                <a href="javascript:;">未完成</a>
+                <a href="javascript:;">已完成</a>&ndash;&gt;
+            </td>
+        </tr>
+        <tr>
+            <td class="gun-scusses">
+                <span style="line-height: 13px"><input type="checkbox" name="checkbox" value="3"> 3</span>
+            </td>
+            <td class="gun-scusses ">林方政</td>
+            <td class="gun-scusses shijian">TCMP058</td>
+            <td class="gun-scusses zifu">纸短情长111</td>
+            <td class="gun-scusses jietu">怎么会爱上了他，并决定跟他回家....</td>
+            <td class="gun-scusses">
+                <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                &lt;!&ndash;     <a href="../check_homework_info.html" target="_blank">查看</a>
+             <a href="javascript:;">未完成</a>
+             <a href="javascript:;">已完成</a>&ndash;&gt;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(':checkbox').labelauty();
+        $("tr").click(function () {
+            if ($(this).find(":input")[0].checked == false) {
+                $(this).find(":input")[0].checked = true
+            } else {
+                $(this).find(":input")[0].checked = false;
+            }
+        });
+        $("#btnAvg").click(function () {
+            var lv = "#adffa4";
+            var hong = "#ff8a95";
+            var tr = $("tr");
+            var shiJian = [];
+            var ziFu = [];
+            var jieTu = [];
+            var avgShiJian = 0;
+            var avgZiFu = 0;
+            var avgJieTu = 0;
+            for (var i = 1; i < tr.length; i++) {
+                //更改tr的颜色以及拿到文本并添加到数组中
+                $(tr[i]).css("background-color", "#ffffff");
+                if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == true) {
+                    $(tr[i]).css("background-color", "#fff9b8");
+                    $(tr[i]).children(".zhuangtai").text("已完成")
+                    shiJian.push($(tr[i]).children(".shijian").text());
+                    ziFu.push($(tr[i]).children(".zifu").text());
+                    jieTu.push($(tr[i]).children(".jietu").text());
+                }
+
+            }
+            //循环相加结果
+            for (var i = 0; i < shiJian.length; i++) {
+                avgShiJian += parseInt(shiJian[i]);
+                avgZiFu += parseInt(ziFu[i]);
+                avgJieTu += parseInt(jieTu[i]);
+            }
+
+            //计算平均分
+            avgShiJian = Math.floor(avgShiJian / shiJian.length + 1);
+            avgZiFu = Math.floor(avgZiFu / ziFu.length + 1);
+            avgJieTu = Math.floor(avgJieTu / jieTu.length + 1);
+            for (var i = 1; i < tr.length; i++) {
+                //更改tr的颜色以及拿到文本并添加到数组中
+                if ($(tr[i]).children(":eq(0)").children().children(":eq(0)")[0].checked == false) {
+                    console.log(" shijian:" + parseInt($(tr[i]).children(".shijian").text()));
+                    console.log(" zifu:" + parseInt($(tr[i]).children(".zifu").text()));
+                    console.log(" jietu:" + parseInt($(tr[i]).children(".jietu").text()));
+                    console.log("-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;")
+                    //算时间
+                    if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20)&&
+                        (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)
+                    ) {
+                        $(tr[i]).css("background-color", lv);
+                    } else {
+                        $(tr[i]).css("background-color", hong);
+                    }
+                    //添加是否完成
+                    if ((avgShiJian >= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                        (avgZiFu >= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu >= parseInt($(tr[i]).children(".jietu").text()) + 5)) {
+                        $(tr[i]).children(".zhuangtai").text("未完成")
+                    } else if ((avgShiJian <= parseInt($(tr[i]).children(".shijian").text()) + 20) &&
+                        (avgZiFu <= parseInt($(tr[i]).children(".zifu").text()) + 700) &&
+                        (avgJieTu <= parseInt($(tr[i]).children(".jietu").text()) + 5)) {
+                        $(tr[i]).children(".zhuangtai").text("已完成")
+                    } else {
+                        $(tr[i]).children(".zhuangtai").text("可能未完成")
+                    }
+
+                }
+
+                $(tr[i]).find(":input")[0].checked = false;
+            }
+
+        });
+    });
+</script>
+
+
+<script>
+    /*!
+     * LABELAUTY jQuery Plugin
+     *
+     * @file: jquery-labelauty.js
+     * @author: Francisco Neves (@fntneves)
+     * @site: www.francisconeves.com
+     * @license: MIT License
+     */
+
+    (function ($) {
+
+        $.fn.labelauty = function (options) {
+            /*
+             * Our default settings
+             * Hope you don't need to change anything, with these settings
+             */
+            var settings = $.extend(
+                {
+                    // Development Mode
+                    // This will activate console debug messages
+                    development: false,
+
+                    // Trigger Class
+                    // This class will be used to apply styles
+                    class: "labelauty",
+
+                    // Use text label ?
+                    // If false, then only an icon represents the input
+                    label: true,
+
+                    // Separator between labels' messages
+                    // If you use this separator for anything, choose a new one
+                    separator: "|",
+
+                    // Default Checked Message
+                    // This message will be visible when input is checked
+                    checked_label: "Checked",
+
+                    // Default UnChecked Message
+                    // This message will be visible when input is unchecked
+                    unchecked_label: "Unchecked",
+
+                    // Minimum Label Width
+                    // This value will be used to apply a minimum width to the text labels
+                    minimum_width: false,
+
+                    // Use the greatest width between two text labels ?
+                    // If this has a true value, then label width will be the greatest between labels
+                    same_width: true
+                }, options);
+
+            /*
+             * Let's create the core function
+             * It will try to cover all settings and mistakes of using
+             */
+            return this.each(function () {
+                var $object = $(this);
+                var use_labels = true;
+                var labels;
+                var labels_object;
+                var input_id;
+
+                // Test if object is a check input
+                // Don't mess me up, come on
+                if ($object.is(":checkbox") === false && $object.is(":radio") === false)
+                    return this;
+
+                // Add "labelauty" class to all checkboxes
+                // So you can apply some custom styles
+                $object.addClass(settings.class);
+
+                // Get the value of "data-labelauty" attribute
+                // Then, we have the labels for each case (or not, as we will see)
+                labels = $object.attr("data-labelauty");
+
+                use_labels = settings.label;
+
+                // It's time to check if it's going to the right way
+                // Null values, more labels than expected or no labels will be handled here
+                if (use_labels === true) {
+                    if (labels == null || labels.length === 0) {
+                        // If attribute has no label and we want to use, then use the default labels
+                        labels_object = new Array();
+                        labels_object[0] = settings.unchecked_label;
+                        labels_object[1] = settings.checked_label;
+                    }
+                    else {
+                        // Ok, ok, it's time to split Checked and Unchecked labels
+                        // We split, by the "settings.separator" option
+                        labels_object = labels.split(settings.separator);
+
+                        // Now, let's check if exist _only_ two labels
+                        // If there's more than two, then we do not use labels :(
+                        // Else, do some additional tests
+                        if (labels_object.length > 2) {
+                            use_labels = false;
+                            debug(settings.development, "There's more than two labels. LABELAUTY will not use labels.");
+                        }
+                        else {
+                            // If there's just one label (no split by "settings.separator"), it will be used for both cases
+                            // Here, we have the possibility of use the same label for both cases
+                            if (labels_object.length === 1)
+                                debug(settings.development, "There's just one label. LABELAUTY will use this one for both cases.");
+                        }
+                    }
+                }
+
+                /*
+                 * Let's begin the beauty
+                 */
+
+                // Start hiding ugly checkboxes
+                // Obviously, we don't need native checkboxes :O
+                $object.css({display: "none"});
+
+                // We don't need more data-labelauty attributes!
+                // Ok, ok, it's just for beauty improvement
+                $object.removeAttr("data-labelauty");
+
+                // Now, grab checkbox ID Attribute for "label" tag use
+                // If there's no ID Attribute, then generate a new one
+                input_id = $object.attr("id");
+
+                if (input_id == null) {
+                    var input_id_number = 1 + Math.floor(Math.random() * 1024000);
+                    input_id = "labelauty-" + input_id_number;
+
+                    // Is there any element with this random ID ?
+                    // If exists, then increment until get an unused ID
+                    while ($(input_id).length !== 0) {
+                        input_id_number++;
+                        input_id = "labelauty-" + input_id_number;
+                        debug(settings.development, "Holy crap, between 1024 thousand numbers, one raised a conflict. Trying again.");
+                    }
+
+                    $object.attr("id", input_id);
+                }
+
+                // Now, add necessary tags to make this work
+                // Here, we're going to test some control variables and act properly
+                $object.after(create(input_id, labels_object, use_labels));
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.minimum_width !== false)
+                    $object.next("label[for=" + input_id + "]").css({"min-width": settings.minimum_width});
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.same_width != false && settings.label == true) {
+                    var label_object = $object.next("label[for=" + input_id + "]");
+                    var unchecked_width = getRealWidth(label_object.find("span.labelauty-unchecked"));
+                    var checked_width = getRealWidth(label_object.find("span.labelauty-checked"));
+
+                    if (unchecked_width > checked_width)
+                        label_object.find("span.labelauty-checked").width(unchecked_width);
+                    else
+                        label_object.find("span.labelauty-unchecked").width(checked_width);
+                }
+            });
+        };
+
+        /*
+         * Tricky code to work with hidden elements, like tabs.
+         * Note: This code is based on jquery.actual plugin.
+         * https://github.com/dreamerslab/jquery.actual
+         */
+        function getRealWidth(element) {
+            var width = 0;
+            var $target = element;
+            var style = 'position: absolute !important; top: -1000 !important; ';
+
+            $target = $target.clone().attr('style', style).appendTo('body');
+            width = $target.width(true);
+            $target.remove();
+
+            return width;
+        }
+
+        function debug(debug, message) {
+            if (debug && window.console && window.console.log)
+                window.console.log("jQuery-LABELAUTY: " + message);
+        };
+
+        function create(input_id, messages_object, label) {
+            var block;
+            var unchecked_message;
+            var checked_message;
+
+            if (messages_object == null)
+                unchecked_message = checked_message = "";
+            else {
+                unchecked_message = messages_object[0];
+
+                // If checked message is null, then put the same text of unchecked message
+                if (messages_object[1] == null)
+                    checked_message = unchecked_message;
+                else
+                    checked_message = messages_object[1];
+            }
+
+            if (label == true) {
+
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+            else {
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+
+            return block;
+        };
+
+    }(jQuery));
+
+</script>
+
+<script type="text/javascript"> $(function () {
+    $("a").click(function (event) {
+        event.stopPropagation();
+    });
+}); </script>
+</html>-->

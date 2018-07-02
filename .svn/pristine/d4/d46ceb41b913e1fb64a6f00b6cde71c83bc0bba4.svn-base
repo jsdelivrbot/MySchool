@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自测统计</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/vue.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+</head>
+<style>
+
+    body{
+        font-size: 14px;
+    }
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .group {
+        display: inline-block;
+
+    }
+
+    .modal-body td {
+        border: 1px solid transparent !important;
+    }
+
+    .input_Time_width {
+        width: 160px;
+        font-size: 14px;
+    }
+
+    .input_width_ss {
+        width: 120px;
+        font-size: 14px;
+    }
+
+    .iconfont_size {
+        font-size: 12px;
+    }
+
+    #formSelf {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    table th{
+        font-weight: bold;
+        text-align: center;
+    }
+    select{
+        width: 150px;
+    }
+</style>
+<body>
+<div class="container-fluid" id="app" >
+    <div class="main">
+
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item" id="main_right_item">
+                <div>
+                    <form id="formSelf" name="formPaper" method="post">
+                        <div class="form-group group">
+                            <span>姓名：</span>
+                            <input v-model="selectByWhere.studentName" type="text" class="form-control input_width_ss" id="studentName" name="studentName"
+                                   placeholder="学生姓名">
+                        </div>
+
+                        <div class="form-group group">
+                            <span>班级：</span>
+                            <select id="selectpicker"
+                                    v-model="classSelectValue"
+                                    class="form-control selectpicker"
+                                    name="classId"
+                                    data-live-search="true"
+                                    @change="classSelectChang">
+                                <option value="-1">请选择</option>
+                            </select><br/>
+
+                        </div>
+                        <div class="form-group group">
+                            <span>统计时间：</span>
+                            <input type="text" v-model="selectByWhere.startTime" id="tj_testDate" name="startTime" class="form-control input_Time_width datainp">
+                        </div>
+                        <div class="form-group group">
+                            <span>—</span>
+                        </div>
+                        <div class="form-group group">
+                            <input type="text" v-model="selectByWhere.endTime" id="tj_endDate" name="endTime" class="form-control input_Time_width datainp">
+                        </div>
+                        <div class="form-group group">
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" class="btn btn-success radius" id="btnQuery"
+                                    @click="getSelfTestResult()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+                            <button type="button" class="btn btn-info radius" id="btnImport" data-toggle='modal'
+                                    data-target=''>
+                                <i class="Hui-iconfont">&#xe644;</i>导出
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-hover " id="noticeInfo">
+                    <thead>
+                    <tr>
+                        <td>班级</td>
+                        <td>姓名</td>
+                        <td>累计答题数</td>
+                        <td>正确率</td>
+                        <td>总用时(分钟)</td>
+                        <td>平均用时(秒)</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in selfTestResult" style="text-align: center">
+                        <td v-text="item.className"></td>
+                        <td v-text="item.studentName"></td>
+                        <td v-text="item.sumNumber"></td>
+                        <td v-text="rightPresents[index]"></td>
+                        <td v-text="item.sumTime"></td>
+                        <td v-text="avgTime[index]"></td>
+                        <td>
+                            <button @click="getSpecialtrainAndSkillByStudentId(item.studentId)"
+                                    class="btn btn-xs btn-primary"
+                                    data-toggle='modal' data-target='#addDetails'>
+                                <i class="iconfont icon-yulan iconfont_size"></i>
+                                查看
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div id="pageList" style="float:right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+
+                <!--详情模态框-->
+                <div id="addDetails" role="dialog" class="modal fade ">
+                    <div class="modal-dialog">
+                        <form class="addCustom" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span>统计详情</span>&nbsp;&nbsp;<span v-text="className"></span>&nbsp;&nbsp;<span
+                                        v-text="studentName"></span>
+                                    <div class="close" data-dismiss="modal">&bigotimes;</div>
+                                </div>
+                                <!--style="border:  0px solid transparent"-->
+                                <div class="modal-body " style="width: 600px">
+                                    <table class="table table-hover " style="width: 570px">
+                                        <thead>
+                                        <tr>
+                                            <td>知识点</td>
+                                            <td>累计答题数</td>
+                                            <td>正确率</td>
+                                            <td>总用时(分)</td>
+                                            <td>平均用时(秒)</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(item,index) in selfTestDetailResult">
+                                            <td v-text="skillNames[index]"></td>
+                                            <td v-text="item.sumNumber"></td>
+                                            <td v-text="rightDetailPresents[index]"></td>
+                                            <td v-text="item.sumTime"></td>
+                                            <td v-text="avgDetailTime[index]"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-dismiss="modal" onclick="insertExcelPar()">
+                                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                                    </button>
+                                    <button class="btn btn-warning" data-dismiss="modal">
+                                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script>
+    jeDate({
+        dateCell: "#tj_testDate",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#tj_endDate",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+
+</script>
+
+<script>
+    var pageCount = 1;
+    var selfTest = new Vue({
+        el: "#main_right_item",
+        data: {
+            //表格数据
+            selfTestResult: {},
+            //所有的正确率
+            rightPresents: [],
+            //平均用时
+            avgTime: [],
+            //自测统计--二级知识点
+            selfTestDetailResult: {},
+            //二级知识点的正确率
+            rightDetailPresents: [],
+            //二级知识点的平均用时
+            avgDetailTime: [],
+            //点击查看后的选中的学生姓名
+            studentName: '',
+            //点击查看后的选中的学生班级
+            className: '',
+            //二级知识点名称
+            skillNames: [],
+            //下拉框绑班级名称
+            classList: {},
+            //班级下拉框的选中值
+            classSelectValue:-1,
+            //条件查询
+            selectByWhere:{
+                startTime:"",
+                endTime:"",
+                studentName:"",
+            }
+        },
+        methods: {
+            //班级下拉框的改变事件
+            classSelectChang:function () {
+                //console.log(this.classSelectValue);
+            },
+            getSelfTestResult: function () {
+                var _this = this;
+                var pageindex = document.getElementById("pageIndex").value;
+                var data = {
+                    'startTime':_this.selectByWhere.startTime,
+                    'endTime':_this.selectByWhere.endTime,
+                    'classId':_this.classSelectValue,
+                    'studentName':_this.selectByWhere.studentName,
+                    'pageIndex':pageindex
+                };
+                $.post("http://localhost:8080/specialtrain/selectSpecialtrainByPage.do",
+                    data,
+                    function (result) {
+                        var rights = new Array();
+                        var times = new Array();
+                        pageCount = result.page.pageCount;
+                        _this.selfTestResult = result.specialtrainInfoList;
+                        for (var i = 0; i < _this.selfTestResult.length; i++) {
+                            var obj = _this.selfTestResult[i];
+                            var right = _this.chufa(obj.rightNumber, obj.sumNumber);
+                            rights.push(_this.toDecimal(right, 10000) + "%");
+                            var time = _this.chufa(obj.sumTime, obj.sumNumber);
+                            times.push(_this.toDecimal(time, 6000));
+                        }
+                        _this.rightPresents = rights;
+                        _this.avgTime = times;
+                    }, "json");
+            },
+            toDecimal: function (x, float) {
+                var f = parseFloat(x);
+                if (isNaN(f)) {
+                    return;
+                }
+                f = Math.round(x * float) / 100;
+                return f;
+            },
+            chufa: function (arg1, arg2) {
+                var t1 = 0, t2 = 0, r1, r2;
+                try {
+                    t1 = arg1.toString().split(".")[1].length;
+                }
+                catch (e) {
+                }
+                try {
+                    t2 = arg2.toString().split(".")[1].length;
+                }
+                catch (e) {
+                }
+                with (Math) {
+                    r1 = Number(arg1.toString().replace(".", ""));
+                    r2 = Number(arg2.toString().replace(".", ""));
+                    return (r1 / r2) * pow(10, t2 - t1);
+                }
+            },
+            sy: function () {
+                $("#pageIndex").val(1);//每次点击查询按钮后都从第一页开始
+                this.getSelfTestResult();
+            },
+            syy: function () {
+                var index = $("#pageIndex").val();
+                $("#pageIndex").val(parseInt(index) - 1);//转成int
+                this.getSelfTestResult();
+            },
+            xyy: function () {
+                var index = $("#pageIndex").val();
+                $("#pageIndex").val(parseInt(index) + 1);//转成int
+                this.getSelfTestResult();
+            },
+            wy: function () {
+                $("#pageIndex").val(pageCount);
+                this.getSelfTestResult();
+            },
+            getSpecialtrainAndSkillByStudentId: function (studentId) {
+                var _this = this;
+                var data= {'studentId':studentId,
+                    'startTime':_this.selectByWhere.startTime,
+                    'endTime':_this.selectByWhere.endTime,};
+                $.post("http://localhost:8080/specialtrain/selectSpecialtrainAndSkillByStudentId.do",
+                    data,
+                    function (result) {
+                        var rights = new Array();
+                        var times = new Array();
+                        var stuName = '';
+                        var claName = '';
+                        var skiNames = new Array();
+                        _this.selfTestDetailResult = result.selectSpecialtrainAndSkillByStudentIdList;
+                        for (var i = 0; i < _this.selfTestDetailResult.length; i++) {
+                            var obj = _this.selfTestDetailResult[i];
+                            var right = _this.chufa(obj.rightNumber, obj.sumNumber);
+                            rights.push(_this.toDecimal(right, 10000) + "%");
+                            var time = _this.chufa(obj.sumTime, obj.sumNumber);
+                            times.push(_this.toDecimal(time, 6000));
+                            stuName = obj.studentName;
+                            claName = obj.className;
+                            var data2 = {'fatherId': obj.fatherId};
+                            $.post("http://localhost:8080/specialtrain/selectFatherNameByFatherId.do",
+                                data2,
+                                function (result) {
+                                    skiNames.push(result.selectFatherNameByFatherId)
+                                }, "json");
+                        }
+                        _this.rightDetailPresents = rights;
+                        _this.avgDetailTime = times;
+                        _this.studentName = stuName;
+                        _this.className = claName;
+                        _this.skillNames = skiNames;
+                    }, "json");
+            },
+            bindClassByTeacherId: function () {
+                var _this = this;
+                var data = {'teacherId':1};
+                $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do",
+                    data,
+                    function (result) {
+                        var res = result.classList;
+                        var temp = "";
+                        for (var i = 0; i < res.length; i++) {
+                            temp += "<option value='" + res[i].classId + "'>" + res[i].className + "</option>";
+                        }
+                        $("#selectpicker").append(temp);
+
+                        $(".selectpicker").selectpicker('refresh');
+                    }, "json");
+
+            }
+        },
+        created: function () {
+            this.getSelfTestResult();
+            this.bindClassByTeacherId();
+        }
+    });
+
+</script>
+</html>
+

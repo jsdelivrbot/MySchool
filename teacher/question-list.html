@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>试卷信息</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/statisticalTest.css" rel="stylesheet">
+
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/vue.js"></script>
+
+    <!--复选框样式-->
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+
+
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+</head>
+<style>
+
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .group {
+        display: inline-block;
+
+    }
+    .input_width{
+        width: 120px;
+        font-size: 14px;
+    }
+    .input_width_lg{
+        width: 220px;
+        font-size: 14px;
+    }
+    .input_time{
+        width: 155px;
+        font-size: 14px;
+    }
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+    /* 把边框变成透明的。 */
+    .modal-body .td {
+
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+
+    }
+    .modal-body  td {
+        border: 1px solid transparent !important;
+    }
+    table th{
+        text-align: center;
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #262333 inset !important;
+    / / 关于解决输入框背景颜色 -webkit-text-fill-color: rgba(255, 255, 255, 1) !important;
+    / / 关于接输入框文字颜色
+    }
+    #formQuestion{
+        width: 90%;
+        margin: 20px auto;
+    }
+
+</style>
+<body>
+<div class="container-fluid" id="app" style="padding: 1% 100px">
+    <div class="main">
+
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formQuestion" name="formQuestion" method="post">
+                        <div class="form-group group">
+                            <span>试卷名称</span>
+                            <input type="text" class="form-control input_width" id="className" name="className" placeholder="试卷名称">
+                        </div>
+
+                        <div class="form-group group">
+                            <span>出题人</span>
+                            <input type="text" class="form-control input_width" id="teacherName" name="teacherName"
+                                   placeholder="出题人姓名">
+                        </div>
+                        <div class="form-group group">
+                           <span>试卷类型</span>
+                            <select id="quertionType" name="quertionType" class="form-control selectpicker"
+                                    style="width: 110px" placeholder="试卷类型">
+                                <option value="-1">请选择</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group group">
+                            <span>创建时间</span>
+                            <input type="text" id="tj_startDate" name="beginTime" class=" form-control input_time">
+                        </div>
+                        <div class="form-group group" >
+                            <span>—</span>
+                        </div>
+                        <div class="form-group group" >
+                            <input type="text" id="tj_endDate" name="endTime" class="form-control input_time">
+                        </div>
+
+                        <div class="form-group group">
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" class="btn btn-success radius" id="btnQuery" @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+
+                            <a style="border: 0" class="btn btn-primary radius" id="btnInsert" href="add-textQuestion.html" >
+                                <i class="Hui-iconfont">&#xe600;</i> 添加
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <table class="table  table-hover " id="noticeInfo">
+                    <thead>
+                    <tr>
+                        <td>试卷名称</td>
+                        <td>答题时间</td>
+                        <td>题目总数</td>
+                        <td>试卷总分</td>
+                        <td>每题分值</td>
+                        <td>创建教师</td>
+                        <td>创建日期</td>
+                        <td>试题类型</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in questionList" class="td">
+
+                        <td>{{item.questionName}}</td>
+                        <td>{{item.answerDate}}</td>
+                        <td>{{item.topicCount}}</td>
+                        <td>{{item.sumScore}}</td>
+                        <td>{{item.allocation}}</td>
+                        <td>{{item.teacherName}}</td>
+                        <td>{{item.creationDate}}</td>
+                        <td>{{item.opicTypeName}}</td>
+                        <td>{{item.remark}}</td>
+                        <td style="width: 19%">
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog' @click="selQuestionById(item.questionId,item.teacherName)"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.questionId)">&#xe615;</i>停用</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div id="pageList" style="float: right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+        <!--修改模态框-->
+        <div id="updDialog" role="dialog" class="modal fade">
+            <div class="modal-dialog">
+                <form id="updQuestion" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>修改测试信息</span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <table class="table table-dialog">
+
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle;width: 90px">试卷名称：</td>
+                                    <td>
+                                        <div>
+                                            <select class="selectpicker questionId"
+                                                   disabled="disabled" name="questionId" data-live-search="true" id="upd_questionId">
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">出题人：</td>
+                                    <td>
+                                        <input type="text" id="upd_teacherName" readonly="readonly"  class="form-control input_width_lg">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">创建日期：</td>
+                                    <td>
+                                        <input type="text" id="upd_creationDate" readonly="readonly"  class="form-control input_width_lg">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">总题数：</td>
+                                    <td>
+                                        <input type="text" id="upd_topicCount" readonly="readonly" class="form-control input_width_lg" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">每题分值：</td>
+                                    <td>
+                                        <input type="text" id="upd_allocation" class="form-control input_width_lg" name="allocation">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">答题时间：</td>
+                                    <td>
+                                        <input type="text" id="upd_answerDate"  class="form-control input_width_lg" name="answerDate">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;vertical-align: middle">总分：</td>
+                                    <td>
+                                        <input type="text" id="upd_sumScore"  class="form-control input_width_lg" name="sumScore">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align: center;vertical-align:top">备注：</td>
+                                    <td>
+                                <textarea class="form-control updremark"  id="upd_remark" name="remark"
+                                          style="width: 100%;height: 100px"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" @click="updQuestion()">
+                                <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                            </button>
+                            <button class="btn btn-warning" data-dismiss="modal">
+                                <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    //初始进来时传入一个条件pageIndex=1
+    var Initdate = $("#formQuestion").serialize();
+    var app = new Vue({
+        el: "#app",
+        data: {
+            questionList: [],
+            pageCount: 0
+        }, methods: {
+            getTableAll(date) {
+
+                $.post("http://localhost:8080/questionPaper/questionPaperPage.do", date, function (result) {
+                    console.log("返回的Json数据:" + result.questionList);
+                    for (var i = 0; i < result.questionList.length; i++) {
+                        console.log(result.questionList[i]);
+                    }
+                    app.questionList = result.questionList;
+                    app.pageCount = result.page.pageCount;
+                }, "json");
+            },
+            btnQuery(){
+                $("#pageIndex").val(1);
+                var date = $("#formQuestion").serialize();
+                this.getTableAll(date)
+            },
+            selQuestionById(questionId,teacherName){
+                $.post("http://localhost:8080/questionPaper/selQuestionById.do", {"questionId":questionId}, function (result) {
+                    console.log(result.teacherName)
+                    $("#upd_questionId").selectpicker('val',(result.questionId));4
+                    $("#upd_teacherName").val(teacherName);
+                    $("#upd_creationDate").val(result.creationDate);
+                    $("#upd_topicCount").val(result.topicCount);
+                    $("#upd_allocation").val(result.allocation);
+                    $("#upd_answerDate").val(result.answerDate);
+                    $("#upd_sumScore").val(result.sumScore);
+                    $("#upd_remark").val(result.remark);
+                }, "json");
+            },
+            updQuestion(){
+
+                $("#upd_questionId").removeAttr("disabled");
+
+                var formUpd= $("#updQuestion").serialize();
+                $.post("http://localhost:8080/questionPaper/updateQuestionById.do", formUpd, function (result) {
+                    if(result){
+                        alert("修改成功");
+                        $("#pageIndex").val(1);
+                        var date = $("#formQuestion").serialize();
+                        this.getTableAll(date)
+                    }else {
+                        alert("修改失败");
+                    }
+                }, "json");
+            },
+
+            //首页
+            sy() {
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formQuestion").serialize();
+                this.getTableAll(pageIn)
+            },
+            //下一页
+            xyy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formQuestion").serialize();
+
+                this.getTableAll(pageIn)
+            },
+            //尾页
+            wy() {
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formQuestion").serialize();
+                this.getTableAll(pageIn)
+            },
+
+        },
+        //页面加载时调用
+        created() {
+            this.getTableAll(Initdate);
+        }
+
+    })
+</script>
+<script>
+    $(function () {
+        $("#upd_allocation").blur(function () {
+            var allocation=$(this).val();//当前分值
+            var topicCount=$("#upd_topicCount").val()//总题数
+            $("#upd_sumScore").val(allocation*topicCount);//总分数
+        })
+        $.post("http://localhost:8080/questionPaper/selectQPaperDropdown.do", {}, function (data) {
+
+            console.log("data:"+data)
+            for (var i = 0; i < data.QPaperDropdownList.length; i++) {
+                $('#upd_questionId').append("<option value=" + data.QPaperDropdownList[i].questionId + ">" + data.QPaperDropdownList[i].questionName + "</option>");
+
+            }
+            $('#upd_questionId').selectpicker('refresh');
+
+        }, "json")
+        $.post("http://localhost:8080/dictionary/selDictionaryByType.do", {dictionaryCode:"opictypeType"}, function (data) {
+            console.log("考试类型："+data)
+            for (var i = 0; i < data.length; i++) {
+                $("#quertionType").append("<option value=" + data[i].dictionaryID + ">" +  data[i].attrName + "</option>");
+
+            }
+            $("#quertionType").selectpicker('refresh');
+
+        }, "json")
+    });
+
+</script>
+<!--日期控件-->
+<script>
+    jeDate({
+        dateCell: "#tj_startDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#tj_endDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+
+    jeDate({
+        dateCell: "#upd_startDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#upd_endDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+</script>
+
+</html>
+

@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 人脸录入</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+
+</head>
+<style>
+    .container-main {
+        width: 100%;
+        background-color: #ffdfda;
+    }
+
+    .iframeItem {
+        width: 100%;
+        height: 100%;
+    }
+
+    * {
+        -webkit-user-select: none;
+    }
+</style>
+
+<body>
+
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+        <!--右半部分内容-->
+        <div class="main-panel" style="float: none">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--右半部分主体内容-->
+            <div class="container" style="margin-top: 20px">
+                <div class="container">
+
+                    <div class="panel panel-default;" style="padding: 20px">
+                        <div class="geRenItem">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="img/001.png" alt="人脸采摘">
+                                        <div class="caption">
+                                            <h5>人脸采集</h5>
+                                            <p style="font-size: 14px">
+                                                它能关联您的账户，并且能让您在考试时人脸识别可以顺利通过！人脸采集完成后可能会有几分钟的等待时间，请耐心等待......</p>
+                                            <p id="cai">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--底部-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy; 2018
+                        <a href="#">云校园</a>，梦想带你起航
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+</body>
+<!--导入JS-->
+<script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+<script src="newStyle/js/aa743e8f448a4792bad10d201a7080f6.js"></script>
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!--通知模块-->
+<script src="dist/js/lobibox.min.js"></script>
+
+<!--右键菜单-->
+<script type="text/javascript">
+    var menu = document.getElementById("menu");
+    document.oncontextmenu = function (ev) {
+        var oEvent = ev || event;
+        //自定义的菜单显示
+        menu.style.display = "block";
+        //让自定义菜单随鼠标的箭头位置移动
+        menu.style.left = oEvent.clientX + "px";
+        menu.style.top = oEvent.clientY + "px";
+        //return false阻止系统自带的菜单，
+        //return false必须写在最后，否则自定义的右键菜单也不会出现
+        return false;
+
+    }
+    //实现点击document，自定义菜单消失
+    document.onclick = function () {
+
+        menu.style.display = "none";
+    }
+    function shuaxin() {
+        location.reload();
+    }
+</script>
+<script>
+    var lo = "localhost";
+    var uuId = "";
+    var groupId = "bdqn";
+    var count = 0;
+    var isJx = false;
+
+    //var gui = require('nw.gui');
+    $(function () {
+        //取出主题并设置上
+        var getTheme = localStorage.getItem("theme");
+        $(".sidebar").attr("data-color", getTheme);
+        var imgPath = localStorage.getItem("imgPath");
+        $(".sidebar").attr("data-image", imgPath);
+        $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+        getUserInfo();
+        var stu = localStorage.getItem("user");//登录用户
+        var obj = JSON.parse(stu);
+        console.log(obj);
+        uuId = obj.uuId;
+        //通过唯一ID查询该用户是否注册过人脸
+        queryRenCount(uuId);
+        //导航栏
+        $(".student").click(function () {
+            $(this).next().slideToggle();
+        });
+    });
+    //初始化用户信息&设置
+    function getUserInfo() {
+        var userInfo = localStorage.getItem("user");
+        var obj = JSON.parse(userInfo);
+        userInfoInit = obj;
+        $(".userName").html(userInfoInit.studentName + '  <b class="caret"></b>')
+        imgLogoInit();
+    }
+    function imgLogoInit() {
+        $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+    }
+    //退出应用程序
+    //退出应用程序
+    function clostExamSystem() {
+        //gui.App.quit()
+    }
+    function renLianLuRu() {
+        getRen();
+    }
+    function genXing() {
+        alert("暂未开放");
+    }
+    function chongshi() {
+        getRen();
+    }
+    function queryRenCount(uid) {
+        $.post("http://" + lo + ":8080/student/queryUserCount", {
+            "uid": uid,
+            "groupId": groupId
+        }, function (date) {
+            console.log("aaa");
+            console.log(date);
+            count = date.result_num;
+            if (date.result_num > 0) {
+                Lobibox.notify('success', {
+                    msg: '采集完成，可更新人脸已方便您的使用!'
+                });
+                $("#cai").html(' <a href="#" class="btn btn-success btn-fill btn-wd" style="width: 100%"  role="button" onclick="genXing()">点击更新</a>');
+            } else {
+                Lobibox.notify('info', {
+                    msg: '您还未采集人脸，采集完成可更加方便使用系统...'
+                });
+                count = 0;
+                $("#cai").html('<a href="#" class="btn btn-danger" style="width: 100%" onclick="renLianLuRu()" role="button" data-toggle="modal" data-target="#myModal">人脸采集</a>');
+            }
+        }, "json");
+    }
+    function getRen() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, { camera: true });
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            event.data.forEach(function (rect) {
+                //检测到人脸了
+                while (i >= 0) {
+                    i--;
+                    console.log("检测到人脸了");
+                    Lobibox.notify('success', {
+                        msg: ' 正在识别，请稍等...'
+                    });
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                    $.post("http://" + lo + ":8080/topic/setRenLianBase64", {
+                        "base": canvas.toDataURL(),
+                        "uid": uuId,
+                        "userInfo": "测试"
+                    }, function (date) {
+                        if (date.log_id != "") {
+                            Lobibox.notify('success', {
+                                msg: '恭喜您！采集完成...'
+                            });
+                            //启动进度条
+                            $("#cai").html(' <a href="#" class="btn btn-success" style="width: 100%" role="button">您已采集完成</a>');
+                            setTimeout(function () {
+                                window.location.reload();
+                                //$("#myModal").modal('hide');  //手动关闭
+                            }, 1000);
+                        } else {
+                            Lobibox.notify('error', {
+                                msg: '采集失败!系统正在重新采集!请不要离开视频区域'
+                            });
+                            setTimeout(function () {
+                                getRen();
+                            }, 500);
+                        }
+                    }, "json");
+                    //发送请求 判断是否存在
+                    //                    if (count > 0) {
+                    //                        console.log("当前用户采摘完成");
+                    //                    } else {
+                    //                        console.log("当前用户为任何采摘");
+                    //                        //进行采摘 判断识别采摘的人脸是否已经在其他账号采摘过
+                    //                        $.post("http://localhost:8080/topic/getRenLianBase64", {"base": canvas.toDataURL()}, function (dates) {
+                    //                            if (dates.error_msg != "") {
+                    //                                //可以采摘
+                    //                                //正常录入
+                    //                                if (dates.result[0].scores > 75) {
+                    //                                    $("#titleDiv").html('<h5 style="color: red">您已在其他账号采摘过人脸，不能再次采摘！<a onclick="chongshi()">点击重试</a></h5>');
+                    //
+                    //                                }
+                    //                            } else {
+                    //                                isJx = true;
+                    //                                console.log("可以进行采摘!");
+                    //
+                    //                            }
+                    //
+                    //                        }, "json");
+                    //                    }
+                    if (isJx) {
+                        //                        $.post("http://localhost:8080/topic/setRenLianBase64", {
+                        //                            "base": canvas.toDataURL(),
+                        //                            "uid": uuId,
+                        //                            "userInfo": "测试"
+                        //                        }, function (date) {
+                        //                            if (date.log_id != "") {
+                        //                                $("#titleDiv").html('<h5 style="color: #163bce;" id="titleH3"><span style="color: #47ce5e;font-size: 30px;font-weight: bold">✔</span> 恭喜您！采摘成功</h5>');
+                        //                                //启动进度条
+                        //                                $("#cai").html(' <a href="#" class="btn btn-success" style="width: 100%" role="button">您已采摘完成</a>');
+                        //                                setTimeout(function () {
+                        //                                    window.location.reload();
+                        //                                    //$("#myModal").modal('hide');  //手动关闭
+                        //                                }, 1000);
+                        //                            } else {
+                        //                                $("#titleDiv").html('<h5 style="color: red">采摘失败！<a onclick="chongshi()">点击重试</a></h5>');
+                        //                            }
+                        //                        }, "json");
+                    }
+                }
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                context.font = '11px Helvetica';
+                context.fillStyle = "#fff";
+                context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+
+            });
+
+        });
+        //        var gui = new dat.GUI();
+        //        gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
+        //        gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
+        //        gui.add(tracker, 'stepSize', 1, 5).step(0.1);
+
+    }
+
+
+</script>
+
+</html>

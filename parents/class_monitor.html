@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>班级监控</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+
+
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        * {
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #allmap {
+
+            width: 100%;
+            background-color: #00a0e9;
+            margin: 0 auto;
+            height: 590px;
+        }
+
+        .juzhong {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script>
+        function goto(num){
+            if(num==3){/*向左*/
+                $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=3&user=admin&pwd=&res=0&1528198941885","",function(result){},"text");
+            }else if(num==6){/*向右*/
+                $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=6&user=admin&pwd=&res=0&1528199095641","",function(result){},"text");
+            }else if(num==1){/*向上*/
+                $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=1&user=admin&pwd=&res=0&1528199146944","",function(result){},"text");
+            }else if(num==2){/*关闭红外线*/
+                $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=2&user=admin&pwd=&res=0&1528199157170","",function(result){},"text");
+            }else if(num==10) {
+                var val = $("#hwx").attr("value");
+                alert(val);
+                if (val == 0) {
+                    /*打开红外线*/
+                    $("#hwx").attr("value","1");
+                    $.get("http://192.168.1.126:81/cgi-bin/set_ir_gpio.cgi?val=1&loginuse=admin&loginpas=&1528203769294", "", function (result) {
+                    }, "text");
+                } else {
+                    /*关闭红外线*/
+                    $("#hwx").attr("value","0");
+                    $.get("http://192.168.1.126:81/cgi-bin/set_ir_gpio.cgi?val=0&loginuse=admin&loginpas=&1528203742725", "", function (result) {
+                    }, "text");
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="juzhong">
+    <div class="container-fluid" style="padding: 10px;">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="announcementTitle">学生姓名</label>
+                <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入学生姓名">
+            </div>
+            <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+        </form>
+    </div>
+        <div style="width: 100%;height: 0px;margin-left: 10%;margin-top: 10px ">
+            <div style="width: 700px;height: 600px;display: inline-block;float: left; overflow: hidden">
+                <img src="http://192.168.1.126:81/videostream.cgi?user=admin&amp;pwd=&amp;res=0"  class="overflowingVertical">
+                <table width="700px" cellspacing="0" colspan="5">
+                    <tbody><tr align="center">
+                        <td height="40"><img src="img/ptz_26.gif" onclick="goto(3);" width="38" height="38">
+                            <img src="img/ptz_29.gif" onclick="goto(6);" width="38" height="38">
+                            <img src="img/ptz_19.gif" onclick="goto(1);" width="38" height="38">
+                            <img src="img/ptz_34.gif" onclick="goto(2);" width="38" height="38">
+                            <img src="img/ir0.gif" onclick="goto(10);" width="38" height="38" id="hwx" value="0"></td>
+                    </tr>
+                    </tbody></table>
+            </div>
+
+            <div style="display: inline-block;width: 100px;height: 400px;float: left;line-height: 500px;margin-left: 8%"><img src="img/jiankong.png"><div style="position: relative;bottom: 350px;right: 50px;font-size: 20px;width: 300px">手机扫一扫，直播视频手机轻松看</div></div>
+        </div>
+</div>
+
+</body>
+</html>

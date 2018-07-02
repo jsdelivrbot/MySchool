@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <meta name="toTop" content="true">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="js/xlsx.full.min.js"></script>
+    <style>
+        #editor-container {
+            heighst: 400px;
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 4px auto;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 90%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        .title {
+            display: inline-block;
+            left: 20px;
+            margin: 3px 0px 3px 10px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-control {
+            width: 80%;
+        }
+
+        #attachment {
+            line-height: 100%;
+            font-size: 14px;
+        }
+
+        .last {
+            text-align: center;
+        }
+
+        .item {
+            width: 90%;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .color {
+            background-color: #f20019;
+        }
+
+        .item-plan {
+            width: 100%;
+            height: 645px;
+            overflow: auto;
+            border: 1px solid #f8f8f8;
+            -webkit-border-radius: 5px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        td p {
+            width: 80px;
+            margin: 0;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+    </style>
+    <script>
+        jQuery(document).ready(function ($) {
+            if ($("meta[name=toTop]").attr("content") == "true") {
+                $("<div id='toTop'><img src='img/1.png'></div>").appendTo('body');
+                $("#toTop").css({
+                    width: '50px',
+                    height: '50px',
+                    bottom: '10px',
+                    right: '15px',
+                    position: 'fixed',
+                    cursor: 'pointer',
+                    zIndex: '999999',
+                });
+                if ($(this).scrollTop() == 0) {
+                    $("#toTop").hide();
+                }
+                $(window).scroll(function (event) {
+                    /* Act on the event */
+                    if ($(this).scrollTop() == 0) {
+                        $("#toTop").hide();
+                    }
+                    if ($(this).scrollTop() != 0) {
+                        $("#toTop").show();
+                    }
+                });
+                $("#toTop").click(function (event) {
+                    /* Act on the event */
+                    $("html,body").animate({
+                            scrollTop: "0px"
+                        },
+                        400
+                    )
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="container" id="app">
+
+    <div class="panel panel-default item">
+        <div id="main-item" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">本人课表</span>
+                <button class="btn btn-info" type="button"
+                        style="display: inline-block;margin-left: 10px;float: right;margin-top: 5px;margin-right: 2%"
+                        onclick="$('#FileInput')[0].click()"><i class="Hui-iconfont">&#xe645;</i>批量导入
+                </button>
+                <input type="file" id="FileInput" hidden="hidden" style="display: none;" onchange="importf(this)"/>
+                <div id="demo" style="display: none"></div>
+                <br/>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 日期</div>
+                    </th>
+                    <th style="width: 100px">
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教室机房</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonTea">
+                    <td>
+                        <div class="center"> {{item.lessonDate}}</div>
+                    </td>
+                    <td>
+                        <p :title="item.subjectNameA" class="center">{{item.subjectNameA}} </p>
+                    </td>
+                    <td>
+                        <p class="center"  :title="item.classIDA"> {{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p :title="item.subjectNameB" class="center">{{item.subjectNameB}} </p>
+                    </td>
+                    <td>
+                        <p class="center"  :title="item.classIDB"> {{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center"> {{item.roomIDB}}</div>
+                    </td>
+                    <td>
+                        <p :title="item.subjectNameC" class="center">{{item.subjectNameC}} </p>
+                    </td>
+                    <td>
+                        <p class="center"  :title="item.classIDC"> {{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center"> {{item.roomIDC}}</div>
+                    </td>
+                    <td>
+                        <p :title="item.subjectNameD" class="center">{{item.subjectNameD}} </p>
+                    </td>
+                    <td>
+                        <p class="center"  :title="item.classIDD"> {{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center"> {{item.roomIDD}}</div>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <div id="main-item01" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item02" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item03" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item04" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item05" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item06" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonList">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+        <div id="main-item07" class="item-plan">
+            <div class="panel panel-default" style="height: 50px ;width: 100% ">
+                <span class="title">校区课表<span>({{date}})</span></span>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr style="background-color:#e6e6e6">
+                    <th>
+                        <div class="center"> 时间</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 上午 8：30-10：20</div>
+                    </th>
+
+                    <th colspan="3">
+                        <div class="center">上午 10：30-12：15</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center">下午 13：45-15：35</div>
+                    </th>
+                    <th colspan="3">
+                        <div class="center"> 下午 15：45-17：30</div>
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <div class="center"> 教室机房</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+                    <th>
+                        <div class="center"> 课 程</div>
+                    </th>
+                    <th>
+                        <div class="center">班级编号</div>
+                    </th>
+                    <th>
+                        <div class="center">教员姓名</div>
+                    </th>
+
+                </tr>
+                <tr v-for="(item,index) in lessonRi">
+                    <td>
+                        <div class="center"> {{item.roomIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameA"> {{item.subjectNameA}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDA">{{item.classIDA}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDA}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameB"> {{item.subjectNameB}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDB">{{item.classIDB}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDB}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameC"> {{item.subjectNameC}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDC">{{item.classIDC}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDC}}</div>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.subjectNameD"> {{item.subjectNameD}}</p>
+                    </td>
+                    <td>
+                        <p class="center" :title="item.classIDD">{{item.classIDD}}</p>
+                    </td>
+                    <td>
+                        <div class="center">{{item.teacherIDD}}</div>
+                    </td>
+
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="btn-group" style="float: right;margin-top: 8px;margin-right: 5%">
+        <a href="#main-item" class="btn btn-primary radius">本人</a>
+        <a href="#main-item01" class="btn btn-default radius" @click="initLessonYi(1)">周一</a>
+        <a href="#main-item02" class="btn btn-default radius" @click="initLessonYi(2)">周二</a>
+        <a href="#main-item03" class="btn btn-default radius" @click="initLessonYi(3)">周三</a>
+        <a href="#main-item04" class="btn btn-default radius" @click="initLessonYi(4)">周四</a>
+        <a href="#main-item05" class="btn btn-default radius" @click="initLessonYi(5)">周五</a>
+        <a href="#main-item06" class="btn btn-default radius" @click="initLessonYi(6)">周六</a>
+        <a href="#main-item07" class="btn btn-default radius" @click="initLessonRi()">周日</a>
+    </div>
+</div>
+<script>
+    /*
+     FileReader共有4种读取方法：
+     1.readAsArrayBuffer(file)：将文件读取为ArrayBuffer。
+     2.readAsBinaryString(file)：将文件读取为二进制字符串
+     3.readAsDataURL(file)：将文件读取为Data URL
+     4.readAsText(file, [encoding])：将文件读取为文本，encoding缺省值为'UTF-8'
+     */
+    var wb;//读取完成的数据
+    var rABS = false; //是否将文件读取为二进制字符串
+
+    function importf(obj) {//导入
+        if (!obj.files) {
+            return;
+        }
+        var f = obj.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var data = e.target.result;
+            if (rABS) {
+                wb = XLSX.read(btoa(fixdata(data)), {//手动转化
+                    type: 'base64'
+                });
+            } else {
+                wb = XLSX.read(data, {
+                    type: 'binary'
+                });
+            }
+            //wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
+            //wb.Sheets[Sheet名]获取第一个Sheet的数据
+            var date = "";
+            document.getElementById("demo").innerHTML = JSON.stringify(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+            for (var i = 0; i < XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]).length; i++) {
+                var obj = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])[i];
+//                console.log(obj);
+                if (obj.__EMPTY != undefined) {
+                    date = obj.__EMPTY;
+                }
+                if (obj.__EMPTY == undefined) {
+                    obj.__EMPTY = date;
+                }
+                //console.log(obj.__EMPTY);
+                if (obj.__EMPTY_1 == undefined) {
+                    obj.__EMPTY_1 = "";
+                }
+                if (obj.__EMPTY_2 == undefined) {
+                    obj.__EMPTY_2 = "";
+                }
+                if (obj.__EMPTY_3 == undefined) {
+                    obj.__EMPTY_3 = "";
+                }
+                if (obj.__EMPTY_4 == undefined) {
+                    obj.__EMPTY_4 = "";
+                }
+                if (obj.__EMPTY_5 == undefined) {
+                    obj.__EMPTY_5 = "";
+                }
+                if (obj.__EMPTY_6 == undefined) {
+                    obj.__EMPTY_6 = "";
+                }
+                if (obj.__EMPTY_7 == undefined) {
+                    obj.__EMPTY_7 = "";
+                }
+                if (obj.__EMPTY_8 == undefined) {
+                    obj.__EMPTY_8 = "";
+                }
+                if (obj.__EMPTY_9 == undefined) {
+                    obj.__EMPTY_9 = "";
+                }
+                if (obj.__EMPTY_10 == undefined) {
+                    obj.__EMPTY_10 = "";
+                }
+                if (obj.__EMPTY_11 == undefined) {
+                    obj.__EMPTY_11 = "";
+                }
+                if (obj.__EMPTY_12 == undefined) {
+                    obj.__EMPTY_12 = "";
+                }
+                if (obj.__EMPTY_13 == undefined) {
+                    obj.__EMPTY_13 = "";
+                }
+                var isOk1 = false;
+                var isOk2 = false;
+                var isOk3 = false;
+                var isOk4 = false;
+                var isOk5 = false;
+                var isOk6 = false;
+                var isOk7 = false;
+                var isOk8 = false;
+                $.post("http://localhost:8080/classInfo/selectClassId.do", {"className": obj.__EMPTY_3}, function (result) {
+                    obj.__EMPTY_3 = result.classid;
+                    isOk1 = true;
+                }, "json");
+                $.post("http://localhost:8080/classInfo/selectClassId.do", {"className": obj.__EMPTY_6}, function (result) {
+                    obj.__EMPTY_6 = result.classid;
+                    isOk2 = true;
+                }, "json");
+                $.post("http://localhost:8080/classInfo/selectClassId.do", {"className": obj.__EMPTY_9}, function (result) {
+                    obj.__EMPTY_9 = result.classid;
+                    isOk3 = true;
+                }, "json");
+                $.post("http://localhost:8080/classInfo/selectClassId.do", {"className": obj.__EMPTY_12}, function (result) {
+                    obj.__EMPTY_12 = result.classid;
+                    isOk4 = true;
+                }, "json");
+                $.post("http://localhost:8080/teacher/selectTeacherId.do", {"teacherName": obj.__EMPTY_4}, function (result) {
+                    obj.__EMPTY_4 = result.TeacherId;
+                    isOk5 = true;
+                }, "json");
+                $.post("http://localhost:8080/teacher/selectTeacherId.do", {"teacherName": obj.__EMPTY_7}, function (result) {
+                    obj.__EMPTY_7 = result.TeacherId;
+                    isOk6 = true;
+                }, "json");
+                $.post("http://localhost:8080/teacher/selectTeacherId.do", {"teacherName": obj.__EMPTY_10}, function (result) {
+                    obj.__EMPTY_10 = result.TeacherId;
+                    isOk7 = true;
+
+                }, "json");
+                $.post("http://localhost:8080/teacher/selectTeacherId.do", {"teacherName": obj.__EMPTY_13}, function (result) {
+                    obj.__EMPTY_13 = result.TeacherId;
+                    isOk8 = true;
+                }, "json");
+
+//                console.log("----------------");
+//                console.log(obj);
+//                $("#table01").append(" <tr>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_1 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_2 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_3 + "</div> </th> " +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_4 + "</div>     </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_5 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_6 + "</div>    </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_7 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_8 + "</div>  </th> " +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_9 + "</div></th> " +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_10 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_11 + "</div></th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_12 + "</div> </th>" +
+//                    " <th>  <div class='center'>" + obj.__EMPTY_13 + "</div></th> " +
+//                    "</tr>");
+                //
+//                console.log(obj);
+//                setInterval(function () {
+//                    if (isOk1 && isOk2 && isOk3 && isOk4 && isOk5 && isOk6 && isOk7 && isOk8) {
+//                        $.post("http://localhost:8080/lesson/add.do", obj, function (result) {
+//                           if (result == true) {
+//                               console.log("添加成功");
+//                           }else {
+//                               console.log('失败');
+//                           }
+//                           isOk1 = false;
+//                           isOk2 = false;
+//                           isOk3 = false;
+//                           isOk4 = false;
+//                           isOk5 = false;
+//                           isOk6 = false;
+//                           isOk7 = false;
+//                           isOk8 = false;
+//                      },"json");
+//                    }
+//                }, 100);
+//
+//               $.post("http://localhost:8080/lesson/add.do", obj, function (result) {
+//                   if (result == true) {
+//                       console.log("添加成功");
+//                   }else {
+////                       alert("添加失败");
+//                       console.log('失败');
+//                   }
+//              },"json");
+
+
+            }
+
+//            console.log( XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+        };
+        if (rABS) {
+            reader.readAsArrayBuffer(f);
+        } else {
+            reader.readAsBinaryString(f);
+        }
+    }
+
+    function fixdata(data) { //文件流转BinaryString
+        var o = "",
+            l = 0,
+            w = 10240;
+        for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+        return o;
+    }
+
+</script>
+<script src="js/vue.js"></script>
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            lessonList: [],
+            lessonRi: [],
+            date:{},
+            lessonTea:[]
+        },
+        methods: {
+            initLessonYi(id){
+                $.post("http://localhost:8080/lesson/allById.do", {id: id}, function (result) {
+                    console.log(result);
+                    app.lessonList = result;
+                    for (var i = 0; i < result.length; i++) {
+                        app.date = result[i].lessonDate;
+                    }
+                }, "json");
+            }, initLessonRi(){
+                $.post("http://localhost:8080/lesson/selectLessonAllByRi.do", "", function (result) {
+                    console.log(result);
+                    app.lessonRi = result;
+                    for (var i = 0; i < result.length; i++) {
+                        app.date = result[i].lessonDate;
+                    }
+                }, "json");
+            }, initLessonTea(){
+                var teacherId=localStorage.getItem("id");
+                var teacherName=localStorage.getItem("name");
+                $.post("http://localhost:8080/lesson/allByTea.do", "id="+teacherId, function (result) {
+                    console.log(result);
+                    for (var i = 0; i < result.length; i++) {
+                        if(result[i].teacherIDA!=teacherName){
+                            result[i].teacherIDA="";
+                            result[i].roomIDA="";
+                            result[i].classIDA="";
+                            result[i].subjectNameA="";
+                        }
+                        if(result[i].teacherIDB!=teacherName){
+                            result[i].teacherIDB="";
+                            result[i].roomIDB="";
+                            result[i].classIDB="";
+                            result[i].subjectNameB="";
+                        }
+                        if(result[i].teacherIDC!=teacherName){
+                            result[i].teacherIDC="";
+                            result[i].roomIDC="";
+                            result[i].classIDC="";
+                            result[i].subjectNameC="";
+                        }
+                        if(result[i].teacherIDD!=teacherName){
+                            result[i].teacherIDD="";
+                            result[i].roomIDD="";
+                            result[i].classIDD="";
+                            result[i].subjectNameD="";
+                        }
+                    }
+                    app.lessonTea = result;
+                }, "json");
+            }
+
+        }, created() {
+            this.initLessonTea();
+        }
+    })
+</script>
+
+</body>
+</html>

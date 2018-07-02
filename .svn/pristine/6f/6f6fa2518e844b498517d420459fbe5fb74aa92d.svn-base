@@ -1,0 +1,678 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 我的信息</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!--通知-->
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <script src="js/vue.js"></script>
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="css/style1.css" type="text/css" />
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+    }
+
+    .container-main {
+        width: 100%;
+        background-color: #ffdfda;
+    }
+
+    .iframeItem {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wuTheme:hover {
+        border: 2px solid #a68dff;
+    }
+
+    #WXXX {
+
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        position: relative;
+        top: -10px;
+        left: -20px;
+
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+
+    #myModal {
+        width: 100%;
+    }
+
+    .border-gray:hover {
+        border: 2px solid #fffab7;
+    }
+</style>
+
+<body>
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+        <!--右半部分内容-->
+        <div class="main-panel">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--右半部分主体内容-->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="header" id="WXXX">
+                                    <h4 class="title" style="color: #ffffff;font-weight: bold">完善信息</h4>
+                                </div>
+                                <div class="content">
+                                    <form id="form">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label>用户账号</label>
+                                                    <input type="text" class="form-control" id="studentCode" name="studentCode" disabled placeholder="Company">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>用户名</label>
+                                                    <input type="text" class="form-control" id="studentName" name="studentName" placeholder="Username">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="Email">用户邮箱</label>
+                                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>联系号码</label>
+                                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>应急号码</label>
+                                                    <input type="text" name="emergencyNumber" id="emergencyNumber" class="form-control" placeholder="emergencyNumber">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>所在班级</label>
+                                                    <input type="text" id="className" class="form-control" placeholder="ClassName" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>家庭住址</label>
+                                                    <input type="text" name="address" id="address" class="form-control" placeholder="Home Address">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>我的简介</label>
+                                                    <textarea rows="5" class="form-control" name="remark" id="remark" placeholder="Here can be your description">这个人很懒，什么都没留下...</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-info btn-fill pull-right" @click="saveUserInfo()">保存信息
+                                        </button>
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-user">
+                                <div class="image">
+                                    <img src="./newStyle/picture/full-screen-image-3.jpg" alt="..." />
+                                </div>
+                                <div class="content">
+                                    <div class="author">
+                                        <a href="#">
+                                            <span class="logo-big" data-toggle="modal" data-target="#myModal">
+                                            </span>
+
+                                            <h4 class="title" id="studentName02" style="font-weight: bold">
+                                            </h4>
+                                            <small id="age" style="color: #0f0f0f;font-weight: bold;font-size: 14px">
+                                            </small>
+                                        </a>
+                                    </div>
+                                    <p class="description text-center" id="remark02" style="width: 100px;margin: 0 auto;display: block;margin-top: 15px;">
+
+                                    </p>
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <button href="#" class="btn btn-simple">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </button>
+                                    <button href="#" class="btn btn-simple">
+                                        <i class="fa fa-twitter"></i>
+                                    </button>
+                                    <button href="#" class="btn btn-simple">
+                                        <i class="fa fa-google-plus-square"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--底部-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy; 2018
+                        <a href="#">云校园</a>，梦想带你起航
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!--主题设置模块-->
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title">主题设置</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger">
+                        <p>Color</p>
+                        <div class="pull-right">
+                            <span class="badge filter" data-color="black"></span>
+                            <span class="badge filter badge-azure" data-color="azure"></span>
+                            <span class="badge filter badge-green" data-color="green"></span>
+                            <span class="badge filter badge-orange" data-color="orange"></span>
+                            <span class="badge filter badge-red" data-color="red"></span>
+                            <span class="badge filter badge-purple" data-color="purple"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+                <li class="header-title">Image</li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="newStyle/picture/full-screen-image-1.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="newStyle/picture/full-screen-image-2.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="newStyle/picture/full-screen-image-3.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger" href="javascript:void(0)">
+                        <img src="newStyle/picture/full-screen-image-4.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a class="img-holder switch-trigger wuTheme" href="javascript:void(0)">
+                        <p style="text-align: center;line-height: 80px;width:100%;height:100%;font-size: 12px;border: 1px solid #f1f1f1;color: #686868">
+                            无</p>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+    <!--修改头像模态框-->
+    <div class="modal fade" id="myModal" aria-hidden="true" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 700px;height: 600px;position: relative">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel" style="display: inline-block">更换头像</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--内容-->
+                    <div class="">
+                        <div class="imageBox">
+                            <div class="thumbBox"></div>
+                            <div class="spinner" style="display: none"></div>
+                        </div>
+                        <div class="action">
+                            <div class="new-contentarea tc">
+                                <a href="javascript:void(0)" class="upload-img">
+                                    <label for="upload-file">选择</label>
+                                </a>
+                                <input type="file" accept="image/jpeg" class="" name="upload-file" id="upload-file" />
+                            </div>
+                            <input type="button" id="btnCrop" class="Btnsty_peyton" value="完成">
+                            <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
+                            <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
+
+                        </div>
+                        <div class="cropped" style="position: absolute;right: 10px;border: 0"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var lo = "localhost";
+        var app = new Vue({
+            el: '#app',
+            data: {
+                userInfo: {},
+                customTestInfo: [],
+                studentCode: "",
+                studentPassword: ""
+            },
+            methods: {
+                saveUserInfo() {
+                    var userDate = $("#form").serialize();
+                    userDate += "&studentId=" + app.userInfo.studentId + "&age=" + app.userInfo.age
+                    $.post("http://" + lo + ":8080/student/updateStudentInfo", userDate, function (date) {
+                        if (date) {
+                            demo.showNotification('bottom', 'right', 'success', '保存成功', '信息已更新完毕', 'pe-7s-door-lock');
+                            app.setUserInfo();
+                        } else {
+                            Lobibox.notify('danger', {
+                                msg: '保存失败，请重试...'
+                            });
+                        }
+                    }, "json");
+                },
+                setUserInfo() {
+                    $.post("http://" + lo + ":8080/student/loginByStudentCodeAndStudentPassword", {
+                        "studentCode": this.studentCode,
+                        "studentPassword": this.studentPassword
+                    }, function (date) {
+
+                        localStorage.setItem("user", date);
+                        var userInfo1 = localStorage.getItem("user")
+                        var obj = JSON.parse(userInfo1);
+                        app.userInfo = obj;
+                        userInfoInit = obj;
+                        console.log(obj);
+                        $("#className").val(obj.className);
+                        $("#emergencyNumber").val(obj.emergencyNumber);
+                        $("#phone").val(obj.phone);
+                        $("#Email").val(obj.email);
+                        $("#studentCode").val(obj.studentCode);
+                        $("#address").val(obj.address);
+                        $("#remark").text(obj.remark);
+                        $("#remark02").text(obj.remark);
+                        $("#studentName").val(obj.studentName);
+                        $("#studentName02").text(obj.studentName);
+                        $("#age").text(obj.age + "岁");
+
+                    });
+                },
+            },
+            created() {
+                //获取用户信息 转为JSON
+                var userInfo = localStorage.getItem("user");
+                var obj = JSON.parse(userInfo);
+                this.studentCode = obj.studentCode;
+                this.studentPassword = obj.studentPassword;
+
+                this.setUserInfo();
+
+            }
+        })
+
+    </script>
+</body>
+<!--导入JS-->
+<script type="text/javascript" src="js/cropbox.js"></script>
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+
+<!--通知模块-->
+<script src="dist/js/lobibox.min.js"></script>
+
+
+<script>
+    var userInfoInit;//用户信息
+    var btn = true;//导航栏状态
+    //var gui = require('nw.gui');
+    $(function () {
+        notice();
+        getUserInfo();
+        console.log(userInfoInit.studentName);//用户信息
+        //模态框
+
+        $('#myModal').on('hidden.bs.modal', function (e) {
+            var file = $("#upload-file");
+            file.after(file.clone().val(""));
+            file.remove();
+        })
+        var height = $(window).height();
+        $(".container-main").css("height", height);//设置初始化高度
+        $(window).resize(function () {//设置窗口改变时的高度
+            var height = $(window).height();
+            $(".container-main").css("height", height)
+        });
+        //设置主题
+        $(".filter").click(function () {
+            var theme = $(this).attr("data-color");
+            localStorage.setItem("theme", theme);
+        });
+        $(".img-holder").click(function () {
+            var imgPath = $(this).children().attr("src")
+            localStorage.setItem("imgPath", imgPath);
+        });
+        $(".btn-theme").click(function () {
+            btn = !btn;
+            localStorage.setItem("btn-theme", btn);
+
+        });
+        getTheme();
+
+    });
+    //退出应用程序
+    function clostExamSystem() {
+        //gui.App.quit()
+    }
+    //取出主题并设置上
+    function getTheme() {
+        var getTheme = localStorage.getItem("theme");
+        $(".sidebar").attr("data-color", getTheme);
+        var imgPath = localStorage.getItem("imgPath");
+        $(".sidebar").attr("data-image", imgPath);
+        $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+    }
+    //设置通知
+    function notice() {
+        demo.showNotification('bottom', 'right', 'success', '个人中心', '完善信息会方便取得联系', 'pe-7s-door-lock');
+    }
+    //初始化用户信息&设置
+    function getUserInfo() {
+        console.log("进入")
+        var userInfo = localStorage.getItem("user");
+        var obj = JSON.parse(userInfo);
+        userInfoInit = obj;
+        $(".userName").html(userInfoInit.studentName + '  <b class="caret"></b>')
+        imgLogoInit();
+    }
+    //初始化头像
+    function imgLogoInit() {
+        $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+        $(".logo-big").html(' <img title="点击更换头像"  class="avatar border-gray" src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg" alt="..."/>')
+    }
+</script>
+<!--右键菜单-->
+<script type="text/javascript">
+    var menu = document.getElementById("menu");
+    document.oncontextmenu = function (ev) {
+        var oEvent = ev || event;
+        //自定义的菜单显示
+        menu.style.display = "block";
+        //让自定义菜单随鼠标的箭头位置移动
+        menu.style.left = oEvent.clientX + "px";
+        menu.style.top = oEvent.clientY + "px";
+        //return false阻止系统自带的菜单，
+        //return false必须写在最后，否则自定义的右键菜单也不会出现
+        return false;
+
+    }
+    //实现点击document，自定义菜单消失
+    document.onclick = function () {
+
+        menu.style.display = "none";
+    }
+    function shuaxin() {
+        location.reload();
+    }
+</script>
+<script type="text/javascript">
+    $(window).load(function () {
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: ''
+        }
+        var cropper = $('.imageBox').cropbox(options);
+        var img = "";
+        $('#upload-file').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+
+            }
+            reader.readAsDataURL(this.files[0]);
+            setTimeout(function () {
+                getImg();
+            }, 500)
+
+        })
+        $('#btnCrop').on('click', function () {
+            if (img != '') {
+                //将base64提交服务器
+                $.post('http://localhost:8080/student/updateImgPath', {
+                    "base64": img,
+                    "studentId": userInfoInit.studentId
+                }, function (result) {
+
+                    demo.showNotification('bottom', 'right', 'success', '更换成功', '可能会有一些时间的延迟，请耐心等待', 'pe-7s-door-lock');
+                    app.setUserInfo();
+                    $("#myModal").modal('hide');
+                    setTimeout(function () {
+                        var userInfo = localStorage.getItem("user");
+                        var obj = JSON.parse(userInfo);
+                        $(".photo").html('  <img src="http://localhost:8080/upload/' + obj.imgFilePath + '.jpg"/>')
+                        $(".logo-big").html(' <img class="avatar border-gray" src="http://localhost:8080/upload/' + obj.imgFilePath + '.jpg" alt="..."/>')
+                    }, 5000)
+                }, 'json');
+
+            } else {
+                alert('请选择图片')
+            }
+
+
+        })
+        function getImg() {
+            img = cropper.getDataURL();
+            console.log(img);
+            $('.cropped').html('');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+
+        }
+
+        $(".imageBox").on("mouseup", function () {
+            if (img != '') {
+                getImg();
+            }
+        });
+        $(".imageBox").on("mousewheel", function () {
+            if (img != '') {
+                getImg();
+            }
+        });
+        $('#btnZoomIn').on('click', function () {
+            cropper.zoomIn();
+        })
+        $('#btnZoomOut').on('click', function () {
+            cropper.zoomOut();
+        })
+    });
+</script>
+
+</html>

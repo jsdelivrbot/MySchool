@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="js/vue.js"></script>
+    <style>
+        .container {
+            width: 100%;
+            height: auto;
+        }
+
+        .container .containerContent {
+            width: 100%;
+            margin: 40px auto;
+        }
+
+        .container .containerContent .nav {
+            width: 100%;
+        }
+
+        .container .containerContent #scoreInformation {
+            width: 1200px;
+            margin: 10px auto;
+
+        }
+
+        thead {
+            font-weight: bold;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="containerContent" id="app">
+        <table class="table table-bordered" id="scoreInformation">
+            <thead>
+            <tr>
+                <td colspan="31" style="text-align: center">评测成绩表汇总</td>
+            </tr>
+            </thead>
+            <tr>
+                <td>班级：{{evaluationTeacherInfo.className}}</td>
+                <td colspan="2">老师：</td>
+                <td colspan="2">{{evaluationTeacherInfo.teacherName}}</td>
+                <td colspan="2">最高分</td>
+                <td colspan="2">{{evaluationTeacherInfo.maxScore}}</td>
+                <td colspan="2">最低分</td>
+                <td colspan="2">{{evaluationTeacherInfo.minScore}}</td>
+                <td>扣分</td>
+                <td></td>
+                <td colspan="2">平均分</td>
+                <td colspan="2">{{evaluationTeacherInfo.average}}</td>
+                <td colspan="2">班级人数：</td>
+                <td colspan="3">{{evaluationTeacherInfo.studentCount}}/{{studentNum}}</td>
+            </tr>
+            <tr>
+                <td>题目/文件</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>21</td>
+                <td>总分</td>
+            </tr>
+            <tr v-for="(item,index) in studentListYear">
+                <td v-text="item[0].etID"></td>
+                <td v-for="(childItem,index) in item">{{childItem.subjectOptions}}</td>
+                <td v-text="item[0].score"></td>
+            </tr>
+
+            <tr>
+                <td>缺考人员：</td>
+                <td colspan="22">{{evaluationTeacherInfo.diffName}}</td>
+            </tr>
+            <tr>
+                <td>意见建议：</td>
+                <td colspan="22">{{evaluationTeacherInfo.advice}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            evaluationTeacherInfo: {},
+            studentListYear: [],
+            studentNum: 0,
+        },
+
+        methods: {
+            selEvaluationTeacher(id)
+            {
+                $.post("http://localhost:8080/evaluationTeacher/byid.do", {id: id}, function (result) {
+                    app.evaluationTeacherInfo = result.evaluationTeacher;
+                    app.studentNum = result.studentNum;
+                }, "json")
+            },
+            selByEvaluationID(id){
+                $.post("http://localhost:8080/evaluationTopic/selectByID.do", {evaluationID: id}, function (result) {
+                    app.studentListYear = result.studentListYear;
+//                    for (var i = 0; i < result.studentListYear.length; i++) {
+//                        for (var j = 0; j < result.studentListYear[i].length; j++) {
+//                            var obj = result.studentListYear[i][j].subjectOptions;
+//
+//
+//                            console.log("----"+obj);
+//
+//                        }
+//
+//                    }
+                }, "json")
+            }
+        },
+        created()
+        {
+            var id = parseInt(sessionStorage.getItem("evaluationID"));
+            this.selEvaluationTeacher(id);
+            this.selByEvaluationID(id);
+        }
+    });
+
+</script>
+</body>
+</html>

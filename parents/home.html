@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>微云家校互动平台(家长端)</title>
+    <meta content="Admin Dashboard" name="description"/>
+    <meta content="Mannatthemes" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="assets/plugins/morris/morris.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <style>
+        .navbar-custom{
+            text-align: center;
+        }
+        @media (max-width: 1150px) {
+            .navigation-menu > li > a {
+                display: block;
+                font-size: 15px;
+                -webkit-transition: all .5s ease;
+                transition: all .5s ease;
+                line-height: 18px;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+        }
+        @media (max-width: 1150px) {
+            body{
+                min-width: 1024px!important;
+            }
+        }
+
+        @media (max-width: 991px){
+            .wrapper {
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<!-- Loader -->
+<div id="preloader">
+    <div id="status">
+        <div class="spinner"></div>
+    </div>
+</div>
+<!-- Navigation Bar-->
+<header id="topnav">
+    <!-- begin topbar-main -->
+    <div class="topbar-main">
+        <div class="container-fluid">
+
+            <!-- Logo container-->
+            <div class="logo">
+                <!-- Text Logo -->
+                <!--<a href="index.html" class="logo">-->
+                <!--Annex-->
+                <!--</a>-->
+                <!-- Image Logo -->
+                <a href="home.html" class="logo">
+                    <img src="assets/images/logo-sm.png" alt="" height="22" class="logo-small">
+                    <span style="color: #0b0b0b">家长端</span>
+                </a>
+
+            </div>
+            <!-- End Logo container-->
+
+            <div class="menu-extras topbar-custom">
+                <ul class="list-inline float-right mb-0">
+
+                    <!-- notification-->
+                    <li class="list-inline-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
+                           role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <i class="mdi mdi-bell-outline noti-icon"></i>
+                            <span class="badge badge-success noti-icon-badge">21</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5>通知(3)</h5>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                                <p class="notify-details"><b>您的订单是名列前茅的</b>
+                                    <small class="text-muted">年轻的人
+                                    </small>
+                                </p>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
+                                <p class="notify-details"><b>您有一条新信息</b>
+                                    <small class="text-muted">你有87条未读消息</small>
+                                </p>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-info"><i class="mdi mdi-martini"></i></div>
+                                <p class="notify-details"><b>你的项目是运</b>
+                                    <small class="text-muted">读者会这么做，这是一个由来已久的事实</small>
+                                </p>
+                            </a>
+
+                            <!-- All-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                               所有消息
+                            </a>
+
+                        </div>
+                    </li>
+                    <!-- User-->
+                    <li class="list-inline-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown"
+                           href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5>欢迎</h5>
+                            </div>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i>
+                                轮廓</a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-wallet m-r-5 text-muted"></i> 我的电子钱包</a>
+                            <a class="dropdown-item" href="#"><span class="badge badge-success float-right">5</span><i
+                                    class="mdi mdi-settings m-r-5 text-muted"></i> 设置</a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i>
+                                锁屏</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i> 退出</a>
+                        </div>
+                    </li>
+                    <li class="menu-item list-inline-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                </ul>
+            </div>
+            <!-- end menu-extras -->
+
+            <div class="clearfix"></div>
+
+        </div> <!-- end container -->
+    </div>
+    <!-- end topbar-main -->
+
+    <!-- MENU Start -->
+    <div class="navbar-custom">
+        <div class="container-fluid">
+            <div id="navigation">
+                <!-- Navigation Menu-->
+                <ul class="navigation-menu">
+                    <li class="has-submenu">
+                        <a href="index.html" target="iframe_a"><i class="mdi mdi-airplay"></i>首页</a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-layers"></i>家庭作业</a>
+                        <ul class="submenu">
+                            <li><a href="home_completion.html" target="iframe_a">完成情况</a></li>
+                            <!--<li><a href="advanced-highlight.html" target="iframe_a">Highlight</a></li>-->
+                            <!--<li><a href="advanced-rating.html" target="iframe_a">Rating</a></li>-->
+                            <!--<li><a href="advanced-alertify.html" target="iframe_a">Alertify</a></li>-->
+                            <!--<li><a href="advanced-rangeslider.html" target="iframe_a">Range Slider</a></li>-->
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-bullseye"></i>项目经验</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="xxx.html" target="iframe_a">项目分组</a></li>
+                                    <li><a href="xxx.html" target="iframe_a">计划跟踪</a></li>
+                                    <!--<li><a href="ui-progressbars.html" target="iframe_a">考试成绩</a></li>-->
+                                    <!--<li><a href="ui-buttons.html" target="iframe_a">Buttons</a></li>-->
+                                    <!--<li><a href="ui-cards.html" target="iframe_a">Cards</a></li>-->
+                                    <!--<li><a href="ui-tabs-accordions.html" target="iframe_a">Tabs &amp; Accordions</a>-->
+                                    <!--</li>-->
+                                    <!--<li><a href="ui-modals.html" target="iframe_a">Modals</a></li>-->
+                                    <!--<li><a href="ui-images.html" target="iframe_a">Images</a></li>-->
+                                    <!--<li><a href="ui-alerts.html" target="iframe_a">Alerts</a></li>-->
+                                </ul>
+                            </li>
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="ui-progressbars.html" target="iframe_a">考试成绩</a></li>-->
+                                    <!--&lt;!&ndash;<li><a href="ui-dropdowns.html" target="iframe_a">Dropdowns</a></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li><a href="ui-lightbox.html" target="iframe_a">Lightbox</a></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li><a href="ui-navs.html" target="iframe_a">Navs</a></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li><a href="ui-pagination.html" target="iframe_a">Pagination</a></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<li><a href="ui-popover-tooltips.html" target="iframe_a">Popover & Tooltips</a></li>&ndash;&gt;-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="ui-badge.html" target="iframe_a">Badge</a></li>-->
+                                    <!--<li><a href="ui-carousel.html" target="iframe_a">Carousel</a></li>-->
+                                    <!--<li><a href="ui-video.html" target="iframe_a">Video</a></li>-->
+                                    <!--<li><a href="ui-typography.html" target="iframe_a">Typography</a></li>-->
+                                    <!--<li><a href="ui-sweet-alert.html" target="iframe_a">Sweet-Alert</a></li>-->
+                                    <!--<li><a href="ui-grid.html" target="iframe_a">Grid</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-gauge"></i>考试成绩</a>
+                        <ul class="submenu">
+                            <li><a href="classResults-trend.html" target="iframe_a">成绩趋势</a></li>
+                            <li><a href="student-review.html" target="iframe_a">老师点评</a></li>
+                            <li><a href="day-study.html" target="iframe_a">日考成绩</a></li>
+                            <li><a href="month-study.html" target="iframe_a">月考成绩</a></li>
+                            <li><a href="graduation.html" target="iframe_a">结业考试</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-google-pages"></i>所在班级</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="student_orientation.html" target="iframe_a">学员监控</a></li>
+                                    <li><a href="class-newthings.html" target="iframe_a">班级新鲜事</a></li>
+                                    <li><a href="students_attendance.html" target="iframe_a">学员考勤</a></li>
+                                    <li><a href="class_monitor.html" target="iframe_a">班级监控</a></li>
+                                    <li><a href="quantitative_evaluation.html" target="iframe_a">量化评价</a></li>
+                                    <li><a href="employment_status.html" target="iframe_a">就业情况</a></li>
+                                    <!--<li><a href="pages-login.html">Login</a></li>-->
+                                    <!--<li><a href="pages-register.html">Register</a></li>-->
+                                    <!--<li><a href="pages-recoverpw.html">Recover Password</a></li>-->
+                                    <!--<li><a href="pages-lock-screen.html">Lock Screen</a></li>-->
+                                </ul>
+                            </li>
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="pages-blank.html">Blank Page</a></li>-->
+                                    <!--<li><a href="pages-404.html">Error 404</a></li>-->
+                                    <!--<li><a href="pages-500.html">Error 500</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+
+                        <a href="#"><i class="mdi mdi-google-pages"></i>家校互动</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="notice.html" target="iframe_a">公告通知</a></li>
+                                    <li><a href="xxx.html" target="iframe_a">家校沟通</a></li>
+                                    <li><a href="style_show.html" target="iframe_a">风采展示</a></li>
+                                    <li><a href="volunteer-service.html" target="iframe_a">志愿服务</a></li>
+                                    <li><a href="decision-making.html" target="iframe_a">参与决策</a></li>
+                                    <li><a href="output/index.html" target="iframe_a">在线家长会</a></li>
+                                    <!--<li><a href="pages-login.html">Login</a></li>-->
+                                    <!--<li><a href="pages-register.html">Register</a></li>-->
+                                    <!--<li><a href="pages-recoverpw.html">Recover Password</a></li>-->
+                                    <!--<li><a href="pages-lock-screen.html">Lock Screen</a></li>-->
+                                </ul>
+                            </li>
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="pages-blank.html">Blank Page</a></li>-->
+                                    <!--<li><a href="pages-404.html">Error 404</a></li>-->
+                                    <!--<li><a href="pages-500.html">Error 500</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+
+                        <a href="#"><i class="mdi mdi-google-pages"></i>社区交流</a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="./blog/index.html" target="_blank">博客</a></li>
+                                    <li><a href="say-word-heart.html" target="iframe_a">说句心里话</a></li>
+                                    <li><a href="./blog/dytd.html" target="iframe_a">德育天地</a></li>
+                                    <li><a href="./healthy/jkgw_parent.html" target="iframe_a">健康顾问</a></li>
+                                    <!--<li><a href="pages-login.html">Login</a></li>-->
+                                    <!--<li><a href="pages-register.html">Register</a></li>-->
+                                    <!--<li><a href="pages-recoverpw.html">Recover Password</a></li>-->
+                                    <!--<li><a href="pages-lock-screen.html">Lock Screen</a></li>-->
+                                </ul>
+                            </li>
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="pages-blank.html">Blank Page</a></li>-->
+                                    <!--<li><a href="pages-404.html">Error 404</a></li>-->
+                                    <!--<li><a href="pages-500.html">Error 500</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+
+                        <a href="#"><i class="mdi mdi-google-pages"></i>校长信箱</a>
+                        <!--<ul class="submenu megamenu">-->
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="pages-login.html">Login</a></li>-->
+                                    <!--<li><a href="pages-register.html">Register</a></li>-->
+                                    <!--<li><a href="pages-recoverpw.html">Recover Password</a></li>-->
+                                    <!--<li><a href="pages-lock-screen.html">Lock Screen</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="pages-blank.html">Blank Page</a></li>-->
+                                    <!--<li><a href="pages-404.html">Error 404</a></li>-->
+                                    <!--<li><a href="pages-500.html">Error 500</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    </li>
+                </ul>
+                <!-- End navigation menu -->
+            </div> <!-- end #navigation -->
+        </div> <!-- end container -->
+    </div>
+    <!-- end navbar-custom -->
+</header>
+<!-- End Navigation Bar-->
+
+<div class="show_iframe">
+    <div style="display:none" class="loading"></div>
+    <iframe style="    position: fixed;height: 85%;top: 15%;" scrolling="yes" frameborder="0" src="index.html"
+            name="iframe_a"></iframe>
+</div>
+<!-- end wrapper -->
+
+
+<!-- jQuery  -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/waves.js"></script>
+<script src="assets/js/jquery.slimscroll.js"></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/jquery.scrollTo.min.js"></script>
+
+<script src="assets/plugins/skycons/skycons.min.js"></script>
+<script src="assets/plugins/raphael/raphael-min.js"></script>
+<script src="assets/plugins/morris/morris.min.js"></script>
+
+<script src="assets/pages/dashborad.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.js"></script>
+<script>
+    /* BEGIN SVG WEATHER ICON */
+    if (typeof Skycons !== 'undefined') {
+        var icons = new Skycons(
+            {"color": "#fff"},
+            {"resizeClear": true}
+            ),
+            list = [
+                "clear-day", "clear-night", "partly-cloudy-day",
+                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                "fog"
+            ],
+            i;
+
+        for (i = list.length; i--;)
+            icons.set(list[i], list[i]);
+        icons.play();
+    }
+    ;
+
+    // scroll
+
+    $(document).ready(function () {
+
+        $("#boxscroll").niceScroll({cursorborder: "", cursorcolor: "#cecece", boxzoom: true});
+        $("#boxscroll2").niceScroll({cursorborder: "", cursorcolor: "#cecece", boxzoom: true});
+
+    });
+</script>
+</body>
+</html>

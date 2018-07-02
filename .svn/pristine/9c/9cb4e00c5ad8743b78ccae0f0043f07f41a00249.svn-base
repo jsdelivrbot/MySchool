@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户权限</title>
+    <script src="bootJs/jquery-3.2.1.min.js"></script>
+
+    <script src="bootJs/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/statisticalTest.css" rel="stylesheet">
+    <!--BootStarp日期控件-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="bootJs/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="bootJs/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="bootJs/bootstrap-select.js"></script>
+    <script src="js/vue.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--复选框,单选按钮-->
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+</head>
+<style>
+    .modal-body {
+        position: relative;
+    }
+
+    .student:hover {
+        background-color: rgb(148, 148, 148);
+    }
+
+    .jinengzice {
+        display: block;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .group {
+        display: inline-block;
+
+    }
+
+    .modal-body td {
+        border: 1px solid transparent !important;
+    }
+
+    .tabLeft {
+        text-align: center;
+        vertical-align: middle;
+        width: 120px;
+    }
+
+    .modal-input {
+        width: 55%;
+    }
+
+    .body_middle td {
+        vertical-align: middle;
+    }
+
+    .input_width {
+        width: 120px;
+        font-size: 12px;
+    }
+
+    .input_width_ss {
+        width: 220px;
+        font-size: 12px;
+    }
+
+    .group {
+        display: inline-block;
+    }
+    ul{
+        list-style: none;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid #a2a2a2;
+        margin-left: 50px;
+        width: 170px;
+        height: 400px;
+    }
+    ul .lititle{
+        font-weight: bolder;
+    }
+    ul li{
+        line-height: 26px;
+    }
+</style>
+<body>
+<div class="container-fluid" id="app" style="padding: 0 5%">
+    <div class="main">
+
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formPaper" name="formPaper" method="post">
+                        <div class="form-group group">
+                            <label>姓名</label>
+                            <input type="text" class="form-control input_width_ss" id="className" name="className"
+                                   placeholder="请输入姓名">
+                        </div>
+
+                        <div class="form-group group">
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" class="btn btn-success radius" id="btnQuery" @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+
+                        </div>
+                        <div class="form-group group" style="float: right;margin-top: 26px;">
+                            <button type="button" class="btn btn-primary radius" id="btnInsert" data-toggle='modal'
+                                    data-target='#addDialog' @click="insertUser()">
+                                <i class="Hui-iconfont">&#xe600;</i> 新增
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-hover" id="show" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>用户姓名</td>
+                        <td>匹配角色</td>
+                        <td>可见班级</td>
+                    </tr>
+                    </thead>
+                    <tbody class="body_middle">
+                    <tr>
+                        <td>1</td>
+                        <td>马守彬</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>崔立宝</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>高红岩</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>姚萍</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>郝龙女</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>宋作振</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>田颖</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>靳娜</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal">
+                                <i class="Hui-iconfont">&#xe60c;</i>匹配角色
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog'>
+                                <i class="Hui-iconfont">&#xe60c;</i>设置可见班级
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--分页-->
+                <div id="pageList" style="float:right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+        <!--设置可见班级-->
+        <div class="modal fade bs-example-modal-xs" id="updDialog" role="dialog">
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">设置可见班级</h4>
+                    </div>
+                    <!--<div class="modal-body" style="height: 450px">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<ul>-->
+                                    <!--<li class="liTitle">所有班级</li>-->
+                                    <!--<li v-for="(item,index) in classData">-->
+                                        <!--<a href="javascript:void(0)" @click="selectClass(item)" v-text="item"></a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-6">-->
+                                <!--<ul>-->
+                                    <!--<li class="liTitle">可见班级</li>-->
+                                    <!--<li v-for="(item,index) in classData2">-->
+                                        <!--<a href="javascript:void(0)" v-text="item"></a>-->
+                                        <!--<button type="button" class="btn btn-link" @click="removeClass(index)" style="color: red;height: 26px;padding-top: 0">×</button>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--匹配角色-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">匹配角色</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover" id="management" style="text-align: center">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>角色名称</td>
+                                <td>角色描述</td>
+                            </tr>
+                            </thead>
+                            <tbody class="body_middle">
+                            <tr>
+                                <td><input type="radio" name="options" id="option1" autocomplete="off" checked></td>
+                                <td>教员</td>
+                                <td>啊啊啊啊</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="options" id="option2" autocomplete="off"></td>
+                                <td>班主任 </td>
+                                <td>啊啊啊啊</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="options" id="option3" autocomplete="off"></td>
+                                <td>教学主管</td>
+                                <td>啊啊啊啊</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="options" id="option4" autocomplete="off"></td>
+                                <td>就业主管 </td>
+                                <td>啊啊啊啊</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="options" id="option5" autocomplete="off"></td>
+                                <td>校长 </td>
+                                <td>啊啊啊啊</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--添加用户-->
+        <div class="modal fade bs-example-modal-xs" id="addDialog" role="dialog">
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <span for="add_teacherName" class="col-sm-3 control-label">用户姓名：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" id="add_teacherName"
+                                           name="annTitle"
+                                           placeholder="用户姓名...">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script>
+    //初始进来时传入一个条件pageIndex=1
+        var app = new Vue({
+            el: "#app",
+            data: {
+                classData:[
+                    "TCMP058",
+                    "TCMP060",
+                    "TCMP062",
+                    "TCMP064",
+                    "TCMP066",
+                    "TCMP068",
+                    "TCMP070",
+                    "TCMP072",
+                    "TCMP074",
+                    "TCMP076",
+                    "TCMP078",
+                    "TCMP080"
+                ],
+                classData2:[]
+            }, methods: {
+                insertUser:function () {
+                    
+                }
+                
+            },
+            created:function () {
+                
+            }
+        })
+</script>
+
+</html>
+

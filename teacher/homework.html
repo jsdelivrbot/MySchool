@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>布置作业</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!--富文本编辑器-->
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <style type="text/css">
+        #editor-container {
+            heighst: 400px;
+        }
+    </style>
+
+    <style  type="text/css">
+        <!--
+        .trans_msg
+        {
+            filter:alpha(opacity=100,enabled=1) revealTrans(duration=.2,transition=1) blendtrans(duration=.2);
+        }
+        -->
+    </style>
+    <style>
+        .editor-container {
+            width: 90%;
+            height: 50%;
+            border: 1px solid #dedede;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .ql-editor{
+            padding: 6px;
+            height: 200px;
+            border-right: 20px ;
+        }
+        .check .dowebok ul {
+            list-style-type: none;
+        }
+
+        .check .dowebok li {
+            display: inline-block;
+        }
+
+        .check .dowebok li {
+            margin: 0.5% 5px;
+        }
+
+        .check .dowebok2 li {
+            display: inline-block;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+            width: 100px;
+            font: 12px "Microsoft Yahei";
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 90%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        .title {
+            display: inline-block;
+            left: 20px;
+            margin: 20px 0px 20px 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .on {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: left;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: red;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        #last {
+            text-align: center;
+        }
+
+        #scroll {
+            position: fixed;
+            top: 300px;
+            right: 100px;
+
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+        }
+
+        .scrollItem {
+            width: 20px;
+            height: 70px;
+            border: #e1e1e1 1px solid;
+            cursor: pointer;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 9px;
+        }
+
+        .check .dowebok {
+            white-space: normal;
+            text-align: left;
+            margin-left: 3%;
+            padding: 0 6%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        .check .dowebok2 {
+            white-space: normal;
+            text-align: left;
+            margin: 30px 20% 10px;
+        }
+
+        .check .dowebok2 ul li {
+            margin: 0px 20px;
+        !important;
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        #history_home {
+            position: absolute;
+            top: -80px;
+            width: 100%;
+            height: 270px;
+            margin: 10px auto;
+            padding: 5px;
+            padding-right: 12px;
+            overflow: hidden;
+            border: 1px solid #ece7e4;
+            border-radius: 3%;
+        }
+
+        #history_home button {
+            margin-bottom: 5px;
+        }
+
+        #history_home button {
+            width: 100%;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .rev {
+            position: relative;
+        }
+
+        .container .qxfx {
+            display: inline-block;
+            float: right;
+            margin-right: 15%;
+        }
+    </style>
+</head>
+<body>
+<div id="mydiv1" style="z-index:2;position:absolute;display:none;border-radius: 5px;padding: 5px; border:1px solid silver;background:#d8d8d8;">
+    提示1效果
+</div>
+<div class="container" id="app">
+    <div class="panel panel-default rev">
+
+        <form class="form-horizontal" id="from_add">
+            <div class="form-group">
+                <label for="classid" style="margin-top:20px;" class="col-sm-2 control-label">选择班级: </label>
+                <div class="col-sm-10" style="margin-top:20px">
+                    <select id="classid" class="selectpicker" name="classid" data-live-search="true">
+                        <option value="-1">请选择</option>
+                        <!--<option v-for="(item,index) in classList" :value="item.classId">{{item.className}}</option>-->
+                    </select>
+
+                    <div class="qxfx">
+                        <button type="button" class="btn btn-default" id="qx" style="margin-right: 15px">全选</button>
+                        <button type="button" class="btn btn-default" id="fx">反选</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="check">
+                <ul class="dowebok" id="student">
+                    <li></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"
+                       style="position: relative;top: -30px;right:-0.5%;display:inline-block;">作业标题:</label>
+                <div class="col-sm-3" style="display: inline-block;position: relative;left: -7%;top:10px;">
+                    <input type="text" class="form-control" id="workname" name="workname" placeholder="标题">
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 40px">
+                <label class="col-sm-2 control-label"
+                       style="position: relative;top: -30px;right: -0.5%;;display:inline-block;">作业详情:</label>
+                <div class="col-sm-5" style="display: inline-block;position: relative;  left: -7%;top:10px;">
+
+                    <div  class="topicName editor-container" class="ql-container ql-snow" style="overflow: hidden">
+                        <div  class="ql-editor" id="fuwenben" contenteditable="true" ></div>
+                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                    </div>
+                </div>
+                <label class="col-sm-2 control-label" style="position: relative;top: -100px;left:-11%;">历史作业:</label>
+
+                <div class="col-sm-4 history" style="display: inline-block;position: relative;left: -30px;top:-20px;">
+                    <div id="history_home" class="list-group">
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-group tz">
+            <label class="control-label"
+                   style="display: inline-block;position: relative;top: 55px;left: 11.5%;">通知方式:</label>
+            <div class="check">
+                <ul class="dowebok2" style="position: relative;">
+                    <li style="margin: 0px 3px"><input type="checkbox" name="sendType" value="微信"
+                                                       data-labelauty="微信"></li>
+                    <li style="margin: 0px 3px"><input type="checkbox" name="sendType" value="短信"
+                                                       data-labelauty="短信"></li>
+                    <li style="margin: 0px 3px"><input type="checkbox" name="sendType" value="网站"
+                                                       data-labelauty="网站"></li>
+                    <li style="margin: 0px 3px"><input type="checkbox" name="sendType" value="邮箱"
+                                                       data-labelauty="邮箱"></li>
+                    <li style="position: absolute;right: -1%;">
+                        <button type="button" id="homework_submit"
+                                class="btn btn-primary">提交
+                        </button>
+                    </li>
+                    <li style="position: absolute;right: -85px;">
+                        <button type="reset" class="btn btn-danger">重置</button>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <!-- 提示 -->
+        <div class="modal fade" id="myError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             style="margin-top: 15%;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myErrorLabel">警告</h4>
+                    </div>
+                    <div class="modal-body" style="text-align: center;font-size: 20px;font-weight: bold;"
+                         id="Error_body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script src="dist/quill.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+<script>
+    function show(obj,id,html) {
+        var objDiv = $("#"+id+"");
+        objDiv.html(html);
+        $(objDiv).css("display","block");
+        $(objDiv).css("left", event.clientX);
+        $(objDiv).css("top", event.clientY + 10);
+    }
+    function hide(obj,id) {
+        var objDiv = $("#"+id+"");
+        $(objDiv).css("display", "none");
+    }
+</script>
+
+<script>
+    var typeCount = 0
+    var typeValue = ""
+    var studentCount = 0
+    var classList = []
+    var studentList = []
+    var studentIds = []
+    var typeValues = []
+    /**
+     * 进来时加载历史作业
+     */
+    homeWorkHistory = function () {
+        $.post("http://localhost:8080/homework/selectHomeworkByClassIdAndStage.do", {"classId": $("#classid option:checked").val(),"stage": $("#classid option:checked").attr('name')}, function (result) {
+            var html = "";
+            console.log(result[0]);
+            for (var i = 0; i < result.length; i++) {
+                var obj = result[i];
+                if(obj.workdetail==null ||obj.workdetail==undefined){
+                    obj.workdetail="无"
+                }
+                let workinfo = obj.workdetail;
+                html += " <button type=\"button\" class=\"list-group-item\"  onMouseOver='javascript:show(this,\"mydiv1\",this.name);' onMouseOut='hide(this,\"mydiv1\")'  value='" + obj.workid + "' name='"+  obj.workdetail+"' >" + obj.workname + "</button>"
+            }
+
+            $("#history_home button").remove();
+            $("#history_home").append(html);
+
+            /*单击设置文本*/
+            $("#history_home button").click(function () {
+                $("#workname").val($(this).text())
+                $.post("http://localhost:8080/homework/byid.do", {"id": $(this).val()}, function (result) {
+                    $("#workname").text(result.value);
+                    $("#fuwenben").html(result.workdetail);
+                }, "json")
+            });
+        }, "json")
+    }
+    /**
+     * 格式化时间
+     * @param fmt 时间
+     * @returns {*} 返回格式化之后的日期
+     * @constructor
+     */
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    /**
+     * 滚动条
+     */
+    $("#history_home").niceScroll({
+        cursorcolor: "#CC0071",
+        cursoropacitymax: 1,
+        touchbehavior: false,
+        cursorwidth: "5px",
+        cursorborder: "0",
+        cursorborderradius: "5px"
+    });
+    /**
+     * 初始化绑定班级
+     */
+    initClassName = function () {
+        $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", "teacherId=" + localStorage.getItem("id"), function (result) {
+            var html = "";
+            for (var i = 0; i < result.classList.length; i++) {
+                var obj = result.classList[i];
+                html += "<option  name='"+obj.stage+"'  value='" + obj.classId + "'>" + obj.className + "</option>"
+            }
+            $("#classid option:gt(0)").remove();
+            $("#classid").append(html);
+            $("#classid").selectpicker('refresh');
+        }, "json");
+
+    }
+    /**
+     * 根据班级信息去联动学生
+     */
+    classListByStudent = function () {
+        $.post("http://localhost:8080/student/selectStudentByClassId.do", {"classId": $("#classid option:checked").val()}, function (result) {
+            var html = "";
+            for (var i = 0; i < result.length; i++) {
+                var obj = result[i];
+                html += "<li><input type='checkbox' name='studentid' index='" + i + "' data-labelauty='" + obj.studentName + "' value='" + obj.studentId + "'></li>";
+            }
+            $("#student li").remove();
+            $("#student").append(html);
+            $('#student :checkbox').labelauty();
+
+            $("#student :checkbox").change(function () {
+                if ($(this).is(":checked")) {
+                    studentCount += 1;
+                    studentIds.push($(this).val())
+                } else {
+                    studentIds.splice($.inArray('' + $(this).val() + '', studentIds), 1)
+                    studentCount -= 1;
+                }
+            });
+
+            let date = new Date();
+            $("#workname").val($("#classid option:checked").html() + "-" + date.Format("yyyy年MM月dd日") + "的作业")
+        }, "json");
+    }
+    /**
+     * 提交信息
+     */
+    submitStudentHomeWork = function () {
+        if ($("#classid option:checked").val() <= 0) {
+            $("#Error_body").text("请选择年级!!");
+            $("#homework_submit").attr('data-toggle', "modal")
+            $("#homework_submit").attr('data-target', "#myError")
+        } else if (studentCount <= 0) {
+            $("#homework_submit").attr('data-toggle', "modal")
+            $("#homework_submit").attr('data-target', "#myError")
+            $("#Error_body").text("请选择学生!!");
+        } else if (typeCount <= 0) {
+            $("#homework_submit").attr('data-toggle', "modal")
+            $("#homework_submit").attr('data-target', "#myError")
+            $("#Error_body").text("请选择发送通知方式!!");
+        } else {
+            $("#homework_submit").attr('data-target', "#w")
+            var arr = {
+                'students': studentIds,
+                'sendTypes': typeValues,
+                'classid': $("#classid option:checked").val(),
+                'workname': $("#workname").val(),
+                'workdetail': document.getElementById("fuwenben").innerHTML
+            }
+            console.log(JSON.stringify(arr))
+            $.post("http://localhost:8080/homework/add.do", {
+                "jsonString": JSON.stringify(arr)
+            }, function (result) {
+                if (result > 1) {
+                    window.location.reload();
+                } else {
+                    $("#myErrorLabel").text("提示");
+                    $("#Error_body").text("添加失败");
+                    $("#homework_submit").attr('data-toggle', "modal")
+                    $("#homework_submit").attr('data-target', "#myError")
+                }
+            }, "text")
+            arr = [];
+            return;
+        }
+    }
+
+
+</script>
+
+<script>
+
+    $(function () {
+        $("#ces").click(function(){
+            alert(fuwenben.innerHTML);
+        });
+        initClassName();
+        //记录发送方式
+        $("input[name='sendType']").change(function () {
+            if ($(this).is(":checked")) {
+                typeCount += 1;
+                typeValue += $(this).val() + ",";
+                typeValues.push($(this).val())
+            } else {
+                typeCount -= 1;
+                typeValue += $(this).val() + ",";
+                typeValues.splice($.inArray('' + $(this).val() + '', typeValues), 1)
+            }
+        });
+        //复选框的默认样式
+        $(':checkbox').labelauty();
+        //点击提交按钮
+        $("#homework_submit").click(function () {
+            submitStudentHomeWork();
+        });
+        //全选
+        $("#qx").click(function () {
+            var che = $(".check .dowebok input:checkbox");
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "checked" : "checked";
+            }
+        });
+        //反选
+        $("#fx").click(function () {
+            var che = $(".check .dowebok input:checkbox");
+
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "" : "checked";
+            }
+        });
+        $("#classid").change(function () {
+            classListByStudent();
+            homeWorkHistory();
+        });
+    })
+
+
+</script>
+
+
+</body>
+</html>

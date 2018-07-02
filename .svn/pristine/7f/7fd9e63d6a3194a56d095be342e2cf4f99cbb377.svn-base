@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WeiYunLogin</title>
+
+    <link href="assets/login/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="login">
+
+<div class="login_m">
+    <!--<div class="login_logo"><img src="assets/login/images/logo.png" width="196" height="46"></div>-->
+    <h1 style="text-align: center;margin-bottom: 30px;">微云家校管理.家长端</h1>
+    <div class="login_boder">
+        <div class="login_padding">
+           <form id="loginForm">
+               <h2>用户名</h2>
+               <label>
+                   <input type="text" id="parentCode" name="parentCode" class="txt_input txt_input2">
+               </label>
+               <h2>密码</h2>
+               <label>
+                   <input type="password" name="password" id="password" class="txt_input">
+               </label>
+               <p class="forgot"><a href="javascript:void(0);">忘记密码?</a></p>
+               <div class="rem_sub">
+                   <div class="rem_sub_l">
+                       <input type="checkbox" name="checkbox" id="save_me">
+                       <label>记住</label>
+                   </div>
+                   <input type="button" class="sub_button" value="登录" style="opacity: 0.7;color: #FFFFFF" onclick="Login()">
+               </div>
+           </form>
+        </div>
+    </div><!--login_boder end-->
+</div><!--login_m end-->
+
+
+<!-- jQuery  -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/waves.js"></script>
+<script src="assets/js/jquery.slimscroll.js"></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/jquery.scrollTo.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.js"></script>
+</body>
+<script>
+    function Login() {
+        $(function () {
+            var data = $("#loginForm").serialize();
+            $.post("http://localhost:8080/parent/parentLogin.do", data, function (res) {
+                if (res != null || res.length >= 0) {
+                    /*把登录对象放进session级别*/
+                    sessionStorage.setItem("loginParent", JSON.stringify(res));
+                    var loginParent = sessionStorage.getItem("loginParent");
+                    window.location.href = "home.html";
+                } else {
+                    alert("用户名或密码不正确");
+                }
+            }, "json");
+        });
+    }
+</script>
+</html>

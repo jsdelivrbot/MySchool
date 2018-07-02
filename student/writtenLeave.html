@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>云校园 ▪ 训练 - 排行</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="keywords"
+          content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description"
+          content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description"
+          content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description"
+          content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:description"
+          content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."/>
+    <meta property="og:site_name" content="Creative Tim"/>
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="newStyle/css/demo.css" rel="stylesheet"/>
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css"/>
+    <!--VUE-->
+    <script src="js/vue.js"></script>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css"/>
+    <!--时间控件-->
+    <script src="js/jedate.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .buttom {
+        margin: 20px 70px 30px;
+    }
+
+    .buttom button {
+        display: inline-block;
+    }
+
+    /*.actions .buttom {*/
+    /*position: absolute;*/
+    /*left: -50px;*/
+    /*top: 45px;*/
+    /*display: block;*/
+    /*width: 100px;*/
+    /*}*/
+
+    table {
+        text-align: center;
+    }
+
+    .iframeItem {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wuTheme:hover {
+        border: 2px solid #a68dff;
+    }
+
+    .toolbar-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -40px;
+        left: -30px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+
+    }
+
+    .container-item {
+        -webkit-border-radius: 10px;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 70px;
+        background-color: #efeb73;
+    }
+
+    .header-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        left: -10px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #e1e1e1;
+    }
+
+    .fresh-datatables {
+
+        border: 1px solid #e3e3e3;
+        background-color: #ffffff;
+        -webkit-border-radius: 10px;
+        height: 500px;
+        overflow: auto;
+    }
+
+    .fresh-datatables table th {
+        text-align: center;
+    }
+
+    table tfoot th {
+        text-align: center;
+    }
+
+    .fresh-datatables table td {
+        text-align: center;
+    }
+
+    .ul-item {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .ul-item li {
+        -webkit-border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        list-style-type: none;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-indent: 1em;
+        background-color: #ffffff;
+        box-shadow: 1px 1px 1px 1px #eaeaea;
+    }
+
+    .ul-item li:hover {
+        background-color: #f9f9f9;
+
+    }
+
+    table tr td {
+        color: #696969;
+    }
+
+    tbody tr td {
+        text-align: center;
+    }
+
+    thead tr th {
+        text-align: center;
+    }
+
+    .bar-div {
+        width: 100%;
+        transition: width 2s;
+    }
+
+    .container-top {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        position: relative;
+        text-indent: 2em;
+        left: -20px;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .check button {
+        margin: 2%;
+    }
+
+    .context {
+        margin-left: 20px;
+    }
+
+    .container {
+        width: 100%;
+        height: 50%;
+        margin: 20px auto;
+    }
+
+    p {
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+    }
+
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    form {
+        margin-left: 10px;
+    }
+
+    .rev {
+        text-align: center;
+        border: 1px solid silver;
+    }
+
+    form {
+        width: 80%;
+        display: inline-block;
+        border: 4px solid wheat;
+        margin: 1% 5%;
+        margin-left: 20px;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    table thead {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    td input {
+        width: 100%;
+        border: 0;
+        line-height: 50px;
+        height: 50px;
+    }
+
+    td select{
+        float: left;
+        width: 200px;
+        height: 40px;
+        border: 0px;
+    }
+</style>
+
+<body>
+
+<!--右键菜单-->
+<div id="menu">
+    <ul>
+        <li onclick="shuaxin()">刷新 F5</li>
+        <li>复制</li>
+        <li>粘贴</li>
+    </ul>
+</div>
+<!--整体内容-->
+<div class="wrapper" id="app">
+    <!---左部门导航-->
+    <div class="sidebar" data-color="" data-image="">
+        <!--左上个人中心-->
+        <div class="logo">
+            <a href="#" class="logo-text">
+                Good learning
+            </a>
+        </div>
+        <div class="logo logo-mini">
+            <a href="#" class="logo-text">
+                GL
+            </a>
+        </div>
+        <!--左部导航栏-->
+        <div class="sidebar-wrapper">
+            <!--个人信息-->
+            <div class="user">
+                <div class="photo">
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" class="collapsed userName">
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="nav">
+                            <li><a href="nav_myMessage.html">我的信息</a></li>
+                            <li><a href="nav_newFace.html">我的人脸</a></li>
+                            <li><a href="#">设置</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--导航-->
+            <ul class="nav">
+                <!--item-01-->
+                <li>
+                    <a href="nav_index.html">
+                        <i class="pe-7s-home"></i>
+                        <p>校园广场</p>
+                    </a>
+                </li>
+                <!--item-02-->
+                <li>
+                    <a href="#item-02" data-toggle="collapse" aria-expanded="true" class="">
+                        <i class="pe-7s-map"></i>
+                        <p>自学考试
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse in" id="item-02" aria-expanded="true">
+                        <ul class="nav">
+                            <li><a href="nav_specialTraining.html">技能自测</a></li>
+                            <li class="active"><a href="nav_trainRankings.html">成绩排名</a></li>
+                            <li><a href="nav_unifiedTest.html">统一测试</a></li>
+                            <li><a href="#">背面试题</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!--item-03-->
+                <li>
+                    <a data-toggle="collapse" href="#item-03">
+                        <i class="pe-7s-pin"></i>
+                        <p>我的历史
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="item-03">
+                        <ul class="nav">
+                            <li><a href="nav_historyTran.html">自测历史</a></li>
+                            <li><a href="nav_historyTest.html">统考历史</a></li>
+                            <li><a href="nav_myWrongProblemTrain.html">我的错题</a></li>
+                            <li><a href="#">我的收藏</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!--item-04-->
+                <li>
+                    <a href="#">
+                        <i class="pe-7s-video"></i>
+
+                        <p>
+                            在线听课
+                        </p>
+                    </a>
+                </li>
+                <!--item-05-->
+
+                <!--item-06-->
+                <li>
+                    <a data-toggle="collapse" href="#item-06">
+                        <i class="pe-7s-date"></i>
+                        <p>任务计划<b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="item-06">
+                        <ul class="nav">
+                            <li><a href="nav_myTask.html">我的任务</a></li>
+                            <li><a href="#">任务日历</a></li>
+                            <li><a href="nav_myProjectProgress.html">任务进度</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a data-toggle="collapse" href="#item-07">
+                        <i class="pe-7s-date"></i>
+                        <p>我的成绩<b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="item-07">
+                        <ul class="nav">
+                            <li><a href="trent-achi.html">成绩趋势</a></li>
+                            <li><a href="student-review.html">老师点评</a></li>
+                            <li><a href="#">日考成绩</a></li>
+                            <li><a href="#">月考成绩</a></li>
+                            <li><a href="#">结业考试</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!--item-07-->
+                <li>
+                    <a href="#item-08" data-toggle="collapse">
+                        <i class="pe-7s-id"></i>
+                        <p>我的班级 <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="item-08">
+                        <ul class="nav">
+                            <li><a href="#">新鲜事</a></li>
+                            <li><a href="#">班级考勤</a></li>
+                            <li><a href="#">班级课表</a></li>
+                            <li><a href="#">就业情况</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!--item-08-->
+
+                <!--item-08-->
+                <li>
+                    <a href="#item-09" data-toggle="collapse">
+                        <i class="pe-7s-chat"></i>
+                        <p>社区交流 <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="item-09">
+                        <ul class="nav">
+                            <li><a href="#">博客</a></li>
+                            <li><a href="#">说句心里话</a></li>
+                            <li><a href="#">德育天地</a></li>
+                            <li><a href="#">健康顾问</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!--item-09-->
+                <li>
+                    <a href="#">
+                        <i class="pe-7s-mail-open"></i>
+                        <p>给校长写信
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--右半部分内容-->
+    <div class="main-panel">
+        <!--右半部分导航-->
+        <nav class="navbar navbar-default" id="topRight">
+            <div class="container-fluid">
+                <div class="navbar-minimize">
+                    <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                        <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                        <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                    </button>
+                </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left navbar-search-form" role="search">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="charts.html">
+                                <i class="fa fa-line-chart" title="统计"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-gavel"></i>
+                                <p class="hidden-md hidden-lg">
+                                    Actions
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="#">我的家庭作业</a></li>
+                                <li><a href="#">我的课表</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">评教评学</a></li>
+                                <li><a href="#">志愿服务</a></li>
+                                <li><a href="#">参与决策</a></li>
+                                <li><a href="#">支持学校</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="notification">1</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">我的通知</a></li>
+                                <li><a href="#">我的邮箱</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">公告通知</a></li>
+
+
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-with-icons">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list"></i>
+                                <p class="hidden-md hidden-lg">
+                                    More
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-with-icons">
+
+                                <li>
+                                    <a href="#">
+                                        <i class="pe-7s-help1"></i> 帮助
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="pe-7s-tools"></i>设置
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <i class="pe-7s-lock"></i> 锁定待机
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="out_login.html" class="text-danger">
+                                        <i class="pe-7s-close-circle"></i>
+                                        注销登录
+                                    </a>
+                                </li>
+                                <li onclick="clostExamSystem()">
+                                    <a href="#" class="text-danger">
+                                        <i class="pe-7s-close-circle"></i>
+                                        退出程序
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--右半部分主体内容-->
+        <div class="content">
+            <!--左部展示标题名称-->
+            <!--右部显示统计图-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card" id="cardPH">
+                            <div class="container-top">
+                                <i class="pe-7s-cup"
+                                   style="font-weight: bold;font-size: 28px;position: relative;left: -56px;top: 4px;width: 20px;"></i>
+                                就业<a href="nav_testRankings.html"> <i class="pe-7s-angle-right-circle"
+                                                                         style="color:#FFFFFF;position: absolute;right: 20px;top: 25px;font-weight: bold;cursor: pointer;font-size: 26px"
+                                                                         title="就业"></i></a>
+
+                            </div>
+                            <div class="container">
+                                <div class="panel panel-default rev">
+                                    <br/>
+                                    <br/>
+                                    <form style="">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <td colspan="2">
+                                                    就业情况
+                                                </td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>学生姓名</td>
+                                                <td><input type="text"placeholder="..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td>公司名称</td>
+                                                <td><input type="text" placeholder="..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td>实习薪资</td>
+                                                <td><input type="text" placeholder="..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td>转正薪资</td>
+                                                <td><input type="text" placeholder="..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><button class="btn btn-danger bg-success" style="margin-right: 3%">提交</button><button class="btn btn-success bg-danger">修改</button></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!--底部-->
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy; 2018 <a href="#">云校园</a>，梦想带你起航
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
+<script type="text/javascript">
+    //jeDate.skin('gray');
+    jeDate({
+        dateCell: "#dateinfo",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+    jeDate({
+        dateCell: "#dateinfo2",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+</script>
+</body>
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+</html>

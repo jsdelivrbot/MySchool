@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 训练 - 排行</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="css/interview-question.css" rel="stylesheet">
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+    <!--VUE-->
+    <script src="js/vue.js"></script>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+    <!--时间控件-->
+    <script src="js/jedate.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script src="js/main.js"></script>
+    <!--导入JS-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="newStyle/js/jquery.validate.min.js"></script>
+    <script src="newStyle/js/moment.min.js"></script>
+    <script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+    <script src="newStyle/js/bootstrap-selectpicker.js"></script>
+    <script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+    <script src="newStyle/js/chartist.min.js"></script>
+    <script src="newStyle/js/bootstrap-notify.js"></script>
+    <script src="newStyle/js/sweetalert2.js"></script>
+    <script src="newStyle/js/jquery-jvectormap.js"></script>
+
+    <script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+    <script src="newStyle/js/bootstrap-table.js"></script>
+    <script src="newStyle/js/jquery.datatables.js"></script>
+    <script src="newStyle/js/fullcalendar.min.js"></script>
+    <script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+    <script src="newStyle/js/jquery.sharrre.js"></script>
+    <script src="newStyle/js/demo.js"></script>
+
+    <!--通知模块-->
+    <script src="dist/js/lobibox.min.js"></script>
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .buttom {
+        margin: 20px 70px 30px;
+    }
+
+    .buttom button {
+        display: inline-block;
+    }
+
+    /*.actions .buttom {*/
+
+    /*position: absolute;*/
+
+    /*left: -50px;*/
+
+    /*top: 45px;*/
+
+    /*display: block;*/
+
+    /*width: 100px;*/
+
+    /*}*/
+
+    table {
+        text-align: center;
+    }
+
+    .iframeItem {
+        width: 100%;
+        height: 100%;
+    }
+
+    .wuTheme:hover {
+        border: 2px solid #a68dff;
+    }
+
+    .toolbar-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -40px;
+        left: -30px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+
+    }
+
+    .container-item {
+        -webkit-border-radius: 10px;
+        width: 100%;
+        height: 400px;
+        margin-bottom: 70px;
+        background-color: #efeb73;
+    }
+
+    .header-item {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        left: -10px;
+        position: relative;
+        text-indent: 2em;
+        box-shadow: 1px 1px 1px 1px #e1e1e1;
+    }
+
+    .fresh-datatables {
+
+        border: 1px solid #e3e3e3;
+        background-color: #ffffff;
+        -webkit-border-radius: 10px;
+        height: 500px;
+        overflow: auto;
+    }
+
+    .fresh-datatables table th {
+        text-align: center;
+    }
+
+    table tfoot th {
+        text-align: center;
+    }
+
+    .fresh-datatables table td {
+        text-align: center;
+    }
+
+    .ul-item {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .ul-item li {
+        -webkit-border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        list-style-type: none;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-indent: 1em;
+        background-color: #ffffff;
+        box-shadow: 1px 1px 1px 1px #eaeaea;
+    }
+
+    .ul-item li:hover {
+        background-color: #f9f9f9;
+
+    }
+
+    table tr td {
+        color: #696969;
+    }
+
+    tbody tr td {
+        text-align: center;
+    }
+
+    thead tr th {
+        text-align: center;
+    }
+
+    .bar-div {
+        width: 100%;
+        transition: width 2s;
+    }
+
+    .container-top {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        position: relative;
+        text-indent: 2em;
+        left: -20px;
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .check button {
+        margin: 2%;
+    }
+
+    .context {
+        margin-left: 20px;
+    }
+
+    .container {
+        width: 100%;
+        height: 50%;
+        margin: 20px auto;
+    }
+
+    p {
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+    }
+
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap;
+        /* 不换行 */
+        overflow: hidden;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis;
+        /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+        ;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    form {
+        margin-left: 10px;
+    }
+
+    .rev {
+        position: relative;
+        border: 1px solid silver;
+    }
+
+    form {
+        margin-left: 20px;
+    }
+
+    .padd {
+        padding-left: 20px;
+        font-size: 17px;
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    .padd p {
+        padding-top: 20px;
+        /*padding-left: 20px;*/
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    .padd1 {
+        padding-left: 20px;
+        color: #d5552f;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .padd1 p {
+        color: #d5552f;
+        padding-top: 20px;
+        /*padding-left: 20px;*/
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    .time {
+        font-size: 12px;
+        margin-left: 30px;
+        color: #ccd1d9;
+        display: inline-block;
+    }
+
+    form input {
+        display: inline-block;
+        width: 20%;
+    }
+
+    textarea {
+        padding: 0 auto;
+        border-radius: 3px;
+    }
+</style>
+
+<body>
+
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+        <!--右半部分内容-->
+        <div class="main-panel">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--右半部分主体内容-->
+            <div class="content">
+                <!--左部展示标题名称-->
+                <!--右部显示统计图-->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card" id="cardPH">
+                                <div class="container-top">
+                                    <i class="pe-7s-cup" style="font-weight: bold;font-size: 28px;position: relative;left: -56px;top: 4px;width: 20px;"></i>
+                                    背面试题
+                                    <a href="nav_testRankings.html">
+                                        <i class="pe-7s-angle-right-circle" style="color:#FFFFFF;position: absolute;right: 20px;top: 25px;font-weight: bold;cursor: pointer;font-size: 26px"
+                                            title="老师.点评"></i>
+                                    </a>
+                                </div>
+                                <div class="container">
+                                    <div class="panel panel-default rev">
+                                        <br/>
+                                        <br/>
+                                        <div class="center">
+                                            <form style="" id="form">
+                                                <select id="firstMenu" class="firstMenu form-control btn-block">
+                                                    <option value="-1">请选择一级知识点分类</option>
+                                                </select>
+                                                <select id="secondMenu" class="secondMenu form-control btn-block">
+                                                </select>
+                                                <select id="thirdMenu" class="thirdMenu form-control btn-block">
+                                                </select>
+                                                <button class="schedule btn btn-primary">20/45</button>
+                                                <br>
+                                                <br>
+                                                <hr style="height: 1px;background-color: #9DAFFF;margin-right: 2%;">
+                                            </form>
+                                        </div>
+                                        <!--左侧面试题详情-->
+                                        <div id="main">
+                                            <div class="context">
+                                                <div>
+                                                    <h4 id="show">
+                                                        <a href="#" data-target='#exampleModalLong-1' style="font-size: 20px;margin-right: 20px;line-height: 30px" data-toggle='#exampleModalLong-1'>面试题详情&nbsp;
+                                                        </a>
+                                                    </h4>
+                                                    <textarea id="questionDetails" readonly style="font-size: 16px">
+                                                就像月缺或退潮的海，我的心被你撕走一块，时隔多年那缺憾还在，有种伤一生都好不起来
+                                                </textarea>
+                                                    <h5>试题解析：</h5>
+                                                    <textarea style="width:55%;height:80px" id="analysis" readonly>
+                                                        本试题暂无解析
+                                                </textarea>
+                                                </div>
+                                                <div id="rightBox">
+                                                    <img src="img/03.jpg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="footer">
+                                            <hr style="height: 1px;background-color: #9DAFFF;margin-left: 2%;margin-right: 2%;">
+                                            <form>
+                                                <button class="btn btn-primary" id="last">上一题</button>
+                                                <input type="text" name="time" id="time" placeholder="用时:30秒">
+                                                <button class="btn btn-info" id="next">下一题</button>
+                                                <button class="btn btn-warning btn-lg" id="rest">休息一下</button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--底部-->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <p class="copyright pull-right">
+                            &copy; 2018
+                            <a href="#">云校园</a>，梦想带你起航
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    /*三级联动，绑定下拉菜单的数据*/
+    $(function () {
+        $.post("http://localhost:8080/skill/selFather.do", {}, function (res) {
+            var data = eval(res);
+            var temp = "";
+            for (var i = 0; i < data.length; i++) {
+                temp += "<option value='" + data[i].skillId + "'>" + data[i].skillName + "</option>";
+            }
+            $("#firstMenu option").remove();
+            $("#firstMenu").append(temp);
+        });
+        /*绑定二级菜单*/
+        $("#firstMenu").change(function () {
+            var fatherId = $("#firstMenu").val();
+            $.post("http://localhost:8080/skill/getChildMenu.do", { fatherId: fatherId }, function (res) {
+                var data = eval(res);
+                var temp = "";
+                for (var i = 0; i < data.length; i++) {
+                    temp += "<option value='" + data[i].skillId + "'>" + data[i].skillName + "</option>";
+                }
+                $("#secondMenu option").remove();
+                $("#secondMenu").append(temp);
+            });
+        });
+        /*绑定三级菜单*/
+        $("#secondMenu").change(function () {
+            var fatherId = $("#secondMenu").val();
+            $.post("http://localhost:8080/skill/getChildMenu.do", { fatherId: fatherId }, function (res) {
+                var data = eval(res);
+                var temp = "";
+                for (var i = 0; i < data.length; i++) {
+                    temp += "<option value='" + data[i].skillId + "'>" + data[i].skillName + "</option>";
+                }
+                $("#thirdMenu option").remove();
+                $("#thirdMenu").append(temp);
+            });
+        });
+        /*获取三级菜单最终的知识点编号，去查询对应的试题*/
+        $("#thirdMenu").change(function () {
+            var skillId = $("#secondMenu").val();
+            alert(skillId);
+            $.post("http://localhost:8080/topic/getTopicListBySkillId.do", { skillId: skillId }, function (res) {
+                var data = eval(res);
+                var i = 0;
+                /*下一题能用*/
+                $("#next").click(function () {
+                    var time = new Date();
+                    alert(time);
+                    if (i < res.length) {
+                        i += 1;
+                    } else {
+                        i = data.length;
+                    }
+                    $("#questionDetails").text(data[i].topicName);
+                    $("#analysis").text(data[i].modelAnswer);
+                    return false;
+                });
+                /*上一题能用*/
+                $("#last").click(function () {
+                    if (i >= 1) {
+                        i--;
+                        $("#questionDetails").text(data[i].topicName);
+                        $("#analysis").text(data[i].modelAnswer);
+                        return false;
+                    } else {
+                        i = 0;
+                        $("#questionDetails").text(data[i].topicName);
+                        $("#analysis").text(data[i].modelAnswer);
+                        return false;
+                    }
+                });
+                /*页面加载时，绑定初始数据*/
+                $("#questionDetails").text(data[i].topicName);
+                $("#analysis").text(data[i].modelAnswer);
+            });
+        });
+    })
+</script>
+
+</html>

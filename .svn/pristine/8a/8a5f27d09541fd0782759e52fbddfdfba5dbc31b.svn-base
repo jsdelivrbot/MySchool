@@ -1,0 +1,429 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <!--复选框，单选按钮-->
+    <title>日考成绩</title>
+</head>
+<style>
+    .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+        width: 150px;
+    }
+
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 0.06%;
+        line-height: 1.42857143;
+        text-align: center;
+        vertical-align: middle;
+        border-top: 1px solid #ddd;
+    }
+
+    td {
+        width: 50px;
+    }
+
+    /*td input {*/
+    /*width: 2%;*/
+    /*}*/
+
+    .check .dowebok ul {
+        list-style-type: none;
+    }
+
+    .check .dowebok li {
+        margin: 0.5% 5px;
+    }
+
+    .form-group {
+        margin-bottom: 0px;
+    }
+
+    .check .dowebok {
+        white-space: normal;
+        text-align: left;
+        margin-left: 3%;
+        padding: 0 6%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    input.labelauty + label {
+        display: inline-block;
+
+        font: 12px "Microsoft Yahei";
+    }
+
+    label {
+        vertical-align: middle;
+        padding-bottom: 10px;
+        height: 35px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .item-plan {
+        /*width: 100%;*/
+        height: 80%;
+        overflow: auto;
+        -webkit-border-radius: 5px;
+    }
+
+    .datainp {
+        width: 150px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 5px;
+    }
+
+    .check .dowebok ul {
+        list-style-type: none;
+    }
+
+    .check .dowebok li {
+        display: inline-block;
+    }
+
+    .check .dowebok li {
+        margin: 0.5% 5px;
+    }
+
+    .check .dowebok2 li {
+        display: inline-block;
+    }
+
+    input.labelauty + label {
+        display: inline-block;
+        width: 100px;
+        font: 12px "Microsoft Yahei";
+    }
+
+    .container {
+        width: 100%;
+        height: 50%;
+        margin: 20px auto;
+    }
+
+    .panel-default {
+        position: relative;
+        width: 90%;
+        height: auto;
+        margin: 0px auto;
+    }
+
+    input:-webkit-autofill {
+        box-shadow: 0 0 0 1000px white inset;
+    }
+
+    .form-group {
+        margin-bottom: 0px;
+    }
+
+    .check .dowebok {
+        white-space: normal;
+        text-align: left;
+        margin-left: 3%;
+        padding: 0 6%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .check .dowebok2 {
+        white-space: normal;
+        text-align: left;
+        margin: 30px 20% 10px;
+    }
+
+    .check .dowebok2 ul li {
+        margin: 0px 20px;
+    !important;
+    }
+
+    .check button {
+        margin: 2%;
+    }
+
+    #history_home button {
+        margin-bottom: 5px;
+    }
+
+    #history_home button {
+        width: 100%;
+        display: block;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    .rev {
+        position: relative;
+    }
+
+    .qxfx {
+        display: inline-block;
+        /*width: 100px;*/
+        float: right;
+        margin-right: 15%;
+    }
+
+    table th {
+        font-weight: bold;
+        text-align: center;
+        height: 50px;
+    }
+
+    table td {
+        text-align: center;
+        height: 30px;
+    }
+
+    #examContent {
+        vertical-align: middle;
+        height: 34px;
+        border-radius: 3px;
+        border: 1px solid silver;
+    }
+
+    .form-horizontal label {
+        padding-top: 10px;
+    }
+</style>
+<body>
+<div id="app" style="padding: 0px 2%">
+    <br/>
+    <form id="form">
+        <input type="hidden" name="teacherId" id="teacherId">
+        <label for="selectpicker">选择班级:</label>
+        <select id="selectpicker" name="classId" class="selectpicker" data-live-search="true">
+            <option value="-1">请选择</option>
+            <option v-for="(item,index) in classList" :value="item.classId">{{item.className}}</option>
+        </select>
+
+        &nbsp;<label for="dateinfo" style="margin-top: 15px">开始日期：</label>
+        <input class="datainp" name="beginTime" style="border: 1px solid  #ccd1d9" id="dateinfo" type="text" readonly>
+        &nbsp;&nbsp; <label for="dateinfo2" style="margin-top: 15px">结束日期：</label>
+        <input class="datainp" style="border: 1px solid  #ccd1d9" name="endTime" id="dateinfo2" type="text" readonly>
+        &nbsp;&nbsp;
+        <input type="button" class="btn btn-success radius" @click="selectstu()" name="" value="搜索">
+        </input>
+
+    </form>
+    <button type="submit" class="btn btn-success radius"
+            data-toggle="modal" data-target="#myModal" class="Hui-iconfont"> 添加日考
+    </button>
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加日考
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                    <select id="selectpicker2" @change="getClassId()" name="classId" class="selectpicker"
+                            data-live-search="true"
+                            placeholder="请选择班级">
+                        <option value="-1">请选择</option>
+                    </select><select id="examContent" name="customId" class="selectpicker"
+                                     data-live-search="true"
+                                     placeholder="请选择考试内容">
+                    <option value="-1">请选择</option>
+                </select>
+                    <br/>
+                </div>
+                <div class="modal-footer">
+                    <table border="1">
+                        <tr v-for="item in getStudentList">
+                            <td><input type="hidden" name="studentId" v-model="item.studentId"/></td>
+                            <td><input type="text" style="border: 0;width: 60px" readonly name="studentName"
+                                       v-model="item.studentName"/></td>
+                            <td><input type="text" name="score"/></td>
+                        </tr>
+                    </table>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" @click="submits()" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div class="item-plan">
+        <table class="table table-bordered " style="margin-left:10px">
+            <thead>
+            <tr class="text-y">
+                <th style="width: 5%;text-align: center">姓名</th>
+                <th style="width: 100px;text-align: center" v-for="(item,index) in studentListWeek[dataIndex]">
+                    <span>{{item.stringDate}}</span>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr class="text-y" v-for="(item,index) in studentListWeek">
+                <td v-text="item[0].studentName"></td>
+                <td class="gun-scusses" style="padding:10px 0px;text-align: center;"
+                    v-for="(childItem,index) in item">
+                    <span style="font-weight: 700;margin: 0 auto;">
+                        <span v-if="childItem.score>childItem.sumScore*0.6">Y</span>
+                        <span style="color: red" v-else>N</span>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div><!-- /col-md-12 -->
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            typeCount: 0,
+            typeValue: "",
+            studentCount: 0,
+            dataIndex: -1,
+            classList: [],
+            studentList: [],
+            studentListWeek: [],
+            stuList: [],
+            studentIds: [],
+            typeValues: [],
+            getStudentList: []
+        }, methods: {
+            /**
+             * 绑定下拉框
+             */
+//            initClassName(){
+//                $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", {"teacherId": 1}, function (result) {
+//                    console.log(result.classList);
+//                    app.classList = result.classList;
+//                }, "json");
+//            },
+            selectstu(){
+                var teacherId = localStorage.getItem("teacherId");
+                $("#teacherId").val(teacherId);
+                var form = $("#form").serialize();
+                console.log(form)
+                $.post("http://localhost:8080/custromjl/selectDayList.do", form, function (result) {
+                    console.log("----------result-------------");
+                    console.log(result);
+                    app.studentListWeek = result.studentListWeek;
+
+                    var arr = new Array();
+                    for (var i = 0; i < result.studentListWeek.length; i++) {
+                        arr.push(result.studentListWeek[i].length);
+                    }
+                    var max = Math.max.apply(Math, arr);
+                    for (var i = 0; i < result.studentListWeek.length; i++) {
+                        if (max == result.studentListWeek[i].length) {
+                            app.dataIndex = i;
+                        }
+                    }
+                    console.log(app.dataIndex);
+                }, "json");
+            },
+            getClassId () {
+                var selectpicker2 = $("#selectpicker2").val();
+                $.post("http://localhost:8080/student/selectStudentByClassId.do", "classId=" + selectpicker2, function (result) {
+                    console.log(result)
+                    app.getStudentList = result;
+                }, "json");
+                $.post("http://localhost:8080/custromjl/selectQuestById.do", "classId=" + selectpicker2, function (result) {
+                    console.log(result);
+                    var html = "";
+                    for (var i = 0; i < result.length; i++) {
+                        var obj = result[i];
+                        html += "<option value='" + obj.customId + "'>" + obj.questionName + "</option>"
+                    }
+                    $("#examContent option:gt(0)").remove();
+                    $("#examContent").append(html);
+                    $("#examContent").selectpicker('refresh');
+                }, "json");
+            },
+            submits(){
+                var id = document.getElementsByName('studentId');
+                var examContent = $("#examContent").val();
+                var score = document.getElementsByName('score');
+                var studentIdArr = new Array();
+                var examScoreArr = new Array();
+                for (var i = 0; i < id.length; i++) {
+                    studentIdArr.push(id[i].value);
+                    examScoreArr.push(score[i].value);
+                }
+                var arr = {};
+                var arr = {
+                    "studentIdArr": studentIdArr,
+                    "examScoreArr": examScoreArr,
+                    "customId": examContent,
+                };
+                console.log(JSON.stringify(arr));
+                $.post("http://localhost:8080/custromjl/insertCustromjl.do", {"jsonString": JSON.stringify(arr)}, function (result) {
+                    console.log(result);
+                }, "text");
+            }
+        }, created(){
+            this.selectstu();
+        }
+    });
+
+    initClassName = function () {
+        var selectpicker2 = $("#selectpicker2").val();
+        var teacherId = localStorage.getItem("teacherId");
+        $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", "teacherId=" + teacherId, function (result) {
+            console.log(result);
+            var html = "";
+            for (var i = 0; i < result.classList.length; i++) {
+                var obj = result.classList[i];
+                html += "<option value='" + obj.classId + "'>" + obj.className + "</option>"
+            }
+            $("#selectpicker2 option:gt(0)").remove();
+            $("#selectpicker option:gt(0)").remove();
+            $("#selectpicker2").append(html);
+            $("#selectpicker").append(html);
+            $("#selectpicker2").selectpicker('refresh');
+            $("#selectpicker").selectpicker('refresh');
+        }, "json");
+    }
+    $(function () {
+        initClassName();
+    })
+</script>
+<script type="text/javascript">
+    //jeDate.skin('gray');
+    jeDate({
+        dateCell: "#dateinfo",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+    jeDate({
+        dateCell: "#dateinfo2",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+</script>
+</body>
+</html>

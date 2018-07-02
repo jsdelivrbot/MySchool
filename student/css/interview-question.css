@@ -1,0 +1,80 @@
+.container{
+    position: relative;
+    width: 95%;
+}
+.context{
+    padding-left: 4%;
+    padding-right: 4%;
+}
+#form select{
+    float: left;
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+    height: auto;
+    margin-left: 3%;
+}
+/*#firstMenu,#secondMenu,#thirdMenu*/
+#form .schedule{
+    float: right;
+    margin-right: 5%;
+    padding: 1.2rem 4rem;
+}
+#main{
+    height: 36rem;
+}
+.context>div{
+    float: left;
+    width: 90%;
+    margin-top: -3.2rem;
+}
+.context #questionDetails{
+    width: 55%;
+    height: 16.5rem;
+    display: inline-block;
+}
+.context #rightBox {
+    float: right;
+    width: 45%;
+    margin-top: -39rem;
+}
+
+.context #rightBox input{
+    width: 57%;
+    float: left;
+}.context #rightBox button{
+    float: right;
+    margin-right: 10%;
+}
+#rightBox{
+    width: 100%;
+}
+#rightBox img{
+    margin-top: 10rem;
+    width: 100%;
+    height: inherit;
+}
+/*底部*/
+#footer{
+    height: 7.5rem;
+    width: inherit;
+}
+#footer #last {
+     float: left;
+     margin-left: 5%;
+ }
+#footer #next {
+    float: left;
+    margin-left: 5%;
+}
+#footer #time{
+    float: left;
+    margin-left: 5%;
+    margin-top: 5px;
+    width: 15%;
+}
+#footer #rest{
+    float: right;
+    margin-right: 15%;
+    padding: 0.8rem 3.5rem;
+}

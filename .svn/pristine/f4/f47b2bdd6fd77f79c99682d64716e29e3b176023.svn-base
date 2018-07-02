@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 校园广场</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font_6xh809seepom9529/iconfont.css">
+
+    <!--VUE-->
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+
+    <style>
+        html,
+        body,
+        .main-panel {
+            height: 100%;
+        }
+
+        .show_iframe {
+            height: 100%;
+        }
+
+        * {
+            font-size: 12px;
+            font-weight: bold;
+
+        }
+
+        iframe {
+            position: relative;
+            height: 100%;
+            width: 81%;
+            float: right;
+        }
+
+        .sidebar {
+            width: 19%;
+        }
+    </style>
+</head>
+<script>
+    $(function () {
+        var data = localStorage.getItem("user");
+        // console.log("================"+data);
+        // console.log(typeof (data.address));
+        // alert(data.studentId);
+    });
+</script>
+
+<body>
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+        <!---左部门导航-->
+        <div class="sidebar" data-color="" data-image="">
+            <!--左上个人中心-->
+            <div class="logo">
+                <a href="#" class="logo-text">
+                    微云·家校互动平台
+                </a>
+            </div>
+            <div class="logo logo-mini">
+                <a href="#" class="logo-text">
+                    GL
+                </a>
+            </div>
+
+            <!--左部导航栏-->
+            <div class="sidebar-wrapper">
+                <!--个人信息-->
+                <div class="user">
+                    <div class="photo">
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed userName">
+                            个人中心
+                        </a>
+                        <div class="collapse" id="collapseExample">
+
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_myMessage.html" target="show_iframe">我的信息</a>
+                                </li>
+                                <li>
+                                    <a href="nav_newFace.html" target="show_iframe">我的人脸</a>
+                                </li>
+                                <li>
+                                    <a href="#">设置</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--导航-->
+                <ul class="nav">
+                    <!--item-01-->
+                    <li>
+                        <a href="nav_index.html">
+                            <i class="pe-7s-home"></i>
+                            <p>校园广场</p>
+                        </a>
+                    </li>
+                    <!--item-02-->
+                    <li>
+                        <a href="#item-02" data-toggle="collapse">
+                            <i class="pe-7s-map"></i>
+                            <p>自学考试
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-02">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_specialTraining.html" target="show_iframe">技能自测</a>
+                                </li>
+                                <li>
+                                    <a href="nav_trainRankings.html" target="show_iframe">成绩排名</a>
+                                </li>
+                                <li>
+                                    <a href="nav_unifiedTest.html" target="show_iframe">统一测试</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="student-interview-question.html" target="show_iframe">背面试题</a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-03-->
+                    <li>
+                        <a data-toggle="collapse" href="#item-03">
+                            <i class="pe-7s-pin"></i>
+                            <p>我的历史
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-03">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_historyTran.html" target="show_iframe">自测历史</a>
+                                </li>
+                                <li>
+                                    <a href="nav_historyTest.html" target="show_iframe">统考历史</a>
+                                </li>
+                                <li>
+                                    <a href="nav_myWrongProblemTrain.html" target="show_iframe">我的错题</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#">我的收藏</a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-04-->
+                    <!-- <li class="">
+                        <a href="nav_onlineLectures.html">
+                            <i class="pe-7s-home"></i>
+                            <p>在线听课</p>
+                        </a>
+                    </li> -->
+
+                    <!--item-05-->
+                    <li>
+                        <a data-toggle="collapse" href="#item-05">
+                            <i class="pe-7s-note"></i>
+                            <p>家庭作业
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-05">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_homework.html" target="show_iframe">我的作业</a>
+                                </li>
+                                <li>
+                                    <a href="nav-history-work.html" target="show_iframe">历史记录</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-06-->
+                    <li>
+                        <a data-toggle="collapse" href="#item-06">
+                            <i class="pe-7s-date"></i>
+                            <p>任务计划
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse " id="item-06">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_myTask.html" target="show_iframe">我的任务</a>
+                                </li>
+                                <li>
+                                    <a href="nav_myProjectProgress.html" target="show_iframe">任务进度</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#item-07">
+                            <i class="pe-7s-timer"></i>
+                            <p>我的成绩
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-07">
+                            <ul class="nav">
+                                <li>
+                                    <a href="trent-achi.html" target="show_iframe">成绩趋势</a>
+                                </li>
+                                <li>
+                                    <a href="student-review.html" target="show_iframe">老师点评</a>
+                                </li>
+                                <li>
+                                    <a href="day-study.html" target="show_iframe">日考成绩</a>
+                                </li>
+                                <li>
+                                    <a href="month-study.html" target="show_iframe">月考成绩</a>
+                                </li>
+                                <li>
+                                    <a href="graduation.html" target="show_iframe">结业考试</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-07-->
+                    <li>
+                        <a href="#item-08" data-toggle="collapse">
+                            <i class="pe-7s-id"></i>
+                            <p>我的班级
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-08">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_classNews.html" target="show_iframe">班级新鲜事</a>
+                                </li>
+                                <li>
+                                    <a href="nav_writtenLeave.html" target="show_iframe">请假管理</a>
+                                </li>
+                                <li>
+                                    <a href="nav_class_schedule.html" target="show_iframe">班级课表</a>
+                                </li>
+                                <li>
+                                    <a href="nav_quantitative_evaluation.html" target="show_iframe">量化评价</a>
+                                </li>
+                                <li>
+                                    <a href="nav_employment_status.html" target="show_iframe">就业情况</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-08-->
+                    <li>
+                        <a href="#item-09" data-toggle="collapse">
+                            <i class="pe-7s-way"></i>
+                            <p>我的学校
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-09">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav-notice.html" target="show_iframe">公告通知</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#">风采展示</a>
+                                </li> -->
+                                <li>
+                                    <a href="nav-appraisal.html" target="show_iframe">评教评学</a>
+                                </li>
+                                <li>
+                                    <a href="nav_volunteer-service.html" target="show_iframe">志愿服务</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#">沟通交流</a>
+                                </li> -->
+                                <li>
+                                    <a href="nav_decision-making.html" target="show_iframe">参与决策</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-08-->
+                    <li>
+                        <a href="#item-10" data-toggle="collapse">
+                            <i class="pe-7s-chat"></i>
+                            <p>社区交流
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-10">
+                            <ul class="nav">
+                                <li>
+                                    <a href="blog/index.html" target="_blank">博客</a>
+                                </li>
+                                <li>
+                                    <a href="nav_say-word-heart.html" target="show_iframe">说句心里话</a>
+                                </li>
+                                <li>
+                                    <a href="blog/dytd.html" target="show_iframe">德育天地</a>
+                                </li>
+                                <li>
+                                    <a href="parents/jkgw_parent.html" target="show_iframe">健康顾问</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!--item-09-->
+                    <li>
+                        <a href="#item-11" data-toggle="collapse">
+                            <i class="pe-7s-paper-plane"></i>
+                            <p>校长信箱
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="item-11">
+                            <ul class="nav">
+                                <li>
+                                    <a href="nav_mailbox.html" target="show_iframe">意见建议</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--右半部分内容-->
+        <div class="main-panel">
+            <div class="show_iframe">
+                <div style="display:none" class="loading"></div>
+                <iframe scrolling="yes" frameborder="0" src="home.html" name="show_iframe"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+<!--导入JS-->
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="assets/js/sparkline-chart.js"></script>
+<script src="assets/js/zabuto_calendar.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+<!--初始化-->
+<script>
+    var userInfoInit;//用户信息
+    var btn = true;//导航栏状态
+    //var gui = require('nw.gui');
+    $(function () {
+        getUserInfo();
+        var height = $(window).height();
+        $(".container-main").css("height", height);//设置初始化高度
+        $(window).resize(function () {//设置窗口改变时的高度
+            var height = $(window).height();
+            $(".container-main").css("height", height)
+        });
+        getTheme();
+
+
+    });
+    //退出应用程序
+    function clostExamSystem() {
+        //gui.App.quit()
+    }
+    //取出主题并设置上
+    function getTheme() {
+        var getTheme = localStorage.getItem("theme");
+        $(".sidebar").attr("data-color", getTheme);
+        var imgPath = localStorage.getItem("imgPath");
+        $(".sidebar").attr("data-image", imgPath);
+        $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+
+    }
+    //设置通知
+    function notice() {
+        demo.showNotification('bottom', 'right', 'success', '' + userInfoInit.studentName + '', '欢迎您进入学习时间', 'pe-7s-smile');
+    }
+    //初始化用户信息&设置
+    function getUserInfo() {
+        var userInfo = localStorage.getItem("user");
+        var obj = JSON.parse(userInfo);
+        userInfoInit = obj;
+        $(".userName").html(userInfoInit.studentName + '  <b class="caret"></b>');
+        imgLogoInit();
+    }
+    //初始化头像
+    function imgLogoInit() {
+        $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+    }
+</script>
+
+</html>

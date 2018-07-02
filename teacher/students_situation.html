@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <style>
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td .btn-primary {
+            height: 22.4px;
+        }
+
+        .item-plan {
+            width: 100%;
+
+            -webkit-border-radius: 5px;
+        }
+
+        td p {
+            width: 200px;
+            margin: 0;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+        table th{
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#btnAddAnn").click(function () {
+                window.location.href = "addNotice.html";
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="padding: 20px">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="announcementTitle">学生姓名</label>
+            <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入学生姓名">
+        </div>
+        <label for="slpk02">选择班级:</label>
+        <select class="selectpicker" data-live-search="true" id="slpk02">
+            <option value="">TCMP058</option>
+            <option value="">TCMP059</option>
+            <option value="">TCMP060</option>
+            <option value="">TCMP062</option>
+        </select>
+        <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+
+    </form>
+    <div class="item-plan">
+        <table class="table table-hover table-striped" id="noticeInfo">
+            <tr class="table-one">
+                <th>序号</th>
+                <th>姓名</th>
+                <th>所在班级</th>
+                <th>学历</th>
+                <th>班中职务</th>
+                <th>学习程度</th>
+                <th>前期出勤情况</th>
+                <th style="width: 200px">具体情况及评语</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>TCMP058</td>
+                <td>高中</td>
+                <td>组长</td>
+                <td>中上</td>
+                <td>100%</td>
+                <td><p title="搜狐东方速度回复哦华盛顿和覅hi水电费hi欧式的死哦都发his地方hi熟地黄覅hi收到货ifhi都是啥的覅合适的话ifhis史蒂夫海慧寺电话费">
+                    搜狐东方速度回复哦华盛顿和覅hi水电费hi欧式的死哦都发his地方hi熟地黄覅hi收到货ifhi都是啥的覅合适的话ifhis史蒂夫海慧寺电话费</p></td>
+
+                <td>
+                    <a class="btn btn-xs btn-info" data-toggle="modal" data-target="#see"><i
+                            class="iconfont icon-yulan iconfont_size"></i> 查看</a>
+                    <button class="btn btn-xs btn-primary" href="#" data-toggle="modal"
+                            data-target="#addVolunteerService"><i class="Hui-iconfont">&#xe60c;</i>修改
+                    </button>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <div style="margin-left: 8%;margin-top:2%;display: block">
+        <span>统计：</span>
+        <span>大专以上的学历：</span>
+        <span style="font-weight: 600;color: #e9071d">10</span>
+        <span style="margin-left: 4%">总人数：</span>
+        <span style="font-weight: 600;color: #e9071d">10</span>
+        <span style="margin-left: 3%">大专以上所占比例：</span>
+        <span style="font-weight: 600;color: #e9071d">10%</span>&nbsp;&nbsp;
+    </div>
+    <div id="nav">
+        <div id="pageList" style="float: right;">
+            <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+<!--新增公告模态框-->
+<div class="modal fade bs-example-modal-lg" id="addVolunteerService" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><label>修改学员情况</label></h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="activityTitle1" class="col-sm-2 control-label">学员名称</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle1"
+                                       name="activityTitle" value="林方政" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle6" class="col-sm-2 control-label">所在班级</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle6"
+                                       name="activityTitle" value="TCMP058" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle2" class="col-sm-2 control-label">学历</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle2"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle3" class="col-sm-2 control-label">班中职务</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle3"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle4" class="col-sm-2 control-label">学习程度</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle4"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle5" class="col-sm-2 control-label">前期出勤情况</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle5"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle5" class="col-sm-2 control-label">具体情况及评语</label>
+                            <div class="col-sm-9">
+                                <textarea rows="10" class="form-control" id="home_text" style="width: 95%"></textarea>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                </button>
+                <button class="btn btn-warning" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="see" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="111"><label>查看学员情况</label></h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="activityTitle1" class="col-sm-2 control-label">学员名称</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="3336"
+                                       name="activityTitle" value="林方政" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle6" class="col-sm-2 control-label">所在班级</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="6366"
+                                       name="activityTitle" value="TCMP058" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle2" class="col-sm-2 control-label">学历</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="66"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle3" class="col-sm-2 control-label">班中职务</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="55"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle4" class="col-sm-2 control-label">学习程度</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="33"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle5" class="col-sm-2 control-label">前期出勤情况</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="222"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle5" class="col-sm-2 control-label">具体情况及评语</label>
+                            <div class="col-sm-9">
+                                <textarea rows="10" class="form-control" id="369" style="width: 95%;overflow: hidden"></textarea>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                </button>
+                <button class="btn btn-warning" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

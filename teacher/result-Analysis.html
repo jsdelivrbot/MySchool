@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <style>
+        .selectpicker {
+            border-radius: 4px;
+            width: 12%;
+            text-align: center;
+            line-height: 35px;
+            height: 35px;
+        }
+
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 80px auto;
+
+        }
+
+        .datainp {
+            width: 12%;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 5px;
+        }
+    </style>
+    <title>折线图</title>
+</head>
+<body>
+<div class="container-fluid" id="app" style="padding: 0 5%">
+    <form class="content-panel" id="formPaper" style="padding-left: 5%">
+        <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+        <input id="teacherId" name="teacherId" v-model="teacherId" type="hidden" value="1">
+        <label for="selectpicker">选择班级:</label>
+        <select id="selectpicker" name="classId" class="selectpicker" data-live-search="true">
+            <option value="-1">请选择</option>
+            <option v-for="(item,index) in classList" :value="item.classId">{{item.className}}</option>
+        </select>
+        <button type="button" class="btn btn-success radius" onclick="getTable();getZheShe()" name=""
+                style="width: 9%;display: inline-block"><i
+                class="Hui-iconfont">&#xe665;</i> 搜索
+        </button>
+        <hr/>
+    </form>
+    <div id="container" style="min-width:700px;height:400px;"></div>
+    <div style="height:50px;padding:3.5% 1%;background-color: white">
+        <span>下载Excel表格</span>
+    </div>
+
+    <div class="content-panel">
+        <h4><i class="fa fa-angle-right"></i>班级最近状况</h4>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>学号</td>
+                <td>学生姓名</td>
+                <td>学生历考平均分</td>
+                <td>学生历考及格率</td>
+                <td>学生历考总题数</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item,index) in StudentCustromjlList">
+                <td>{{item.studentId}}</td>
+                <td>{{item.studentName}}</td>
+                <td>{{item.avg}}</td>
+                <td>{{item.pjf}}%</td>
+                <td>{{item.count}}</td>
+                <td><a href="#" @click="getStudentId(item.studentId)" data-toggle='modal'>导出</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                        href="#">打印</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="pageList" style="float: right;padding-top: 20px">
+            <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/Highcharts/4.1.7/js/highcharts.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript" src="lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+<script type="text/javascript">
+    var Initdate = $("#formPaper").serialize();
+    var highCharts = {
+        title: {
+            text: '学员成绩趋势',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '',
+            x: -20
+        },
+        xAxis: {
+            categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        },
+        yAxis: {
+            title: {
+                text: '考试分数'//这个要修改的
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '分'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{data: [], name: ""}]
+    };
+    $(function () {
+        getZheShe();
+    });
+    function getZheShe() {
+        var teacherId = localStorage.getItem("teacherId");
+        $("#teacherId").val(teacherId);
+        var Init = $("#formPaper").serialize();
+        $('#container').highcharts(highCharts);
+        console.log("--------------series-----------------");
+        console.log("highCharts.series外边:" + highCharts.series)
+        console.log("----------------series---------------");
+        $.post("http://localhost:8080//custromjl/selectStudentCustromjldto.do", Init, function (results) {
+            highCharts.series = results;
+            $('#container').highcharts(highCharts);
+            console.log("this.highCharts.title" + highCharts.series[0].name);
+
+        }, "json");
+    }
+    console.log(Initdate)
+    getTable = function () {
+        var teacherId = localStorage.getItem("teacherId");
+        $("#teacherId").val(teacherId);
+        var init = $("#formPaper").serialize();
+        $.post("http://localhost:8080/custromjl/selectStudentCustromjlPage.do", init, function (results) {
+            app.pageCount = results.page.pageCount;
+            console.log(results);
+            app.StudentCustromjlList = results.custoromjlAndStudentList;
+        }, "json");
+    }
+    var app = new Vue({
+        el: "#app",
+        data: {
+            classList: [],
+            pageCount: 0,
+            teacherId: "",
+            StudentCustromjlList: {},
+        }, methods: {
+            /**
+             * 绑定下拉框
+             */
+            initClassName(){
+                var teacherId = localStorage.getItem("teacherId");
+                $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", {"teacherId": teacherId}, function (result) {
+                    console.log(result.classList);
+                    app.classList = result.classList;
+                }, "json");
+            },
+            getTableAll(date){
+                console.log(date)
+                console.log(date);
+                $.post("http://localhost:8080/custromjl/selectStudentCustromjlPage.do", date, function (results) {
+                    app.pageCount = results.page.pageCount;
+                    console.log(results);
+                    app.StudentCustromjlList = results.custoromjlAndStudentList;
+                }, "json");
+            }, getStudentId(id){
+                localStorage.setItem("custromjlStudentId", id);
+                location.href = "resultAnalysis_List.html";
+            },
+            //首页
+            sy(){
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+            //下一页
+            xyy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+            //尾页
+            wy(){
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+        }, created() {
+            this.initClassName();
+            this.getTableAll(Initdate);
+        }
+    });
+</script>
+</body>
+</html>

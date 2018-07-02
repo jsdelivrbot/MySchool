@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+
+    <script src="jedate/jedate.js"></script>
+    <style>
+        .content-panel {
+            background: #ffffff;
+            box-shadow: 0px 3px 2px #aab2bd;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #messageInfo tr td {
+            text-align: center;
+        }
+
+        #messageInfo tr td p {
+            width: 770px;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+            margin: 0px auto;
+        }
+
+        button {
+            width: 70px;
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddMess {
+            width: 100px;
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 34px;
+            border: 1px #ccc solid;
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td .btn-primary {
+            width: auto;
+            height: 22.4px;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#btnAddMess").click(function () {
+                window.location.href = "add-home-school-ssm.html";
+            })
+        })
+
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="padding: 0 5%">
+    <div class="content-panel">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="recipient">接收人</label>
+                <input type="text" class="form-control recipient" id="recipient" placeholder="请输入接收人">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+                <label for="beginTime">发送时间</label>
+                <input type="text" class="form-control releasePeople datainp" id="beginTime" placeholder="请选择开始时间">
+                &nbsp;——&nbsp;
+                <input type="text" class="form-control endTime datainp" id="endTime" placeholder="请选择结束时间">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+            &nbsp;&nbsp;&nbsp;
+
+            <button type="button" class="btn btn-primary radius" id="btnAddMess">
+                <i class="Hui-iconfont">&#xe600;</i>发送短信
+            </button>
+        </form>
+        <table class="table table-hover" id="noticeInfo">
+            <thead>
+            <tr class="table-one">
+                <td>收件人</td>
+                <td>发送时间</td>
+                <td>短信内容</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tr>
+                <td>第三届520课工场UI设计大赛</td>
+                <td>2018-05-06</td>
+                <td>马守斌</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                </td>
+            </tr>
+            <tr>
+                <td>宿舍大扫除</td>
+                <td>2018-5-12</td>
+                <td>马守斌</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                </td>
+            </tr>
+            <tr>
+                <td>母亲节</td>
+                <td>2018-05-11</td>
+                <td>马守斌</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                </td>
+            </tr>
+            <tr>
+                <td>拔河比赛</td>
+                <td>2018-05-08</td>
+                <td>马守斌</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                </td>
+            </tr>
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jeDate({
+        dateCell: "#beginTime",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: false, //isClear:false,
+        minDate: "2014-09-19",
+    })
+    jeDate({
+        dateCell: "#endTime",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: false, //isClear:false,
+        minDate: "2014-09-19",
+    })
+
+</script>
+</body>
+</html>

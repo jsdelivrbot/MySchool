@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Annex - Responsive Bootstrap 4 Admin Dashboard</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Mannatthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+    </head>
+
+
+    <body>
+
+        <!-- Loader -->
+        <div id="preloader"><div id="status"><div class="spinner"></div></div></div>
+
+        <div class="wrapper">
+            <div class="container-fluid">
+
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <div class="btn-group pull-right">
+                                <ol class="breadcrumb hide-phone p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="#">Annex</a></li>
+                                    <li class="breadcrumb-item"><a href="#">UI Kit</a></li>
+                                    <li class="breadcrumb-item active">Tabs</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Tabs</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-6">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">Default Tabs</h4>
+                                <p class="text-muted m-b-30 font-14">Use the tab JavaScript plugin—include
+                                    it individually or through the compiled <code class="highlighter-rouge">bootstrap.js</code>
+                                    file—to extend our navigational tabs and pills to create tabbable panes
+                                    of local content, even via dropdown menus.</p>
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active p-3" id="home" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Raw denim you probably haven't heard of them jean shorts Austin.
+                                            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
+                                            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
+                                            butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi,
+                                            qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+                                            iphone. Seitan aliquip quis cardigan american apparel, butcher
+                                            voluptate nisi qui.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="profile" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                                            single-origin coffee squid. Exercitation +1 labore velit, blog
+                                            sartorial PBR leggings next level wes anderson artisan four loko
+                                            farm-to-table craft beer twee. Qui photo booth letterpress,
+                                            commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                                            vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                                            aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr,
+                                            vero magna velit sapiente labore stumptown. Vegan fanny pack
+                                            odio cillum wes anderson 8-bit.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="messages" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Etsy mixtape wayfarers, ethical wes anderson tofu before they
+                                            sold out mcsweeney's organic lomo retro fanny pack lo-fi
+                                            farm-to-table readymade. Messenger bag gentrify pitchfork
+                                            tattooed craft beer, iphone skateboard locavore carles etsy
+                                            salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                                            Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh
+                                            mi whatever gluten-free, carles pitchfork biodiesel fixie etsy
+                                            retro mlkshk vice blog. Scenester cred you probably haven't
+                                            heard of them, vinyl craft beer blog stumptown. Pitchfork
+                                            sustainable tofu synth chambray yr.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="settings" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                            art party before they sold out master cleanse gluten-free squid
+                                            scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                            art party locavore wolf cliche high life echo park Austin. Cred
+                                            vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                            farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                            mustache readymade thundercats keffiyeh craft beer marfa
+                                            ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+                                            vegan.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xl-6">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">Justify Tabs</h4>
+                                <p class="text-muted m-b-30 font-14">Use the tab JavaScript plugin—include
+                                    it individually or through the compiled <code class="highlighter-rouge">bootstrap.js</code>
+                                    file—to extend our navigational tabs and pills to create tabbable panes
+                                    of local content, even via dropdown menus.</p>
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-pills nav-justified" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" data-toggle="tab" href="#home-1" role="tab">Home</a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-toggle="tab" href="#profile-1" role="tab">Profile</a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-toggle="tab" href="#messages-1" role="tab">Messages</a>
+                                    </li>
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link" data-toggle="tab" href="#settings-1" role="tab">Settings</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Raw denim you probably haven't heard of them jean shorts Austin.
+                                            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
+                                            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
+                                            butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi,
+                                            qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+                                            iphone. Seitan aliquip quis cardigan american apparel, butcher
+                                            voluptate nisi qui.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="profile-1" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                                            single-origin coffee squid. Exercitation +1 labore velit, blog
+                                            sartorial PBR leggings next level wes anderson artisan four loko
+                                            farm-to-table craft beer twee. Qui photo booth letterpress,
+                                            commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                                            vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                                            aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr,
+                                            vero magna velit sapiente labore stumptown. Vegan fanny pack
+                                            odio cillum wes anderson 8-bit.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="messages-1" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Etsy mixtape wayfarers, ethical wes anderson tofu before they
+                                            sold out mcsweeney's organic lomo retro fanny pack lo-fi
+                                            farm-to-table readymade. Messenger bag gentrify pitchfork
+                                            tattooed craft beer, iphone skateboard locavore carles etsy
+                                            salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                                            Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh
+                                            mi whatever gluten-free, carles pitchfork biodiesel fixie etsy
+                                            retro mlkshk vice blog. Scenester cred you probably haven't
+                                            heard of them, vinyl craft beer blog stumptown. Pitchfork
+                                            sustainable tofu synth chambray yr.
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane p-3" id="settings-1" role="tabpanel">
+                                        <p class="font-14 mb-0">
+                                            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                            art party before they sold out master cleanse gluten-free squid
+                                            scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                            art party locavore wolf cliche high life echo park Austin. Cred
+                                            vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                            farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                            mustache readymade thundercats keffiyeh craft beer marfa
+                                            ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+                                            vegan.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Collapse -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-6">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <h4 class="mt-0 header-title">Vertical Tabs</h4>
+                                <p class="text-muted m-b-30 font-14">The tabs plugin also works and with vertical pills.</p>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <a class="nav-link waves-effect waves-light active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                                            <a class="nav-link waves-effect waves-light" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                                            <a class="nav-link waves-effect waves-light" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                                            <a class="nav-link waves-effect waves-light" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                                <p class="font-14 mb-0">
+                                                    Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                                    art party before they sold out master cleanse gluten-free squid
+                                                    scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                                    art party locavore wolf cliche high life echo park Austin. Cred
+                                                    vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                                    farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                                    mustache readymade thundercats keffiyeh craft beer marfa
+                                                    ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+                                                    vegan.
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                                <p class="font-14 mb-0">
+                                                    Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin
+                                                    coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next
+                                                    level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                                                    booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco
+                                                        ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magn
+                                                        a delectus mollitbooth letterpress, commodo enim craft beer mlkshk aliquip jean 
+                                                        shorts ullamco.
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                                <p class="font-14 mb-0">
+                                                    Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                                                    art party before they sold out master cleanse gluten-free squid
+                                                    scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                                                    art party locavore wolf cliche high life echo park Austin. Cred
+                                                    vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+                                                    farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral,
+                                                    mustache readymade thundercats keffiyeh craft beer marfa
+                                                    ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+                                                    vegan.
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                                <p class="font-14 mb-0">
+                                                    Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin
+                                                    coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next
+                                                    level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                                                    booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco
+                                                        ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magn
+                                                        a delectus mollitbooth letterpress, commodo enim craft beer mlkshk aliquip jean 
+                                                        shorts ullamco.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card m-b-30">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">Default Collapse</h4>
+                                <p class="text-muted m-b-30 font-14">
+                                    You can use a link with the <code class="highlighter-rouge">href</code>
+                                    attribute, or a button with the <code class="highlighter-rouge">data-target</code>
+                                    attribute. In both cases, the <code class="highlighter-rouge">data-toggle="collapse"</code>
+                                    is required.
+                                </p>
+
+                                <p>
+                                    <a class="btn btn-primary mo-mb-2" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Link with href
+                                    </a>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Button with data-target
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xl-6">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">Accordion example</h4>
+                                <p class="text-muted m-b-30 font-14">Extend the default collapse behavior to create an accordion.</p>
+
+                                <div id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingOne">
+                                            <h5 class="mb-0 mt-0 font-16">
+                                                <a data-toggle="collapse" data-parent="#accordion"
+                                                   href="#collapseOne" aria-expanded="true"
+                                                   aria-controls="collapseOne" class="text-dark">
+                                                    Collapsible Group Item #1
+                                                </a>
+                                            </h5>
+                                        </div>
+
+                                        <div id="collapseOne" class="collapse show" role="tabpanel"
+                                             aria-labelledby="headingOne">
+                                            <div class="card-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                                accusamus terry richardson ad squid. 3 wolf moon officia
+                                                aute, non cupidatat skateboard dolor brunch. Food truck
+                                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                                sunt aliqua put a bird on it squid single-origin coffee
+                                                nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                                helvetica, craft beer labore wes anderson cred nesciunt
+                                                sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                                Leggings occaecat craft beer farm-to-table, raw denim
+                                                aesthetic synth nesciunt you probably haven't heard of them
+                                                accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingTwo">
+                                            <h5 class="mb-0 mt-0 font-16">
+                                                <a class="collapsed text-dark" data-toggle="collapse"
+                                                   data-parent="#accordion" href="#collapseTwo"
+                                                   aria-expanded="false" aria-controls="collapseTwo">
+                                                    Collapsible Group Item #2
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" role="tabpanel"
+                                             aria-labelledby="headingTwo">
+                                            <div class="card-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                                accusamus terry richardson ad squid. 3 wolf moon officia
+                                                aute, non cupidatat skateboard dolor brunch. Food truck
+                                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                                sunt aliqua put a bird on it squid single-origin coffee
+                                                nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                                helvetica, craft beer labore wes anderson cred nesciunt
+                                                sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                                Leggings occaecat craft beer farm-to-table, raw denim
+                                                aesthetic synth nesciunt you probably haven't heard of them
+                                                accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingThree">
+                                            <h5 class="mb-0 mt-0 font-16">
+                                                <a class="collapsed text-dark" data-toggle="collapse"
+                                                   data-parent="#accordion" href="#collapseThree"
+                                                   aria-expanded="false" aria-controls="collapseThree">
+                                                    Collapsible Group Item #3
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" role="tabpanel"
+                                             aria-labelledby="headingThree">
+                                            <div class="card-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                                accusamus terry richardson ad squid. 3 wolf moon officia
+                                                aute, non cupidatat skateboard dolor brunch. Food truck
+                                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                                sunt aliqua put a bird on it squid single-origin coffee
+                                                nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                                helvetica, craft beer labore wes anderson cred nesciunt
+                                                sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                                Leggings occaecat craft beer farm-to-table, raw denim
+                                                aesthetic synth nesciunt you probably haven't heard of them
+                                                accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+
+            </div> <!-- end container -->
+        </div>
+        <!-- end wrapper -->
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        © 2018 Annex by Mannatthemes.
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+
+        <!-- jQuery  -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/modernizr.min.js"></script>
+        <script src="assets/js/waves.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+        <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+
+    </body>
+</html>

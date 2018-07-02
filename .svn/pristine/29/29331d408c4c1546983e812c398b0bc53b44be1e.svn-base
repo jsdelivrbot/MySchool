@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 导入link -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/radar.js"></script>
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    .container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        bottom: 190px;
+        left: 60px;
+    }
+
+    /*今日打卡--开始 */
+    .white-panel {
+        margin-left: 6px;
+        border: 1px solid #CCCCCC;
+        width: 430px;
+        background: #ffffff;
+        color: #6d726d;
+    }
+
+    .white-panel p {
+        font-weight: 700;
+    }
+
+    .white-panel .white-header {
+        background: #f4f4f4;
+        padding: 3px;
+        margin-bottom: 15px;
+        color: #c6c6c6;
+    }
+
+    .white-panel .small {
+        font-size: 15px;
+        color: #ccd1d9;
+    }
+
+    .container-fluid {
+
+    }
+
+    .white-panel i {
+        color: #68dff0;
+        padding-right: 4px;
+        font-size: 14px;
+    }
+
+    .pn {
+        display: inline-block;
+        height: 280px;
+
+    }
+
+    .pn:hover {
+
+    }
+
+    .mb {
+        width: 400px;
+        height: 300px;
+    }
+
+    /*今日打卡--结束 */
+
+
+</style>
+<body>
+<div class="container-fluid" style="width: 90%;padding-top: 10px;">
+    <form class="form-inline">
+
+
+        <label for="announcementTitle" style="margin-right: 1%">学生姓名</label>
+        <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入学生姓名">
+
+        &nbsp;&nbsp;&nbsp;
+
+        &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+        </button>
+
+
+    </form>
+</div>
+<div class="tab-content" style="width: 90%;margin: 0 auto;padding-top: 10px;">
+    <div class="active  tab-pane" id="tab1">
+        <div class="container-fluid" style="margin-top: 10px;display: inline-block;">
+
+
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">崔智</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：82分</div>
+                    <div>作业：65分</div>
+                    <div>成绩：99分</div>
+                    <div>自学：25分</div>
+                    <div>博客：99分</div>
+                </div>
+                <div class="container" id="container"></div>
+            </div>
+
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">郑高明</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：95分</div>
+                    <div>作业：80分</div>
+                    <div>成绩：60分</div>
+                    <div>自学：85分</div>
+                    <div>博客：50分</div>
+                </div>
+                <div class="container" id="container1"></div>
+            </div>
+
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">黄小宝</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：75分</div>
+                    <div>作业：88分</div>
+                    <div>成绩：66分</div>
+                    <div>自学：67分</div>
+                    <div>博客：100分</div>
+                </div>
+                <div class="container" id="container3"></div>
+            </div>
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">朱晓宇</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：75分</div>
+                    <div>作业：88分</div>
+                    <div>成绩：66分</div>
+                    <div>自学：67分</div>
+                    <div>博客：100分</div>
+                </div>
+                <div class="container" id="container4"></div>
+            </div>
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">余海军</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：75分</div>
+                    <div>作业：88分</div>
+                    <div>成绩：66分</div>
+                    <div>自学：67分</div>
+                    <div>博客：100分</div>
+                </div>
+                <div class="container" id="container6"></div>
+            </div>
+            <div class="white-panel pn">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">傅元</b></p>
+                <div style="margin-left: 10%">
+                    <div>考勤：75分</div>
+                    <div>作业：88分</div>
+                    <div>成绩：66分</div>
+                    <div>自学：67分</div>
+                    <div>博客：100分</div>
+                </div>
+                <div class="container" id="container5"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    var radar = new Radar({
+        el: "#container",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.82], ["作业", 0.65], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+    var radar2 = new Radar({
+        el: "#container1",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.95], ["作业", 0.8], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+    var radar3 = new Radar({
+        el: "#container3",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.95], ["作业", 0.8], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+    var radar3 = new Radar({
+        el: "#container4",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.95], ["作业", 0.8], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+    var radar3 = new Radar({
+        el: "#container5",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.95], ["作业", 0.8], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+    var radar3 = new Radar({
+        el: "#container6",
+        width: 150,
+        height: 150,
+        data: [["考勤", 0.95], ["作业", 0.8], ["成绩", 0.6], ["自学", 0.85], ["博客", 0.5]]
+    });
+</script>
+
+</body>
+<script type=" text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+</html>

@@ -1,0 +1,63 @@
+html, body {
+    width: 100%;
+    height: 99%;
+
+}
+
+canvas {
+    left: 0px;
+    position: absolute;
+}
+
+#faceRecognition {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    top: 12px;
+    right: 25px;
+    color: #959595;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.wangji {
+    position: absolute;
+    right: 0px;
+
+}
+
+.zhuce {
+    position: absolute;
+    left: 0px;
+    padding-left: 2px;
+}
+
+.wangji a {
+    font-size: 14px;
+}
+
+.progress {
+    display: none;
+    height: 3px;
+}
+
+#bar {
+    height: 3px;
+}
+
+.close-Window {
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 120px;
+    height: 50px;
+    background-color: #c68778;
+    position: absolute;
+    left: 0px;
+    top: 20px;
+    text-align: center;
+    line-height: 50px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>云校园 ▪ 注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Template by FreeHTML5.co"/>
+    <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="login/css/animate.css">
+    <link rel="stylesheet" href="login/css/style.css">
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css"/>
+
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+    <script src="login/js/modernizr-2.6.2.min.js"></script>
+    <script src="login/js/respond.min.js"></script>
+    <script src="dist/js/lobibox.min.js"></script>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            -webkit-user-select: none;
+            font-size: 14px;
+        }
+
+        #myModal .modal-content {
+
+            height: 600px;
+        }
+
+        canvas {
+            left: 0px;
+            position: absolute;
+        }
+
+        .progress {
+
+            height: 3px;
+        }
+
+        #bar {
+            height: 3px;
+        }
+
+        .className {
+            list-style-type: none;
+            padding: 0px;
+            overflow: auto;
+
+            height: 300px;
+        }
+
+        .className li {
+            -webkit-border-radius: 5px;
+            cursor: pointer;
+            height: 50px;
+            line-height: 50px;
+
+        }
+
+        .className li:hover {
+
+            background-color: #ededed;
+        }
+
+        .item-002 {
+            display: none;
+
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row item-001">
+        <div class="" style="position: absolute;width: 600px;height: 500px;text-align: center;line-height: 605px">
+            <img src="http://www.51eduline.com/images/pic3.png">
+        </div>
+        <div class="col-md-4 col-md-push-8">
+            <form action="" id="form" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                <h2 style="color: #888888">云校园 ▪ 注册</h2>
+                <div class="form-group">
+                    <label for="studentCode" class="sr-only">用户名/邮箱</label>
+                    <input type="text" class="form-control" id="studentCode" name="studentCode" placeholder="用户名/邮箱"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="studentName" class="sr-only">真实姓名</label>
+                    <input type="text" class="form-control" id="studentName" name="studentName" placeholder="真实姓名"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="studentPassword" class="sr-only">账号密码</label>
+                    <input type="password" class="form-control" id="studentPassword" name="studentPassword"
+                           placeholder="账号密码" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="studentPasswordQ" class="sr-only">确认密码</label>
+                    <input type="password" class="form-control" id="studentPasswordQ" name="studentPasswordQ"
+                           placeholder="确认密码" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <p>已有账号? <a href="out_login.html">立即登录</a></p>
+                </div>
+                <div class="form-group">
+                    <input type="button" id="xiayiBu" value="下一步" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row item-002">
+        <div class="col-md-4 col-md-push-8">
+            <form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                <h2 style="color: #888888">云校园 ▪ 选择班级</h2>
+                <div class="form-group">
+                    <ul class="className">
+                        <li class="classIdLi" v-for="(item,index) in dataPM" @click="selectd(index)">
+                            <p><span>{{index+1}}</span>、{{item.className}}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+
+                </div>
+                <div class="form-group">
+                    <input type="button" id="shangyibu" value="上一步" class="btn btn-primary">
+                    <input type="button" id="register" value="下一步" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" aria-hidden="true" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel" style="display: inline-block">人脸识别 ▪ 采摘</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="position: relative">
+                    <!--内容-->
+                    <p>请将头部放在视频区域内,匹配成功将会自动登入系统</p>
+                    <p style="color: red">如果视频内未出现识别框或长时间未响应<a onclick="chongshi()">请单击此处</a></p>
+                    <video id="video" width="420" height="340" preload autoplay loop
+                           muted></video>
+                    <canvas id="canvas" width="420" height="340"></canvas>
+                    <div class="modal-body-right" style="display: inline-block">
+                        <p class="navbar-text">
+                            1.请先确保摄像头设备已连接并能正常工作；<br/>
+                            2.请保持光源充足，不要逆光操作；<br/>
+                            3.请保证脸部正面面向摄像头，并适当调整姿势保证整个脸部能够进入识别画面；<br/>
+                            4.系统识别通过后，将自动跳转进入系统；<br/>
+                        </p>
+                    </div>
+                    <div id="titleDiv">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="login/js/jquery.placeholder.min.js"></script>
+<script src="login/js/jquery.waypoints.min.js"></script>
+<script src="login/js/main.js"></script>
+<script>
+    var classId = 0;
+    var lo = "localhost";
+    var uuIdTest = "";
+    var stuCodeIs = true;//当他等于true了就代表该账号已经被使用不能继续
+    $(function () {
+        //点击注册
+        $("#studentCode").blur(function () {
+            //查询该账号是否可用
+            var stuCode = $("#studentCode").val()
+            if (stuCode == "") {
+                Lobibox.notify('warning', {
+                    msg: '姓名不能为空.'
+                });
+            } else {
+                //拿到stuCode去数据库查询 返回的行数selectStudentByStudentCode
+                $.post("http://" + lo + ":8080/student/selectStudentByStudentCode", {"studentCode": stuCode}, function (date) {
+                    stuCodeIs = date;
+                    if (date) {
+                        Lobibox.notify('warning', {
+                            msg: '用户名被占用,请更新用户名'
+                        });
+                    } else {
+                        Lobibox.notify('success', {
+                            msg: '用户名可使用'
+                        });
+                    }
+                }, "json");
+            }
+        });
+        //先判断不能为空，然后在判断两次密码是否一致 紧接着就去判断
+        $("#register").click(function () {
+            if (classId != 0) {
+                var param = $("#form").serialize() + "&classId=" + classId;
+                //唯一code
+                var uuid1 = uuid();
+                uuIdTest = uuid1;
+                var params = param + "&uuId=" + uuid1;
+                console.log(params);
+                console.log("准备进入注册信息")
+                //增加学生基本信息
+                $.post("http://" + lo + ":8080/student/insertStudentInit", params, function (date) {
+                    if (date) {
+                        console.log("注册成功，准备打开摄像头")
+                        //注册成功，提示需不需要人脸采摘
+                        Lobibox.notify('success', {
+                            msg: '注册成功！账号可使用'
+                        });
+                        $('#myModal').modal('show')
+                        getRen();
+                    } else {
+                        //注册失败
+                    }
+                }, "json");
+
+            } else {
+                Lobibox.notify('warning', {
+                    msg: '请先选择班级....'
+                });
+            }
+
+
+        });
+        //点击下一步 选择班级
+        $("#xiayiBu").click(function () {
+            //点击下一步显示选择班级页面
+            console.log("进入注册信息===================");
+            var studentCode = $("#studentCode").val();
+            var studentName = $("#studentName").val();
+            var studentPassword = $("#studentPassword").val();
+            var studentPasswordQ = $("#studentPasswordQ").val();
+            console.log("是否：" + stuCodeIs);
+            if (studentCode != "" && studentName != "" && studentPassword != "") {
+                if (stuCodeIs) {
+                    console.log("姓名被占用")
+                    Lobibox.notify('warning', {
+                        msg: '姓名被占用.'
+                    });
+                } else {
+                    if (studentPasswordQ == studentPassword) {
+                        var param = $("#form").serialize();
+                        $(".item-001").css("display", "none");
+                        $(".item-002").css("display", "block");
+                    } else {
+
+                        Lobibox.notify('error', {
+                            msg: '两次密码输入不一致，请重试.'
+                        });
+
+                    }
+                }
+
+            } else {
+                console.log("完善信息")
+                Lobibox.notify('info', {
+                    msg: '请完善所有信息...'
+                });
+
+
+            }
+
+
+        });
+        $("#shangyibu").click(function () {
+            $(".item-002").css("display", "none");
+            $(".item-001").css("display", "block");
+        });
+    })
+    //生成UUID
+    function uuid() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "_";
+
+        var uuid = s.join("");
+        return uuid;
+    }
+    function chongshi() {
+        getRen();
+    }
+    function getRen() {
+        var param = $("#form").serialize();
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, {
+            camera: true
+        });
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            event.data.forEach(function (rect) {
+                //检测到人脸了
+                while (i >= 0) {
+                    i--;
+                    console.log("检测到人脸了");
+                    Lobibox.notify('success', {
+                        msg: '正在采集人脸，请稍等...'
+                    });
+
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                    //发送请求 判断是否存在
+                    console.log("准备采摘人脸")
+                    $.post("http://" + lo + ":8080/topic/setRenLianBase64", {
+                        "base": canvas.toDataURL(),
+                        "uid": uuIdTest,
+                        "userInfo": "测试"
+                    }, function (date) {
+                        if (date.log_id != "") {
+                            console.log("采摘成功，准备跳转页面")
+                            Lobibox.notify('success', {
+                                msg: '采集成功，正在进入系统...'
+                            }); //启动进度条
+                            //采摘完成 直接登录
+                            $.post("http://" + lo + ":8080/student/loginByStudentCodeAndStudentPassword", param, function (dates) {
+                                console.log(dates);
+                                if (date != "") {
+                                    localStorage.setItem("user", dates);
+                                    location.href = "nav_index.html";
+                                    //取出对象
+                                    var name = localStorage.getItem("stu");
+                                    var obj = JSON.parse(name);
+                                } else {
+                                    Lobibox.notify('error', {
+                                        msg: '系统异常，请退出重新登录，抱歉！'
+                                    });
+                                }
+                            });
+                        } else {
+                            Lobibox.notify('error', {
+                                msg: '采集失败!系统正在重新采集!请不要离开视频区域'
+                            });
+                            setTimeout(function () {
+                                getRen();
+                            }, 500);
+                        }
+                    }, "json");
+                }
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                context.font = '11px Helvetica';
+                context.fillStyle = "#fff";
+                context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+
+            });
+
+        });
+
+//        var gui = new dat.GUI();
+//        gui.add(tracker, 'edgesDensity', 0.1, 0.5).step(0.01);
+//        gui.add(tracker, 'initialScale', 1.0, 10.0).step(0.1);
+//        gui.add(tracker, 'stepSize', 1, 5).step(0.1);
+
+    }
+</script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            dataPM: []
+        },
+        methods: {
+            getDate(){
+                $.post("http://" + lo + ":8080/Class/selectClassAll", {}, function (date) {
+                    console.log(date);
+                    app.dataPM = date;
+                }, "json")
+            },
+            selectd(a){
+                classId = a + 1;
+                $(".classIdLi").css("color", "#ffffff");
+                $(".classIdLi").css("background-color", "#ffffff");
+                $(".classIdLi:eq(" + a + ")").css("background-color", "#dddddd");
+                $(".classIdLi:eq(" + a + ")").css("color", "#ffffff");
+            }
+        },
+        created(){
+            this.getDate();
+        }
+    })
+</script>
+</body>
+</html>
+

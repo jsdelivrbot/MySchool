@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>待我审批</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <style>
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td .btn-primary {
+            height: 22.4px;
+        }
+        .form-group{
+            margin-bottom: 2px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#btnAddAnn").click(function () {
+                window.location.href = "addNotice.html";
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid" id="myApproval" style="padding: 0 5%">
+    <div class="content-panel">
+        <form class="form-inline" id="form1">
+
+            <label>选择班级:</label>
+            <select id="selectpicker"
+                    v-model="classSelectValue"
+                    class="selectpicker"
+                    name="classId"
+                    data-live-search="true"
+                    @change="classSelectChang">
+                <option value="-1">请选择</option>
+            </select>
+            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+            <button type="button" @click="getApprovalDetail()" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+
+        </form>
+        <table class="table table-hover table-striped" id="noticeInfo">
+            <tr class="table-one">
+                <td>学员名称</td>
+                <td>学员班级</td>
+                <td>请假原因</td>
+                <td>教员意见</td>
+                <td>班主任意见</td>
+                <td>操作</td>
+            </tr>
+            <tr v-for="(item,index) in approvalDetail">
+                <td v-text="item.studentName"></td>
+                <td v-text="item.className"></td>
+                <td v-text="item.attrName"></td>
+                <td>
+                    <span v-if="item.jyAgree==1">同意</span>
+                    <span v-if="item.jyAgree==0">不同意</span>
+                    <span v-if="item.jyAgree==null">未审批</span>
+                </td>
+                <td>
+                    <span v-if="item.bzrAgree==1">同意</span>
+                    <span v-if="item.bzrAgree==0">不同意</span>
+                    <span v-if="item.bzrAgree==null">未审批</span>
+                </td>
+                <td>
+                    <button class="btn btn-xs btn-info" data-toggle="modal" @click="approvalDetails(index)"
+                            data-target="#see"><i class="iconfont icon-yulan"></i>详情
+                    </button>
+                    <button class="btn btn-xs btn-success" href="#" @click="teacherAgree(index)"><i class="Hui-iconfont">&#xe615;</i>同意</button>
+                    <button class="btn btn-xs btn-danger" href="#" @click="teacherNotAgree(index)"><i class="Hui-iconfont">&#xe631;</i>不同意</button>
+                </td>
+            </tr>
+
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <a class="btn btn-default" id="sy" @click="sy()">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" @click="syy()">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" @click="xyy()">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" @click="wy()">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" id="see" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="background-color: #ffffff;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="44"><span style="color: #000000">学员请假信息</span></h4>
+                    </div>
+                    <form class="form-horizontal" style="margin-top: 15px">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学员姓名:</label>
+                            <div class="col-sm-3" style="">
+                                <label class="control-label" v-text="approvalDetailData.studentName"></label>
+                            </div>
+                            <label class="col-sm-2 control-label">学员班级</label>
+                            <div class="col-sm-3">
+                                <label class="control-label" v-text="approvalDetailData.className"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">请假开始时间:</label>
+                            <div class="col-sm-3" style="">
+                                <label class="control-label" v-text="approvalDetailData.beginDate"></label>
+                            </div>
+                            <label class="col-sm-2 control-label">请假结束时间:</label>
+                            <div class="col-sm-3">
+                                <label class="control-label" v-text="approvalDetailData.endDate"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">请假类型:</label>
+                            <div class="col-sm-3" style="">
+                                <label class="control-label" v-text="approvalDetailData.attrName"></label>
+                            </div>
+                            <label class="col-sm-2 control-label">请假时长（时）:</label>
+                            <div class="col-sm-3">
+                                <label class="control-label" v-text="approvalDetailData.diffDate"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注:</label>
+                            <div class="col-sm-10">
+                                <p style="margin-top: 7px;width: 700px; word-wrap: break-word;word-break: break-all;overflow: hidden;" v-text="approvalDetailData.reason"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注图片:</label>
+                            <div class="col-sm-10" id="approvalImage">
+                                <img src="" alt="该学生未上传图片" width='400px' height='270px'>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">教员意见:</label>
+                            <div class="col-sm-3">
+                                <label class="control-label">
+                                    <span v-if="approvalDetailData.jyAgree==1">同意</span>
+                                    <span v-if="approvalDetailData.jyAgree==0">不同意</span>
+                                    <span v-if="approvalDetailData.jyAgree==null">未审批</span>
+                                </label>
+                            </div>
+                            <label class="col-sm-2 control-label">班主任意见</label>
+                            <div class="col-sm-3">
+                                <label class="control-label">
+                                    <span v-if="approvalDetailData.bzrAgree==1">同意</span>
+                                    <span v-if="approvalDetailData.bzrAgree==0">不同意</span>
+                                    <span v-if="approvalDetailData.bzrAgree==null">未审批</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">教员审批时间:</label>
+                            <div class="col-sm-3">
+                                <label class="control-label">
+                                    <span v-if="approvalDetailData.jyAgreeDate!=null&&approvalDetailData.jyAgreeDate!=''">
+                                        <span v-text="approvalDetailData.jyAgreeDate"></span>
+                                    </span>
+                                    <span v-if="approvalDetailData.jyAgreeDate==null||approvalDetailData.jyAgreeDate==''">- -</span>
+
+                                </label>
+                            </div>
+                            <label class="col-sm-2 control-label">班主任审批时间</label>
+                            <div class="col-sm-3">
+                                <label class="control-label">
+                                    <span v-if="approvalDetailData.bzrAgreeDate!=null&&approvalDetailData.bzrAgreeDate!=''">
+                                        <span v-text="approvalDetailData.bzrAgreeDate"></span>
+                                    </span>
+                                    <span v-if="approvalDetailData.bzrAgreeDate==null||approvalDetailData.bzrAgreeDate==''">- -</span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-xs btn-success" href="#" @click="teacherAgreeM(approvalDetailData.approvalID)"><i class="Hui-iconfont">&#xe615;</i>同意</button>
+                        <button class="btn btn-xs btn-danger" href="#" @click="teacherNotAgreeM(approvalDetailData.approvalID)"><i class="Hui-iconfont">&#xe631;</i>不同意</button>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+    var pageCount = 1;
+    var myApproval = new Vue({
+        el: "#myApproval",
+        data: {
+            approvalDetail: {},
+            approvalDetailData: {},
+            dutyId: '',
+            //班级下拉框的选中值
+            classSelectValue:-1,
+        },
+        methods: {
+            //班级下拉框的改变事件
+            classSelectChang:function () {
+                console.log(this.classSelectValue);
+            },
+            getApprovalDetail: function () {
+                var _this = this;
+                var pageindex = document.getElementById("pageIndex").value;
+                var data = {'classId':_this.classSelectValue,
+                    'pageIndex':pageindex};
+                console.log(data);
+                $.post("http://localhost:8080/approval/selectApprovalByPage.do",
+                    data,
+                    function (result) {
+                        _this.approvalDetail = result.approvalInfoList;
+                        pageCount = result.page.pageCount;
+                    }, "json");
+
+            },
+            sy: function () {
+                $("#pageIndex").val(1);//每次点击查询按钮后都从第一页开始
+                this.getApprovalDetail();
+            },
+            syy: function () {
+                var index = $("#pageIndex").val();
+                $("#pageIndex").val(parseInt(index) - 1);//转成int
+                this.getApprovalDetail();
+            },
+            xyy: function () {
+                var index = $("#pageIndex").val();
+                $("#pageIndex").val(parseInt(index) + 1);//转成int
+                this.getApprovalDetail();
+            },
+            wy: function () {
+                $("#pageIndex").val(pageCount);
+                alert(pageCount);
+                this.getApprovalDetail();
+            },
+            approvalDetails: function (index) {
+                this.approvalDetailData = this.approvalDetail[index];
+                var selector = $("#approvalImage img");
+                selector.attr("src","http://localhost:8080/upload/"+this.approvalDetail[index].image);
+            },
+            judgeTeacherDuty: function () {
+                var _this = this;
+                var data = {'teacherId':1};
+                $.post("http://localhost:8080/approval/selectTeacherDutyByTeacherId.do",
+                    data,
+                    function (result) {
+                        _this.dutyId = result.dutyId;
+                    }, "json");
+            },
+            teacherAgree: function (index) {
+                var _this = this;
+                var approvalId = this.approvalDetail[index].approvalID;
+                var dataJY = {'jyAgree':1,'approvalID':approvalId};
+                var dataBZR = {'bzrAgree':1,'approvalID':approvalId};
+                if(this.dutyId==1){
+                    $.post("http://localhost:8080/approval/updateApprovalByJY.do",
+                        dataJY,
+                        function (result) {
+                            _this.getApprovalDetail();
+                        }, "json");
+                }else if(this.dutyId==2){
+                    $.post("http://localhost:8080/approval/updateApprovalByBZR.do",
+                        dataBZR,
+                        function (result) {
+                            _this.getApprovalDetail();
+                        }, "json");
+                }
+            },
+            teacherNotAgree: function (index) {
+                var _this = this;
+                var approvalId = this.approvalDetail[index].approvalID;
+                var dataJYN = {'jyAgree': 0, 'approvalID': approvalId};
+                var dataBZRN = {'bzrAgree': 0, 'approvalID': approvalId};
+                if (this.dutyId == 1) {
+                    $.post("http://localhost:8080/approval/updateApprovalByJY.do",
+                        dataJYN,
+                        function (result) {
+                            _this.getApprovalDetail();
+                        }, "json");
+                } else if (this.dutyId == 2) {
+                    $.post("http://localhost:8080/approval/updateApprovalByBZR.do",
+                        dataBZRN,
+                        function (result) {
+                            _this.getApprovalDetail();
+                        }, "json");
+                }
+            },
+            teacherAgreeM: function (index) {
+                var _this = this;
+                var approvalId = index;
+                var dataJY = {'jyAgree':1,'approvalID':approvalId};
+                var dataBZR = {'bzrAgree':1,'approvalID':approvalId};
+                if(this.dutyId==1){
+                    $.post("http://localhost:8080/approval/updateApprovalByJY.do",
+                        dataJY,
+                        function (result) {
+                            _this.getApprovalDetail();
+                            $("#see").modal("hide");
+                        }, "json");
+                }else if(this.dutyId==2){
+                    $.post("http://localhost:8080/approval/updateApprovalByBZR.do",
+                        dataBZR,
+                        function (result) {
+                            _this.getApprovalDetail();
+                            $("#see").modal("hide");
+                        }, "json");
+                }
+            },
+            teacherNotAgreeM: function (index) {
+                var _this = this;
+                var approvalId = index;
+                var dataJYN = {'jyAgree': 0, 'approvalID': approvalId};
+                var dataBZRN = {'bzrAgree': 0, 'approvalID': approvalId};
+                if (this.dutyId == 1) {
+                    $.post("http://localhost:8080/approval/updateApprovalByJY.do",
+                        dataJYN,
+                        function (result) {
+                            _this.getApprovalDetail();
+                            $("#see").modal("hide");
+                        }, "json");
+                } else if (this.dutyId == 2) {
+                    $.post("http://localhost:8080/approval/updateApprovalByBZR.do",
+                        dataBZRN,
+                        function (result) {
+                            _this.getApprovalDetail();
+                            $("#see").modal("hide");
+                        }, "json");
+                }
+            },
+            //绑定下拉框
+            bindClassByTeacherId: function () {
+                var _this = this;
+                var data = {'teacherId':1};
+                $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do",
+                    data,
+                    function (result) {
+                        var res = result.classList;
+                        var temp = "";
+                        for (var i = 0; i < res.length; i++) {
+                            temp += "<option value='" + res[i].classId + "'>" + res[i].className + "</option>";
+                        }
+                        $("#selectpicker").append(temp);
+
+                        $(".selectpicker").selectpicker('refresh');
+                    }, "json");
+
+            }
+        },
+        created: function () {
+            this.getApprovalDetail();
+            this.judgeTeacherDuty();
+            this.bindClassByTeacherId();
+        }
+    })
+</script>
+</html>

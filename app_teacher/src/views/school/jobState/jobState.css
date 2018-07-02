@@ -1,0 +1,92 @@
+#jobStateApp{
+    width: 100%;
+}
+.jobStateApp-main-top{
+    display: flex;
+    /*column 纵向  row:横向  -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-around;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    padding:10px 12px 0 12px; 
+}
+.jobStateApp-main-top .el-select{
+    width: 95%;
+}
+.jobStateApp-main-top .jobStateApp-mian-top-item input{
+    display: block;
+    width: 100%;
+    height: 30px;  
+    margin: 0 auto;
+    user-select: text;  
+    padding-left: 10px;
+    font-size: 1.4rem;
+    -webkit-border-radius: 6px;
+    border: 1px #cccccc solid;
+    color: #c0c4cc
+}
+.jobStateApp-main-top .jobStateApp-mian-top-item{
+    flex: 1;
+    margin: 0 auto;
+}
+.el-button+.el-button{
+    margin-left: 0;
+}
+.jobStateApp-main-list{
+    padding: 14px;
+}
+.jobStateApp-main-list .jobStateApp-main-list-item{
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    -webkit-border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border: 1px #d1d1d1 solid;  
+}
+.jobStateApp-main-list .jobStateApp-main-list-item .jobStateApp-main-list-item-text{
+    line-height: 25px;
+    font-size: 1.4rem;
+    padding-left: 20px;
+    font-weight: 400;
+    color: #888888;
+}
+.jobStateApp-main-list .jobStateApp-main-list-item .jobStateApp-main-list-item-text span{
+    color: #000000;
+}
+.jobStateApp-main-list .jobStateApp-main-list-item .jobStateApp-main-list-item-salary{
+    display: flex;
+    /*column 纵向  row:横向  -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-between;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    padding-left: 20px;
+    font-weight: 400;
+}
+.jobStateApp-main-list .jobStateApp-main-list-item .jobStateApp-main-list-item-salary .jobStateApp-main-list-item-salary-text{
+    flex: 1;
+    line-height: 25px;
+    font-size: 1.4rem;
+    color: #888888;
+}
+.jobStateApp-main-list .jobStateApp-main-list-item .jobStateApp-main-list-item-salary .jobStateApp-main-list-item-salary-text span{
+    color: rgb(214, 0, 0);
+}
+.bscroll-jobState{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    top: 65px;
+    left: 0;
+    background: #f3f3f3;
+}
+.bscroll-container-jobState{
+    width: 100%;
+    background: #ffffff;
+}

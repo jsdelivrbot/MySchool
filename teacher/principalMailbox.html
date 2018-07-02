@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--富文本编辑器-->
+    <script src="dist/katex.min.js"></script>
+    <script src="dist/highlight.min.js"></script>
+    <script src="dist/quill.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+</head>
+<style>
+    table tr td a, table tr {
+        cursor: pointer;
+    }
+
+    input.labelauty + label {
+        display: inline-table; !important;
+    }
+
+
+
+    #zuoye tr, #zuoye th {
+        text-align: center;
+    }
+
+    tr, td {
+        transition: all .5s;
+    }
+    .table-hover > tbody > tr:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+    .iconfont_size{
+        font-size: 12px;
+    }
+
+    .modal-position{
+        position: relative;
+    }
+    .modal-border{
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #000000;
+    }
+    #reply{
+        /*border: 1px solid #000000;*/
+        display: none;
+    }
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    #btn-del{
+        margin: 55px 0px 0px 55px ;
+
+    }
+    #send{
+        display: none;
+    }
+    #noticeInfo tr td p{
+        text-align: center;
+        width: 240px;
+        margin: 0;
+        display: block;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+
+    }
+</style>
+<body>
+<div style="padding:20px 100px">
+    <div style="margin: 0 auto;display: block">
+        <form id="formPaper" name="formPaper" method="post" style="width: 100%;background-color: #ffffff">
+            <div class="form-group">
+                <button type="button" class="btn  btn-danger radius" id="btn-del">
+                    <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <table id="noticeInfo" class="table table-hover">
+
+        <thead>
+        <tr>
+            <td width=""><input id="selectAll" type="checkbox" name="checkbox" value="1"> 全选</span></td>
+            <td width="">学员姓名</td>
+            <td width="">标题</td>
+            <td width="">内容</td>
+            <td width="">操作</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td width="100px">
+                <input type="checkbox" name="checkbox" value="1"> 1
+            </td>
+            <td width="100px">张三</td>
+            <td width="100px"><p>我是一只小小鸟</p></td>
+            <td width="240px"><p>我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高我是一只小小鸟，想要飞却飞不高</p></td>
+            <td width="300px">
+                <button class="btn btn-xs btn-info " data-toggle='modal' data-target='#addDialog' ><i class="iconfont icon-yulan iconfont_size"></i>查看</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.teacherId)">&#xe6e2;</i>删除</button>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="100px">
+                <span style="line-height: 13px"><input class="check" type="checkbox" name="checkbox" value="3"> 4</span>
+            </td>
+            <td class="100px">匿名</td>
+            <td class="100px"><p>我的所爱在河滨</p></td>
+
+            <td class="240px"><p>我的所爱在河滨,想去寻怕水太深,低头无法泪沾襟,摆头无法寸步行</p></td>
+            <td class="300px">
+                <button class="btn btn-xs btn-info " data-toggle='modal' data-target='#addDialog' ><i class="iconfont icon-yulan iconfont_size"></i>查看</button>
+                &nbsp;&nbsp;
+                <button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.teacherId)">&#xe6e2;</i>删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal fade bs-example-modal-xs" id="addDialog" role="dialog" >
+        <div class="modal-dialog modal-xs modal-position" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">我的所爱在河滨</h4>
+                </div>
+                <div class="modal-body ">
+                    <span style="display: block">内容：</span>
+                    <div class="context modal-border">
+                        &nbsp;&nbsp;&nbsp;&nbsp;我的所爱在河滨,想去寻怕水太深,低头无法泪沾襟,摆头无法寸步行，爱人从此翻脸不呀不理我，不呀不理我，不知何故兮，不知何故兮，
+                        不知何故兮由他去吧， 我的所爱在河滨,想去寻怕水太深,低头无法泪沾襟,摆头无法寸步行，爱人从此翻脸不呀不理我，不呀不理我，不知何故兮，不知何故兮，
+                        不知何故兮由他去吧， 我的所爱在河滨,想去寻怕水太深,低头无法泪沾襟,摆头无法寸步行，爱人从此翻脸不呀不理我，不呀不理我，不知何故兮，不知何故兮，
+                        不知何故兮由他去吧
+                    </div>
+                    <div id="reply">
+                        <span style="display: block">回复：</span>
+                        <div  class="ql-container ql-snow" style="overflow: hidden">
+                            <div  class="ql-editor" contenteditable="true" >
+                            </div>
+                            <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="answer" class="btn btn-primary" onclick="tanchu()">
+                        <i class="Hui-iconfont">&#xe686;&nbsp;</i>回复
+                    </button>
+                    <button id="send" class="btn btn-success" data-dismiss="modal" >
+                        <i class="Hui-iconfont">&#xe603;&nbsp;</i>发送
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(':checkbox').labelauty();
+        $("tr").click(function () {
+            if ($(this).find(":input")[0].checked == false) {
+                $(this).find(":input")[0].checked = true
+            } else {
+                $(this).find(":input")[0].checked = false;
+            }
+        });
+    });
+    $("#selectAll").bind("click",function(){
+        if($(this).prop("checked")){
+            $("input[type='checkbox']").not(this).prop("checked",false);
+        }else{
+            $("input[type='checkbox']").not(this).prop("checked",true);
+        }
+    });
+</script>
+
+<script>
+    function tanchu(){
+        var show = document.getElementById("reply");
+        var hidden=document.getElementById("answer");
+        var showbtn=document.getElementById("send");
+        if(show.style.display=='block'){
+            show.style.display="none";
+
+        }else{
+            hidden.style.display='none';
+            show.style.display = 'block';
+            showbtn.style.display='inline-block';
+        }
+    }
+</script>
+<script>
+    /*!
+     * LABELAUTY jQuery Plugin
+     *
+     * @file: jquery-labelauty.js
+     * @author: Francisco Neves (@fntneves)
+     * @site: www.francisconeves.com
+     * @license: MIT License
+     */
+
+    (function ($) {
+
+        $.fn.labelauty = function (options) {
+            /*
+             * Our default settings
+             * Hope you don't need to change anything, with these settings
+             */
+            var settings = $.extend(
+                {
+                    // Development Mode
+                    // This will activate console debug messages
+                    development: false,
+
+                    // Trigger Class
+                    // This class will be used to apply styles
+                    class: "labelauty",
+
+                    // Use text label ?
+                    // If false, then only an icon represents the input
+                    label: true,
+
+                    // Separator between labels' messages
+                    // If you use this separator for anything, choose a new one
+                    separator: "|",
+
+                    // Default Checked Message
+                    // This message will be visible when input is checked
+                    checked_label: "Checked",
+
+                    // Default UnChecked Message
+                    // This message will be visible when input is unchecked
+                    unchecked_label: "Unchecked",
+
+                    // Minimum Label Width
+                    // This value will be used to apply a minimum width to the text labels
+                    minimum_width: false,
+
+                    // Use the greatest width between two text labels ?
+                    // If this has a true value, then label width will be the greatest between labels
+                    same_width: true
+                }, options);
+
+            /*
+             * Let's create the core function
+             * It will try to cover all settings and mistakes of using
+             */
+            return this.each(function () {
+                var $object = $(this);
+                var use_labels = true;
+                var labels;
+                var labels_object;
+                var input_id;
+
+                // Test if object is a check input
+                // Don't mess me up, come on
+                if ($object.is(":checkbox") === false && $object.is(":radio") === false)
+                    return this;
+
+                // Add "labelauty" class to all checkboxes
+                // So you can apply some custom styles
+                $object.addClass(settings.class);
+
+                // Get the value of "data-labelauty" attribute
+                // Then, we have the labels for each case (or not, as we will see)
+                labels = $object.attr("data-labelauty");
+
+                use_labels = settings.label;
+
+                // It's time to check if it's going to the right way
+                // Null values, more labels than expected or no labels will be handled here
+                if (use_labels === true) {
+                    if (labels == null || labels.length === 0) {
+                        // If attribute has no label and we want to use, then use the default labels
+                        labels_object = new Array();
+                        labels_object[0] = settings.unchecked_label;
+                        labels_object[1] = settings.checked_label;
+                    }
+                    else {
+                        // Ok, ok, it's time to split Checked and Unchecked labels
+                        // We split, by the "settings.separator" option
+                        labels_object = labels.split(settings.separator);
+
+                        // Now, let's check if exist _only_ two labels
+                        // If there's more than two, then we do not use labels :(
+                        // Else, do some additional tests
+                        if (labels_object.length > 2) {
+                            use_labels = false;
+                            debug(settings.development, "There's more than two labels. LABELAUTY will not use labels.");
+                        }
+                        else {
+                            // If there's just one label (no split by "settings.separator"), it will be used for both cases
+                            // Here, we have the possibility of use the same label for both cases
+                            if (labels_object.length === 1)
+                                debug(settings.development, "There's just one label. LABELAUTY will use this one for both cases.");
+                        }
+                    }
+                }
+
+                /*
+                 * Let's begin the beauty
+                 */
+
+                // Start hiding ugly checkboxes
+                // Obviously, we don't need native checkboxes :O
+                $object.css({display: "none"});
+
+                // We don't need more data-labelauty attributes!
+                // Ok, ok, it's just for beauty improvement
+                $object.removeAttr("data-labelauty");
+
+                // Now, grab checkbox ID Attribute for "label" tag use
+                // If there's no ID Attribute, then generate a new one
+                input_id = $object.attr("id");
+
+                if (input_id == null) {
+                    var input_id_number = 1 + Math.floor(Math.random() * 1024000);
+                    input_id = "labelauty-" + input_id_number;
+
+                    // Is there any element with this random ID ?
+                    // If exists, then increment until get an unused ID
+                    while ($(input_id).length !== 0) {
+                        input_id_number++;
+                        input_id = "labelauty-" + input_id_number;
+                        debug(settings.development, "Holy crap, between 1024 thousand numbers, one raised a conflict. Trying again.");
+                    }
+
+                    $object.attr("id", input_id);
+                }
+
+                // Now, add necessary tags to make this work
+                // Here, we're going to test some control variables and act properly
+                $object.after(create(input_id, labels_object, use_labels));
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.minimum_width !== false)
+                    $object.next("label[for=" + input_id + "]").css({"min-width": settings.minimum_width});
+
+                // Now, add "min-width" to label
+                // Let's say the truth, a fixed width is more beautiful than a variable width
+                if (settings.same_width != false && settings.label == true) {
+                    var label_object = $object.next("label[for=" + input_id + "]");
+                    var unchecked_width = getRealWidth(label_object.find("span.labelauty-unchecked"));
+                    var checked_width = getRealWidth(label_object.find("span.labelauty-checked"));
+
+                    if (unchecked_width > checked_width)
+                        label_object.find("span.labelauty-checked").width(unchecked_width);
+                    else
+                        label_object.find("span.labelauty-unchecked").width(checked_width);
+                }
+            });
+        };
+
+        /*
+         * Tricky code to work with hidden elements, like tabs.
+         * Note: This code is based on jquery.actual plugin.
+         * https://github.com/dreamerslab/jquery.actual
+         */
+        function getRealWidth(element) {
+            var width = 0;
+            var $target = element;
+            var style = 'position: absolute !important; top: -1000 !important; ';
+
+            $target = $target.clone().attr('style', style).appendTo('body');
+            width = $target.width(true);
+            $target.remove();
+
+            return width;
+        }
+
+        function debug(debug, message) {
+            if (debug && window.console && window.console.log)
+                window.console.log("jQuery-LABELAUTY: " + message);
+        };
+
+        function create(input_id, messages_object, label) {
+            var block;
+            var unchecked_message;
+            var checked_message;
+
+            if (messages_object == null)
+                unchecked_message = checked_message = "";
+            else {
+                unchecked_message = messages_object[0];
+
+                // If checked message is null, then put the same text of unchecked message
+                if (messages_object[1] == null)
+                    checked_message = unchecked_message;
+                else
+                    checked_message = messages_object[1];
+            }
+
+            if (label == true) {
+
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+            else {
+                block = '<label for="' + input_id + '">' +
+                    '<span class="labelauty-unchecked-image"></span>' +
+                    '<span class="labelauty-checked-image"></span>' +
+                    '</label>';
+            }
+
+            return block;
+        };
+
+    }(jQuery));
+
+</script>
+
+<script type="text/javascript"> $(function () {
+     $("tr td button").click(function (event) {
+         event.stopPropagation();
+     });
+});
+</script>
+
+<!--<script>-->
+<!--window.onload = function() {-->
+<!--var oDiv = document.getElementById('formPaper');-->
+<!--var oTh = document.getElementById('one_th');-->
+
+<!--var oTable = document.getElementById("zidong");-->
+<!--var divT = oDiv.offsetTop;-->
+<!--var oTable_Margin_top = oDiv.offsetHeight;-->
+<!--//console.log(divT);-->
+<!--window.onscroll = function() {-->
+<!--// 获取当前页面的滚动条纵坐标位置 （依次为火狐谷歌、safari、IE678）-->
+<!--var scrollT = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;-->
+<!--if (scrollT >= divT) {-->
+<!--if (window.navigator.userAgent.indexOf('MSIE 6.0') != -1) {-->
+<!--// 兼容IE6代码-->
+<!--oDiv.style.position = 'absolute';-->
+<!--oDiv.style.top = scrollT + 'px';-->
+<!--oDiv.style.left = 0 + 'px';-->
+<!--oDiv.style.padding="0 5%";-->
+<!--oTable.style.marginTop=(oTable_Margin_top)+"px"-->
+<!--} else {-->
+<!--// 正常浏览器代码-->
+<!--oDiv.style.position = 'fixed';-->
+<!--oDiv.style.top = 0;-->
+<!--oDiv.style.left = 0;-->
+<!--oDiv.style.padding="0 5%";-->
+<!--oTable.style.marginTop=(oTable_Margin_top)+"px"-->
+<!--}-->
+<!--} else-->
+<!--oDiv.style.position = null;-->
+<!--}-->
+<!--}-->
+<!--</script>-->
+
+</html>

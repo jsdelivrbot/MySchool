@@ -1,0 +1,637 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,member-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/html5.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <script type="text/javascript" src="lib/PIE_IE678.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <![endif]-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>班级考勤</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+        .gun-scusses {
+            padding-left: 0px;
+            padding-right: 0px;
+
+        }
+
+        /*正常*/
+        .gun-scusses {
+            background-color: #5ed37c;
+            /*-webkit-border-radius: 10px;*/
+            box-shadow: 1px 1px 1px #ababab;
+        }
+
+        /*迟到*/
+        .gun-red {
+            background-color: #eb575e;
+            /*-webkit-border-radius: 10px;*/
+            box-shadow: 1px 1px 1px #aaaaaa;
+        }
+
+        /*旷课*/
+        .gun-wan {
+            background-color: #f3c54d;
+            /*-webkit-border-radius: 10px;*/
+            box-shadow: 1px 1px 1px #aaaaaa;
+        }
+
+        /*请假*/
+        .gun-bai {
+            background-color: #428BCA;
+            /*-webkit-border-radius: 10px;*/
+            box-shadow: 1px 1px 1px #aaaaaa;
+        }
+        /*请假*/
+        .gun-zt {
+            background-color: #e99391;
+            /*-webkit-border-radius: 10px;*/
+            box-shadow: 1px 1px 1px #aaaaaa;
+        }
+
+        .hide {
+            overflow: hidden;
+        }
+
+        .mt-20 {
+            width: 100%;
+            height: 500px;
+
+            overflow: hidden;
+        }
+
+        .item-plan {
+            width: 100%;
+            height: 500px;
+            overflow: auto;
+
+            -webkit-border-radius: 5px;
+        }
+
+        .text-c th, td {
+            border-right: 1px solid #cccccc;
+            width: 100px;
+            height: 20px;
+        }
+
+        /*今日打卡--开始 */
+        .white-panel {
+            text-align: center;
+            /*改变背景*/
+            background: #ffffff;
+            color: #ffffff;
+        }
+
+        .white-panel p {
+            margin-top: 5px;
+            font-weight: 700;
+            margin-left: 15px;
+        }
+
+        .white-panel .white-header {
+            background: #f4f4f4;
+            padding: 3px;
+            margin-bottom: 15px;
+            color: #5d5d5d;
+        }
+
+        .white-panel .small {
+            font-size: 10px;
+            color: #ffffff;
+        }
+
+        .white-panel i {
+            color: #68dff0;
+            padding-right: 4px;
+            font-size: 14px;
+        }
+
+        .pn {
+            height: 250px;
+            box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .pn:hover {
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .mb {
+            margin-bottom: 75px;
+            width: 190px;
+            height: 180px;
+        }
+
+        /*今日打卡--结束 */
+        #main-item01 {
+            margin-left: 5%;
+        }
+
+        td p {
+            width: 80px;
+            margin: 0;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        th p {
+            text-align: center;
+            width: 70px;
+            margin: 0;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .selectpicker {
+            border-radius: 4px;
+            width: 12%;
+            text-align: center;
+            line-height: 32px;
+            height: 32px;
+            margin-right: 2%;
+        }
+
+        .col-md-6 {
+            width: 47%;
+        }
+    </style>
+</head>
+<body>
+<nav style="width: 100%;height: 20px"></nav>
+
+<div class="pl-20" id="app">
+    <div style="margin-left:6%">
+        <label for="select">请选择班级:&nbsp;</label>
+        <select class="selectpicker" id="select" data-live-search="true" id="slpk01">
+            <option value="-1">请选择</option>
+            <option v-for="(item,index) in classList" :value='item.classId'>{{item.className}}</option>
+
+        </select>
+        <button type="submit" class="btn btn-success radius" name="" @click="selectstu(),selectstuWeek(),selectstuMonth(),selectstuYear()"><i
+                class="Hui-iconfont">&#xe665;</i> 搜索
+        </button>
+        <button type="submit" class="btn btn-danger radius" style="float: right;margin-right: 8%"> 开始打卡</button>
+    </div>
+    <div class="mt-20 " style="width: 95%">
+        <div id="main-item01" class="item-plan">
+            <div class="col-md-4 mb " v-for="(item,index) in stuList">
+                <div class="white-panel pn  " v-if="item.state==1" style="background-color: #5ed37c;">
+                    <div class="white-header ">
+                        <h5>第1名</h5>
+                    </div>
+                    <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+                    <p><b>{{item.studentName}}</b></p>
+                    <div class="row ">
+                        <div class="col-md-6 yi">
+                            <p class="small mt">早上签到</p>
+                            <p>{{item.toSchool}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">晚上打卡</p>
+                            <p>{{item.leaveSchool}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white-panel pn  " v-if="item.state==2" style="background-color: #eb575e;">
+                    <div class="white-header ">
+                        <h5>第1名</h5>
+                    </div>
+                    <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+                    <p><b>{{item.studentName}}</b></p>
+                    <div class="row ">
+                        <div class="col-md-6 yi">
+                            <p class="small mt">早上签到</p>
+                            <p>{{item.toSchool}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">晚上打卡</p>
+                            <p>{{item.leaveSchool}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white-panel pn  " v-if="item.state==3" style="background-color: #f3c54d;">
+                    <div class="white-header ">
+                        <h5>第1名</h5>
+                    </div>
+                    <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+                    <p><b>{{item.studentName}}</b></p>
+                    <div class="row ">
+                        <div class="col-md-6 yi">
+                            <p class="small mt">早上签到</p>
+                            <p>{{item.toSchool}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">晚上打卡</p>
+                            <p>{{item.leaveSchool}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white-panel pn  " v-if="item.state==4" style="background-color: #428BCA;">
+                    <div class="white-header ">
+                        <h5>第1名</h5>
+                    </div>
+                    <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+                    <p><b>{{item.studentName}}</b></p>
+                    <div class="row ">
+                        <div class="col-md-6 yi">
+                            <p class="small mt">早上签到</p>
+                            <p>{{item.toSchool}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">晚上打卡</p>
+                            <p>{{item.leaveSchool}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white-panel pn  " v-if="item.state==5" style="background-color: #e99391;">
+                    <div class="white-header ">
+                        <h5>第1名</h5>
+                    </div>
+                    <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+                    <p><b>{{item.studentName}}</b></p>
+                    <div class="row ">
+                        <div class="col-md-6 yi">
+                            <p class="small mt">早上签到</p>
+                            <p>{{item.toSchool}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">晚上打卡</p>
+                            <p>{{item.leaveSchool}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="main-item02" class="item-plan">
+            <table class="table table-border  table-bg" style="overflow-x: auto;">
+                <thead>
+                <tr class="text-y" >
+                    <th style="width: 5%;text-align: center">姓名</th>
+                    <th style="width: 100px;text-align: center" v-for="(item,index) in studentListWeek[dataIndex]">
+                        <span>{{item.classDate}}</span>
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-y" v-for="(item,index) in studentListWeek" >
+                    <td v-text="item[0].studentName"></td>
+                    <td class="gun-scusses" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==1">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-red" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==2">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-wan" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==3">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-bai" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==4">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-zt" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==5">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="main-item03" class="item-plan">
+            <table class="table table-border  table-bg" style="overflow-x: auto;">
+                <thead>
+                <tr class="text-y" >
+                    <th style="width: 5%;text-align: center">姓名</th>
+                    <th style="width: 100px;text-align: center" v-for="(item,index) in studentListMonth[dataMonth]">
+                        <span>{{item.classDate}}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-y" v-for="(item,index) in studentListMonth" >
+                    <td v-text="item[0].studentName"></td>
+                    <td class="gun-scusses" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==1">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-red" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==2">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-wan" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==3">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-bai" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==4">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-zt" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==5">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="main-item04" class="item-plan">
+            <table class="table table-border  table-bg" style="overflow-x: auto;">
+                <thead>
+                <tr class="text-y" >
+                    <th style="width: 5%;text-align: center">姓名</th>
+                    <th style="width: 100px;text-align: center" v-for="(item,index) in studentListYear[dataYear]">
+                        <span>{{item.classDate}}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-y" v-for="(item,index) in studentListYear" >
+                    <td v-text="item[0].studentName"></td>
+                    <td class="gun-scusses" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==1">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-red" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==2">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-wan" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==3">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-bai" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==4">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                    <td class="gun-zt" style="padding:10px 0px;text-align: center;"  v-for="(childItem,index) in item" v-if="childItem.state==5">
+                        <span style="font-weight: 700;margin: 0 auto;"><span>{{childItem.toSchool}}</span>-<span>{{childItem.leaveSchool}}</span></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="btn-group " style="float: left;margin-top: 15px;margin-left: 5%;">
+        <button type="button" class="btn btn-success" style="">正常</button>
+        <button type="button" class="btn btn-primary">请假</button>
+        <button type="button" class="btn btn-warning">旷课</button>
+        <button type="button" class="btn btn-danger">迟到</button>
+        <button type="button" class="btn btn-block"
+                style="width: 50px;background-color: #e99391;border: 0;color: #ffffff;disabled:disabled ">早退
+        </button>
+    </div>
+    <div class="btn-group" style="float: right;margin-top: 15px;margin-right: 5%">
+        <a href="#main-item01" class="btn btn-primary radius" id="day">日</a>
+        <a href="#main-item02" class="btn btn-default radius" id="week">周</a>
+        <a href="#main-item03" class="btn btn-default radius" id="month ">月</a>
+        <a href="#main-item04" class="btn btn-default radius" id="year">年</a>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/H-ui.js"></script>
+<script type="text/javascript" src="js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.table-sort').dataTable({
+            "aaSorting": [[1, "desc"]],//默认第几个排序
+            "bStateSave": true,//状态保存
+            "aoColumnDefs": [
+                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                {"orderable": false, "aTargets": [0, 8, 9]}// 制定列不参与排序
+            ]
+        });
+        $('.table-sort tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+
+    });
+    /*用户-添加*/
+    function member_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+    /*用户-查看*/
+    function member_show(title, url, id, w, h) {
+        layer_show(title, url, w, h);
+    }
+    /*用户-停用*/
+    function member_stop(obj, id) {
+        layer.confirm('确认要停用吗？', function (index) {
+            $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+            $(obj).remove();
+            layer.msg('已停用!', {icon: 5, time: 1000});
+        });
+    }
+
+    /*用户-启用*/
+    function member_start(obj, id) {
+        layer.confirm('确认要启用吗？', function (index) {
+            $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+            $(obj).remove();
+            layer.msg('已启用!', {icon: 6, time: 1000});
+        });
+    }
+    /*用户-编辑*/
+    function member_edit(title, url, id, w, h) {
+        layer_show(title, url, w, h);
+    }
+    /*密码-修改*/
+    function change_password(title, url, id, w, h) {
+        layer_show(title, url, w, h);
+    }
+    /*用户-删除*/
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+</script>
+
+<script src="js/vue.js"></script>
+<script>
+
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            classList: [],
+            stuList: [],
+            studentListWeek: [],
+            stuName: [],
+            stuDate:[],
+            dataIndex:-1,
+            studentListMonth: [],
+            dataMonth:-1,
+            studentListYear: [],
+            dataYear:-1
+
+        }, methods: {
+            initClassName(){
+                /*第二个参数： "teacherId="+localStorage.getItem("id")*/
+                /*绑定下拉框查询班级*/
+                $.post("http://localhost:8080/classInfo/SelClassByTeacherId.do", "teacherId=" + localStorage.getItem("id"), function (result) {
+                    app.classList = result.classList;
+                }, "json");
+            }, selectstu(){
+                /*查询今日打过卡有时间的学生*/
+                var myselect = document.getElementById("select");
+                var index = myselect.selectedIndex;
+                var id = myselect.options[index].value;
+                if (id < 0) {
+                    id = 0;
+                }
+                $.post("http://localhost:8080/student/selStuByClassId.do", "classId=" + id, function (result) {
+                    app.stuList = result.studentList;
+                }, "json");
+            }, selectstuWeek(){
+                /*查询本周打卡的学生*/
+                var myselect = document.getElementById("select");
+                var index = myselect.selectedIndex;
+                var id = myselect.options[index].value;
+                if (id < 0) {
+                    id = 0;
+                }
+                $.post("http://localhost:8080/student/selectStudentByClassIdWeek.do", "classId=" + id, function (result) {
+//                    app.studentListWeek = result.studentListWeek;
+                    console.log(result);
+                    app.studentListWeek = result.studentListWeek;
+                    var arr = new Array();
+                    for (var i = 0; i < result.studentListWeek.length; i++) {
+                        arr.push(result.studentListWeek[i].length);
+                    }
+                    var max = Math.max.apply( Math, arr );
+                    for (var i = 0; i < result.studentListWeek.length; i++) {
+                        if(max == result.studentListWeek[i].length){
+                            app.dataIndex = i;
+                        }
+                    }
+                    console.log(app.dataIndex);
+//                    var data = result.studentListWeek;
+//                    let newArrs = new Array();
+//                    for (var i = 0; i < data.length; i++) {
+//                        newArrs.push(data[i].studentId);
+//                    }
+//                    //console.log(newArrs);
+//                    var arr = app.newArrFunc(newArrs);//不重复的ID
+//                    for (var j = 0; j < arr.length; j++) {
+//                        var obj;
+//                        var studentName = "";
+//                        for (var k = 0; k < data.length; k++) {
+//                            if (arr[j] == data[k].studentId) {
+//                                studentName = data[k].studentName
+////                                studentName += data[k].studentName + "  " + data[k].leaveSchool + " , toSchool " + data[k].toSchool;
+//
+//                            }
+//                        }
+//                        obj.studentName = studentName
+//                        console.log(studentName);
+//                    }
+
+                }, "json");
+            },
+            newArrFunc(arr){
+                var newArr = [];
+                for (var i = 0; i < arr.length - 1; i++) {
+                    if (newArr.indexOf(arr[i]) == -1) {
+                        newArr.push(arr[i]);
+                    }
+                }
+                return newArr;
+            }, selectstuMonth(){
+                /*查询本月打卡的学生*/
+                var myselect = document.getElementById("select");
+                var index = myselect.selectedIndex;
+                var id = myselect.options[index].value;
+                if (id < 0) {
+                    id = 0;
+                }
+                $.post("http://localhost:8080/student/selectStudentByClassIdMonth.do", "classId=" + id, function (result) {
+                    console.log(result);
+                    app.studentListMonth = result.studentListMonth;
+
+                    var arr = new Array();
+                    for (var i = 0; i < result.studentListMonth.length; i++) {
+                        arr.push(result.studentListMonth[i].length);
+                    }
+                    var max = Math.max.apply( Math, arr );
+                    for (var i = 0; i < result.studentListMonth.length; i++) {
+                        if(max == result.studentListMonth[i].length){
+                            app.dataMonth = i;
+                        }
+                    }
+                    console.log(app.dataMonth);
+
+                }, "json");
+            },selectstuYear(){
+                /*查询学期打卡的学生*/
+                var myselect = document.getElementById("select");
+                var index = myselect.selectedIndex;
+                var id = myselect.options[index].value;
+                if (id < 0) {
+                    id = 0;
+                }
+                $.post("http://localhost:8080/student/selectStudentByClassIdYear.do", "classId=" + id, function (result) {
+                    console.log(result);
+                    app.studentListYear = result.studentListYear;
+
+                    var arr = new Array();
+                    for (var i = 0; i < result.studentListYear.length; i++) {
+                        arr.push(result.studentListYear[i].length);
+                    }
+                    var max = Math.max.apply( Math, arr );
+                    for (var i = 0; i < result.studentListYear.length; i++) {
+                        if(max == result.studentListYear[i].length){
+                            app.dataYear = i;
+                        }
+                    }
+                    console.log(app.dataYear);
+
+                }, "json");
+            }
+        }, created() {
+            this.initClassName();
+            this.selectstu();
+            this.selectstuWeek();
+            this.selectstuMonth();
+            this.selectstuYear();
+        }
+    });
+</script>
+<script>
+$(function () {
+
+})
+
+</script>
+</body>
+</html>

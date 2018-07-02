@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--富文本编辑器-->
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <!--日期控件-->
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #activityInfo {
+            margin: 20px auto;
+            width: 90%;
+            height: auto;
+        }
+
+        #activityInfo tr td {
+            text-align: center;
+        }
+
+        #activityInfo tr:hover {
+            cursor: pointer;
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        button {
+            width: 70px;
+        }
+
+        #btnAddActivity {
+            width: 100px;
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td button {
+            width: auto;
+            height: 22.4px;
+        }
+
+        #editor-container {
+            height: 200px;
+        }
+        table th{
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="container-fluid" style="padding: 20px">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="activityName">学员姓名</label>
+                <input type="text" class="form-control activityName" id="activityName" placeholder="请输入学员姓名">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+                <label for="releasePeople">选择班级</label>
+                <select id="releasePeople" class="selectpicker"  data-live-search="true">
+                    <option value="">请选择</option>
+                    <option value="">TCMP058</option>
+                    <option value="">TCMP059</option>
+                    <option value="">TCMP060</option>
+                    <option value="">TCMP062</option>
+                    <option value="">TCMP063</option>
+                    <option value="">TCMP064</option>
+                    <option value="">TCMP065</option>
+                </select>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+            &nbsp;&nbsp;&nbsp;
+
+
+        </form>
+        <table class="table table-hover table-striped" id="activityInfo">
+            <tr class="table-one">
+                <th>学员姓名</th>
+                <th>所在班级</th>
+                <th>公司名称</th>
+                <th>实习工资</th>
+                <th>转正工资</th>
+                <th>职   位</th>
+                <th>试用时间</th>
+                <th>入职时间</th>
+                <th>是否优质</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>林方政</td>
+                <td>TCMP058</td>
+                <td>北京****有限公司</td>
+                <td>4000</td>
+                <td>40000</td>
+                <td>java软件工程师</td>
+                <td>3个月</td>
+                <td>2018-06-06</td>
+                <td>是</td>
+                <td>
+                    <button class="btn btn-xs btn-info" href="#" data-toggle="modal"
+                            data-target="#addVolunteerService"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                </td>
+            </tr>
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right">
+                <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新增公告模态框-->
+<div class="modal fade bs-example-modal-lg" id="addVolunteerService" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><label>修改学员就业情况</label></h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="activityTitle1" class="col-sm-2 control-label">学员姓名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle1"
+                                       name="activityTitle" value="林方政" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle6" class="col-sm-2 control-label">所在班级</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle6"
+                                       name="activityTitle" value="TCMP058" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle2" class="col-sm-2 control-label">联系电话</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle2"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle3" class="col-sm-2 control-label">公司名称</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle3"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle4" class="col-sm-2 control-label">实习工资</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle4"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityTitle5" class="col-sm-2 control-label">转正工资</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="activityTitle5"
+                                       name="activityTitle">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                </button>
+                <button class="btn btn-warning" data-dismiss="modal">
+                    <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script src="dist/katex.min.js"></script>
+<script src="dist/highlight.min.js"></script>
+<script src="dist/quill.js"></script>
+<script type="text/javascript">
+    jeDate({
+        dateCell: "#activityBeginTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+
+    })
+    jeDate({
+        dateCell: "#activityEndTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+
+    })
+    jeDate({
+        dateCell: "#signUpBeginTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+
+    })
+    jeDate({
+        dateCell: "#signUpEndTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: '请输入内容...',
+        theme: 'snow'
+    });
+</script>
+</body>
+</html>

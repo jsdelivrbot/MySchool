@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+
+    <style>
+        .content-panel {
+            background: #ffffff;
+            box-shadow: 0px 3px 2px #aab2bd;
+            padding-top: 15px;
+            padding-bottom: 5px;
+        }
+        #supportInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #supportInfo tr td {
+            text-align: center;
+        }
+
+        #supportInfo tr td p {
+            width: 770px;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+            margin: 0px auto;
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddActivity {
+            width: 100px;
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 34px;
+            border: 1px #ccc solid;
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+
+        table tr td .btn-primary {
+            height: 22.4px;
+        }
+
+        #editor-container {
+            height: 200px;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="padding: 0 5%">
+    <div class="content-panel">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="title">标题</label>
+                <input type="text" class="form-control recipient" style="width: 15%" id="title" placeholder="请输入接收人">
+                <label for="beginTime">发布时间</label>
+                <input type="text" class="form-control releasePeople datainp" style="width: 15%" id="beginTime"
+                       placeholder="请选择开始时间">
+                &nbsp;- &nbsp;
+                <input type="text" class="form-control endTime datainp" style="width: 15%" id="endTime"
+                       placeholder="请选择结束时间">
+                &nbsp;&nbsp;&nbsp;
+
+                <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary radius" id="btnAddActivity" data-toggle="modal"
+                        data-target="#addActivity">
+                    <i class="Hui-iconfont">&#xe600;</i> 发布活动
+                </button>
+            </div>
+        </form>
+        <table class="table table-hover table-striped" id="supportInfo">
+            <thead>
+            <tr class="table-one">
+                <td>标题</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>发布时间</td>
+                <td>发布人</td>
+                <td>内容</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tr>
+                <td>课工场2018招生</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>马守斌</td>
+                <td>课工场2018招生简介</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-success" href="#"><i class="Hui-iconfont">&#xe615;</i>启用</button>
+                </td>
+            </tr>
+            <tr>
+                <td>课工场2018招生</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>马守斌</td>
+                <td>课工场2018招生简介</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                </td>
+            </tr>
+            <tr>
+                <td>课工场2018招生</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>马守斌</td>
+                <td>课工场2018招生简介</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-success" href="#"><i class="Hui-iconfont">&#xe615;</i>启用</button>
+                </td>
+            </tr>
+            <tr>
+                <td>课工场2018招生</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>2010-10-10</td>
+                <td>马守斌</td>
+                <td>课工场2018招生简介</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"><i class="iconfont icon-yulan"></i>查看</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-info" href="#"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-xs btn-danger"><i class="Hui-iconfont">&#xe631;</i>禁用</button>
+                </td>
+            </tr>
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="addActivity" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><label>添加老师</label></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel">
+                        <form class="form-horizontal">
+                            <div class="form-group first">
+                                <label for="activityTitle" class="col-sm-2 control-label">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="activityTitle"
+                                           name="activityTitle"
+                                           placeholder="请输入标题">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pic"
+                                       class="col-sm-2 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="pic">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">活动时间</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control datainp" id="beginActivityTime"
+                                           name="beginActivityTime"
+                                           placeholder="请选择开始时间">
+                                </div>
+                                <label class="col-sm-1 control-label symbol" style="text-align: center;">——</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control datainp" id="endActivityTime"
+                                           name="endActivityTime"
+                                           placeholder="请选择结束时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <div id="standalone-container">
+                                            <div id="toolbar-container">
+			                    <span class="ql-formats">
+			                        <select class="ql-font"></select>
+			                        <select class="ql-size"></select>
+			                    </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-bold"></button>
+			                        <button class="ql-italic"></button>
+			                        <button class="ql-underline"></button>
+			                        <button class="ql-strike"></button>
+			                    </span>
+                                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+			                                    <select class="ql-background"></select>
+                                </span>
+                                                <span class="ql-formats">
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-header" value="1"></button>
+			                        <button class="ql-header" value="2"></button>
+			                        <button class="ql-blockquote"></button>
+			                        <button class="ql-code-block"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-list" value="ordered"></button>
+			                        <button class="ql-list" value="bullet"></button>
+			                        <button class="ql-indent" value="-1"></button>
+			                        <button class="ql-indent" value="+1"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-direction" value="rtl"></button>
+                                    <select class="ql-align"></select>
+                                </span>
+                                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                    <button class="ql-video"></button>
+                                    <button class="ql-formula"></button>
+                                </span>
+                                                <span class="ql-formats">
+			                        <button class="ql-clean"></button>
+			                    </span>
+                                            </div>
+                                            <div id="editor-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="dist/katex.min.js"></script>
+<script src="dist/highlight.min.js"></script>
+<script src="dist/quill.js"></script>
+<script>
+    jeDate({
+        dateCell: "#beginTime",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: false, //isClear:false,
+        minDate: "2014-09-19",
+    });
+    jeDate({
+        dateCell: "#endTime",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: false, //isClear:false,
+        minDate: "2014-09-19",
+    });
+    jeDate({
+        dateCell: "#beginActivityTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+    });
+    jeDate({
+        dateCell: "#endActivityTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+    })
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: '请输入内容...',
+        theme: 'snow'
+    });
+</script>
+</body>
+</html>

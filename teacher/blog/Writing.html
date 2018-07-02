@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>写博客</title>
+</head>
+
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/common.css"/>
+<link rel="stylesheet" type="text/css" href="css/article.css"/>
+<link rel="stylesheet" href="plugin/jquery.page.css">
+<link href="logo.ico" rel="shortcut icon"/>
+
+<link rel="stylesheet" type="text/css" href="../css/bootstrap-grid.min.css">
+<link rel="stylesheet" type="text/css" href="../css/demo.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/monokai-sublime.min.css"/>
+<link href="../css/themes/quill.snow.css" rel="stylesheet">
+<link href="../css/base.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="plugin/jquery.page.js"></script>
+<script src="js/common.js"></script>
+
+
+
+
+<link href="../css/H-ui.min.css" rel="stylesheet" type="text/css"/>
+<link href="../css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+<link href="../lib/icheck/icheck.css" rel="stylesheet" type="text/css"/>
+<link href="../lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+<link href="../lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css"/>
+
+<title>新增文章</title>
+<style type="text/css">
+    #editor-container {
+        height: 400px;
+    }
+
+    .ulx li a{
+        text-decoration: none;
+    }
+    body{
+        background: none;
+    }
+</style>
+<!--<script src="js/snowy.js"></script>-->
+<script type="text/javascript">
+
+    $(function(){
+        $("#page").Page({
+            totalPages: 7,//分页总数
+            liNums: 5,//分页的数字按钮数(建议取奇数)
+            activeClass: 'activP', //active 类样式定义
+            callBack : function(page){
+                //console.log(page)
+            }
+        });
+    })
+</script>
+
+<body>
+<div class="w_header">
+    <div class="container">
+        <div class="w_header_top">
+            <span class="w_header_nav">
+					<ul class="ulx">
+						<li><a href="index.html">首页</a></li>
+
+						<li><a href=""  class="active">写博客</a></li>
+						<li><a href="article.html">我的博客</a></li>
+                        <!--	<li><a href="moodList.html">说说</a></li>-->
+						<li><a href="comment.html">留言</a></li>
+                        	<li><a href="about.html" >关于</a></li>
+                        <li><a href="plList.html">管理博客</a></li>
+					</ul>
+				</span>
+            <div class="w_search">
+                <div class="w_searchbox">
+                    <input type="text" placeholder="请输入搜索内容..." />
+                    <button>搜索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w_container">
+    <div class="container">
+        <div class="row w_main_row">
+
+            <ol class="breadcrumb w_breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li class="active">写博客</li>
+                <span class="w_navbar_tip">我们长路漫漫，只因学无止境。</span>
+            </ol>
+
+
+
+            <!--内容-->
+
+            <div id="wrapper">
+                <header>
+
+
+                    <SCRIPT type=text/javascript>
+                        /*     // Navigation Menu
+                         $(function () {
+                         $(".menu ul").css({display: "none"}); // Opera Fix
+                         $(".menu li").hover(function () {
+                         $(this).find('ul:first').css({visibility: "visible", display: "none"}).slideDown("normal");
+                         }, function () {
+                         $(this).find('ul:first').css({visibility: "hidden"});
+                         });
+                         });*/
+                    </SCRIPT>
+
+                </header>
+                <div class="container">
+                    <div class="con_content">
+                        <div class="about_box">
+                            <div class="pd-20">
+                                <form action="" method="post" class="form form-horizontal" id="form-article-add">
+                                    <div class="row cl">
+                                        <label class="form-label col-2"><span class="c-red">*</span>文章标题：</label>
+                                        <div class="formControls col-10">
+                                            <input type="text" class="input-text" value="" placeholder="" id="" name="">
+                                        </div>
+                                    </div>
+                                    <div class="row cl">
+                                        <label class="form-label col-2"><span class="c-red">*</span>文章类型：</label>
+                                        <div class="formControls col-2"> <span class="select-box">
+				<select name="" class="select">
+					<option value="0">请选择</option>
+					<option value="1">原创</option>
+					<option value="11">转载</option>
+					<option value="12">翻译</option>
+					<option value="13">借鉴</option>
+				</select>
+				</span></div>
+                                        <label class="form-label col-2"><span class="c-red">*</span>博客分类：</label>
+                                        <div class="formControls col-2"> <span class="select-box">
+				<select name="" class="select">
+					<option value="0">选择分类</option>
+                      <option value="28">人工智能</option>
+                 <option value="1">移动开发</option>
+                  <option value="29">物联网</option>
+                      <option value="15">架构</option>
+                         <option value="2">云计算/大数据</option>
+                     <option value="17">互联网</option>
+                            <option value="30">游戏开发</option>
+                             <option value="12">运维</option>
+                          <option value="6">数据库</option>
+                             <option value="14">前端</option>
+                              <option value="31">后端</option>
+                               <option value="16">编程语言</option>
+                              <option value="3">研发管理</option>
+                            <option value="32">安全</option>
+                           <option value="33">程序人生</option>
+                       <option value="34">区块链</option>
+                        <option value="35">音视频开发</option>
+                           <option value="36">资讯</option>
+                    <option value="37">计算机理论与基础</option>
+				</select>
+				</span></div>
+                                    </div>
+
+                                    <div class="row cl">
+                                        <label class="form-label col-2">文章摘要：</label>
+                                        <div class="formControls col-10">
+                                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符"
+                                          datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"
+                                          onKeyUp="textarealength(this,200)"></textarea>
+                                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                                        </div>
+                                    </div>
+                                    <div class="row cl">
+                                        <label class="form-label col-2">文章作者：</label>
+                                        <div class="formControls col-2">
+                                            <input type="text" class="input-text" value="作者" placeholder="" id="author" name="">
+                                        </div>
+                                    </div>
+                                    <div class="row cl">
+                                        <label class="form-label col-2">缩略图：</label>
+                                        <div class="formControls col-10">
+                                            <div class="uploader-thum-container">
+                                                <div id="fileList" class="uploader-list"></div>
+                                                <div id="filePicker">选择图片</div>
+                                                <button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row cl">
+                                        <label class="form-label col-2">文章内容：</label>
+                                        <div style="margin:15px auto;width:640px;">
+                                            <div id="standalone-container">
+                                                <div id="toolbar-container">
+			<span class="ql-formats">
+			<select class="ql-font"></select>
+			<select class="ql-size"></select>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-bold"></button>
+			<button class="ql-italic"></button>
+			<button class="ql-underline"></button>
+			<button class="ql-strike"></button>
+			</span>
+                                                    <span class="ql-formats">
+			<select class="ql-color"></select>
+			<select class="ql-background"></select>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-script" value="sub"></button>
+			<button class="ql-script" value="super"></button>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-header" value="1"></button>
+			<button class="ql-header" value="2"></button>
+			<button class="ql-blockquote"></button>
+			<button class="ql-code-block"></button>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-list" value="ordered"></button>
+			<button class="ql-list" value="bullet"></button>
+			<button class="ql-indent" value="-1"></button>
+			<button class="ql-indent" value="+1"></button>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-direction" value="rtl"></button>
+			<select class="ql-align"></select>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-link"></button>
+			<button class="ql-image"></button>
+			<button class="ql-video"></button>
+			<button class="ql-formula"></button>
+			</span>
+                                                    <span class="ql-formats">
+			<button class="ql-clean"></button>
+			</span>
+                                                </div>
+                                                <div id="editor-container"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row cl">
+                                        <div class="col-10 col-offset-2">
+                                            <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i
+                                                    class="Hui-iconfont">&#xe632;</i> 保存并提交审核
+                                            </button>
+                                            <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--    <div class="nextinfos">
+                          <p>上一篇：<a href="/">区中医医院开展志愿服务活动</a></p>
+                          <p>下一篇：<a href="/">广安区批准“单独两孩”500例</a></p>
+                        </div>-->
+                            <!-- 可用于内容模板 -->
+
+                            <!-- container代码 结束 -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="w_foot">
+    <!--<div class="w_foot_copyright">© 2015~2016 版权所有 | <a target="_blank" href="http://www.miitbeian.gov.cn/" rel="nofollow">京ICP备15010892号-1</a></div>-->
+    <div class="w_foot_copyright">Copyright © 2017-2020, www.wfyvv.com. All Rights Reserved. </div>
+</div>
+<!--toTop-->
+<div id="shape">
+    <div class="shapeColor">
+        <div class="shapeFly">
+        </div>
+    </div>
+</div>
+<!--snow-->
+<!--<div class="snow-container"></div>-->
+
+
+<script src="../dist/katex.min.js"></script>
+<script src="../dist/highlight.min.js"></script>
+<script src="../dist/quill.js"></script>
+<!-- Initialize Quill editor -->
+<script>
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: '请输入内容...',
+        theme: 'snow'
+    });
+</script>
+<!--百度推送代码-->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+
+    $(function () {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $list = $("#fileList"),
+            $btn = $("#btn-star"),
+            state = "pending",
+            uploader;
+
+        var uploader = WebUploader.create({
+            auto: true,
+            swf: 'lib/webuploader/0.1.5/Uploader.swf',
+
+            // 文件接收服务端。
+            server: 'http://lib.h-ui.net/webuploader/0.1.5/server/fileupload.php',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+        uploader.on('fileQueued', function (file) {
+            var $li = $(
+                    '<div id="' + file.id + '" class="item">' +
+                    '<div class="pic-box"><img></div>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '<p class="state">等待上传...</p>' +
+                    '</div>'
+                ),
+                $img = $li.find('img');
+            $list.append($li);
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr('src', src);
+            }, thumbnailWidth, thumbnailHeight);
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress-box .sr-only');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo($li).find('.sr-only');
+            }
+            $li.find(".state").text("上传中");
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file) {
+            $('#' + file.id).addClass('upload-state-success').find(".state").text("已上传");
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            $('#' + file.id).addClass('upload-state-error').find(".state").text("上传出错");
+        });
+
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress-box').fadeOut();
+        });
+        uploader.on('all', function (type) {
+            if (type === 'startUpload') {
+                state = 'uploading';
+            } else if (type === 'stopUpload') {
+                state = 'paused';
+            } else if (type === 'uploadFinished') {
+                state = 'done';
+            }
+
+            if (state === 'uploading') {
+                $btn.text('暂停上传');
+            } else {
+                $btn.text('开始上传');
+            }
+        });
+
+        $btn.on('click', function () {
+            if (state === 'uploading') {
+                uploader.stop();
+            } else {
+                uploader.upload();
+            }
+        });
+
+
+        var ue = UE.getEditor('editor');
+
+    });
+
+    function mobanxuanze() {
+
+    }
+</script>
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="../lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../lib/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="../lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="../lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="../lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="../lib/ueditor/1.4.3/ueditor.all.min.js"></script>
+<script type="text/javascript" src="../lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="../js/H-ui.js"></script>
+<script type="text/javascript" src="../js/H-ui.admin.js"></script>
+<script type="text/javascript"></script>
+
+</body>
+</html>

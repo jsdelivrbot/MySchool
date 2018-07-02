@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/jquery.table2excel.js"></script>
+    <script type="text/javascript" src="js/jquery.table2excel.min.js"></script>
+    <style>
+        table {
+            text-align: center;
+        }
+
+        thead {
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+    $(function () {
+        getJson();
+    })
+    function getJson() {
+        var studentId = localStorage.getItem("custromjlStudentId");
+        $.post("http://localhost:8080/custromjl/selectClassExcel.do", "studentId=" + studentId, function (result) {
+            console.log(result)
+            var viper = "";
+            for (var i = 0; i < result.length; i++) {
+                viper += "<tr> <td>" + result[i].studentName + "</td><td>" + result[i].score + "</td> <td>" + result[i].month + "</td> <td>" + result[i].startDate + "</td>  <td>" + result[i].questionName + "</td></tr>";
+            }
+            $("#viperTable tr:gt(0)").remove();//删除第一行后面的数据
+            $("#viperTable").append(viper);
+        }, "json");
+    }
+    function toExcel() {
+        var d = new Date(), str = '';
+        str += d.getFullYear() + '年';
+        str += d.getMonth() + 1 + '月';
+        str += d.getDate() + '日';
+        str += d.getHours() + '时';
+        str += d.getMinutes() + '分';
+        str += d.getSeconds() + '秒';
+        alert(str);
+        $("#example").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: str + "学生成绩.xlsx",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    }
+</script>
+<body>
+<div id="app" class="x-body" style="padding: 1% 5%">
+    <div class="layui-row" style="margin:20px 0px">
+        <form id="form">
+
+        </form>
+        <button type="button" class="btn btn-success radius" onclick="toExcel()"
+                style="display: inline-block;float: right;margin-bottom: 20px; width: 11%; height: 50px;"><i
+                class="Hui-iconfont">&#xe640;</i> 下载Excel表格
+        </button>
+    </div>
+    <table class="table table-bordered" id="example">
+        <thead>
+        <tr>
+            <th colspan="5">
+                月考班级成绩
+            </th>
+        </tr>
+        <tr>
+            <th>学生姓名</th>
+            <th>考试分数</th>
+            <th>考试月分</th>
+            <th>考试时间</th>
+            <th>试题名</th>
+        </tr>
+        </thead>
+        <tbody id="viperTable"></tbody>
+    </table>
+</div>
+</body>

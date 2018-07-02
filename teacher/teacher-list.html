@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教师信息</title>
+    <script src="bootJs/jquery-3.2.1.min.js"></script>
+
+    <script src="bootJs/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select-lg.css">
+    <script src="bootJs/bootstrap-select.js"></script>
+    <script src="js/vue.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--阿里巴巴矢量图-->
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <!--复选框,单选按钮-->
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+</head>
+<style>
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .group {
+        display: inline-block;
+
+    }
+    .modal-body  td {
+        border: 1px solid transparent !important;
+    }
+
+    .modal-input{
+        width: 80%;
+    }
+    /*.body_middle td{*/
+        /*vertical-align: middle;*/
+    /*}*/
+    .input_width{
+        width: 120px;
+        font-size: 14px;
+    }
+    .input_width_ss{
+        width: 80px;
+        font-size: 14px;
+    }
+    .group {
+        display: inline-block;
+    }
+    #formTeacher{
+        width: 90%;
+        margin: 20px auto;
+    }
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #faf9fb inset !important;//关于解决输入框背景颜色
+        -webkit-text-fill-color: rgba(255,255,255,1)!important;//关于接输入框文字颜色
+    }
+    table th{
+        text-align: center;
+    }
+    .icon-Location{
+        position: absolute;
+        left: 73%;
+        top: 6px;
+    }
+</style>
+<body>
+<div class="container-fluid" id="app">
+    <div class="main">
+
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formTeacher" name="formPaper" method="post">
+                        <div class="form-group group">
+                            <span>姓名：</span>
+                            <input style=" padding-top: 4px;" type="text" class="form-control input_width" id="className" name="className" placeholder="教师姓名">
+                        </div>
+
+                        <div class="form-group group">
+                            <span>职务：</span>
+                            <select id="dutyId" name="dutyId" class="form-control selectpicker input_width " data-live-search="true"
+                                    style="width: 110px" placeholder="教师职务">
+                            </select><br/>
+                        </div>
+                        <div class="form-group group  group">
+                           <span>电话：</span>
+                            <input type="text" id="phone"  name="phone"placeholder="教师电话" class="form-control input_width">
+                        </div>
+
+                        <div class="form-group group">
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" class="btn btn-success radius" id="btnQuery"  @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+                            <button type="button" class="btn btn-primary radius" id="btnInsert" data-toggle='modal' data-target='#addDialog'  @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe600;</i> 新增
+                            </button>
+
+                            <button type="button" class="btn btn-info radius" id="btnImport"  data-toggle='modal' data-target='#importDialog'>
+                                <i class="Hui-iconfont">&#xe645;</i>导入
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-hover" id="noticeInfo">
+                    <thead>
+                    <tr>
+                        <td>姓名</td>
+                        <td>电话</td>
+                        <td>职务</td>
+                        <td>状态</td>
+                        <td>最后登陆时间</td>
+                        <td>最后登陆IP</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody class="body_middle">
+                    <!--<tr  v-for="(item,index) in classInfo">-->
+                        <!--<td style="display: none">{{item.teacherId}}</td>-->
+                        <!--<td >{{item.teacherName}}</td>-->
+                        <!--<td >{{item.password}}</td>-->
+                        <!--<td >{{item.phone}}</td>-->
+                        <!--<td v-if="item.dutyId=1">教员</td>-->
+                        <!--<td v-if="item.isEnabled==1">正常</td>-->
+                        <!--<td>item.className</td>-->
+                        <!--<td >{{item.lastLoginTime}}</td>-->
+                        <!--<td >{{item.loginIp}}</td>-->
+                        <!--<td >{{item.remark}}</td>-->
+                        <!--<td >-->
+                            <!--<button type='button' class='btn btn-info' data-toggle='modal' data-target='#updDialog'-->
+                                    <!--@click="updById(item.teacherId)"> <i class="Hui-iconfont">&#xe6df;</i> 修改-->
+                            <!--</button>-->
+                            <!--&nbsp;-->
+                            <!--<button type='button' class='btn btn-danger' @click="del(item.teacherId)">-->
+                                <!--<i class="Hui-iconfont">&#xe631;</i>停用-->
+                            <!--</button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td >张三</td>
+                        <td>13800138000</td>
+                        <td>教员</td>
+                        <td>启用</td>
+                        <td>2018-05-06 18:00:00</td>
+                        <td>143.16.2.25</td>
+                        <td>无</td>
+                        <td >&nbsp;&nbsp;
+                            <button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog' @click="updById(item.teacherId)"><i class="Hui-iconfont">&#xe60c;</i>修改</button>
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"><i class="Hui-iconfont" @click="del(item.teacherId)">&#xe615;</i>停用</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div id="pageList" style="float:right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+        <!--修改模态框-->
+        <div class="modal fade bs-example-modal-xs" id="updDialog" role="dialog" >
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加老师</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" >
+                            <div class="form-group">
+                                <span for="upd_teacherName" class="col-sm-3 control-label">姓名：</span>
+                                <div class="col-sm-9">
+
+                                    <input type="text" class="form-control modal-input" id="upd_teacherName" name="annTitle"
+                                           placeholder="教师名称...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_password" class="col-sm-3 control-label">密码：</span>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control modal-input" id="upd_password" name="annTitle"
+                                           placeholder="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_phone" class="col-sm-3 control-label">电话：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" name="upd_phone"
+                                           placeholder="教师电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="upd_Email" class="col-sm-3 control-label">邮箱：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" id="upd_Email" name="email"
+                                           placeholder="教师邮箱：abc@163.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_dutyId" class="col-sm-3 control-label">职务：</span>
+                                <div class="col-sm-9">
+                                    <select  style="width: 80%" name="add_dutyId"
+                                             class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span for="upd_Remark" class="col-sm-3 control-label">备注：</span>
+                                <div class="col-sm-9">
+                                    <textarea id="upd_Remark" name="remark" style="width: 80%;height: 80px;overflow: hidden"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--添加模态框-->
+        <div class="modal fade bs-example-modal-xs" id="addDialog" role="dialog" >
+            <div class="modal-dialog modal-xs" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加老师</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addTeacher" class="form-horizontal" >
+                            <div class="form-group">
+                                <span for="add_teacherName" class="col-sm-3 control-label">姓名：</span>
+                                <div class="col-sm-9">
+
+                                    <input type="text" class="form-control modal-input" id="add_teacherName" name="teacherName"
+                                           placeholder="教师名称...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_password" class="col-sm-3 control-label">密码：</span>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control modal-input" id="add_password" name="password"
+                                           placeholder="password"><i class="iconfont icon-yulan icon-Location"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_phone" class="col-sm-3 control-label">电话：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" name="phone"
+                                           placeholder="教师电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_Email" class="col-sm-3 control-label">邮箱：</span>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control modal-input" id="add_Email" name="email"
+                                           placeholder="教师邮箱：abc@163.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span for="add_dutyId" class="col-sm-3 control-label">职务：</span>
+                                <div class="col-sm-9">
+                                    <select  name="dutyId" id="teacherType"
+                                             class="selectpicker">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span for="add_Remark" class="col-sm-3 control-label">备注：</span>
+                                <div class="col-sm-9">
+                                    <textarea id="add_Remark" name="remark" style="width: 80%;height: 80px;overflow: hidden"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" @click="addTeacher()">
+                            <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                        </button>
+                        <button class="btn btn-warning" data-dismiss="modal">
+                            <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--导入的模态框-->
+        <div id="importDialog" role="dialog" class="modal fade bs-example-modal-lg">
+
+            <div class="modal-dialog" style="width: 90%">
+                <form class="addTeacher" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>导入学生信息 </span>
+                            <button class="btn btn-info" type="button" style="display: inline-block;margin-left: 10px" onclick="$('#FileInput')[0].click()"><i class="Hui-iconfont">&#xe613;</i> 选择文件</button>
+                            <input type="file" id="FileInput" hidden="hidden" style="display: none;" onchange="readfls(this.files)" />
+                            <div class="close" data-dismiss="modal">&bigotimes;</div>
+                        </div>
+                        <!--style="border:  0px solid transparent"-->
+                        <div class="modal-body">
+                            <table class="table table-dialog table-bordered"style="min-width: 100%;">
+
+                                <thead>
+                                <tr class="tableThead">
+                                    <th>#</th>
+
+                                </tr>
+                                </thead>
+                                <tbody class="tableTbody">
+
+                                </tbody>
+                            </table>
+                            </table>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" onclick="insertExcelPar()">
+                                <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                            </button>
+                            <button class="btn btn-warning" data-dismiss="modal">
+                                <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script>
+    //初始进来时传入一个条件pageIndex=1
+    var Initdate = $("#formPaper").serialize();
+    //vue绑定表格
+    var app = new Vue({
+        el: "#app",
+        data: {
+            pageCount: 0,
+
+        }, methods: {
+            getTableAll(date){
+                $.post("http://localhost:8080//classInfo/selectClass.do", date, function (result) {
+                    console.log("返回的Json数据:" + result.classInfoList);
+                    for (var i = 0; i < result.classInfoList.length; i++) {
+                        console.log(result.classInfoList[i]);
+                    }
+                    app.classInfo = result.classInfoList;
+//                    console.log("app.classInfo:" + app.classInfo);
+//                    console.log(app.classInfo[0].className)
+                    app.pageCount = result.page.pageCount;
+                }, "json");
+            },
+            //查询按钮
+            btnQuery(){
+                $("#pageIndex").val(1);
+                var date = $("#formPaper").serialize();
+                this.getTableAll(date)
+            },
+            addTeacher(){
+                var formAdd=$("#addTeacher").serialize();
+
+                $.post("http://localhost:8080/teacher/insertTeacher.do",formAdd , function (result) {
+                    console.log("返回的教师信息Json数据:" + result);
+                    if(result){
+                        alert("添加成功");
+//                        var date = $("#addTeacher").serialize();
+//                        app.getTableAll(date)
+                    }else {
+                        alert("添加失败");
+                    }
+                },"json");
+            },
+            //首页
+            sy(){
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+            //下一页
+            xyy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+            //尾页
+            wy(){
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+
+        },
+
+        //页面加载时去试卷信息表查询试卷编号和名称
+        created() {
+            this.getTableAll(Initdate);
+        }
+
+    })
+</script>
+<script>
+    $(function () {
+        $.post("http://localhost:8080/dictionary/selDictionaryByType.do", {"dictionaryCode":"teacherType"}, function (result) {
+            console.log("返回的字典表信息Json数据:" + result);
+            for (var i = 0; i < result.length; i++) {
+                $("#teacherType").append("<option value=" + result[i].detailID + ">" +  result[i].attrName + "</option>");
+            }
+            $("#teacherType").selectpicker('refresh');
+        },"json");
+    })
+    $(function () {
+        $(".icon-Location").mouseover(function(){
+            $("#add_password").attr("type","text");
+//            $("#add_studentPassword").attr("type","text");
+
+        }).mouseout(function (){
+            $("#add_password").attr("type","password");
+//            $("#add_studentPassword").attr("type","password");
+        });
+    })
+</script>
+</html>
+

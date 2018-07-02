@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .content {
+            width: 100%;
+            height: auto;
+        }
+
+        .making {
+            width: 1000px;
+            height: auto;
+            margin: 20px auto;
+        }
+
+        .makingList {
+            width: 980px;
+            padding: 0px 10px;
+            height: auto;
+        }
+
+        .makingList .listItem {
+            display: block;
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            margin: 10px 0px;
+        }
+
+        .makingList .listItem:hover {
+            box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .makingList .listItem .img {
+            width: 200px;
+            height: 130px;
+            margin: 10px;
+            display: inline-block;
+            float: left;
+        }
+
+        .makingList .listItem .img img {
+            width: 200px;
+            height: 130px;
+        }
+
+        .makingList .listItem .contentContainer {
+            width: 738px;
+            height: 150px;
+            display: inline-block;
+            float: left;
+        }
+
+        .makingList .listItem .contentContainer .rowOne {
+            width: 718px;
+            height: 30px;
+            line-height: 30px;
+            margin: 20px 10px 10px 10px;
+        }
+
+        .makingList .listItem .contentContainer .rowOne .title {
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .makingList .listItem .contentContainer .rowOne .time {
+            float: right;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        .makingList .listItem .contentContainer .rowTwo {
+            width: 718px;
+            height: 30px;
+            line-height: 30px;
+            margin: 20px 10px 10px 10px;
+        }
+
+        .makingList .listItem .contentContainer .rowThree {
+            width: 718px;
+            height: 30px;
+            line-height: 30px;
+            margin: 20px 10px 0px 0px;
+        }
+
+        .makingList .listItem .contentContainer .rowTwo .peopleCount {
+            font-size: 18px;
+        }
+
+        .makingList .listItem .contentContainer .rowTwo .participate {
+            float: right;
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #43cc2a;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .makingList .listItem .contentContainer .rowThree .createPeople {
+            float: right;
+            font-size: 14px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="making">
+        <ul class="makingList">
+            <li class="listItem">
+                <div class="img">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg">
+                </div>
+                <div class="contentContainer">
+                    <div class="rowOne">
+                        <span class="title">端午节活动安排</span>
+                        <span class="time">2018-05-10 12:30:30</span>
+                    </div>
+                    <div class="rowTwo">
+                        <span class="peopleCount">参与人数：10</span>
+                        <span class="participate">参加投票</span>
+                    </div>
+                    <div class="rowThree">
+                        <span class="createPeople">发布人：马守斌</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="listItem">
+                <div class="img">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg">
+                </div>
+                <div class="contentContainer">
+                    <div class="rowOne">
+                        <span class="title">端午节活动安排</span>
+                        <span class="time">2018-05-10 12:30:30</span>
+                    </div>
+                    <div class="rowTwo">
+                        <span class="peopleCount">参与人数：10</span>
+                        <span class="participate">参加投票</span>
+                    </div>
+                    <div class="rowThree">
+                        <span class="createPeople">发布人：马守斌</span>
+                    </div>
+                </div>
+            </li>
+
+            <li class="listItem">
+                <div class="img">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg">
+                </div>
+                <div class="contentContainer">
+                    <div class="rowOne">
+                        <span class="title">端午节活动安排</span>
+                        <span class="time">2018-05-10 12:30:30</span>
+                    </div>
+                    <div class="rowTwo">
+                        <span class="peopleCount">参与人数：10</span>
+                        <span class="participate">参加投票</span>
+                    </div>
+                    <div class="rowThree">
+                        <span class="createPeople">发布人：马守斌</span>
+                    </div>
+                </div>
+            </li>
+            <li class="listItem">
+                <div class="img">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg">
+                </div>
+                <div class="contentContainer">
+                    <div class="rowOne">
+                        <span class="title">端午节活动安排</span>
+                        <span class="time">2018-05-10 12:30:30</span>
+                    </div>
+                    <div class="rowTwo">
+                        <span class="peopleCount">参与人数：10</span>
+                        <span class="participate">参加投票</span>
+                    </div>
+                    <div class="rowThree">
+                        <span class="createPeople">发布人：马守斌</span>
+                    </div>
+                </div>
+            </li>
+            <li class="listItem">
+                <div class="img">
+                    <img src="http://pic35.photophoto.cn/20150615/0028012864327471_b.jpg">
+                </div>
+                <div class="contentContainer">
+                    <div class="rowOne">
+                        <span class="title">端午节活动安排</span>
+                        <span class="time">2018-05-10 12:30:30</span>
+                    </div>
+                    <div class="rowTwo">
+                        <span class="peopleCount">参与人数：10</span>
+                        <span class="participate">参加投票</span>
+                    </div>
+                    <div class="rowThree">
+                        <span class="createPeople">发布人：马守斌</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

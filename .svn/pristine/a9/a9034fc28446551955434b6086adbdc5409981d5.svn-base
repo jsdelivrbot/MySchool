@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>说说心里话</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font_6xh809seepom9529/iconfont.css">
+
+    <script src="js/vue.js"></script>
+    <!--VUE-->
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="falls/css/demo.css" />
+
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="falls/css/component.css" />
+
+    <script type="text/javascript" src="falls/js/modernizr.custom.js"></script>
+    <style type="text/css">
+        .bigImg li figure img {
+            width: 560px;
+            height: 320px;
+        }
+
+
+
+        .yuan {
+            width: 50px;
+            height: 50px;
+            -webkit-border-radius: 100%;
+            box-shadow: 1px 1px 1px 1px #c1c1c1;
+            background-color: #6dc4ff;
+            position: fixed;
+            color: #fff;
+            top: 100px;
+            right: 400px;
+            text-align: center;
+            font-size: 30px;
+            line-height: 39px;
+            font-weight: bold;
+            cursor: pointer;
+
+        }
+
+        .yuan:hover {
+            color: #fff;
+        }
+
+
+        .jia {
+            text-decoration: none;
+            position: absolute;
+            top: 3px;
+            left: 18px;
+        }
+
+        .jia:hover {
+            text-decoration: none;
+            color: lightskyblue;
+        }
+
+        .show_iframe iframe {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+        <!--右半部分内容-->
+        <div class="main-panel" style="float: none">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="grid-gallery" class="grid-gallery">
+                <div class="btn  radius yuan" id="btnAddAnn" data-toggle="modal" data-target="#addNotice" title="点击发布心里话">
+                    <a class="jia" href="nav_WritingBlog.html">+</a>
+                </div>
+
+
+                <section class="grid-wrap">
+                    <!--简要展示-->
+                    <ul class="grid">
+                        <li class="grid-sizer"></li>
+                        <!-- for Masonry column width -->
+                        <li v-for="(item,index) in articleList">
+                            <figure>
+                                <img :src="item.image" alt="img01" />
+                                <figcaption>
+                                    <h3>{{item.articleTitle}}</h3>
+                                    <p>{{item.articleContent}}</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s1.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s2.jpg" alt="img02" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s3.jpg" alt="img03" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s4.jpg" alt="img04" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s5.jpg" alt="img05" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s6.jpg" alt="img06" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s1.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s2.jpg" alt="img02" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s3.jpg" alt="img03" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s4.jpg" alt="img04" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s5.jpg" alt="img05" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s6.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s1.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s2.jpg" alt="img02" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s3.jpg" alt="img03" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s4.jpg" alt="img04" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s6.jpg" alt="img05" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s1.jpg" alt="img06" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s2.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>你知道就算大雨让这座城市颠倒我会给你怀抱，受不了看着你背影来到，写下我读秒如年难捱的离骚。</p>
+                                </figcaption>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s3.jpg" alt="img02" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s4.jpg" alt="img03" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s5.jpg" alt="img04" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s6.jpg" alt="img05" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <img src="falls/img/thumb/s1.jpg" alt="img01" />
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                </section>
+                <!-- // grid-wrap -->
+                <section class="slideshow">
+                    <!--点击展示的详细-->
+                    <ul class="bigImg">
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>在2005年首张同名专辑发行之后，2006年苏打绿又推出了第二张专辑《小宇宙》，专辑一推出，主打歌曲《小情歌》即刻成为台湾地区各大电台热播曲目，简单的旋律和歌词，唱出每一个人心中的爱情观感，在中国，认识苏打绿的很多人也是听了这首“小情歌“而开始喜欢并追崇他们的，专辑中其他歌曲，也都相当有可听之处。</p>
+                                </figcaption>
+                                <img src="falls/img/large/b1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>在2005年首张同名专辑发行之后，2006年苏打绿又推出了第二张专辑《小宇宙》，专辑一推出，主打歌曲《小情歌》即刻成为台湾地区各大电台热播曲目，简单的旋律和歌词，唱出每一个人心中的爱情观感，在中国，认识苏打绿的很多人也是听了这首“小情歌“而开始喜欢并追崇他们的，专辑中其他歌曲，也都相当有可听之处。</p>
+                                </figcaption>
+                                <img src="falls/img/large/b2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b3.jpg" alt="img03" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b4.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b5.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>小情歌-苏打绿</h3>
+                                    <p>在2005年首张同名专辑发行之后，2006年苏打绿又推出了第二张专辑《小宇宙》，专辑一推出，主打歌曲《小情歌》即刻成为台湾地区各大电台热播曲目，简单的旋律和歌词，唱出每一个人心中的爱情观感，在中国，认识苏打绿的很多人也是听了这首“小情歌“而开始喜欢并追崇他们的，专辑中其他歌曲，也都相当有可听之处。</p>
+                                </figcaption>
+                                <img src="falls/img/large/b6.jpg" alt="img06" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b3.jpg" alt="img03" />
+
+
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b4.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b5.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b6.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b3.jpg" alt="img03" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b4.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b5.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b6.jpg" alt="img06" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b1.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b2.jpg" alt="img02" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b3.jpg" alt="img03" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b4.jpg" alt="img04" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+
+
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+
+                                <img src="falls/img/large/b5.jpg" alt="img05" />
+                            </figure>
+                        </li>
+                        <li>
+                            <figure>
+                                <figcaption>
+                                    <h3>学猫叫--小潘潘/小峰峰</h3>
+                                    <p>我们一起学猫叫，一起喵喵喵，在你面前撒个娇，哎呦喵喵喵喵喵，我的心脏砰砰跳，迷恋上你的坏笑，你不说爱我我就喵喵喵</p>
+                                </figcaption>
+                                <img src="falls/img/large/b6.jpg" alt="img01" />
+                            </figure>
+                        </li>
+                    </ul>
+                    <nav>
+                        <span class="icon nav-prev"></span>
+                        <span class="icon nav-next"></span>
+                        <span class="icon nav-close"></span>
+                    </nav>
+                    <div class="info-keys icon">Navigate with arrow keys</div>
+                </section>
+                <!-- // slideshow -->
+            </div>
+            <!-- // grid-gallery -->
+        </div>
+    </div>
+    <script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="falls/js/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="falls/js/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="falls/js/classie.js"></script>
+    <script type="text/javascript" src="falls/js/cbpGridGallery.js"></script>
+    <script type="text/javascript">
+        new CBPGridGallery(document.getElementById('grid-gallery'));
+    </script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                articleList: [],
+            },
+            methods: {
+                getArticle() {
+                    $.post("http://localhost:8080/article/where.do", "", function (result) {
+                        console.log("返回的Json数据:" + result);
+
+                        app.articleList = result;
+                    }, "json");
+                },
+
+            },
+
+            created() {
+                this.getArticle();
+            },
+
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <meta name="toTop" content="true">
+    <style type="text/css">
+        #editor-container {
+            heighst: 400px;
+        }
+    </style>
+
+
+    <style>
+        .check .dowebok ul {
+            list-style-type: none;
+        }
+
+        .check .dowebok li {
+            display: inline-block;
+        }
+
+        .check .dowebok li {
+            margin: 0.5% 5px;
+        }
+
+        .check .dowebok2 li {
+            display: inline-block;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+            width: 100px;
+            font: 12px "Microsoft Yahei";
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 90%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+        }
+
+        .check .dowebok {
+            white-space: normal;
+            text-align: left;
+            margin-left: 3%;
+            padding: 0 6%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        .check .dowebok2 {
+            white-space: normal;
+            text-align: left;
+            margin: 30px 20% 10px;
+        }
+        .check .dowebok2 ul li {
+            margin: 0px 20px !important;
+        }
+        .check #stuShow  label{
+            width: 130px;
+        }
+        .check button {
+            margin: 2%;
+        }
+
+        #history_home button {
+            margin-bottom: 5px;
+        }
+
+        #history_home button {
+            width: 100%;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        .rev {
+            position: relative;
+        }
+
+        .container .qxfx {
+            display: inline-block;
+            float: right;
+            margin-right: 15%;
+        }
+        body{
+            font-size:12px;
+        }
+        label{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default rev">
+        <br/>
+        <form class="form-horizontal" id="resultForm">
+            <div class="form-group">
+                <label for="selectpicker" style="margin-top:20px;" class="col-sm-2 control-label">选择班级:</label>
+                <div class="col-sm-10" style="margin-top:20px">
+                    <!--给下拉菜单绑定数据源-->
+                    <select id="selectpicker" class="selectpicker" data-live-search="true">
+                        <option value="-1">--请选择--</option>
+                        <!--<option value="">TCMP059</option>
+                        <option value="">TCMP060</option>
+                        <option value="">TCMP065</option>-->
+                    </select>
+                    &nbsp;&nbsp;&nbsp; <label>请选择考试</label>
+                    <select id="selectExam" class="selectpicker" data-live-search="true">
+                        <option value="-1">--请选择--</option>
+                        <!--<option value="">TCMP059</option>
+                        <option value="">TCMP060</option>
+                        <option value="">TCMP065</option>-->
+                    </select>
+                    <div class="qxfx">
+                        <button type="button" class="btn btn-default" id="qx" style="margin-right: 15px">全选</button>
+                        <button type="button" class="btn btn-default" id="fx">反选</button>
+                    </div>
+                </div>
+            </div>
+            <div class="check" id="box">
+                <ul class="dowebok" id="stuShow">
+                    <!-- <li><input type="checkbox" name="checkbox" data-labelauty="黄保霖"></li>
+                     <li><input type="checkbox" name="checkbox" data-labelauty="说的"></li>-->
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="position: relative;top: -30px;">教师评语:</label>
+                <div class="col-sm-10" style="display: inline-block;position: relative;left: -90px;top:10px;">
+                    <textarea style="width: 100%" cols="50" rows="10" class="form-control" id="evaluateText">
+
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group tz">
+                <label class="control-label" style="display: inline-block;position: relative;top: 55px;left: 11.5%;">通知方式:</label>
+                <div class="check">
+                    <ul class="dowebok2" style="position: relative;">
+                        <li style="margin: 0px 5px"><input type="checkbox" name="checkbox" data-labelauty="微信" id="sendType1"></li>
+                        <li style="margin: 0px 5px"><input type="checkbox" name="checkbox" data-labelauty="短信" id="sendType2"></li>
+                        <li style="margin: 0px 5px"><input type="checkbox" name="checkbox" data-labelauty="网站" id="sendType3"></li>
+                        <li style="margin: 0px 5px"><input type="checkbox" name="checkbox" data-labelauty="邮件" id="sendType4"></li>
+                        <li style="position: absolute;right: 0%;">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </li>
+                        <li style="position: absolute;right: -11%;">
+                            <button type="reset" class="btn btn-danger">重置</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script>
+    var studentList="";
+    /*给下拉菜单绑定数据源*/
+    $(function () {
+        $.post("http://localhost:8080/classInfo/selClass.do", {}, function (result) {
+            var res = eval(result);
+            var temp = "";
+            for (var i = 0; i < res.length; i++) {
+                temp += "<option value='" + res[i].classId + "'>" + res[i].className + "</option>";
+            }
+            $("#selectpicker").append(temp);
+            $(".selectpicker").selectpicker('refresh');
+        }, "json");
+
+
+        /*下拉菜单选项发生变化的的绑定事件
+
+         * 依据班级编号去统一测试表，查询这个班级所有的测试记录
+         *           选择班级的时候，查询所有班级成员，绑定学员列表
+         * */
+        $("#selectpicker").change(function () {
+            $("#selectExam").html("");
+            var classId = $(".selectpicker").val();
+            var date = '';
+            var url = "http://localhost:8080/questionPaper/getQuestionPaperNameByClassId.do";
+            $.post(url, {classId: classId}, function (res) {
+                var data = eval(res);
+                var temp = "";
+                for (var i = 0; i < data.length; i++) {
+                    temp += "<option value='" + data[i].questionId + "'>" + data[i].questionName + "</option>";
+                }
+                $("#selectExam").append(temp);
+                $(".selectpicker").selectpicker('refresh');
+            }, "json");
+
+
+            /*点击班级的时候，同时查询班级学生列表*/
+            var url2 = "http://localhost:8080/student/selectStudentByClassId.do";
+            $.post(url2, {classId: classId}, function (res) {
+                studentList=res;
+                var data = eval(res);
+                var temp = "";
+                for (var i = 0; i < data.length; i++) {
+                    temp += '<li><input type="checkbox" name="student" id="' + data[i].studentId + '" data-labelauty="' + data[i].studentName + '"></li>';
+                }
+                $("#stuShow li").remove();
+                $("#stuShow").append(temp);
+                $('#stuShow :checkbox').labelauty();
+            }, "json");
+        });
+
+        /*选定考试之后，去查询考试成绩，同时给学生绑定
+         *   依据班级编号和试卷编号，查询参加考试的所有学生成绩
+         * */
+        $("#selectExam").change(function () {
+            var classId = $(".selectpicker").val();
+            var questionId = $("#selectExam").val();
+            //$(":checkbox[name='student']:eq('" + 1 + "')").next().find(".labelauty-unchecked").html("朱晓宇是:602分")
+          //  $(":checkbox[name='student']:eq('" + 1 + "')").next().find(".labelauty-checked").html("朱晓宇是:602分")
+            var url3 = "http://localhost:8080/custromjl/getCustormjlListByClassId.do";
+            $.post(url3, {questionId: questionId, classId: classId}, function (res) {
+               var data = eval(res);
+               for (var i = 0; i < data.length; i++) {
+                   for(var j=0;j<studentList.length;j++){
+                       if(data[i].studentId===studentList[j].studentId){
+                           $(":checkbox[name='student']:eq('" + i + "')").next().find(".labelauty-unchecked").html(studentList[i].studentName+":"+data[i].score+"分"+"");
+                           $(":checkbox[name='student']:eq('" + i + "')").next().find(".labelauty-checked").html(studentList[i].studentName+":"+data[i].score+"分"+"");
+                       }
+                   }
+                }
+            }, "json");
+
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(':checkbox').labelauty();
+
+        /*双击设置文本*/
+        $("#history_home button").dblclick(function () {
+            $("#history_home_text").text($(this).text())
+        });
+        $("#qx").click(function () {
+            var che = $(".check .dowebok input:checkbox");
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "checked" : "checked";
+            }
+        });
+        $("#fx").click(function () {
+            var che = $(".check .dowebok input:checkbox");
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "" : "checked";
+            }
+        });
+    })
+</script>
+<script>
+    //回到顶部
+    jQuery(document).ready(function ($) {
+        if ($("meta[name=toTop]").attr("content") == "true") {
+            $("<div id='toTop'><img src='img/1.png'></div>").appendTo('body');
+            $("#toTop").css({
+                width: '50px',
+                height: '50px',
+                bottom: '10px',
+                right: '15px',
+                position: 'fixed',
+                cursor: 'pointer',
+                zIndex: '999999',
+            });
+            if ($(this).scrollTop() == 0) {
+                $("#toTop").hide();
+            }
+            $(window).scroll(function (event) {
+                /* Act on the event */
+                if ($(this).scrollTop() == 0) {
+                    $("#toTop").hide();
+                }
+                if ($(this).scrollTop() != 0) {
+                    $("#toTop").show();
+                }
+            });
+            $("#toTop").click(function (event) {
+                /* Act on the event */
+                $("html,body").animate({
+                        scrollTop: "0px"
+                    },
+                    400
+                )
+            });
+        }
+    });
+</script>
+<script>
+    $(function () {
+        $("#resultForm").submit(function () {
+            /*设置一个数组，用来存储复选框选中之后的学生学号*/
+            var studentIdArr="";
+            /*设置一个数组，用来存储复选框选中之后的，消息发送方式*/
+            var sendTypeArr="";
+            /*拿到所有的复选框控件*/
+            var che = $(".check .dowebok input:checkbox");
+            for (var i in che) {
+               if(che[i].checked){
+                   if(che[i].id!=null && che[i].id!=undefined){
+                       studentIdArr+=che[i].id+",";
+                   }
+               }
+            }
+            alert(studentIdArr);
+            /*获取评价文本*/
+            var evaluateText=$("#evaluateText").val().trim();
+            if(evaluateText===null||evaluateText.length===0){
+                alert("评价内容为空，您暂时不能这么玩哦");
+                return false;
+            }
+            alert(evaluateText);
+            /*获取所有的发送方式*/
+            var sendType = $(".check .dowebok2 input:checkbox");
+            for (var j in sendType) {
+                if(sendType[j].checked){
+                    if(sendType[j].id!=null && sendType[j].id!=undefined){
+                        sendTypeArr+=sendType[j].id+",";
+                    }
+                }
+            }
+            alert(sendTypeArr);
+        });
+    });
+    
+</script>
+</body>
+</html>

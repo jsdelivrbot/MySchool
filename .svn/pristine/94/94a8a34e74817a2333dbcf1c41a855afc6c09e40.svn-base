@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--<script type="text/javascript" src="lib/PIE_IE678.js"></script>-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <![endif]-->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .selectpicker {
+            border-radius: 4px;
+            width: 130px;
+            text-align: center;
+            line-height: 35px;
+            height: 35px;
+        }
+
+        #noticeInfo {
+            width: 90%;
+            margin: 0px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 0px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 80px auto;
+
+        }
+
+        .datainp {
+            width: 130px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 5px;
+        }
+    </style>
+    <title>监控</title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script>
+       function goto(num){
+           if(num==3){/*向左*/
+               $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=3&user=admin&pwd=&res=0&1528198941885","",function(result){},"text");
+           }else if(num==6){/*向右*/
+               $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=6&user=admin&pwd=&res=0&1528199095641","",function(result){},"text");
+           }else if(num==1){/*向上*/
+               $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=1&user=admin&pwd=&res=0&1528199146944","",function(result){},"text");
+           }else if(num==2){/*关闭红外线*/
+               $.get("http://192.168.1.126:81/cgi-bin/decoder_control.cgi?onestep=0&command=2&user=admin&pwd=&res=0&1528199157170","",function(result){},"text");
+           }else if(num==10) {
+               var val = $("#hwx").attr("value");
+               if (val == 0) {
+                   /*打开红外线*/
+                   $("#hwx").attr("value","1");
+                   $.get("http://192.168.1.126:81/cgi-bin/set_ir_gpio.cgi?val=1&loginuse=admin&loginpas=&1528203769294", "", function (result) {
+                   }, "text");
+               } else {
+                   /*关闭红外线*/
+                    $("#hwx").attr("value","0");
+                   $.get("http://192.168.1.126:81/cgi-bin/set_ir_gpio.cgi?val=0&loginuse=admin&loginpas=&1528203742725", "", function (result) {
+                   }, "text");
+               }
+           }
+        }
+    </script>
+</head>
+<body style="background-color: #ffffff">
+<div class="container" style="margin-left: 10%;margin-top: 30px;">
+    <form>
+
+        <label for="slpk02">选择班级:</label>
+        <select class="selectpicker" data-live-search="true" id="slpk02">
+            <option>请选择</option>
+            <option>TCMP058</option>
+            <option>TCMP060</option>
+            <option>TCMP062</option>
+        </select>
+        <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+</div>
+<div style="width: 100%;height: 0px;margin-left: 10%;margin-top: 10px ">
+    <div style="width: 700px;height: 560px;display: inline-block;float: left; overflow: hidden">
+        <img src="http://192.168.1.126:81/videostream.cgi?user=admin&amp;pwd=&amp;res=0"  class="overflowingVertical">
+        <table width="700px" cellspacing="0" colspan="5">
+            <tbody><tr align="center">
+                <td height="40"><img src="img/ptz_26.gif" onclick="goto(3);" width="38" height="38">
+               <img src="img/ptz_29.gif" onclick="goto(6);" width="38" height="38">
+                <img src="img/ptz_19.gif" onclick="goto(1);" width="38" height="38">
+               <img src="img/ptz_34.gif" onclick="goto(2);" width="38" height="38">
+                <img src="img/ir0.gif" onclick="goto(10);" width="38" height="38" id="hwx" value="0"></td>
+            </tr>
+            </tbody></table>
+    </div>
+    <div style="display: inline-block;width: 100px;height: 400px;float: left;line-height: 500px;margin-left: 8%"><img src="img/jiankong.png"><div style="position: relative;bottom: 350px;right: 50px;font-size: 20px;width: 300px">手机扫一扫，直播视频手机轻松看</div></div>
+</div>
+</body>
+</html>

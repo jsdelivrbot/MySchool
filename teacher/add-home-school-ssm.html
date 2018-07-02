@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="toTop" content="true">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <style>
+        #editor-container {
+            position: relative;
+            width: 80%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-control {
+            width: 95%;
+        }
+
+        #last {
+            text-align: center;
+        }
+
+        #showInfo {
+            height: 100px;
+            width: 80%;
+        }
+
+        .form-horizontal {
+            margin-top: 10px;
+        }
+
+        .btn-sm {
+            width: 90px;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 30px;
+            border: 1px #ccc solid;
+        }
+
+        input.labelauty + label {
+            font: 12px "Microsoft Yahei";
+        }
+
+        .checkbox-inline {
+            padding: 0px;
+
+        }
+
+        .teacherInfo, .studentInfo {
+            padding: 20px 20px;
+        }
+
+        .list li {
+            width: 100px;
+            display: inline-block;
+            padding: 0px;
+            margin: 5px 5px;
+        }
+
+        .list li label {
+            width: 100%;
+            text-align: center;
+        }
+
+        .checkbox-inline label {
+            width: 91px;
+            text-align: center;
+        }
+
+        .way label {
+            width: 70px;
+            text-align: center;
+        }
+
+        .conditions {
+            width: 94%;
+            margin: 0px auto;
+        }
+    </style>
+    <script>
+        //回到顶部
+        jQuery(document).ready(function ($) {
+            if ($("meta[name=toTop]").attr("content") == "true") {
+                $("<div id='toTop'><img src='img/1.png'></div>").appendTo('body');
+                $("#toTop").css({
+                    width: '50px',
+                    height: '50px',
+                    bottom: '10px',
+                    right: '15px',
+                    position: 'fixed',
+                    cursor: 'pointer',
+                    zIndex: '999999',
+                });
+                if ($(this).scrollTop() == 0) {
+                    $("#toTop").hide();
+                }
+                $(window).scroll(function (event) {
+                    /* Act on the event */
+                    if ($(this).scrollTop() == 0) {
+                        $("#toTop").hide();
+                    }
+                    if ($(this).scrollTop() != 0) {
+                        $("#toTop").show();
+                    }
+                });
+                $("#toTop").click(function (event) {
+                    /* Act on the event */
+                    $("html,body").animate({
+                            scrollTop: "0px"
+                        },
+                        400
+                    )
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default" id="editor-container">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">接&nbsp;&nbsp;收&nbsp;人</label>
+                <div class="col-sm-9" id="addInfo">
+                    <button class="btn btn-success btn-sm " type="button" data-toggle="modal" data-target="#addTeacher">
+                        <i class="Hui-iconfont">&#xe600;</i>
+                        添加老师
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#addParents">
+                        <i class="Hui-iconfont">&#xe600;</i>
+                        添加家长
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#addAStudent">
+                        <i class="Hui-iconfont">&#xe600;</i>
+                        添加学生
+                    </button>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-9">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="allStudent" value="option1" data-labelauty="全部老师">
+                    </label>&nbsp;
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="allParents" value="option2" data-labelauty="全部家长">
+                    </label>&nbsp;
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="allTeacher" value="option3" data-labelauty="全部学生">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="panel panel-default" id="showInfo"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="releaseTime"
+                       class="col-sm-2 control-label">短信内容</label>
+                <div class="col-sm-9">
+                    <textarea cols="50" rows="10" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发送方式</label>
+                <div class="col-sm-9 way">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="webSite" value="option1" data-labelauty="网站">
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="checkbox-inline way">
+                        <input type="checkbox" id="weChat" value="option2" data-labelauty="微信">
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="checkbox-inline way">
+                        <input type="checkbox" id="sms" value="option3" data-labelauty="短信">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="releaseTime" class="col-sm-2 control-label">发布时间</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control datainp" id="releaseTime" name="releaseTime"
+                           placeholder="请输入发布时间">
+                </div>
+            </div>
+            <div class="form-group" id="last">
+                <button type="submit" class="btn btn-primary">提交</button>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <button type="reset" class="btn btn-danger">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-lg" id="addTeacher" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加老师</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="conditions">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="teacherName">老师姓名</label>
+                                <input type="text" class="form-control" id="studentName" placeholder="请输入老师姓名">
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <label>职务</label>
+                                <select class="selectpicker" data-live-search="true" id="selectStudent">
+                                    <option>请选择</option>
+                                    <option>教员</option>
+                                    <option>财务</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" id="teacherSelectAll">全选</button>
+                                <button type="button" class="btn btn-success" id="teacherInvertSelectAll">反选</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="teacherInfo">
+                        <ul class="list">
+                            <li><input type="checkbox" name="checkbox" data-labelauty="姚国旺"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="黄保霖"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="张三"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="里斯"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-lg" id="addAStudent" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加学生</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="conditions">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="teacherName">学生姓名</label>
+                                <input type="text" class="form-control" id="teacherName" placeholder="请输入学生姓名">
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <label>班级</label>
+                                <select class="selectpicker" data-live-search="true" id="slpk01">
+                                    <option>请选择</option>
+                                    <option>tcmp058</option>
+                                    <option>tcmp060</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success">全选</button>
+                                <button type="button" class="btn btn-success">反选</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="studentInfo">
+                        <ul class="list">
+                            <li><input type="checkbox" name="checkbox" data-labelauty="姚国旺"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="黄保霖"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="阿松"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-lg" id="addParents" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加家长</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="conditions">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="parentsName">家长姓名</label>
+                                <input type="text" class="form-control" id="parentsName" placeholder="请输入学生姓名">
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <label>班级</label>
+                                <select class="selectpicker" data-live-search="true" id="">
+                                    <option>请选择</option>
+                                    <option>tcmp058</option>
+                                    <option>tcmp060</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success">全选</button>
+                                <button type="button" class="btn btn-success">反选</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="studentInfo">
+                        <ul class="list">
+                            <li><input type="checkbox" name="checkbox" data-labelauty="姚国旺"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="黄保霖"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="张三"></li>
+                            <li><input type="checkbox" name="checkbox" data-labelauty="里斯"></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script type="text/javascript">
+    jeDate({
+        dateCell: "#releaseTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    $(function () {
+        $(':input').labelauty();
+
+        $("#teacherSelectAll").click(function () {
+            var che = $(".teacherInfo .list input:checkbox");
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "checked" : "checked";
+            }
+        });
+        $("#teacherInvertSelectAll").click(function () {
+            var che = $(".teacherInfo .list input:checkbox");
+
+            for (var i in che) {
+                che[i].checked = (che[i].checked) ? "" : "checked";
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

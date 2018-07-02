@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加题目</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!--富文本编辑器-->
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+
+    <!--BootStarp下拉框-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <script src="js/bootstrap-select.js"></script>
+    <!--引入计算当前时间-->
+
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+
+
+</head>
+<style>
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+    .form-control {
+        width: 100px;
+        height: 45px;
+        display: inline-block;
+        font-size: 12px;
+    }
+    .labSize{
+        font-size: 12px;
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #faf9fb inset !important;//关于解决输入框背景颜色
+    -webkit-text-fill-color: rgba(255,255,255,1)!important;//关于接输入框文字颜色
+    }
+    .editor-container {
+        width: 80%;
+        height: 50%;
+        border: 1px solid #dedede;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .nav-tabs > li > a{
+        color:#0f0f0f;
+    }
+    .option{
+        width: 30%;
+        height: 10%;
+        border: 1px solid #dedede;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .topicAnalysis{
+        width: 60%;
+        height: 80%;
+        border: 1px solid #dedede;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .ql-editor{
+        padding: 6px;
+    }
+    .selectZSD{
+        height: 33px;
+        border: 1px #cccccc solid;
+        border-radius: 4px;
+        width: 180px;
+        color: #999;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .selectZSD .optionItem{
+        display: inline-block;;
+        line-height: 30px;
+    }
+    body{
+        font-size: 14px;
+    }
+    .icon-fontsize{
+        font-size: 14px;
+    }
+    .filter-option pull-left{
+        font-size: 14px;
+    }
+</style>
+<body>
+<div class="container-fluid" id="appTopic" style="padding: 0 5%;margin: 20px auto">
+    <div class="main">
+        <div class="main_right" style="background-color: #FFFFFF;padding-top: 40px" >
+            <!--changeTab(0)-->
+            <div class="panel panel-default" id="tabCard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active" style="width: 20%;text-align: center">
+                        <a href="#Choice" aria-controls="home" role="tab" data-toggle="tab" onclick="clear()">选择题</a>
+                    </li>
+                    <li role="presentation" style="width: 20%;text-align: center">
+                        <a href="#FillIn" aria-controls="profile" role="tab" data-toggle="tab">填空题</a>
+                    </li>
+                    <li role="presentation" style="width: 20%;text-align: center">
+                        <a href="#Judge" aria-controls="messages" role="tab" data-toggle="tab">判断题</a>
+                    </li>
+                    <li role="presentation" style="width: 20%;text-align: center">
+                        <a href="#BriefAnswer" aria-controls="settings" role="tab" data-toggle="tab">简答题</a>
+                    </li>
+                    <li role="presentation" style="width: 20%;text-align: center">
+                        <a href="#Boarding" aria-controls="settings" role="tab" data-toggle="tab">上机题</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!--选择-->
+                    <div role="tabpanel" class="tab-pane active" id="Choice" style="padding: 20px">
+                        <div class="container-fluid">
+                            <form id="formChoice" name="formChoice"   enctype="multipart/form-data">
+                                <div class="form-group">
+                                   题&nbsp;&nbsp;&nbsp;目&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <div  class="topicName editor-container" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="" contenteditable="true" >
+
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    知&nbsp;识&nbsp;点&nbsp; ：
+                                        <!-- bootstrap select -->
+                                        <select class="selectpicker" data-live-search="true" id="choice_skillId1">
+                                            <option value="-1" style="font-size: 12px">请选择</option>
+                                        </select>
+                                        <!-- bootstrap select -->
+                                        <select class="selectpicker" data-live-search="true" id="choice_skillId2" > </select>
+                                        <!-- bootstrap select -->
+                                        <select class="selectpicker" data-live-search="true" id="choice_skillId3" > </select>
+                                </div>
+                                <div class="form-group">
+                                     图&nbsp;&nbsp;&nbsp;片&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <input type="file" class="file-btn" name="topicImg" id="topicImgChoice" style="display: inline-block"/>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;A&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionA" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;B&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionB" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;C&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionC" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;D&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option optionD" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionD" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;E&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option optionE" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionE" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    答&nbsp;案&nbsp;F&nbsp;&nbsp;&nbsp;：
+                                    <div  class="option optionF" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceOptionF" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    是否多选：
+                                    <div id="isEnable" style="display: inline-block">
+                                        <div class="radio" style="display: inline-block">
+                                            <input style="margin-top: 5px" type="radio" name="isEnabled" id="add_Enable" value="2" checked>
+                                            <label for="add_Enable">
+                                                多选
+                                            </label>
+                                        </div>
+                                        <div class="radio" style="display: inline-block">
+                                            <input style="margin-top: 5px" type="radio" name="isEnabled" id="add_NoEnable" value="1">
+                                            <label for="add_NoEnable">
+                                               单选
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    标准答案：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceModelAnswer" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    试题解析：
+                                    <div  class="topicAnalysis" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="choiceTopicAnalysis" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-left: 95px">
+
+                                    <button type="button" id="btnChoice" @click="insertChoice()" style="margin-right: 20px;display: inline-block" class="btn btn-success  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe600;</i> 保存
+                                    </button>
+                                    <button type="reset"  style="margin-right: 20px;display: inline-block" class="btn btn-warning  radius"  >
+                                        <i class="Hui-iconfont">&#xe68f;</i> 重置
+                                    </button>
+                                    <button type="button"  style="margin-right: 20px;display: inline-block" class="btn btn-primary  radius"  @click="btnQuery()">
+                                        <i class="iconfont icon-yulan icon-fontsize" ></i> 预览
+                                    </button>
+                                    <button type="button" style="margin-right: 20px;display: inline-block" class="btn btn-info radius"   data-toggle='modal' data-target='#importDialog'>
+                                        <i class="Hui-iconfont">&#xe645;</i>导入
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--填空-->
+                    <div role="tabpanel" class="tab-pane" id="FillIn" style="padding: 20px">
+                        <div class="container-fluid">
+                            <form id="formFillIn" name="formJudge" method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    题&nbsp;&nbsp;&nbsp;目&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <div  class="topicName editor-container" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="fillInTopicName" contenteditable="true" >
+
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    知&nbsp;识&nbsp;点&nbsp; ：
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  data-live-search="true" id="fillIn_skillId1" >
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  name="skillId" data-live-search="true"id="fillIn_skillId2" > </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  data-live-search="true" id="fillIn_skillId3"> </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        图&nbsp;&nbsp;&nbsp;片&nbsp;&nbsp;&nbsp;&nbsp;：
+                                        <input type="file" id="topicImgFillIn" class="file-btn" name="topicImg"  style="display: inline-block"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    标准答案：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="fillInModelAnswer" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                    <span>多个答案请用英文","隔开如:封装,继承,多态</span>
+                                </div>
+                                <div class="form-group">
+                                    试题解析：
+                                    <div  class="topicAnalysis" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="fillInTopicAnalysis" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-left: 95px">
+
+
+                                    <button type="button" @click="insertFillIn()" style="margin-right: 20px;display: inline-block" class="btn btn-success  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe600;</i> 保存
+                                    </button>
+                                    <button type="reset"  style="margin-right: 20px;display: inline-block" class="btn btn-warning  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe68f;</i> 重置
+                                    </button>
+                                    <button type="button"  style="margin-right: 20px;display: inline-block" class="btn btn-primary  radius"  @click="btnQuery()">
+                                        <i class="iconfont icon-yulan icon-fontsize" ></i> 预览
+                                    </button>
+                                    <button type="button" style="margin-right: 20px;display: inline-block" class="btn btn-info radius"   data-toggle='modal' data-target='#importDialog'>
+                                        <i class="Hui-iconfont">&#xe645;</i>导入
+                                    </button>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                    <!--判断-->
+                    <div role="tabpanel" class="tab-pane" id="Judge" style="padding: 20px">
+                        <div class="container-fluid">
+                            <form id="formJudge" name="formJudge" method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    题&nbsp;&nbsp;&nbsp;目&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <div  class="topicName editor-container"  class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="judgeTopicName" contenteditable="true" >
+
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    知&nbsp;识&nbsp;点&nbsp;：
+                                        <!-- bootstrap select -->
+                                    <select class="selectpicker "  data-live-search="true" id="judge_skillId1" >
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                        <!-- bootstrap select -->
+                                    <select class="selectpicker "  name="skillId" data-live-search="true"id="judge_skillId2" > </select>
+                                        <!-- bootstrap select -->
+                                    <select class="selectpicker " data-live-search="true" id="judge_skillId3"> </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        图&nbsp;&nbsp;&nbsp;片&nbsp;&nbsp;&nbsp;&nbsp;：
+                                        <input type="file" class="file-btn" id="topicImgJudge" name="topicImg"  style="display: inline-block"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    标准答案：
+                                    <div  style="display: inline-block">
+                                        <div class="radio" style="display: inline-block">
+                                            <input style="margin-top: 5px" type="radio" name="modelAnswer" id="zhengque" value="2" checked>
+                                            <label for="zhengque">
+                                                正确
+                                            </label>
+                                        </div>
+                                        <div class="radio" style="display: inline-block">
+                                            <input style="margin-top: 5px" type="radio" name="modelAnswer" id="cuowu" value="1">
+                                            <label for="cuowu">
+                                                错误
+                                            </label>
+                                        </div>
+                                        <div class="radio" style="display: inline-block">
+                                            <input style="margin-top: 5px" type="radio" name="modelAnswer" id="wujie" value="1">
+                                            <label for="wujie">
+                                                无解
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    试题解析：
+                                    <div  class="topicAnalysis" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="judgeTopicAnalysis" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-left: 95px">
+
+
+                                    <button type="button" @click="insertJudge()" style="margin-right: 20px;display: inline-block" class="btn btn-success  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe600;</i> 保存
+                                    </button>
+                                    <button type="reset"  style="margin-right: 20px;display: inline-block" class="btn btn-warning  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe68f;</i> 重置
+                                    </button>
+                                    <button type="button"  style="margin-right: 20px;display: inline-block" class="btn btn-primary  radius"  @click="btnQuery()">
+                                        <i class="iconfont icon-yulan icon-fontsize" ></i> 预览
+                                    </button>
+                                    <button type="button" style="margin-right: 20px;display: inline-block" class="btn btn-info radius"   data-toggle='modal' data-target='#importDialog'>
+                                        <i class="Hui-iconfont">&#xe645;</i>导入
+                                    </button>
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                    <!--简答-->
+                    <div role="tabpanel" class="tab-pane" id="BriefAnswer" style="padding: 20px">
+                        <div class="container-fluid">
+                            <form id="formBriefAnswer" name="formJudge" method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    题&nbsp;&nbsp;&nbsp;目&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <div  class="topicName editor-container" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="briefAnswerTopicName" contenteditable="true" >
+
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    知&nbsp;识&nbsp;点&nbsp;：
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker " name="skillId" data-live-search="true" id="briefAnswer_skillId1" >
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  name="skillId" data-live-search="true"id="briefAnswer_skillId2" > </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker " name="skillId" data-live-search="true" id="briefAnswer_skillId3"> </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        图&nbsp;&nbsp;&nbsp;片&nbsp;&nbsp;&nbsp;&nbsp;：
+                                        <input type="file" class="file-btn" id="topicImgBriefAnswer" name="topicImg"  style="display: inline-block"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    标准答案：
+                                    <div  class="option" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="briefAnswerModelAnswer" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    试题解析：
+                                    <div  class="topicAnalysis" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="briefAnswerTopicAnalysis" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-left: 95px">
+
+                                    <button type="button" @click="insertBriefAnswer()" style="margin-right: 20px;display: inline-block" class="btn btn-success  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe600;</i> 保存
+                                    </button>
+                                    <button type="reset"  style="margin-right: 20px;display: inline-block" class="btn btn-warning  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe68f;</i> 重置
+                                    </button>
+                                    <button type="button"  style="margin-right: 20px;display: inline-block" class="btn btn-primary  radius"  @click="btnQuery()">
+                                        <i class="iconfont icon-yulan icon-fontsize" ></i> 预览
+                                    </button>
+                                    <button type="button" style="margin-right: 20px;display: inline-block" class="btn btn-info radius"   data-toggle='modal' data-target='#importDialog'>
+                                        <i class="Hui-iconfont">&#xe645;</i>导入
+                                    </button>
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                    <!--机试题-->
+                    <div role="tabpanel" class="tab-pane" id="Boarding" style="padding: 20px">
+                        <div class="container-fluid">
+                            <form id="formBoarding"  method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    题&nbsp;&nbsp;&nbsp;目&nbsp;&nbsp;&nbsp;&nbsp;：
+                                    <div  class="topicName editor-container" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="boardingTopicName" contenteditable="true" >
+
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    知&nbsp;识&nbsp;点&nbsp;：
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  data-live-search="true" id="boarding_skillId1" >
+                                        <option value="-1">请选择</option>
+                                    </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  name="skillId" data-live-search="true"id="boarding_skillId2" > </select>
+                                    <!-- bootstrap select -->
+                                    <select class="selectpicker "  data-live-search="true" id="boarding_skillId3"> </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        图&nbsp;&nbsp;&nbsp;片&nbsp;&nbsp;&nbsp;&nbsp;：
+                                        <input type="file" id="topicImgBoarding" class="file-btn" name="topicImg"  style="display: inline-block"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    参考答案：
+                                    <input type="file" class="file-btn" id="boardingModelAnswer"  style="display: inline-block"/>
+                                </div>
+                                <div class="form-group">
+                                    试题解析：
+                                    <div  class="topicAnalysis" class="ql-container ql-snow" style="overflow: hidden">
+                                        <div  class="ql-editor" id="boardingTopicAnalysis" contenteditable="true" >
+                                        </div>
+                                        <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-left: 95px">
+
+                                    <button type="button"  @click="insertBoarding()" style="margin-right: 20px;display: inline-block" class="btn btn-success  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe600;</i> 保存
+                                    </button>
+                                    <button type="reset"  style="margin-right: 20px;display: inline-block" class="btn btn-warning  radius"   @click="btnQuery()">
+                                        <i class="Hui-iconfont">&#xe68f;</i> 重置
+                                    </button>
+                                    <button type="button"  style="margin-right: 20px;display: inline-block" class="btn btn-primary  radius"  @click="btnQuery()">
+                                        <i class="iconfont icon-yulan icon-fontsize" ></i> 预览
+                                    </button>
+                                    <button type="button" style="margin-right: 20px;display: inline-block" class="btn btn-info radius"   data-toggle='modal' data-target='#importDialog'>
+                                        <i class="Hui-iconfont">&#xe645;</i>导入
+                                    </button>
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script src="dist/katex.min.js"></script>
+<script src="dist/highlight.min.js"></script>
+<script src="dist/quill.js"></script>
+<script src="js/CurrentDateTime.js"></script>
+<!--引入Vue.js-->
+<script src="js/vue.js"></script>
+<script>
+    var selectArray=[];
+    var selectOne=[];
+    $(function () {
+        //下拉数据加载
+        $.post("http://localhost:8080/skill/selectSkillAll.do", {}, function (datas) {
+            //加入第一个父级别的下拉框
+            for (var i = 0; i < datas.length; i++) {
+                selectArray[i] = datas[i];
+                if (datas[i].fatherId == 0) {
+                    //如果fatherId=0则这个知识点是第一个下拉框要显示的东西
+                    selectOne[i] = datas[i];
+                    console.log("selectOne:" + selectOne[i].skillName);
+                    $("#choice_skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#fillIn_skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#judge_skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#briefAnswer_skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#boarding_skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#choice_skillId1").selectpicker('refresh');
+                    $("#fillIn_skillId1").selectpicker('refresh');
+                    $("#judge_skillId1").selectpicker('refresh');
+                    $("#briefAnswer_skillId1").selectpicker('refresh');
+                    $("#boarding_skillId1").selectpicker('refresh');
+                }
+            }
+        }, "json");
+        //切换选项卡事件
+    // $(function () {
+    //     alert("走了")
+    //     $("#tabCard a").click(function(e){
+    //         $("#choice_skillId1").options.selectedIndex = 0; //回到初始状态
+    //         $("#choice_skillId1").selectpicker('refresh');//对searchPayState这个下拉框进行重置刷新
+    //     });
+    // })
+        // //第一个下拉框的change事件
+        $("#choice_skillId1").change(function () {
+            var options = $("#choice_skillId1 option:selected"); //获取选中的项
+            var selectVal=options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("result:"+result)
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#choice_skillId2 option").remove();
+                $("#choice_skillId2").append(html);
+                $("#choice_skillId2").selectpicker('refresh');
+                selectSkill();
+            }, "json");
+        })
+
+        //第一个下拉框的change事件
+        $("#fillIn_skillId1").change(function () {
+            var options = $("#fillIn_skillId1 option:selected"); //获取选中的项
+            var selectVal=options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("result:"+result)
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#fillIn_skillId2 option").remove();
+                $("#fillIn_skillId2").append(html);
+                $("#fillIn_skillId2").selectpicker('refresh');
+                selectFillInSkill();
+            }, "json");
+        })
+        //第一个下拉框的change事件
+        $("#judge_skillId1").change(function () {
+            var options = $("#judge_skillId1 option:selected"); //获取选中的项
+            var selectVal=options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("result:"+result)
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#judge_skillId2 option").remove();
+                $("#judge_skillId2").append(html);
+                $("#judge_skillId2").selectpicker('refresh');
+                selectJudgeSkill();
+            }, "json");
+        })
+        //第一个下拉框的change事件
+        $("#briefAnswer_skillId1").change(function () {
+            var options = $("#briefAnswer_skillId1 option:selected"); //获取选中的项
+            var selectVal=options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("result:"+result)
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#briefAnswer_skillId2 option").remove();
+                $("#briefAnswer_skillId2").append(html);
+                $("#briefAnswer_skillId2").selectpicker('refresh');
+                selectBriefAnswerSkill();
+            }, "json");
+        })
+        //第一个下拉框的change事件
+        $("#boarding_skillId1").change(function () {
+            var options = $("#boarding_skillId1 option:selected"); //获取选中的项
+            var selectVal=options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("result:"+result)
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#boarding_skillId2 option").remove();
+                $("#boarding_skillId2").append(html);
+                $("#boarding_skillId2").selectpicker('refresh');
+                selectBoarDingSkill();
+            }, "json");
+        })
+
+        // //第二个下拉框的change事件
+        $("#choice_skillId2").change(function () {
+            selectSkill();
+        })
+        $("#fillIn_skillId2").change(function () {
+            selectFillInSkill();
+        })
+        $("#judge_skillId2").change(function () {
+            selectJudgeSkill();
+        })
+        $("#briefAnswer_skillId2").change(function () {
+            selectBriefAnswerSkill();
+        })
+        $("#boarding_skillId2").change(function () {
+            selectBoarDingSkill();
+        })
+
+        function selectSkill(){
+            var options = $("#choice_skillId2 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#choice_skillId3 option").remove();
+                $("#choice_skillId3").append(html);
+                $("#choice_skillId3").selectpicker('refresh');
+            }, "json");
+
+        }
+        function selectFillInSkill(){
+            var options = $("#fillIn_skillId2 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#fillIn_skillId3 option").remove();
+                $("#fillIn_skillId3").append(html);
+                $("#fillIn_skillId3").selectpicker('refresh');
+            }, "json");
+
+        }
+        function selectJudgeSkill(){
+            var options = $("#judge_skillId2 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#judge_skillId3 option").remove();
+                $("#judge_skillId3").append(html);
+                $("#judge_skillId3").selectpicker('refresh');
+            }, "json");
+
+        }
+        function selectBriefAnswerSkill(){
+            var options = $("#briefAnswer_skillId2 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#briefAnswer_skillId3 option").remove();
+                $("#briefAnswer_skillId3").append(html);
+                $("#briefAnswer_skillId3").selectpicker('refresh');
+            }, "json");
+
+        }
+        function selectBoarDingSkill(){
+            var options = $("#boarding_skillId2 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#boarding_skillId3 option").remove();
+                $("#boarding_skillId3").append(html);
+                $("#boarding_skillId3").selectpicker('refresh');
+            }, "json");
+
+        }
+
+    })
+</script>
+<script>
+    var app = new Vue({
+        el: "#appTopic",
+        data: {
+        },
+        methods: {
+            insertChoice(){
+                console.log("进入方法")
+                // var formData = new FormData(document.getElementById("formChoice"));//表单id
+                var formData = new FormData();//表单id
+                var topicName=$("#fillInTopicName").html();
+                var skillId=$("#choice_skillId3 option:selected").val();
+                var topicImg = $('#topicImgChoice').get(0).files[0]; //获取图片
+                var optionA=$("#choiceOptionA").html();
+                var optionB=$("#choiceOptionB").html();
+                var optionC=$("#choiceOptionC").html();
+                var optionD=$("#choiceOptionD").html();
+                var optionE=$("#choiceOptionE").html();
+                var optionF=$("#choiceOptionF").html();
+
+
+                var isEnabled= $('#isEnable input[name="isEnabled"]:checked ').val();
+                var modelAnswer=$("#choiceModelAnswer").html();
+                var topicAnalysis=$("#choiceTopicAnalysis").html();
+                formData.append("skillId",skillId);
+                formData.append("optionA",optionA);
+                formData.append("optionB",optionB);
+                formData.append("optionC",optionC);
+                formData.append("optionD",optionD);
+                formData.append("optionE",optionE);
+                formData.append("optionF",optionF);
+                formData.append("isEnabled",isEnabled);
+                formData.append("modelAnswer",modelAnswer);
+                formData.append("topicAnalysis",topicAnalysis);
+                formData.append("opicTypeId",9);
+                formData.append("topicName",topicName);
+                if(topicImg != null){
+                    if(topicImg.size > 5242880){
+                        alert('图片大小超过5M');
+                        return;
+                    }
+                    formData.append("topicImgFile",topicImg);
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/topic/insertTopic.do' ,
+                    type: 'post',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result == true){
+                            alert('添加成功');
+                        }
+                    }
+                })
+            },
+            insertFillIn(){
+                var formData = new FormData();//表单id
+
+                var topicName=$("#fillInTopicName").html();
+                var skillId=$("#fillIn_skillId3 option:selected").val();
+                var topicImg = $('#topicImgFillIn').get(0).files[0]; //获取图片
+                var isEnabled= 1;//默认为启用
+                var modelAnswer=$("#fillInModelAnswer").html();
+                var topicAnalysis=$("#fillInTopicAnalysis").html();
+                formData.append("skillId",skillId);
+
+                formData.append("isEnabled",isEnabled);
+                formData.append("modelAnswer",modelAnswer);
+                formData.append("topicAnalysis",topicAnalysis);
+                formData.append("opicTypeId",10);
+                formData.append("topicName",topicName);
+                if(topicImg != null){
+                    if(topicImg.size > 5242880){
+                        alert('图片大小超过5M');
+                        return;
+                    }
+                    formData.append("topicImgFile",topicImg);
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/topic/insertTopic.do' ,
+                    type: 'post',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result == true){
+                            alert('添加成功');
+                        }
+                    }
+                })
+            },
+            insertJudge(){
+                var formData = new FormData();//表单id
+
+                var topicName=$("#boardingTopicName").html();
+                var skillId=$("#boarding_skillId3 option:selected").val();
+                var topicImg = $('#topicImgBoarding').get(0).files[0]; //获取图片
+                var isEnabled= 1;//默认为启用
+                var modelAnswer=$('#').get(0).files[0];
+                alert("model:"+modelAnswer)
+                var topicAnalysis=$("#judgeTopicAnalysis").html();
+                formData.append("skillId",skillId);
+
+                formData.append("isEnabled",isEnabled);
+                formData.append("modelAnswer",modelAnswer);
+                formData.append("topicAnalysis",topicAnalysis);
+                formData.append("opicTypeId",11);
+                formData.append("topicName",topicName);
+                if(topicImg != null){
+                    if(topicImg.size > 5242880){
+                        alert('图片大小超过5M');
+                        return;
+                    }
+                    formData.append("topicImgFile",topicImg);
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/topic/insertTopic.do' ,
+                    type: 'post',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result == true){
+                            alert('添加成功');
+                        }
+                    }
+                })
+            },
+            insertBriefAnswer(){
+                var formData = new FormData();//表单id
+
+                var topicName=$("#briefAnswerTopicName").html();
+                var skillId=$("#briefAnswer_skillId3 option:selected").val();
+                var topicImg = $('#topicImgBriefAnswer').get(0).files[0]; //获取图片
+                var isEnabled= 1;//默认为启用
+                var modelAnswer=$('#briefAnswerModelAnswer').html();
+                var topicAnalysis=$("#briefAnswerTopicAnalysis").html();
+                formData.append("skillId",skillId);
+
+                formData.append("isEnabled",isEnabled);
+                formData.append("modelAnswer",modelAnswer);
+                formData.append("topicAnalysis",topicAnalysis);
+                formData.append("opicTypeId",12);
+                formData.append("topicName",topicName);
+                if(topicImg != null){
+                    if(topicImg.size > 5242880){
+                        alert('图片大小超过5M');
+                        return;
+                    }
+                    formData.append("topicImgFile",topicImg);
+
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/topic/insertTopic.do' ,
+                    type: 'post',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result == true){
+                            alert('添加成功');
+                        }
+                    }
+                })
+            },
+            insertBoarding(){
+                var formData = new FormData();//表单id
+
+                var topicName=$("#boardingTopicName").html();
+                var skillId=$("#boarding_skillId3 option:selected").val();
+                var topicImg = $('#topicImgBoarding').get(0).files[0]; //获取图片
+                var isEnabled= 1;//默认为启用
+                var modelAnswer=$('#boardingModelAnswer').get(0).files[0];
+                var topicAnalysis=$("#boardingTopicAnalysis").html();
+                formData.append("skillId",skillId);
+
+                formData.append("isEnabled",isEnabled);
+
+                formData.append("topicAnalysis",topicAnalysis);
+                formData.append("opicTypeId",13);
+                formData.append("topicName",topicName);
+                if(topicImg != null||modelAnswer!=null){
+                    if(topicImg.size > 5242880||modelAnswer.size > 5242880){
+                        alert('图片大小超过5M');
+                        return;
+                    }
+                    formData.append("topicImgFile",topicImg);
+                    formData.append("modelAnswerFile",modelAnswer);
+                    console.log(modelAnswer)
+                }
+                $.ajax({
+                    url: 'http://localhost:8080/topic/insertTopicBoarding.do' ,
+                    type: 'post',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result == true){
+                            alert('添加成功');
+                        }
+                    }
+                })
+            }
+
+            //页面加载时调用
+        }, created() {
+        }
+    })
+
+</script>
+
+
+
+</html>
+

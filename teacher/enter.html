@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .main {
+            user-select: none;
+            position: relative;
+            background-color: #dcdcdc;
+            width: 1020px;
+            height: 610px;
+            margin: 25px auto;
+        }
+
+        .number {
+            line-height: 30px;
+            letter-spacing: 2px;
+            margin-left: 30px;
+            width: 150px;
+            height: 30px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .leftDiv {
+            margin-left: 10px;
+            float: left;
+            background-color: white;
+            width: 700px;
+            height: 550px;
+        }
+
+        .top {
+            background-color: #eff2f6;
+            width: 700px;
+            height: 50px;
+        }
+
+        .whiteBoard {
+            float: left;
+            text-align: center;
+            font-size: 15px;
+            line-height: 50px;
+            width: 50px;
+            height: 48px;
+            border-bottom: 2px solid #328ec9;
+            margin-left: 35px;
+        }
+
+        .shareScreen {
+            float: left;
+            text-align: center;
+            font-size: 15px;
+            line-height: 50px;
+            width: 101px;
+            height: 48px;
+            /*border-bottom: 2px solid #328ec9; 下边框*/
+            margin-left: 10px;
+        }
+
+        .rightDiv {
+            float: left;
+            background-color: #424242;
+            margin-left: 30px;
+            width: 270px;
+            height: 550px;
+        }
+
+        .video {
+            width: 270px;
+            height: 110px;
+        }
+
+        .video img {
+            width: 134px;
+            height: 110px;
+            float: left;
+            display: inline-block;
+        }
+
+        .img2 {
+            width: 134px;
+            height: 110px;
+            margin-left: 2px;
+        }
+
+        .nav {
+            background-color: #eff2f6;
+            height: 48px;
+            width: 270px;
+        }
+
+        .member {
+            border-bottom: 2px solid #328ec9;
+            line-height: 50px;
+            text-align: center;
+            font-size: 15px;
+            float: left;
+            width: 134px;
+            height: 46px;
+        }
+
+        .talk {
+            border: 0px;
+            width: 270px;
+            height: 280px;
+            background-color: white;
+        }
+
+        .center {
+            border: 0px;
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 280px;
+        }
+
+        .chatList {
+            border: 0px;
+            font-size: 16px;
+            width: 103%;
+            height: 200px;
+            overflow: hidden;
+            padding-left: 8px;
+            overflow-y: scroll;
+        }
+
+        .bottom textarea {
+            text-indent: 5px;
+            border: 0px;
+            outline: none;
+            width: 266px;
+            height: 76px;
+            font-size: 14px;;
+            vertical-align: middle;
+            border-top: 2px solid #cccccc;
+            background: #f6f6f6;
+        }
+
+        .bottom input {
+            outline: none;
+            position: absolute;
+            right: 10px;
+            bottom: 5px;
+            width: 70px;
+            height: 30px;
+            cursor: pointer;
+            line-height: 30px;
+            color: white;
+            font-size: 13px;
+            background-color: #3599d7;
+            border-radius: 100px;
+            border: 1px solid;
+        }
+
+        .members {
+
+        }
+
+        .left {
+            position: absolute;
+            right: 30px;
+            top: 5px;
+            letter-spacing: 2px;
+            margin-left: 30px;
+            width: 100px;
+            height: 20px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .overflow {
+            font-size: 16px;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        #content::-webkit-input-placeholder {
+            line-height: 25px;
+            font-size: 13px;
+            color: #c6c6c6;
+        }
+
+        .tools {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            position: absolute;
+            bottom: 30px;
+            margin-left: 255px;
+            width: 200px;
+            height: 33px;
+            background-color: #393939;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body onload="loadTime()">
+<div class="main">
+    <div class="number">房间号:13139944</div>
+    <div class="left" id="left"></div>
+    <div class="leftDiv">
+        <div class="top">
+            <div class="whiteBoard">白板</div>
+            <div class="shareScreen">屏幕共享</div>
+            <div class="tools"></div>
+        </div>
+    </div>
+    <div class="rightDiv">
+        <div class="video">
+            <img src="img/video.png" alt="">
+            <img class="img2" src="img/video.png" alt="">
+        </div>
+        <div class="video" style="margin-top: 2px">
+            <img src="img/video.png" alt="">
+            <img class="img2" src="img/video.png" alt="">
+        </div>
+        <div class="nav">
+            <div class="member">讨论</div>
+            <div class="member" style="margin-left: 2px;border-bottom: none">成员</div>
+        </div>
+        <div class="talk">
+            <div class="center" id="center">
+                <div class="overflow">
+                    <div class="chatList" id="chatList">
+                    </div>
+                </div>
+                <div class="bottom">
+                    <textarea style="resize: none" placeholder="和大家一起愉快聊天" id="content" name="content"></textarea>
+                    <input type="button" name="send" id="send" value="发 送" onclick="sendMessage()"/>
+                </div>
+            </div>
+        </div>
+        <div class="members"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    //  document.getElementById("chatList").scrollHeight;
+    /*
+     添加敏感字替换成**---8.10
+     * */
+    function loadTime() {
+        var time = new Date();
+
+        var hours = (time.getHours()).toString();
+        if (hours.length < 2) {
+            hours = "0" + hours;
+        }
+        var minutes = (time.getMinutes()).toString();
+        if (minutes.length < 2) {
+            minutes = "0" + minutes;
+        }
+        var seconds = (time.getSeconds()).toString();
+        if (seconds.length < 2) {
+            seconds = "0" + seconds;
+        }
+        var timeReturn = +hours + ":" + minutes + ":" + seconds;
+        document.getElementById("left").innerHTML = timeReturn;
+        return timeReturn;
+    }
+    setInterval("loadTime()", 1000);
+    var chatContents = "";
+    var count = 0;
+    function sendMessage() {
+        //通过调用randomName()函数来得到一个随机的名字
+        var name = randomName();
+        //通过调用randomColor()函数来得到一个随机的颜色
+        var colorR = randomColor();
+        //得到textarea中的内容
+        var content = document.getElementById("content").value;
+        //判断输入内容是否为空
+        if (content == "") {
+            return;
+        }
+        //通过正则表达式来获取要替换的字符串
+        var regExp = /藏独|台独|傻逼|你大爷/g;
+        var regExp1 = /开心/g;
+        var regExp2 = /尴尬/g;
+//   var imgReplace = content.replace(regExp,"高兴");
+        //获取开心图片路径
+        var path1 = '<img src="img/chui.png"/>';
+        //获取尴尬图片的路径
+        var path2 = '<img src="img/mouse.png"/>';
+        //敏感字替换；
+        content = content.replace(regExp, "***");
+        //将开心替换成开心图片的字符串；
+//   txtReplace(content);
+        var imgReplace = content.replace(regExp1, path1);
+//   alert(imgReplace);
+        //将尴尬替换成尴尬图片的字符串；
+        imgReplace = imgReplace.replace(regExp2, path2);
+//   alert(imgReplace);
+        var chatContent = "<span>" + name + ":" + "</span>" + " " + imgReplace;
+//   字符串拼接聊天记录
+        chatContents = chatContents + chatContent + " " + loadTime() + "<br/>";
+        document.getElementById("chatList").innerHTML = chatContents;
+        //点击发送后，textarea中的内容设为空
+        document.getElementById("content").value = "";
+        var txtColor = document.getElementsByTagName("span")[count];
+        count++;
+        //设置span的随机颜色
+        txtColor.style.color = colorR;
+    }
+    function randomName() {
+        var i = parseInt(Math.random() * (6 - 0 + 1) + 0);
+        var arrName = new Array("果果", "六六", "格格", "明明", "小花", "兰兰", "花花");
+        return arrName[i];
+    }
+    function randomColor() {
+        var r = parseInt(Math.random() * (255 - 0 + 1) + 0).toString(16);
+        if (r.length < 2) {
+            r = "0" + r;
+        }
+        var g = parseInt(Math.random() * (255 - 0 + 1) + 0).toString(16);
+        if (g.length < 2) {
+            g = "0" + g;
+        }
+        var b = parseInt(Math.random() * (255 - 0 + 1) + 0).toString(16);
+        if (b.length < 2) {
+            b = "0" + b;
+        }
+        return "#" + r + g + b;
+    }
+</script>
+</body>
+</html>

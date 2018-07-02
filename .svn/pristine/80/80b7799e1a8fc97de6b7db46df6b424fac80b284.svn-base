@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/jquery-labelauty.css"/>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+        #editor-container {
+            heighst: 400px;
+        }
+    </style>
+
+    <style>
+
+        .check .dowebok ul {
+            list-style-type: none;
+        }
+
+        .check .dowebok li {
+            display: inline-block;
+        }
+
+        .check .dowebok li {
+            margin: 0.5% 5px;
+        }
+
+        .check .dowebok2 li {
+            display: inline-block;
+        }
+
+        input.labelauty + label {
+            display: inline-block;
+            width: 100px;
+            font: 12px "Microsoft Yahei";
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        .panel-default {
+            position: relative;
+            width: 70%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        .title {
+            display: inline-block;
+            left: 20px;
+            margin: 20px 0px 20px 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .on {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: left;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: red;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        #last {
+            text-align: center;
+        }
+
+        #scroll {
+            position: fixed;
+            top: 300px;
+            right: 100px;
+
+        }
+
+        .scrollItem {
+            width: 20px;
+            height: 70px;
+            border: #e1e1e1 1px solid;
+            cursor: pointer;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 9px;
+        }
+
+        .check .dowebok {
+            white-space: normal;
+            text-align: left;
+            margin: 30px;
+        }
+
+        .check .dowebok2 {
+            white-space: normal;
+            text-align: left;
+            margin: 30px 150px 10px;
+        }
+
+        .check .dowebok2 ul li {
+            margin: 0px 20px;
+        !important;
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        .container .qxfx {
+            position: absolute;
+            display: inline-block;
+            padding-left: 58.5%;
+            top: 4%;
+        }
+
+        #history_home {
+            position: absolute;
+            top: -10px;
+            width: 150%;
+            height: 225px;
+            margin: 10px auto;
+            padding: 5px;
+            padding-right: 12px;
+            overflow: hidden;
+            border: 1px solid #ece7e4;
+            border-radius: 3%;
+        }
+
+        #history_home button {
+            margin-bottom: 5px;
+        }
+
+        #history_home button {
+            width: 100%;
+            display: block;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+    </style>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        #noticeInfo {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        button {
+
+        }
+
+        .form-inline {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        #btnAddAnn {
+            float: right;
+            text-align: center;
+        }
+
+        #nav {
+            width: 90%;
+            margin: 0px auto;
+
+        }
+
+        .iconfont {
+            font-size: 12px;
+
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#btnInsert").click(function () {
+                window.location.href = "addFollow-visit.html";
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid" style="padding: 20px">
+    <div class="content-panel">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="announcementTitle">学生姓名</label>
+                <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入学生姓名">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <label for="slpk02">选择班级:</label>
+            <select class="selectpicker" data-live-search="true" id="slpk02">
+                <option value="">TCMP058</option>
+                <option value="">TCMP059</option>
+                <option value="">TCMP060</option>
+                <option value="">TCMP062</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+            <button type="button" class="btn btn-primary radius" id="btnAddAnn" data-toggle="modal"
+                    data-target="#addNotice">
+                <i class="Hui-iconfont">&#xe600;</i> 新增
+            </button>
+        </form>
+        <table class="table table-hover table-striped" id="noticeInfo">
+            <tr class="table-one">
+                <td>学生姓名</td>
+                <td>班级名称</td>
+                <td>回访标题</td>
+                <td>回访时间</td>
+                <td>回访方式</td>
+                <td>操作</td>
+            </tr>
+            <tr>
+                <td>林方政</td>
+                <td>TCMP058</td>
+                <td>阶段性回访</td>
+                <td>2018-05-24</td>
+                <td>电话联系</td>
+                <td>
+                    <button class="btn btn-xs btn-success" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%">继续回访
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-xs btn-info" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%"><i class="iconfont icon-yulan"></i>查看
+                    </button></td>
+            </tr>
+            <tr>
+                <td>黄宝霖</td>
+                <td>TCMP058</td>
+                <td>阶段性回访</td>
+                <td>2018-05-14</td>
+                <td>微信联系</td>
+                <td>
+                    <button class="btn btn-xs btn-success" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%">继续回访
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-xs btn-info" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%"><i class="iconfont icon-yulan"></i>查看
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>黄宝霖</td>
+                <td>TCMP058</td>
+                <td>阶段性回访</td>
+                <td>2018-05-14</td>
+                <td>微信联系</td>
+                <td>
+                    <button class="btn btn-xs btn-success" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%">继续回访
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-xs btn-info" data-toggle="modal"
+                            data-target="#see" style="margin-left: 4%"><i class="iconfont icon-yulan"></i>查看
+                    </button>
+                </td>
+            </tr>
+
+        </table>
+        <div id="nav">
+            <div id="pageList" style="float: right;margin-top: 20px">
+                <a class="btn btn-default" id="sy" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="syy" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="xyy" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-default" id="wy" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <!--新增公告模态框-->
+    <div class="modal fade bs-example-modal-lg" id="addNotice" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header"  style="background-color: #ffffff;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><span style="color: #000000">添加回访信息</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访标题:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="announcementTitle1"
+                                   name="annTitle"
+                                   placeholder="请输入公告标题" style="width: 95%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访时间:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="releaseTime" name="releaseTime"
+                                   placeholder="请输入回访时间">
+                        </div>
+                        <label class="col-sm-2 control-label">回访方式</label>
+                        <div class="col-sm-4">
+                            <select id="selectpicker" class="selectpicker">
+                                <option value="">请选择</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                                <option value="">TCMP058</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="releaseTime" class="col-sm-2 control-label">回访学生:</label>
+                        <div class="check" style="margin-left: 5%">
+                            <ul class="dowebok">
+                                <li><input type="checkbox" name="checkbox" data-labelauty="黄保霖"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="李浩"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="马冰洋"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="张三"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="李四"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="张三丰"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="贾瑞"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="马守斌"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="张三丰"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="崔佳伟"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="阿霖"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="朱凯丽"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="麦兜"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="孙天杨"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="战斗"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="大苏打"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="搜索"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="战歌"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="张园园"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="王元"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="王云"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="杨海云"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="说的"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="额度"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="官方"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="但是"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="欸额"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="地方"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="李四"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="施工方"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="撒"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="说的"></li>
+                                <li><input type="checkbox" name="checkbox" data-labelauty="二"></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访内容:</label>
+                        <div class="col-sm-10">
+                            <textarea rows="10" class="form-control" id="home_text" style="width: 95%"></textarea>
+                        </div>
+                    </div>
+
+
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="see" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-color: #ffffff;" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id=""><span style="color: #000000">查看回访信息</span></h4>
+                </div>
+                <form class="form-horizontal" style="margin-top: 15px">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访标题:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="announcementTitle2"
+                                   name="annTitle"
+                                   style="width: 95%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访时间:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="releaseTime2" name="releaseTime"
+                            >
+                        </div>
+                        <label class="col-sm-2 control-label">回访方式</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="releaseTime4" name="releaseTime"
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="releaseTime" class="col-sm-2 control-label">回访学生:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="releaseTime3" name="releaseTime"
+                            >
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回访内容:</label>
+                        <div class="col-sm-10">
+                            <textarea rows="10" class="form-control" id="home_text4" style="width: 95%"></textarea>
+                        </div>
+                    </div>
+
+
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                    </button>
+                    <button class="btn btn-warning" data-dismiss="modal">
+                        <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-labelauty.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(':input').labelauty();
+    });
+</script>
+</html>

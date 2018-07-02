@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>微云·家校互动平台</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+</head>
+<style>
+    .form-login-heading {
+        position: relative;
+    }
+
+    .logo-right {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+    }
+
+    #myModal .modal-content {
+
+        height: 600px;
+    }
+
+    canvas {
+        left: 0px;
+        position: absolute;
+    }
+
+</style>
+
+<body>
+<div id="login-page">
+    <div class="container">
+        <!--人脸识别模态框-->
+        <div class="modal fade" id="myModal" aria-hidden="true" data-backdrop="static" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel" style="display: inline-block">人脸识别 ▪ 登录</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body" style="position: relative">
+                        <!--内容-->
+                        <p>请将头部放在视频区域内,匹配成功将会自动登入系统</p>
+                        <p style="color: red">如果视频内未出现识别框或长时间未响应<a onclick="faceRecognition()"
+                                                                   style="cursor: pointer">请单击此处</a></p>
+
+                        <video id="video" width="420" height="340" preload autoplay loop
+                               muted></video>
+                        <canvas id="canvas" width="420" height="340"></canvas>
+                        <div class="modal-body-right" style="display: inline-block">
+
+                            <p class="navbar-text">
+                                1.请先确保摄像头设备已连接并能正常工作；<br/>
+                                2.请保持光源充足，不要逆光操作；<br/>
+                                3.请保证脸部正面面向摄像头，并适当调整姿势保证整个脸部能够进入识别画面；<br/>
+                                4.系统识别通过后，将自动跳转进入系统；<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <form class="form-login" method="post" name="login" id="login">
+            <h2 class="form-login-heading">微云·家校互动平台</h2>
+            <div class="login-wrap">
+                <input type="text" name="teacherName" class="form-control" placeholder="用户名" autofocus>
+                <br>
+                <input type="password" name="password" class="form-control" placeholder="输入密码">
+                <label class="checkbox">
+		                <span class="pull-right">
+                             <!--<a data-toggle="modal" href="login.html#myRegina"> 注册?</a>-->
+                            <a  id="loginRight" data-toggle="modal"
+                            data-target="#myModal"> 人脸登录</a>
+                            &nbsp;
+		                    <a href="#" onclick=""> 忘记密码?</a>
+		
+		                </span>
+                </label>
+                <button class="btn btn-theme btn-block" id="btnQuery" type="button"><i class="fa fa-lock"></i>
+                    登录
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<script src="assets/js/jquery.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+<script>
+    $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+</script>
+<script>
+
+    $(function () {
+
+        $("#btnQuery").click(function () {
+
+            var date = $("#login").serialize();
+            if (/=(&|$)/.test(date)) {
+                $("#error").css('display', 'inline');
+            } else {
+                $.post("http://localhost:8080/teacher/selectTeacherCount.do", date, function (result) {
+                   console.log(result);
+                    if (result.isEnabled  == 1) {
+                        var teacherId = result.teacherId;
+                        var teacherName = result.teacherName;
+                        localStorage.setItem("id", teacherId)
+                        localStorage.setItem("name", teacherName)
+                        console.log(localStorage.getItem("id"))
+                        console.log(localStorage.getItem("name"))
+//                        location.href = 'home.html';
+                        console.log('ok')
+                    } else {
+                        alert("用户名或密码不正确");
+                    }
+
+
+                }, "json")
+            }
+
+//
+
+
+        });
+        $("#loginRight").click(function () {
+            faceRecognition();
+        });
+
+    });
+
+    //人脸识别方法
+    function faceRecognition() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, {
+            camera: true
+        });
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            event.data.forEach(function (rect) {
+                //检测到人脸了
+                while (i >= 0) {
+                    i--;
+                    console.log("检测到人脸了");
+
+                    //去数据库查询
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                    //getRenLianBase64.do
+                    // console.log(canvas.toDataURL())
+                    $.post("http://localhost:8080/teacher/getRenLianBase64.do", {"base": canvas.toDataURL()}, function (date) {
+                        console.log(date);
+                        if (date.result != null) {
+                            if (date.result[0].scores > 80) {
+                                console.log("匹配成功")
+                                $.post("http://localhost:8080/teacher/selectTeacherByTeacherUUIDTest.do", {"teacherUUID": date.result[0].uid}, function (data) {
+                                    if (data != "" && data != null) {
+
+                                        var teacherId = data.teacherId;
+                                        var teacherName = data.teacherName;
+                                        localStorage.setItem("id", teacherId)
+                                        localStorage.setItem("name", teacherName)
+                                        location.href = "home.html";
+                                    } else {
+                                        alert("您的账号已到期!请重新注册");
+                                    }
+                                }, "json")
+                            } else {
+                                alert("匹配失败！您还未采摘人脸，请先使用账号密码登录采摘人脸方可使用");
+                            }
+                        } else {
+                            alert("匹配失败！您还未采摘人脸，请先使用账号密码登录采摘人脸方可使用");
+                        }
+                    }, "json");
+                    // $.post("http://" + lo + ":8080/teacher/selectTeacherByTeacherUUIDTest", {"base": canvas.toDataURL()}, function (date) {
+                    //
+                    // }, "json");
+
+
+                }
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                context.font = '11px Helvetica';
+                context.fillStyle = "#fff";
+                context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+            });
+        });
+    }
+</script>
+
+<script>
+
+
+</script>
+</body>
+</html>

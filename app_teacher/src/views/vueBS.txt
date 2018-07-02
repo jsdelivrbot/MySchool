@@ -1,0 +1,46 @@
+<template>
+     <div class="bscroll" ref="wrapper">
+        <div class="bscroll-container">
+
+        </div>
+    </div>
+</template>
+
+<script type="text/ecmascript-6">
+    import Bscroll from "better-scroll";
+    //将渲染的内容导出
+    export default{
+        data(){
+            return {}
+        },
+        methods: {},
+        components: {},
+         mounted(){
+           this.$nextTick(() => {
+            this.scroll = new Bscroll(this.$refs.wrapper, {
+                bounce: true,
+                momentumLimitDistance: 5
+                })
+            });
+        },
+
+    }
+</script>
+
+<style>
+    /**渲染内容的样式**/
+.bscroll{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 50px;
+    top: 140px;
+    left: 0;
+    background:#f8f5f5;
+}
+.bscroll-container{
+    height: 800px;
+    width: 100%;
+    background: #ffffff;
+}
+</style>

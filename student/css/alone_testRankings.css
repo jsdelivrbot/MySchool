@@ -1,0 +1,42 @@
+
+
+.phb, .phb2 td {
+    color: #848484;
+    font-weight: bold;
+}
+
+.closeExam {
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    font-size: 12px;
+    -webkit-border-radius: 5px;
+    background-color: #bb4744;
+    position: fixed;
+    right: 200px;
+    bottom: 50px;
+    color: #FFFFFF;
+    box-shadow: 1px 1px 1px 1px #dbdbdb;
+    cursor: pointer;
+}
+
+.returnTop {
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    font-size: 12px;
+    -webkit-border-radius: 5px;
+    background-color: #957de4;
+    position: fixed;
+    right: 130px;
+    bottom: 50px;
+    color: #FFFFFF;
+    box-shadow: 1px 1px 1px 1px #dbdbdb;
+    cursor: pointer;
+}

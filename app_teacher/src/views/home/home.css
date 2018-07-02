@@ -1,0 +1,235 @@
+#home{
+    width: 100%;
+  }
+  #home-main{
+    width: 100%;
+    background: #ffffff;
+  }
+
+  /* 班级出勤 */
+.home-main-mkTitle-p{
+    padding-left:5px;
+    /* border-left: 2px solid #cccccc; */
+    color: #333333;
+    font-size: 1.5rem;
+    line-height: 40px;
+    background: #f3f3f3;
+    margin-top: 2px;
+    border: none;
+}   
+.home-main-bjkq{
+    padding:12px;
+    background: #FFFFFF;
+    border-top: 1px solid #d4d2d2;  
+    border-bottom: 1px solid #d4d2d2;      
+}
+.home-main-bjkq img{
+    width: 100px;
+    margin: 0 auto;
+    display: block;
+}
+
+.home-main-bjkq-ft{
+    height:50px;
+    margin-top: 10px;
+}
+.home-main-bjkq-ftx{
+    width: 20%;
+    text-align: center;
+    float: left;
+}
+.home-main-bjkq-ftx1{
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+}
+.home-main-bjkq-ftx2{
+    font-size:1.3rem;
+    line-height:20px;
+    height: 20px;
+    color: #333;
+    font-weight: 700;
+}
+.home-main-bjkq-ftx3{
+    font-size: 1.2rem;
+    line-height: 10px;
+    color: #666;
+}
+
+.toWorkb1{
+	background: #00CE7A;
+}
+.toWorkb2{
+	background: #00B6E4;
+}
+.toWorkb3{
+	background: #4DCCEC;
+}
+.toWorkb4{
+	background: #95E1F3;
+}
+.toWorkb5{
+	background: #BEECF7;
+}
+.home-main-bjkq-no {
+    height: 120px;
+    width: 100%;
+    border-top: 1px solid #d4d2d2;      
+    border-bottom: 1px solid #d4d2d2;      
+}
+.home-main-bjkq-no .bjkq-no{
+    background-color: #ffffff;
+    height: 80px;
+    width: 70%;
+    margin: 20px auto;
+    -webkit-border-radius: 5%;
+    box-shadow: 5px 5px 3px #b4b4b4;
+    border: 1px solid #e0e0e0;
+    
+}
+
+.home-main-bjkq-no .bjkq-no img{    
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin: 20px 0;
+    margin-left: 12px;
+}
+.home-main-bjkq-no .bjkq-no p{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin: 20px 0;
+    font-size: 1.5rem;
+    margin-left: 6px;
+}
+
+.bscroll-home{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 65px;
+    bottom: 50px;
+    left: 0;
+    background: #f3f3f3;
+  }
+  .bscroll-container-home{
+    width: 100%;
+    background: #ffffff;
+  }
+#home .mint-tab-item-label{
+    font-size: 1.4rem;
+}
+
+.zywc{
+    padding: 20px 20px 20px 20px;
+    background: #FFFFFF;overflow: hidden;
+}
+.zywc-tit{
+    text-align: center;
+    font-size: 1.5rem;
+    color: #666666;
+}
+.zywc-tit span{
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+.zywc-hx{
+    height: 1px;
+    background: #cccccc;
+    margin-top: 20px;
+}
+.zywc-lt{
+    width: 49%;
+    float: left;
+    margin-top: 20px;
+    text-align: center;
+}
+.zywc-lt p{
+    color: #00B6E4;
+    font-size: 1.8rem;
+}
+.zywc-lt div{
+    color: #666666;
+    font-size: 1.2rem;
+}
+.zywc-sx{
+    float: left;
+    width: 1px;
+    height: 30px;
+    background: #CCCCCC;
+    margin-top: 20px;
+}
+.zywc-rt{
+    width: 49%;
+    float: right;
+    margin-top: 20px;
+    text-align: center;
+}
+.zywc-rt p{
+    color: #ff9c4c;
+    font-size: 1.8rem;
+}
+.zywc-rt div{
+    color: #666666;
+    font-size: 1.2rem;
+}
+
+/*//动画区域*/
+.xmmc-rt{
+    float: right;
+    width: 2.06rem;
+}
+.m-progress {
+    position: relative;
+    width: 1.57rem;
+    height: 1.57rem;
+    overflow: hidden;
+    margin: 0 auto 0.2rem;
+    text-align: center;
+    border-radius: 50%;
+    border: 3px solid #7BCAFF;
+    font-size: 0.45rem;
+    color: #2DA1EC;
+    color: rgba(45, 161, 236, 0.7);
+    line-height: 0.92rem;
+}
+.progress-numb {
+    position: absolute;
+    z-index: 9;
+    width: 100%;
+    text-align: center;
+    
+}
+.white {
+    color: #fff;
+}
+.wave {
+    width: 2rem;
+    height: 0.4rem;
+    position: absolute;
+    bottom: -0.2rem;
+    background-color: #00b5ff;
+    
+}
+.wave:after {
+        position: absolute;
+        top: -0.28rem;
+        left: 0;
+        width: 2rem;
+        height: 0.4rem;
+        background: url(/wave-bg.png) repeat-x;
+        background-size: auto 0.4rem;
+        -webkit-animation: waving 4s infinite linear;
+        animation: waving 4s infinite linear;
+        content: "";
+    }
+
+@-webkit-keyframes waving {
+    from { background-position: 0 0; } to { background-position: 100% 0; }
+}
+
+@keyframes waving {
+    from { background-position: 0 0; } to { background-position: 100% 0; }
+}

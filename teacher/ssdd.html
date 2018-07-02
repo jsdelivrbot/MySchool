@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.table2excel.js"></script>
+    <script type="text/javascript" src="js/jquery.table2excel.min.js"></script>
+
+
+    <script>
+        var pageCount = 1;
+        function getJson() {
+            var data = $("#viperForm").serialize();
+            // alert(data);
+            $.post("http://localhost:8080/custromjl/selectStudentCustromjlPage.do", data, function (result) {
+                console.log(result);
+                console.log("返回结果" + result);
+                pageCount = result.page.pageCount;
+                var viper = "";
+                for (var i = 0; i < result.custoromjlAndStudentList.length; i++) {
+                    viper += "<tr> <td> </td><td>" + result.custoromjlAndStudentList[i].avg + "</td> <td>" + result.custoromjlAndStudentList[i].studentName + "</td> <td>" + result.custoromjlAndStudentList[i].pjf + "</td> <td>" + result.custoromjlAndStudentList[i].jgsl + "</td> <td>" + result.custoromjlAndStudentList[i].customId + "</td> <td>" + result.custoromjlAndStudentList[i].studentId + "</td> <td>" + result.custoromjlAndStudentList[i].count + "</td> <td class='td-status'> <span class='layui-btn layui-btn-normal layui-btn-mini' onclick='checkPlan(" + result.custoromjlAndStudentList[i].count + ");'>查看健身计划</span><span class='layui-btn layui-btn-normal layui-btn-mini' onclick='editViper(" + result.custoromjlAndStudentList[i].count + ");'>编辑会员信息</span></td></tr>";
+                }
+                $("#viperTable tr:gt(0)").remove();//删除第一行后面的数据
+                $("#viperTable").append(viper);
+            }, "json");
+        }
+        $(function () {
+            getJson();
+        })
+        function toExcel() {
+            $("#example").table2excel({
+                exclude: ".noExl",
+                name: "Excel Document Name",
+                filename: "会员列表数据.xlsx",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        }
+    </script>
+</head>
+
+<body>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" id="viperForm">
+            <!--隐藏域-->
+            <input type="hidden" name="pageIndex" value="1" id="pageIndex">
+            <button class="layui-btn" id="btnQuery"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <!--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>-->
+        <button class="layui-btn" onclick="x_admin_show('添加用户','./viper-add.html',680,650)"><i class="layui-icon"></i>添加
+        </button>
+        <button class="layui-btn" onclick="toExcel()"><i class="layui-icon"></i>转储为Excel
+        </button>
+        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+    </xblock>
+    <table class="layui-table display" id="example">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">
+                    &#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>性别</th>
+            <th>手机</th>
+            <th>会员生日</th>
+            <th>地址</th>
+            <th>加入时间</th>
+            <th>状态</th>
+            <!-- <th>操作</th>-->
+        </tr>
+        </thead>
+        <tbody id="viperTable">
+        <tr>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>

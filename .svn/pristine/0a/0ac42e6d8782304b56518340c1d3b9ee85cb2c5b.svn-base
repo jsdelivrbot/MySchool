@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .main {
+            user-select: none;
+            border: 1px solid #cccccc;
+            margin: 100px auto;
+            height: 430px;
+            width: 751px;
+            background-color: #2c2c2c2c;
+        }
+
+        .mainLeft {
+            text-align: center;
+            background-color: white;
+            float: left;
+            width: 375px;
+            height: 430px;
+        }
+        .mainLeft img{
+            margin-top: 100px;
+            width: 140px;
+            height: 100px;
+        }
+        .mainRight img{
+            margin-top: 100px;
+            width: 140px;
+            height: 100px;
+        }
+
+        .mainRight {
+            background-color: white;
+            margin-left: 1px;
+            float: left;
+            width: 375px;
+            height: 430px;
+            text-align: center;
+        }
+
+        input::-webkit-input-placeholder{
+            font-size: 16px;
+            color: #d6d6d6;
+        }
+        .input {
+            outline: none;
+            font-size: 16px;
+            margin-left: 78px;
+            display: block;
+            border: 0px;
+            border-bottom: 2px solid #cccccc;
+            margin-top: 30px;
+            width: 220px;
+            height: 45px;
+        }
+
+        .button {
+            cursor: pointer;
+            box-shadow:1px 1px 15px #cccccc;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            background-color: #3599d7;
+            border-radius: 100px;
+            margin-top: 20px;
+            margin-left: 100px;
+            width: 180px;
+            height: 40px;
+        }
+
+        .small {
+            letter-spacing: 2px;
+            color: #636363;
+            font-size: 13px;
+            margin-left: 50px;
+            margin-top: 50px;
+            width: 285px;
+            height: 20px;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="mainLeft">
+        <img src="img/left-1.png" alt="">
+        <input class="input" type="text" placeholder="请输入房间名称">
+        <div class="button"><a href="enter.html">创建房间</a></div>
+    </div>
+    <div class="mainRight">
+        <img src="img/right-1.png" alt="">
+        <input class="input" type="text" placeholder="请输入房间ID号码">
+        <div class="button"><a href="enter.html">加入房间</a></div>
+        <div class="small">注 : 房间ID为创建房间后，生成的8位数字</div>
+    </div>
+</div>
+</body>
+</html>

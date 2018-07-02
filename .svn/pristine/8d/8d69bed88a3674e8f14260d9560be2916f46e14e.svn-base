@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/themes/quill.snow.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+    <style>
+        .panel-default {
+            position: relative;
+            width: 70%;
+            height: auto;
+            margin: 0px auto;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            margin: 0px auto;
+        }
+
+        .form-horizontal {
+            margin-top: 20px;
+        }
+
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px white inset;
+        }
+
+        .form-control {
+            width: 80%;
+        }
+
+        #attachment {
+            line-height: 100%;
+            font-size: 14px;
+        }
+
+        #last {
+            text-align: center;
+        }
+
+        button {
+            width: 70px;
+        }
+
+        #editor-container {
+            height: 310px;
+        }
+
+        /*日期控件*/
+        .datainp {
+            width: 200px;
+            height: 30px;
+            border: 1px #ccc solid;
+        }
+    </style>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            if ($("meta[name=toTop]").attr("content") == "true") {
+                $("<div id='toTop'><img src='img/1.png'></div>").appendTo('body');
+                $("#toTop").css({
+                    width: '50px',
+                    height: '50px',
+                    bottom: '10px',
+                    right: '15px',
+                    position: 'fixed',
+                    cursor: 'pointer',
+                    zIndex: '999999',
+                });
+                if ($(this).scrollTop() == 0) {
+                    $("#toTop").hide();
+                }
+                $(window).scroll(function (event) {
+                    /* Act on the event */
+                    if ($(this).scrollTop() == 0) {
+                        $("#toTop").hide();
+                    }
+                    if ($(this).scrollTop() != 0) {
+                        $("#toTop").show();
+                    }
+                });
+                $("#toTop").click(function (event) {
+                    /* Act on the event */
+                    $("html,body").animate({
+                            scrollTop: "0px"
+                        },
+                        400
+                    )
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <form class="form-horizontal">
+            <div class="form-group first">
+                <label for="sceneryTitle"
+                       class="col-sm-3 control-label">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="sceneryTitle"
+                           name="annTitle"
+                           placeholder="请输入标题">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="picture"
+                       class="col-sm-3 control-label">图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</label>
+                <div class="col-sm-9">
+                    <input type="file" id="picture" name="" class="picture">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="attachment"
+                       class="col-sm-3 control-label">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件</label>
+                <div class="col-sm-9">
+                    <input type="file" id="attachment">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="releaseTime" class="col-sm-3 control-label">发布时间</label>
+                <div class="col-sm-9">
+                    <input type="text" id="releaseTime" name="releaseTime" class="form-control datainp"
+                           placeholder="请输入发布时间">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容</label>
+                <div class="col-sm-9">
+                    <div style="width:80%;">
+                        <div id="standalone-container">
+                            <div id="toolbar-container">
+			                    <span class="ql-formats">
+			                        <select class="ql-font"></select>
+			                        <select class="ql-size"></select>
+			                    </span>
+                                <span class="ql-formats">
+			                        <button class="ql-bold"></button>
+			                        <button class="ql-italic"></button>
+			                        <button class="ql-underline"></button>
+			                        <button class="ql-strike"></button>
+			                    </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+			                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button>
+                                </span>
+                                <span class="ql-formats">
+			                        <button class="ql-header" value="1"></button>
+			                        <button class="ql-header" value="2"></button>
+			                        <button class="ql-blockquote"></button>
+			                        <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+			                        <button class="ql-list" value="ordered"></button>
+			                        <button class="ql-list" value="bullet"></button>
+			                        <button class="ql-indent" value="-1"></button>
+			                        <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+			                        <button class="ql-direction" value="rtl"></button>
+                                    <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                    <button class="ql-video"></button>
+                                    <button class="ql-formula"></button>
+                                </span>
+                                <span class="ql-formats">
+			                        <button class="ql-clean"></button>
+			                    </span>
+                            </div>
+                            <div id="editor-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="last">
+                <button type="submit" class="btn btn-primary">提交</button>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <button type="reset" class="btn btn-danger">重置</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="dist/katex.min.js"></script>
+<script src="dist/highlight.min.js"></script>
+<script src="dist/quill.js"></script>
+<script>
+    jeDate({
+        dateCell: "#releaseTime",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+
+    })
+    var quill = new Quill('#editor-container', {
+        modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+        },
+        placeholder: '请输入内容...',
+        theme: 'snow'
+    });
+</script>
+</body>
+</html>

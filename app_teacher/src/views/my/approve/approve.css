@@ -1,0 +1,149 @@
+#approveApp{
+    width: 100%;
+}
+#approveApp .approveApp-topSelectBox{
+    padding: 75px 14px 10px 14px;
+    background: #ffffff;
+}
+#approveApp .approveApp-topSelectBox .el-select{
+    width: 100%;
+}
+#approveApp .approveApp-topSelectBox .approveApp-topSelectBox-select{
+    display: block;
+    width: 100%;
+    height: 35px;  
+    margin: 0 auto;
+    user-select: text;  
+    text-align: center;
+    font-size: 1.4rem;
+    -webkit-border-radius: 4px;
+}
+#approveApp .approveApp-list{
+    height: auto;
+    padding: 10px 14px 10px 14px;
+    background: #ffffff;
+}
+#approveApp .approveApp-list .approveApp-list-item{
+    padding: 10px;
+    margin-bottom: 12px;
+    height: auto;
+    background: #ffffff;
+    -webkit-border-radius: 6px;
+    border: 1px solid #cccccc;
+}
+#approveApp .approveApp-list .approveApp-list-item .approveApp-list-item-p{
+    line-height: 30px;
+    font-size: 1.4rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+#approveApp .approveApp-list .approveApp-list-item .approveApp-list-item-p .approveApp-list-item-p-span{
+    color: #888888;
+}
+#approveApp .approveApp-list .approveApp-list-item .approveApp-list-item-btn{
+    line-height: 35px;
+    -webkit-border-radius: 6px;
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-align: center;
+    margin: 5px 0;
+}
+#approveApp .approveApp-list .approveApp-list-item .btn-blue{
+    background: #00A5EB;
+}
+#approveApp .approveApp-list .approveApp-list-item .btn-green{
+    background: rgb(5, 189, 38);
+}
+#approveApp .approveApp-list .approveApp-list-item .btn-red{
+    background: red;
+}
+
+#approveApp #approveDesc{
+    background: #ffffff;
+    position: fixed;
+    top: 1200px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* z-index: 900; */
+    transition: all 300ms ease;
+}
+#approveApp #approveDesc .approveDesc-top{
+    position: fixed;
+    width: 100%;
+    background: #00A5EB;
+    padding-top: 20px;
+}
+#approveApp #approveDesc .approveDesc-top .approveDesc-top-title-text{
+    color: #ffffff;
+    text-align: center;
+    line-height:45px;
+    font-size: 1.6rem;
+    z-index: 20;
+}
+
+#approveApp #approveDesc .approveDesc-top .approveDesc-cancel{
+    position: absolute;
+    padding: 20px 15px 0 15px;
+    top: 0;
+    color: #ffffff;
+    line-height:45px;
+    font-size: 1.4rem;
+}
+
+#approveApp #approveDesc .approveDesc-content{
+    padding: 79px 14px 14px 14px;
+}
+#approveApp #approveDesc .approveDesc-content .approveDesc-content-box-p{
+    line-height: 35px;
+    font-size: 1.5rem;
+}
+#approveApp #approveDesc .approveDesc-content .approveDesc-content-box-p span{
+    color: #888888;
+}
+#approveApp #approveDesc .approveDesc-content .approveDesc-content-box-p .approveDesc-content-box-p-span{
+    display: inline-block;
+    text-indent: 2em;
+    line-height: 25px;
+    font-family: 楷体;
+}
+#approveApp #approveDesc .approveDesc-content-box-btnBox{
+    display: flex;
+    /*column 纵向  row:横向  -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-around;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    padding-top: 20px;
+}
+#approveApp #approveDesc .approveDesc-content-box-btnBox .approveDesc-content-box-btnBox-btn{
+    width: 30%;
+    background: #cccccc;
+    text-align: center;
+    padding: 8px 0;
+    -webkit-border-radius: 6px;
+    color: #ffffff;     
+    font-size: 1.5rem;
+}
+#approveApp #approveDesc .approveDesc-content-box-btnBox .approveDesc-content-box-btnBox-agree{
+    background: rgb(5, 189, 38);
+}
+#approveApp #approveDesc .approveDesc-content-box-btnBox .approveDesc-content-box-btnBox-disagree{
+    background: red;
+}
+.bscroll-approve{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    top: 125px;
+    left: 0;
+    background:#f3f3f3;
+}
+.bscroll-container-approve{
+    width: 100%;
+    background: #ffffff;
+}

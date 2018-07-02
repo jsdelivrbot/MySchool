@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>德育天地</title>
+
+</head>
+
+<link href="plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+
+<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="logo.ico" rel="shortcut icon" />
+<link rel="stylesheet" href="../css/bootstrap-select.css">
+<link href="../lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="plugin/jquery.page.css">
+<script src="plugin/jquery.min.js"></script>
+<script src="plugin/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js//vue.js"></script>
+
+<style type="text/css">
+	.ww_container {
+		min-height: 100%;
+	}
+
+	.select {
+		margin-left: 20px;
+	}
+
+	.body {
+		background: none;
+	}
+
+	#group {
+		margin-bottom: -30px;
+	}
+
+	.divider {
+		width: 30%;
+		/*	display: block;*/
+		margin: 20px auto;
+		/*	text-align: center;*/
+	}
+
+	.float {
+		float: right;
+		margin-top: -5px;
+	}
+</style>
+
+<body class="body">
+
+	<div class="divider">
+		<form id="formPaper" name="formPaper" method="post">
+			<div class="form-group group" id="group">
+				<input type="text" class="form-control " id="className" name="className" placeholder="搜索">
+			</div>
+			<div class="float">
+				<button type="button" class="btn btn-success radius" id="btnQuery" @click="btnQuery()">
+					<i class="Hui-iconfont">&#xe665;</i> 搜索
+				</button>
+			</div>
+			<input id="pageIndex" name="pageIndex" type="hidden" value="1">
+		</form>
+	</div>
+	<!--	<input type="text" id="select" name="select" class="select"/><button>搜索</button>-->
+	<div class="ww_container" id="app">
+		<div class="container">
+			<div class="row w_main_row">
+				<div class="col-lg-9 col-md-9 w_main_left">
+
+
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">最新发布</h3>
+						</div>
+
+						<div class="panel-body">
+
+							<!--文章列表开始-->
+							<div class="contentList">
+
+								<div class="panel panel-default" v-for="(item,index) in dataSpider">
+									<div class="panel-body">
+										<h4>
+											<a class="title" href="dytd_show.html">{{item.title}}</a>
+										</h4>
+										<p class="overView">{{item.desption}}</p>
+									</div>
+								</div>
+
+
+							</div>
+							<!--文章列表结束-->
+
+						</div>
+
+					</div>
+
+
+				</div>
+				<!--右侧开始-->
+				<div class="col-lg-3 col-md-3 w_main_right">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">推荐阅读</h3>
+						</div>
+						<div class="panel-body">
+							<ul class="list-unstyled sidebar">
+								<li>
+									<a href="dytd_show.html">国际部召开“习惯养成月”系列活动主题班会</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">17-18第二学期5-8周大课间考核不合格人员公示</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">我校初一年级召开阶段调研质量分析会</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">高二年级学业水平测试总结与表彰大会顺利召开</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">砥砺前行 骏极中考——我校初三年级召开月考表彰大会</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">我校国际部召开常规管理提升月总结表彰会</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">东外初中部召开常规管理一月总结和社会实践活动方案部署会议</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">为2018中考保驾护航——我校顺利完成初三中考体检工作</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">我校初中部召开学生会两部新学期第一次会议</a>
+								</li>
+								<li>
+									<a href="dytd_show.html">我校初三举行百日誓师大会</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			msg: "adads",
+			dataSpider: [1,2,3,4,5]
+		},
+		methods: {
+			//默认查询一次
+			getData: function () {
+				$.post("http://localhost:8080/spider/getSpiderDate.do", {}, function (data) {
+					app.dataSpider = data;
+				}, "json");
+
+			}
+		},
+		created() {
+			this.getData(); //查询
+		}
+	})
+</script>
+
+</html>

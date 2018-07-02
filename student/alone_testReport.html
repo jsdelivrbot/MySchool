@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>云校园</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/examSu.css" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css"/>
+    <link rel="stylesheet" href="fonts/font_gu2gn16p57ory66r/iconfont.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+<div class="container-fluid" id="app">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" width="40"
+                         src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3088386055,2645955621&fm=27&gp=0.jpg">
+                </a>
+                <p class="navbar-text">在线学习平台</p>
+
+            </div>
+        </div>
+
+
+    </nav>
+    <div class="con-item" style="background-color: #ffffff">
+        <div class="result-left">
+            <span class="result">{{score}} 分</span>
+        </div>
+        <div class="result-right">
+            <div class="result-right-top">
+                <p class="p">{{examName}}</p>
+
+            </div>
+            <div class="result-right-bottom">
+
+            </div>
+            <p style="text-align: right;margin-top: 50px;margin-right: 30px">
+                <a href="nav_historyTest.html">回到测试</a>
+                &nbsp;&nbsp;总题数：<span
+                    style="color: #8c8c8c;font-weight: bold">{{dateCount}}</span> 答对数：<span
+                    style="color: #8c8c8c;font-weight: bold">{{dds}}</span> <i
+                    class="icon iconfont icon-xitongceshiyongli" style="color: #73cd73"></i>交卷时间：2018-04-29
+                12:02:09
+            </p>
+        </div>
+
+    </div>
+
+</div>
+<!--http://localhost:8080/testcore/testcoreSelect?StudentId=1&customId=1-->
+
+<script src="dist/js/lobibox.min.js"></script>
+<script src="demo/demo.js"></script>
+</body>
+
+<script>
+    var stuId = 0;
+    var customId = 0;
+    var questionName = "";
+    var lo = "localhost";
+    var app = new Vue({
+        el: '#app',
+        data: {
+            divData: [0],
+            dateCount: 0,
+            dds: 0,
+            examName: "",
+            count: 0,
+            score: 0
+        },
+        methods: {
+            getDate(){
+                var stu = localStorage.getItem("user");//登录用户
+                var obj = JSON.parse(stu);//获取登录对象信息
+                stuId = obj.studentId;
+                customId = localStorage.getItem("customId");
+                this.examName = localStorage.getItem("questionName")
+                this.count = localStorage.getItem("count");
+                console.log(stuId)
+                console.log(customId)
+                //查询测试报告 成绩
+                $.post("http://" + lo + ":8080/custromjl/selectCustromjlByStuIdAndCustromId", {
+                    "studentId": stuId,
+                    "customId": customId
+                }, function (dates) {
+                    app.score = dates[0].score
+                }, "json");
+                //查询试题报告
+
+                $.post("http://" + lo + ":8080/testcore/testcoreSelect", {
+                    "StudentId": stuId,
+                    "customId": customId
+                }, function (date) {
+                    if (date != "") {
+                        app.dateCount = app.count;
+                        for (var i = 0; i < app.count; i++) {
+                            if (i < date.length) {
+                                if (date[i].modelAnswer == date[i].studentAnswer) {
+                                    app.dds += 1;
+                                    $(".result-right-bottom").append(' <div style="background-color: #73cd73" class="result-right-bottom-item">' + (i + 1) + ' </div>');
+                                } else {
+                                    $(".result-right-bottom").append(' <div style="background-color: #cd484b" class="result-right-bottom-item">' + (i + 1) + ' </div>');
+                                }
+                            } else {
+                                $(".result-right-bottom").append(' <div style="background-color: #cd484b" class="result-right-bottom-item">' + (i + 1) + ' </div>');
+
+                            }
+                        }
+                    }
+                }, "json")
+            }
+        },
+        created(){
+            this.getDate();
+        }
+    })
+</script>
+</html>

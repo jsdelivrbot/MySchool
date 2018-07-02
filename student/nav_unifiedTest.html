@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>云校园 ▪ 统一测试</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap dashboard, bootstrap, css3 dashboard, bootstrap admin, light bootstrap dashboard, frontend, responsive bootstrap dashboard">
+    <meta name="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta itemprop="name" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta itemprop="description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:data1" content="Light Bootstrap Dashboard PRO by Creative Tim">
+    <meta name="twitter:label1" content="Product Type">
+    <meta name="twitter:data2" content="$29">
+    <meta name="twitter:label2" content="Price">
+    <meta property="og:title" content="Light Bootstrap Dashboard PRO by Creative Tim" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="Forget about boring dashboards, get an admin template designed to be simple and beautiful."
+    />
+    <meta property="og:site_name" content="Creative Tim" />
+    <link href="newStyle/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="newStyle/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+    <link href="newStyle/css/demo.css" rel="stylesheet" />
+    <link href="newStyle/css/font-awesome.min.css" rel="stylesheet">
+    <link href='newStyle/css/685fd913f1e14aebad0cc9d3713ee469.css' rel='stylesheet' type='text/css'>
+    <link href="newStyle/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+    <!--通知-->
+    <link rel="stylesheet" href="dist/css/Lobibox.min.css" />
+
+    <!--VUE-->
+    <script src="js/vue.js"></script>
+    <script src="newStyle/js/jquery.min.js" type="text/javascript"></script>
+    <!--人脸识别-->
+    <script src="js/tracking-min.js"></script>
+    <script src="js/face-min.js"></script>
+    <!--通知模块-->
+    <script src="dist/js/lobibox.min.js"></script>
+    <!--导入右键菜单样式-->
+    <link rel="stylesheet" href="css/rightmenu.css" />
+
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+    }
+
+    .container {
+        width: 100%;
+        margin-top: 20px;
+        background-color: #ffffff;
+    }
+
+
+    canvas {
+        left: 0px;
+        position: absolute;
+    }
+
+    .container-top {
+        font-weight: bold;
+        font-size: 20px;
+        color: #ffffff;
+        width: 90%;
+        -webkit-border-radius: 10px;
+        background-color: #9dafff;
+        height: 70px;
+        line-height: 70px;
+        top: -10px;
+        position: relative;
+        text-indent: 2em;
+
+        box-shadow: 1px 1px 1px 1px #c1c1c1;
+    }
+</style>
+
+<body>
+
+    <!--右键菜单-->
+    <div id="menu">
+        <ul>
+            <li onclick="shuaxin()">刷新 F5</li>
+            <li>复制</li>
+            <li>粘贴</li>
+        </ul>
+    </div>
+    <!--整体内容-->
+    <div class="wrapper" id="app">
+
+
+        <!--右半部分内容-->
+        <div class="main-panel" style="float: none">
+            <!--右半部分导航-->
+            <nav class="navbar navbar-default" id="topRight">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-warning btn-fill btn-round btn-icon btn-theme">
+                            <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
+                            <i class="fa fa-navicon visible-on-sidebar-mini"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" value="" class="form-control" placeholder="请输入课题名称...">
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="charts.html">
+                                    <i class="fa fa-line-chart" title="统计"></i>
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="notification">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">我的通知</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的邮箱</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="nav-notice.html">公告通知</a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-with-icons">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-list"></i>
+                                    <p class="hidden-md hidden-lg">
+                                        More
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-with-icons">
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-help1"></i> 帮助
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-tools"></i>设置
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="pe-7s-lock"></i> 锁定待机
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="out_login.html" target="_parent" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            注销登录
+                                        </a>
+                                    </li>
+                                    <li onclick="clostExamSystem()">
+                                        <a href="#" class="text-danger">
+                                            <i class="pe-7s-close-circle"></i>
+                                            退出程序
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--【右半部分主体内容】-->
+            <div class="container">
+                <div class="container-top">
+                    <i class="pe-7s-note2" style="font-weight: bold;font-size: 30px;position: relative;left: -56px;top: 4px;width: 20px;"></i>
+
+                    统一测试
+                </div>
+                <table style="width: 98%;float: right" class="table table-hover">
+                    <thead>
+                        <th>编号</th>
+                        <th>考试科目</th>
+                        <th>班级</th>
+                        <th>题型</th>
+                        <th>分值</th>
+                        <th>试题人</th>
+                        <th>考试时间</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        <tr v-if="customTestInfo==''">
+                            <td colspan="8" style="text-align: center;font-weight: bold;color: #6f6f6f">暂时没有测试~</td>
+
+                        </tr>
+                        <tr v-for="(item,index) in customTestInfo">
+                            <td>{{index+1}}</td>
+                            <td>{{item.quersionName}}</td>
+                            <td>{{userInfo.className}}</td>
+                            <td>{{item.opicTypeName}}</td>
+                            <td>{{item.allocation}}分/题</td>
+                            <td>{{item.createdName}}</td>
+                            <td>{{item.startDate}} - {{item.endDate}}</td>
+                            <td>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#faceRecognition" @click="startTheExam(item.questionId,item.opicTypeId,item.customId,item.quersionName,item.allocation)">
+                                    开始考试
+                                </button>
+                                <button class="btn btn-danger" @click="ignoreTest">忽略考试</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!--底部-->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right">
+                        &copy; 2018
+                        <a href="#">云校园</a>，梦想带你起航
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!--人脸识别模态框-->
+    <div class="modal fade" id="faceRecognition" aria-hidden="true" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="myModalLabel">人脸识别 ▪ 考试</h5>
+                </div>
+                <div class="modal-body" style="position: relative;height: 550px">
+                    <!--内容-->
+                    <p style="color: red;font-weight: bold;font-size: 14px">如果视频内未出现识别框或长时间未响应
+                        <a onclick="faceRecognition()">请单击此处</a>
+                    </p>
+                    <video id="video" width="420" height="340" preload autoplay loop muted></video>
+                    <p class="navbar-text" style="font-size: 14px;">
+                        1.请先确保摄像头设备已连接并能正常工作；
+                        <br/> 2.请保持光源充足，不要逆光操作；
+                        <br/> 3.请保证脸部正面面向摄像头，并适当调整姿势保证整个脸部能够进入识别画面；
+                        <br/> 4.系统识别通过后，将自动跳转进入考试界面；
+                        <br/>
+                    </p>
+                    <canvas id="canvas" width="420" height="340"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!--VUE模块-->
+<script>
+    var lo = "localhost";
+    var userInfoInit;//用户信息
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userInfo: {},
+            customTestInfo: []
+        },
+        methods: {
+            //获取测试信息
+            getCustomtest() {
+                $.post("http://" + lo + ":8080/custromjl/selectCustromjlByStudentId", { "studentId": this.userInfo.studentId }, function (dates) {
+                    //查询当前班级的信息
+                    $.post("http://" + lo + ":8080/custom/selectCustomtest", { "classId": app.userInfo.classId }, function (date) {
+                        console.log(date);//数据测试题
+                        for (var i = 0; i < dates.length; i++) {
+                            for (var j = 0; j < date.length; j++) {
+                                if (date[j].customId == dates[i].customId) {
+                                    date.splice(j, 1);
+                                    j--;
+                                }
+                            }
+                        }
+                        app.customTestInfo = date;
+                    }, "json");
+                }, "json")
+
+            },
+            //开始考试
+            startTheExam(questionId, oTypeId, customId, quersionName, allocation) {
+                opicTypeId = oTypeId;//传入试题类型
+                localStorage.setItem("customId", customId);
+                localStorage.setItem("questionId", questionId);
+                localStorage.setItem("questionName", quersionName);
+                localStorage.setItem("allocation", allocation);
+                Lobibox.notify('success', {
+                    msg: '请将头部放在视频区域内,匹配成功将会自动进入考试......'
+                });
+                faceRecognition();
+            },
+            //忽略考试
+            ignoreTest() {
+                alert("暂未开放")
+            },
+            imgLogoInit() {
+                //获取用户信息 转为JSON
+                var userInfo = localStorage.getItem("user");
+                var obj = JSON.parse(userInfo);
+                this.userInfo = obj;
+                userInfoInit = obj;
+                $(".photo").html('  <img src="http://localhost:8080/upload/' + userInfoInit.imgFilePath + '.jpg"/>')
+            }
+        },
+        created() {
+            //取出主题并设置上
+            var getTheme = localStorage.getItem("theme");
+            $(".sidebar").attr("data-color", getTheme);
+            var imgPath = localStorage.getItem("imgPath");
+            $(".sidebar").attr("data-image", imgPath);
+            $(".sidebar-background").css("background-image", 'url(' + imgPath + ')');
+
+            //获取用户信息 转为JSON
+            this.imgLogoInit();
+            this.getCustomtest();//加载测试
+        }
+    })
+
+</script>
+
+<!--JS模块-->
+<script>
+
+
+    var opicTypeId;//试题类型
+    //var gui = require('nw.gui');
+    //退出应用程序
+    $(function () {
+        notice();
+    });
+    //退出应用程序
+    function clostExamSystem() {
+        //gui.App.quit()
+    }
+    //人脸识别
+    function faceRecognition() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var tracker = new tracking.ObjectTracker('face');
+        var i = 0;
+        tracker.setInitialScale(4);
+        tracker.setStepSize(2);
+        tracker.setEdgesDensity(0.1);
+        tracking.track('#video', tracker, { camera: true });
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            event.data.forEach(function (rect) {
+                //检测到人脸了
+                while (i >= 0) {
+                    i--;
+                    console.log("检测到人脸了");
+                    Lobibox.notify('success', {
+                        msg: '正在识别，请稍等...'
+                    });
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                    //发送请求 判断
+                    $.post("http://" + lo + ":8080/topic/getRenLianBase64", { "base": canvas.toDataURL() }, function (date) {
+                        console.log(date);
+                        if (date.result != null) {
+                            if (userInfoInit.uuId == date.result[0].uid) {
+                                //显示通知
+                                Lobibox.notify('success', {
+                                    msg: '匹配成功，即将进入考场...'
+                                });
+                                //根据类型进入不同的试题区
+                                setTimeout(function () {
+                                    if (opicTypeId == 1) {
+                                        //进入选择题模板
+                                        parent.location = "module_choiceQuestion.html";
+                                    } else if (opicTypeId == 2) {
+                                        //进入判断题模板
+                                        parent.location = "module_judgeQuestion.html";
+                                    }
+                                }, 1000);
+
+                            } else {
+                                //显示通知
+                                Lobibox.notify('error', {
+                                    msg: '匹配失败!您不是' + userInfoInit.studentName + '本人或者未采集人脸！请重试！'
+                                });
+                                //刷新页面
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
+                            }
+                        } else {
+                            //
+                            Lobibox.notify('error', {
+                                msg: '您还未采集人脸，系统将自动跳转...'
+                            });
+                            setTimeout(function () {
+
+                            }, 500);
+
+                        }
+                    }, "json");
+                }
+                context.strokeStyle = '#a64ceb';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                context.font = '11px Helvetica';
+                context.fillStyle = "#fff";
+                context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+
+            });
+
+        });
+
+
+    }
+    //设置通知
+    function notice() {
+        demo.showNotification('bottom', 'right', 'success', '统一测试', '进入考试需要验证人脸信息', 'pe-7s-smile');
+    }
+</script>
+<!--右键菜单-->
+<script type="text/javascript">
+    var menu = document.getElementById("menu");
+    document.oncontextmenu = function (ev) {
+        var oEvent = ev || event;
+        //自定义的菜单显示
+        menu.style.display = "block";
+        //让自定义菜单随鼠标的箭头位置移动
+        menu.style.left = oEvent.clientX + "px";
+        menu.style.top = oEvent.clientY + "px";
+        //return false阻止系统自带的菜单，
+        //return false必须写在最后，否则自定义的右键菜单也不会出现
+        return false;
+
+    }
+    //实现点击document，自定义菜单消失
+    document.onclick = function () {
+
+        menu.style.display = "none";
+    }
+    function shuaxin() {
+        location.reload();
+    }
+</script>
+<!--导入JS-->
+<script src="newStyle/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="newStyle/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="newStyle/js/jquery.validate.min.js"></script>
+<script src="newStyle/js/moment.min.js"></script>
+<script src="newStyle/js/bootstrap-datetimepicker.js"></script>
+<script src="newStyle/js/bootstrap-selectpicker.js"></script>
+<script src="newStyle/js/bootstrap-checkbox-radio-switch-tags.js"></script>
+<script src="newStyle/js/chartist.min.js"></script>
+<script src="newStyle/js/bootstrap-notify.js"></script>
+<script src="newStyle/js/sweetalert2.js"></script>
+<script src="newStyle/js/jquery-jvectormap.js"></script>
+<script src="newStyle/js/aa743e8f448a4792bad10d201a7080f6.js"></script>
+<script src="newStyle/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="newStyle/js/bootstrap-table.js"></script>
+<script src="newStyle/js/jquery.datatables.js"></script>
+<script src="newStyle/js/fullcalendar.min.js"></script>
+<script src="newStyle/js/light-bootstrap-dashboard.js"></script>
+<script src="newStyle/js/jquery.sharrre.js"></script>
+<script src="newStyle/js/demo.js"></script>
+
+</html>

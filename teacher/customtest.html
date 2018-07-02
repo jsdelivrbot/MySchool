@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定制测试</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/statisticalTest.css" rel="stylesheet">
+
+    <!--BootStarp下拉框-->
+    <link rel="stylesheet" href="css/bootstrap-select-so.css">
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/vue.js"></script>
+
+    <!--复选框样式-->
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/build.css"/>
+
+
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="jedate/jedate.js"></script>
+</head>
+<style>
+    .modal-body {
+        position: relative;
+    }
+
+    .main_right {
+        height: 350px;
+    }
+
+    #pageList {
+        text-align: center;
+    }
+
+    #pageList a {
+        margin-top: 10px
+    }
+
+    .form-group {
+        display: inline-block;
+
+    }
+
+    /* 把边框变成透明的。 */
+    .modal-body .td {
+
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+
+    }
+    .modal-body  td {
+        border: 1px solid transparent !important;
+    }
+    .input_width{
+        width: 120px;
+        font-size: 14px;
+    }
+    .input_time{
+        width: 155px;
+        font-size: 14px;
+    }
+    #noticeInfo {
+        width: 90%;
+        margin: 20px auto;
+    }
+    #noticeInfo tr td {
+        text-align: center;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+    }
+
+    #formCustomtest{
+        width: 90%;
+        margin: 20px auto;
+    }
+    table th{
+        font-weight: bold;
+        text-align: center;
+    }
+    .checkDynamic{
+        width: 130px;
+        height: 20px;
+        display: inline-block;
+
+    }
+
+</style>
+<body>
+<div class="container-fluid" id="app" >
+    <div class="main">
+
+        <div class="main" style="background-color: #FFFFFF">
+            <!--changeTab(0)-->
+            <div class="main_right_item">
+                <div style="margin: 0 auto;display: block">
+                    <form id="formCustomtest"  method="post">
+                        <div class="form-group">
+                            <span>试卷名称：</span>
+                            <input type="text" class="form-control input_width"  name="questionName" placeholder="试卷名称">
+                        </div>
+
+                        <div class="form-group">
+                            <span>出题人：</span>
+                            <input type="text" class="form-control input_width"  name="teacherName"
+                                   placeholder="出题人名称">
+                        </div>
+                        <div class="form-group" style="display: inline-block;">
+                            <span>考试时间：</span>
+                            <input type="text" id="tj_startDate" name="startDate" class=" form-control input_time">
+                        </div>
+                        <div class="form-group" style="display: inline-block;">
+                            <span>—</span>
+                        </div>
+                        <div class="form-group" style="display: inline-block;">
+                            <input type="text" id="tj_endDate" name="endDate" class="form-control input_time">
+                        </div>
+
+                        <div class="form-group">
+                            <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+                            <button type="button" class="btn btn-success radius" id="btnQuery" @click="btnQuery()">
+                                <i class="Hui-iconfont">&#xe665;</i> 搜索
+                            </button>
+                            <button type="button" class="btn btn-primary radius" id="btnInsert" data-toggle='modal'
+                                    data-target='#addDialog'>
+                                <i class="Hui-iconfont">&#xe600;</i> 添加
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+                <table class="table  table-hover " id="noticeInfo">
+                    <thead>
+                    <tr>
+                        <td>试卷名称</td>
+                        <td>开考时间</td>
+                        <td>结束时间</td>
+                        <td>出题人</td>
+                        <td>创建时间</td>
+                        <td>考试班级</td>
+                        <td>参考学员</td>
+                        <td>试卷状态</td>
+                        <td  style="width: 19%">操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in customList" class="td">
+                        <td>{{item.questionName}}</td>
+                        <td>{{item.startDate}}</td>
+                        <td>{{item.endDate}}</td>
+                        <td>{{item.teacherName}}</td>
+                        <td>{{item.creationDate}}</td>
+                        <td>{{item.className}}</td>
+                        <td>{{item.studentName}}</td>
+                        <td v-if="item.isEnable==1">已启用</td>
+                        <td v-if="item.isEnable==0">已停用</td>
+                        <td >
+                            <!--<button class="btn btn-xs btn-info" data-toggle='modal' data-target='#updDialog' @click="selCustomById(item.customId)"><i class="Hui-iconfont">&#xe60c;</i>修改</button>-->
+                            &nbsp;&nbsp;
+                            <button class="btn btn-xs btn-danger"  @click="delCustom(item.customId)"><i class="Hui-iconfont">&#xe615;</i>停用</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div id="pageList" style="float: right">
+                    <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+        <!--修改模态框-->
+        <!--<div id="updDialog" role="dialog" class="modal fade">-->
+            <!--<div class="modal-dialog">-->
+                <!--<form class="updParent" method="post">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<span>修改测试信息</span>-->
+                            <!--<div class="close" data-dismiss="modal">&bigotimes;</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="modal-body">-->
+                            <!--<table class="table table-dialog">-->
+                                <!--<tr style="display:none;">-->
+                                    <!--<td style="text-align: center;vertical-align: middle;">测试编号：</td>-->
+                                    <!--<td><input type="text" class="form-control" name="customId"></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align: middle;width: 90px">试卷名称：</td>-->
+                                    <!--<td>-->
+                                        <!--<div>-->
+                                            <!--<select class="selectpicker questionId" disabled="disabled" name="questionId"-->
+                                                    <!--data-live-search="true" id="updquestionId">-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align: middle">出题人：</td>-->
+                                    <!--<td><input type="text" class="form-control" readonly="readonly"-->
+                                               <!--style="width: 165px"></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align: middle">考试时间：</td>-->
+                                    <!--<td>-->
+                                        <!--<input type="text" id="upd_startDate" name="startDate" class="form-control"-->
+                                               <!--style=" width: 165px;height: 35px;display: inline-block">-->
+                                        <!--<label>—</label>-->
+                                        <!--<input type="text" id="upd_endDate" name="endDate" class="form-control"-->
+                                               <!--style=" width: 165px;height: 35px;display: inline-block">-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align: middle">考试班级：</td>-->
+                                    <!--<td>-->
+                                        <!--<div class="checkbox checkbox-primary" id="check" style="display: inline-block">-->
+                                            <!--&lt;!&ndash;动态生成复选框&ndash;&gt;-->
+
+                                        <!--</div>-->
+                                    <!--</td>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align: middle">启用状态：</td>-->
+                                    <!--<td>-->
+
+                                        <!--<div class="radio" style="display:inline-block;margin-right: 10px">-->
+                                            <!--<input type="radio" name="isEnable" id="normal" value="1" checked>-->
+                                            <!--<label for="normal">正常</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="radio" style="display: inline-block">-->
+                                            <!--<input type="radio" name="isEnable" id="notEnabled" value="0" checked>-->
+                                            <!--<label for="notEnabled">未启用</label>-->
+                                        <!--</div>-->
+
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center;vertical-align:top">参考学员：</td>-->
+                                    <!--<td>-->
+                                <!--<textarea class="form-control updremark" name="remark"-->
+                                          <!--style="width: 100%;height: 100px"></textarea>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+
+                        <!--<div class="modal-footer">-->
+                            <!--<button class="btn btn-danger" data-dismiss="modal">取消</button>-->
+                            <!--<button class="btn btn-success" data-dismiss="modal" @click="updParent()">确定</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--添加模态框-->
+        <div id="addDialog" role="dialog" class="modal fade">
+            <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span>添加测试</span>
+                            <div class="close" data-dismiss="modal">&bigotimes;</div>
+                        </div>
+                        <!--style="border:  0px solid transparent"-->
+                        <div class="modal-body">
+                            <form id="addCustom">
+                                <table class="table table-dialog">
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: middle;width: 90px" class="td">
+                                            试卷名称：
+                                        </td>
+                                        <td>
+                                            <select class="selectpicker questionId" style="width: 110px"
+                                                    name="questionId" data-live-search="true" id="questionId">
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: middle;width: 90px" class="td">
+                                            考试类型：
+                                        </td>
+                                        <td>
+                                            <select class="selectpicker" style="width: 110px"
+                                                    name="examType" data-live-search="true" id="examType">
+                                                <option value="-1">请选择</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: middle" class="td">考试时间：</td>
+                                        <td>
+                                            <input type="text" id="add_startDate" name="startDate"
+                                                   class="form-control start"
+                                                   style=" width: 165px;height: 35px;display: inline-block">
+                                            <label>—</label>
+                                            <input type="text" id="add_endDate" name="endDate" class="form-control end"
+                                                   style=" width: 165px;height: 35px;display: inline-block">
+                                            <button type="button" class="btn btn-primary" class="Whole" @click="getTime()">选中一整天</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: middle" class="td">考试班级：</td>
+                                        <td style="width: 100%">
+                                            <div class="checkbox checkbox-primary" id="checks">
+                                                <!--动态生成复选框-->
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: middle">启用状态：</td>
+                                        <td>
+
+                                            <div class="radio" style="display:inline-block;margin-right: 10px">
+                                                <input type="radio" name="isEnable" id="addnormal" value="1" checked>
+                                                <label for="addnormal">正常</label>
+                                            </div>
+                                            <div class="radio" style="display: inline-block">
+                                                <input type="radio" name="isEnable" id="addnotEnabled" value="0"
+                                                       >
+                                                <label for="addnotEnabled">未启用</label>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;vertical-align:top">参考学员：</td>
+                                        <td>
+                                <textarea class="form-control updremark" name="studentName"
+                                          style="width: 100%;height: 100px"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" @click="addCustom()">
+                                <i class="Hui-iconfont">&#xe632;&nbsp;</i>保存
+                            </button>
+                            <button class="btn btn-warning" data-dismiss="modal">
+                                <i class="Hui-iconfont">&#xe60b;&nbsp;</i>取消
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script>
+    //初始进来时传入一个条件pageIndex=1
+    var Initdate = $("#formCustomtest").serialize();
+    var app = new Vue({
+        el: "#app",
+        data: {
+            customList: [],
+            pageCount: 0
+        }, methods: {
+            addCustom() {
+                alert("走了")
+                var classIdobj = $(".classId");
+                arr = [];
+                for (i in classIdobj) {
+                    if (classIdobj[i].checked)
+                        arr.push(classIdobj[i].value);
+                }
+                for (var j = 0; j < arr.length; j++) {
+                    var formAdd = $("#addCustom").serialize();
+                    formAdd += "&classId=" + arr[j] + "&createdBy=" + localStorage.getItem("id");
+
+                    $.post("http://localhost:8080/customTest/insertCustom.do", formAdd, function (result) {
+                        if (result) {
+                           console.log("添加成功")
+                        } else {
+                            console.log("添加失败");
+                        }
+                    }, "json");
+                }
+                var date=$("#formCustomtest").serialize();
+                this.getTableAll(date);
+            },
+            getTableAll(date) {
+
+                $.post("http://localhost:8080/customTest/customByPage.do", date, function (result) {
+                    console.log("返回的Json数据:" + result.customList);
+                    for (var i = 0; i < result.customList.length; i++) {
+                        console.log(result.customList[i]);
+                    }
+                    app.customList = result.customList;
+                    app.pageCount = result.page.pageCount;
+                }, "json");
+            },
+
+            getTime(){
+                // 点击选中一整天
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var date = date.getDate();
+                    var tomDay = date+1;
+                    if(month<10){
+                        month="0"+month;
+                    }
+                    if(date<10){
+                        date="0"+date;
+                    }
+                    if(tomDay<10){
+                        tomDay="0"+tomDay;
+                    }
+                   var yesterday=year+"-"+month+"-"+date+" 00:00:00";
+                   var tomorrow=year+"-"+month+"-"+tomDay+" 00:00:00";
+                   $("#add_startDate").val(yesterday)
+                   $("#add_endDate").val(tomorrow)
+
+            },
+            btnQuery(){
+                $("#pageIndex").val(1);
+                var date = $("#formCustomtest").serialize();
+                this.getTableAll(date)
+            },
+            //停用按钮
+            delCustom(customId){
+
+                $.post("http://localhost:8080/customTest/delCustomById.do", {"customId": customId}, function (result) {
+                    if (result) {
+                        console.log("停用成功");
+                        $("#pageIndex").val(1);
+                        var date = $("#formCustomtest").serialize();
+                        app.getTableAll(date)
+
+                    } else {
+                        console.log("停用失败");
+                    }
+
+                }, "json");
+            },
+            //首页
+            sy() {
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formCustomtest").serialize();
+                this.getTableAll(pageIn)
+            },
+            //下一页
+            xyy() {
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formCustomtest").serialize();
+                this.getTableAll(pageIn)
+            },
+            //尾页
+            wy() {
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formCustomtest").serialize();
+                this.getTableAll(pageIn)
+            },
+
+        },
+        //页面加载时调用
+        created() {
+            this.getTableAll(Initdate);
+
+        }
+
+    })
+</script>
+
+<!--日期控件-->
+<script>
+    jeDate({
+        dateCell: "#tj_startDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#tj_endDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#add_startDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#add_endDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#upd_startDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+    jeDate({
+        dateCell: "#upd_endDate",
+        format: "YYYY-MM-DD hh:mm:ss",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19 00:00:00",
+    })
+</script>
+<script>
+    //动态生成复选框
+    $(function () {
+        $.post("http://localhost:8080/dictionary/selDictionaryByType.do", {"dictionaryCode":"examType"}, function (result) {
+            console.log("返回的字典表信息Json数据:" + result);
+            for (var i = 0; i < result.length; i++) {
+                $("#examType").append("<option value=" + result[i].detailID + ">" +  result[i].attrName + "</option>");
+            }
+            $("#examType").selectpicker('refresh');
+        },"json");
+        $.post("http://localhost:8080/classInfo/selClass.do", {}, function (result) {
+            console.log("返回的班级Json数据:" + result);
+            var str = "";
+            for (var i = 0; i < result.length; i++) {
+                str += "<div class='checkDynamic'><input type='checkbox' id='classId" + i + "' class='classId'  value='" + result[i].classId + "'><label for='classId" + i + "' >" + result[i].className + "</label></div>";
+            }
+            $("#checks").append(str);//追加
+        }, "json");
+        $.post("http://localhost:8080/questionPaper/selectQPaperDropdown.do", {}, function (data) {
+            var str = "";
+            console.log(data)
+            for (var i = 0; i < data.QPaperDropdownList.length; i++) {
+                $('#questionId').append("<option value=" + data.QPaperDropdownList[i].questionId + ">" + data.QPaperDropdownList[i].questionName + "</option>");
+                $('#updquestionId').append("<option value=" + data.QPaperDropdownList[i].questionId + ">" + data.QPaperDropdownList[i].questionName + "</option>");
+            }
+            $('#questionId').selectpicker('refresh');
+            $('#updquestionId').selectpicker('refresh');
+        }, "json")
+    })
+</script>
+</html>
+

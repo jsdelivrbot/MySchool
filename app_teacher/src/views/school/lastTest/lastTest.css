@@ -1,0 +1,107 @@
+#lastTestApp{
+    width: 100%;
+}
+.lastTestApp-main-top{
+    display: flex;
+    /*column 纵向  row:横向      -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-between;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    padding:10px 12px 0 12px;
+    background: #ffffff;
+    
+}
+
+.lastTestApp-main-top .lastTestApp-mian-top-item{
+    flex: 1; 
+}
+.lastTestApp-main-top .el-select{
+    width: 99%;
+    margin: 0 auto;
+}
+.lastTestApp-main-top .lastTestApp-mian-top-item input{
+    display: block;
+    width: 100%;
+    height: 30px;  
+    margin: 0 auto;
+    user-select: text;  
+    padding-left: 10px;
+    font-size: 1.4rem;
+    -webkit-border-radius: 6px;
+    border: 1px #cccccc solid;
+    color: #c0c4cc
+}
+.el-button+.el-button{
+    margin-left: 0;
+}
+.lastTestApp-main-list{
+    padding: 14px;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item{
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    -webkit-border-radius: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    /*column 纵向  row:横向  -reverse 倒过来了*/
+    flex-direction: row;
+    /*主轴居中  space-around 平分  space-between两头堵死 中间平分*/
+    justify-content: space-between;
+    /*纵轴对齐方式flex-end*/
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    padding: 10px 0;
+    border: 1px #d1d1d1 solid;  
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-nameAndTime{
+    flex: 1.6;
+    padding-left: 15px;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-isPass{
+    flex: 1;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-score{
+    flex: 1;
+    margin: 0 auto;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-nameAndTime .lastTestApp-main-list-item-nameAndTime-name{
+    line-height: 25px;
+    font-size: 1.4rem;
+    color: #474747;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-nameAndTime .lastTestApp-main-list-item-nameAndTime-time{
+    line-height: 25px;
+    font-size: 1.4rem;
+    color: #474747;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-isPass img{
+    width: 50%;
+    height: 50%;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-score .lastTestApp-main-list-item-score-write{
+    line-height: 25px;
+    font-size: 1.4rem;
+    color: #474747;
+}
+.lastTestApp-main-list .lastTestApp-main-list-item .lastTestApp-main-list-item-score .lastTestApp-main-list-item-score-machine{
+    line-height: 25px;
+    font-size: 1.4rem;
+    color: #474747;
+}
+.bscroll-lastTest{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    top: 65px;
+    left: 0;
+    background: #f3f3f3;
+}
+.bscroll-container-lastTest{
+    width: 100%;
+    background: #ffffff;
+}

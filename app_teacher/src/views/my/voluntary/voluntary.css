@@ -1,0 +1,99 @@
+#voluntaryApp{
+    width: 100%;
+}
+
+#voluntaryApp .voluntaryApp-top{
+    position: fixed;
+    width: 100%;
+    padding-top: 20px;
+    background: #00A5EB;
+}
+#voluntaryApp .voluntaryApp-top .voluntaryApp-title-text{
+    color: #ffffff;
+    text-align: center;
+    line-height:45px;
+    font-size: 1.6rem;
+    z-index: 20;
+}
+#voluntaryApp .voluntaryApp-top .voluntaryApp-accomplish{
+    position: absolute;
+    padding: 20px 15px 0 15px;
+    top: 0;
+    color: #ffffff;
+    line-height:45px;
+    font-size: 1.8rem;
+    right: 0;
+    font-weight: 600;
+}
+#voluntaryApp .voluntaryApp-top .voluntaryApp-cancel{
+    position: absolute;
+    padding: 20px 15px 15px 15px;
+    top: 0;
+    color: #ffffff;
+    line-height:45px;
+    font-size: 1.8rem;
+}
+#voluntaryApp .voluntaryApp-inputBox{
+    padding: 75px 14px 10px 14px;
+}
+#voluntaryApp .voluntaryApp-inputBox .voluntaryApp-inputBox-input{
+    display: block;
+    width: 100%;
+    height: 35px;  
+    margin: 0 auto;
+    user-select: text;  
+    text-align: center;
+    font-size: 1.4rem;
+    -webkit-border-radius: 4px;
+}
+#voluntaryApp .voluntaryApp-list{
+    height: auto;
+    padding: 0 14px 10px 14px;
+    background: #ffffff;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item{
+    padding: 10px;
+    margin-bottom: 12px;
+    height: auto;
+    background: #ffffff;
+    -webkit-border-radius: 6px;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .voluntaryApp-list-item-p{
+    line-height: 30px;
+    font-size: 1.4rem;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .voluntaryApp-list-item-p .voluntaryApp-list-item-p-span{
+    color: #888888;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .voluntaryApp-list-item-btn{
+    line-height: 35px;
+    -webkit-border-radius: 6px;
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-align: center;
+    margin: 5px 0;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .btn-blue{
+    background: #00A5EB;
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .btn-green{
+    background: rgb(5, 189, 38);
+}
+#voluntaryApp .voluntaryApp-list .voluntaryApp-list-item .btn-gray{
+    background: #9D9D9D;
+}
+.bscroll-voluntary{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    top: 120px;
+    left: 0;
+    background:#f3f3f3;
+    /* height: 83%; */
+}
+.bscroll-container-voluntary{
+    /* height: 800px; */
+    width: 100%;
+    background: #ffffff;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <script src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/jedate.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0 5%;
+
+        }
+
+        table {
+            text-align: center;
+        }
+
+        .last {
+            float: right;
+        }
+
+        form {
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+
+        .pageList a {
+            display: inline-block;
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <form id="formPaper" class="content-panel" style="padding-left: 5%">
+        <input id="pageIndex" name="pageIndex" type="hidden" value="1">
+        <input id="parentId" name="parentId" type="hidden" value="1">
+        <input type="text" id="releaseTime" name="beginTime" class="form-control"
+               style="display: inline-block;margin: 20px 0 0 0;width: 20%"
+               placeholder="请输入开始时间">
+        <input type="text" id="releaseTime2" name="endTime" class="form-control"
+               style="display: inline-block;;width: 20%;margin-top: 20px"
+               placeholder="请输入结束时间">
+        <button type="button" class="btn btn-success radius" @click="getTableAll()"
+                style="width: 9%;margin-top: 18px;display: inline-block"> 搜索
+        </button>
+    </form>
+    <table class="table table-bordered align-content-center" id="viperTable">
+
+        <tr>
+            <td colspan="6">日考成绩表</td>
+        </tr>
+        <tr>
+            <td>孩子姓名</td>
+            <td>考试成绩</td>
+            <td>试卷名</td>
+            <td>是否及格</td>
+            <td>试卷总分</td>
+            <td>考试日期</td>
+        </tr>
+        <tr v-for="item in StudentCustromjlList">
+            <td>{{item.studentName}}</td>
+            <td>{{item.score}}</td>
+            <td>{{item.questionName}}</td>
+            <td v-if="item.sumScore*0.6<=item.score">及格</td>
+            <td v-else style="background-color: red">不及格</td>
+            <td>{{item.sumScore}}</td>
+            <td>{{item.creationDate}}</td>
+        </tr>
+    </table>
+    <div id="pageList" style="float: right;padding-top: 20px">
+        <a class="btn btn-default" id="sy" @click="sy()" href="javascript:void(0)">首页</a>
+        <a class="btn btn-default" id="syy" @click="syy()" href="javascript:void(0)">上一页</a>
+        <a class="btn btn-default" id="xyy" @click="xyy()" href="javascript:void(0)">下一页</a>
+        <a class="btn btn-default" id="wy" @click="wy()" href="javascript:void(0)">尾页</a>
+    </div>
+</div>
+</body>
+<script>
+    $("#parentId").val(1);
+    var Initdate = $("#formPaper").serialize();
+    console.log(Initdate)
+    var app = new Vue({
+        el: "#app",
+        data: {
+            classList: [],
+            pageCount: 0,
+            pageNum: 1,
+            StudentCustromjlList: {},
+        }, methods: {
+
+            getTableAll(date){
+//                app.pageCount = date.pageCount;
+//                console.log(Initdate)
+//                console.log(date);
+                $.post("http://localhost:8080/custromjl/selectStudentDayAll", date, function (results) {
+                    app.pageCount = results.page.pageCount;
+                    console.log(results);
+                    app.StudentCustromjlList = results.selectStudentDayAll;
+                }, "json");
+            },
+            getTableAll(){
+                $("#parentId").val(1);
+                var Init = $("#formPaper").serialize();
+                var pageIndex = $("#pageIndex").val();
+//                console.log(Initdate)
+//                console.log(date);
+                $.post("http://localhost:8080/custromjl/selectStudentDayAll", Init, function (results) {
+                    app.pageCount = results.page.pageCount;
+                    console.log(results);
+                    app.StudentCustromjlList = results.selectStudentDayAll;
+                }, "json");
+            },
+            //首页
+            sy(){
+                $("#pageIndex").val(1);
+                this.getTableAll(Initdate)
+            },
+            //上一页
+            syy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a - 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+
+            },
+            //下一页
+            xyy(){
+                var a = parseInt($("#pageIndex").val());
+                $("#pageIndex").val(a + 1);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+            //尾页
+            wy(){
+                $("#pageIndex").val(this.pageCount);
+                var pageIn = $("#formPaper").serialize();
+                this.getTableAll(pageIn)
+            },
+        }, created() {
+            this.getTableAll(Initdate);
+        }
+    });
+</script>
+<script src="js/jquery.js"></script>
+<script>
+    jeDate({
+        dateCell: "#releaseTime",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-1",
+
+    }), jeDate({
+        dateCell: "#releaseTime2",
+        format: "YYYY-MM-DD",
+        isinitVal: false,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-1",
+
+    })
+</script>
+</html>

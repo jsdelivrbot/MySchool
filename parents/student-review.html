@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="js/jedate.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <style>
+        html {
+            background-color: white;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .check button {
+            margin: 2%;
+        }
+
+        .context {
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+            margin: 20px auto;
+        }
+
+        p {
+            word-wrap: break-word;
+            word-break: break-all;
+            overflow: hidden;
+        }
+
+        #noticeInfo tr td {
+            text-align: center;
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/; /* 内容超出宽度时隐藏超出部分的内容 */
+        }
+
+        form {
+            margin-left: 10px;
+        }
+
+        .rev {
+            position: relative;
+            border: 1px solid silver;
+        }
+
+        form {
+            margin-left: 20px;
+        }
+
+        .padd {
+            padding-left: 20px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .padd p {
+            padding-top: 20px;
+            /*padding-left: 20px;*/
+            font-size: 12px;
+            font-weight: 100;
+        }
+
+        .padd1 {
+            padding-left: 20px;
+            color: #d5552f;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .padd1 p {
+            color: #d5552f;
+            padding-top: 20px;
+            /*padding-left: 20px;*/
+            font-size: 12px;
+            font-weight: 100;
+        }
+
+        .time {
+            font-size: 12px;
+            margin-left: 30px;
+            color: #ccd1d9;
+            display: inline-block;
+        }
+
+        form input {
+            display: inline-block;
+            width: 20%;
+        }
+
+        textarea {
+            padding: 0 auto;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<script>
+
+    $(function () {
+        var parent=sessionStorage.getItem("loginParent");
+        var parentId=JSON.parse(parent).parentId;
+        $.post("http://localhost:8080/evaluation/getCommonsByParentId.do",{parentId:parentId},function (result) {
+            var data=eval(result);
+            var temp="";
+            for(var i=0;i<data.length;i++){
+                temp+="<div class='context'>  <div class='padd1'>"+data[i].comments+"<span class='time'>"+data[i].evaluationDate+"</span>  <p> 谢谢老师鼓励 </p>  </div> <hr/> </div>";
+            }
+            $("#show div,#show hr").remove();
+            $("#show").append(temp);
+        });
+    });
+
+    function btnQuery() {
+        var parent=sessionStorage.getItem("loginParent");
+        var parentId=JSON.parse(parent).parentId;
+        var startDate=window.document.getElementsByName("startDate")[0].value;
+        var endDate=window.document.getElementsByName("endDate")[0].value;
+        $.post("http://localhost:8080/evaluation/getCommonsByParentId.do",{parentId:parentId,startDate:startDate,endDate:endDate},function (result) {
+            var data=eval(result);
+            var temp="";
+            for(var i=0;i<data.length;i++){
+                temp+="<div class='context'>  <div class='padd1'>"+data[i].comments+"<span class='time'>"+data[i].evaluationDate+"</span>  <p> 谢谢老师鼓励 </p>  </div> <hr/> </div>";
+            }
+            $("#show div,#show hr").remove();
+            $("#show").append(temp);
+        });
+    }
+</script>
+<body>
+<div class="container">
+    <div class="panel panel-default rev">
+        <br/>
+        <br/>
+        <form style="">
+            <label for="dateinfo">开始日期：</label>
+            <input class="form-control" id="dateinfo" style="width: 20%;display: inline-block" type="text" name="startDate"
+                   placeholder="请选择开始日期"
+                   readonly>
+            <label for="dateinfo2">结束日期：</label>
+            <input class="form-control" id="dateinfo2" type="text" style="width: 20%;display: inline-block" name="endDate"
+                   placeholder="请选择结束日期"
+                   readonly>&nbsp;
+            <button type="button" class="btn btn-success radius" style="margin-left: -3px" onclick="btnQuery();"> 搜索
+            </button>
+            <hr/>
+        </form>
+        <div>
+            <!--<div class="context">
+                <h4>
+                    <a href="#" data-target='#exampleModalLong-1'
+                       style="font-size: 20px;margin-right: 20px;line-height: 30px"
+                       data-toggle='#exampleModalLong-1'>最新消息&nbsp;
+                    </a>
+                    <button type="button" class="btn btn-primary mt-2"
+                            style="margin-bottom: 20px;width: 60px;height: 30px;text-align: center"
+                            data-animation="zoomIn" data-toggle="modal" data-target="#exampleModalLong-1">
+                        回复
+                    </button>
+                </h4>
+                <div class="padd">
+                    学习非常上进，努力<span class="time">2016-02-12</span>
+                    <p>
+                        谢谢老师鼓励
+                    </p>
+                </div>
+                <hr/>
+            </div>-->
+            <div class="context" id="show">
+                <!--<div class="padd1">
+                    学习非常上进，努力<span class="time">2016-02-12</span>
+                    <p>
+                        谢谢老师鼓励
+                    </p>
+                </div>
+                <hr/>
+            </div>
+            <div class="context">
+                <div class="padd1">
+                    学习非常上进，努力<span class="time">2016-02-12</span>
+                    <p>
+                        谢谢老师鼓励
+                    </p>
+                </div>
+                <hr/>
+            </div>-->
+        </div>
+        <div class="modal fade" id="exampleModalLong-1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLongTitle-1">回复老师信息</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea rows="20" cols="60"> </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    //jeDate.skin('gray');
+    jeDate({
+        dateCell: "#dateinfo",
+        format: "YYYY-MM-DD",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+    jeDate({
+        dateCell: "#dateinfo2",
+        format: "YYYY-MM-DD",
+        isinitVal: true,
+        isTime: true, //isClear:false,
+        minDate: "2014-09-19",
+        okfun: function (val) {
+            alert(val)
+        }
+    })
+
+    //alert("YYYY/MM".match(/\w+|d+/g).join("-"))
+</script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/waves.js"></script>
+<script src="assets/js/jquery.slimscroll.js"></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/jquery.scrollTo.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.js"></script>
+<script>
+    $('.btn-animation').on('click', function (br) {
+        //adding animation
+        $('.modal .modal-dialog').attr('class', 'modal-dialog  ' + $(this).data("animation") + '  animated');
+    });
+</script>
+<script>
+    $(function () {
+        $(':input').labelauty();
+    });
+</script>
+
+</html>

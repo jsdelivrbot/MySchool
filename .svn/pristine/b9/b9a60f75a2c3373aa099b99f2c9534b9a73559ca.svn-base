@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>增加试题</title>
+    <!-- 导入link -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
+    <!--通知-->
+    <!--<link rel="stylesheet" href="dist/css/Lobibox.min.css"/>-->
+    <script src="js/CurrentDateTime.js"></script>
+
+    <!--HUI矢量图-->
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+
+
+    <script src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.js"></script>
+</head>
+<style>
+    * {
+        -webkit-user-select: none;
+    }
+
+    #count {
+        width: 150px;
+        height: 60px;
+        background-color: #cd535a;
+        position: absolute;
+        right: 100px;
+        top: 100px;
+        text-align: center;
+        line-height: 60px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #ffffff;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        font-family: 微软雅黑;
+        z-index: 100;
+        box-shadow: 1px 1px 1px #bcbcbc;
+
+    }
+
+
+
+    .chooseSkillCX {
+        width: 70px;
+        border: 1px solid #b6b6b6;
+        -webkit-border-radius: 5px;
+        text-indent: 5px;
+        color: #6e6e6e;
+    }
+
+    .operation {
+        width: 150px;
+        text-align: center;
+    }
+
+    .dropdown {
+        display: inline-block;
+
+    }
+
+    .dropdown button {
+        width: 200px;
+    }
+
+    .form-group-demo {
+        -webkit-border-radius: 5px;
+        box-shadow: 1px 1px 1px #d8d8d8;
+        height: 300px;
+        width:100%;
+        overflow: auto
+    }
+    body{
+        font-size: 14px;
+    }
+
+
+</style>
+<body>
+
+<div class="container-fluid" style="padding: 20px 100px" id="app">
+    <form id="formQuestion">
+        <div class="form-group">
+            <label for="test01">试题名称</label>
+            <input type="text" name="questionName" class="form-control" id="test01" placeholder="如：JAVA初始-01">
+        </div>
+        <!--显示父级的-->
+        <div class="form-group " style="display: inline-block" >
+            <label>选择试题</label><br/>
+            <!-- bootstrap select -->
+            <select class="selectpicker" data-live-search="true" id="skillId1">
+                <option value="-1">请选择</option>
+            </select>
+            <!-- bootstrap select -->
+            <select class="selectpicker" data-live-search="true" id="skillId2"> </select>
+        </div>
+        <div class="form-group " style="display: inline-block" >
+            <label>试卷类型</label></br>
+            <select class="selectpicker" data-live-search="true" id="detailID">
+                <option value="-1">请选择</option>
+            </select>
+        </div>
+        <div id="count">总题数：<span>0</span></div>
+        <div class="form-group form-group-demo">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>知识点</td>
+                    <td>总题数</td>
+                    <td>题目数</td>
+                </tr>
+                </thead>
+                <tbody id="tabInfo">
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="form-group"
+             style="border-top: 1px solid #e2e2e2;border-bottom: 1px solid #e2e2e2;padding-top: 10px;padding-bottom:10px ">
+            <label for="exampleInputPassword1">考试用时：</label>
+            <input type="number" name="answerDate" class="form-control" style="width: 80px;display: inline-block"
+                   min="1"
+                   id="exampleInputPassword1" value="60">
+            <label for="exampleInputPassword1"
+                   style="border-right:  1px solid #cbcbcb;padding-right: 10px;color: #75a5f4"> 分钟</label>
+            <label for="exampleInputPassword2" style="padding-left: 10px">分值：</label>
+            <input type="number" name="allocation" class="form-control" style="width: 80px;display: inline-block"
+                   min="1"
+                   id="exampleInputPassword2" value="2">
+            <label for="exampleInputPassword2"
+                   style="border-right:  1px solid #cbcbcb;padding-right: 10px;color: #75a5f4"> /分</label>
+            <label for="exampleInputPassword3" style="padding-left: 10px">总分：</label>
+            <input type="number" class="form-control sumScore" style="width: 80px;display: inline-block" min="0"
+                   id="exampleInputPassword3" value="0" disabled>
+            <label for="exampleInputPassword3" style="padding-right: 10px;color: #75a5f4"> 分</label>
+        </div>
+        <div class="form-group" style="text-align: right">
+            <button type="button" class="btn btn-primary" id="save"><i class="Hui-iconfont">&#xe632;&nbsp;</i> 保存</button>
+            <button type="button" onclick="nullForm()" class="btn btn-warning"><i class="Hui-iconfont">&#xe68f;&nbsp;</i> 重置</button>
+        </div>
+    </form>
+
+
+</div>
+
+<!--通知模块-->
+<!--<script src="dist/js/Lobibox.min.js"></script>-->
+<style>
+    td {
+        border: 1px solid transparent !important;
+    }
+</style>
+<script>
+    //下拉框三级联动
+    var selectArray=[];
+    var selectOne=[];
+    $(function () {
+        $.post("http://localhost:8080/dictionary/selDictionaryByType.do", {dictionaryCode:'opictypeType'}, function (result) {
+            console.log(result);
+            var html="";
+            for (var i = 0; i < result.length; i++) {
+                console.log("result[i].detailID:"+result[i].detailID)
+                $("#detailID").append("<option value=" + result[i].detailID + ">" + result[i].attrName + "</option>");
+                }
+            $("#detailID").selectpicker('refresh');
+        }, "json");
+        $.post("http://localhost:8080/skill/selectSkillAll.do", {}, function (datas) {
+            //加入第一个父级别的下拉框
+            for (var i = 0; i < datas.length; i++) {
+                selectArray[i] = datas[i];
+                if (datas[i].fatherId == 0) {
+                    //如果fatherId=0则这个知识点是第一个下拉框要显示的东西
+                    selectOne[i] = datas[i];
+                    console.log("selectOne:" + selectOne[i].skillName);
+                    $("#skillId1").append("<option value=" + selectOne[i].skillId + ">" + selectOne[i].skillName + "</option>");
+                    $("#skillId1").selectpicker('refresh');
+                }
+            }
+        }, "json");
+        // //第一个下拉框的change事件
+        $("#skillId1").change(function () {
+            var options = $("#skillId1 option:selected"); //获取选中的项
+            var selectVal = options.val();//下拉框选中项的值
+            $.post("http://localhost:8080/skill/selectSkillById.do", {fatherId:selectVal}, function (result) {
+                var html="";
+                console.log("二级下拉框中的数据:" + result[0].skillId);
+                for (var i = 0; i < result.length; i++) {
+                    html+="<option value='" + result[i].skillId + "'>" + result[i].skillName + "</option>"
+                }
+                $("#skillId2 option").remove();
+                $("#skillId2").append(html);
+                $("#skillId2").selectpicker('refresh');
+            }, "json");
+            selTopicBySkillID();
+        })
+        // //第二个下拉框的change事件
+        $("#skillId2").change(function () {
+            selTopicBySkillID();
+        })
+        $("#detailID").change(function () {
+            selTopicBySkillID();
+        })
+        function selTopicBySkillID() {
+
+            var options = $("#detailID option:selected"); //获取题目类型选中的项
+            var detailID = options.val();//下拉框选中项的值
+            console.log("opictypeId："+detailID)
+            var options = $("#skillId2 option:selected"); //获取知识点类型选中的项
+            var skillId = options.val();//下拉框选中项的值
+            console.log("fatherId："+skillId)
+            //显示知识点对应的题
+            $.post("http://localhost:8080/skill/selectSkillAllCount.do", {skillId:skillId,opicTypeId:detailID}, function (result) {
+               if(result!=null){
+                   console.log("绑定题目")
+                   var html='';
+                   for (var i = 0; i < result.length; i++) {
+                       html+='<tr>' +
+                       '<td class="id">' + result[i].skillId + '</td>' +
+                       '<td>' + result[i].skillName + '</td>' +
+                       '<td>' + result[i].countTopic + '</td>' +
+                       '<td class="operation">' +
+                       '<input type="number" min="1" max="' + result[i].countTopic + '" class="chooseSkillCX" onblur="onblurSum()" value="0">' +
+                       '</td>' +
+                       '</tr>'
+                   }
+                   $("#tabInfo tr ").remove();
+                   $("#tabInfo").append(html);
+               }else {
+
+               }
+
+            }, "json");
+        }
+    })
+
+
+
+
+    //保存按钮
+    $(function () {
+        $("#save").click(function () {
+
+            var param = $("#formQuestion").serialize();
+            var topicCount = $("#count").children().text();
+            var sumScore = $("#exampleInputPassword3").val();
+            var createdBy = localStorage.getItem("id");
+            var creationDate = getFormatDate();
+            var options = $("#detailID option:selected"); //获取题目类型选中的项
+            var detailID = options.val();//下拉框选中项的值
+            if (topicCount != 0) {
+                param += "&topicCount=" + topicCount + "&sumScore=" + sumScore + "&createdBy=" + createdBy + "&creationDate=" + creationDate + "&remark=1&quertionType="+detailID;
+                alert(param)
+                $.post("http://localhost:8080/questionPaper/insertQuestionPaper.do", param, function (id) {
+                    if (id != null) {
+                        console.log("主键:" + id);
+                        //增加
+                        var list = $(".chooseSkillCX")
+                        for (var i = 0; i < list.length; i++) {
+                            if ($(list[i]).val() != 0) {
+                                var skillId = $(list[i]).parent().prev().prev().prev().html();
+                                var thisCount = ($(list[i]).val());
+                                var options = $("#detailID option:selected"); //获取题目类型选中的项
+                                var detailID = options.val();//下拉框选中项的值
+                                var Tcount = 1;
+                                $.post("http://localhost:8080/questionDetail/questiondetailInsert.do", {
+                                    "skillId": skillId,
+                                    "count": thisCount,
+                                    "opicTypeId":detailID,
+                                    "questionId": id
+                                }, function (datas) {
+                                    console.log("datas:" + datas)
+                                    // while (Tcount > 0) {
+                                    //     Tcount--;
+                                    //     console.log("成功")
+                                    //     Lobibox.notify('success', {
+                                    //         msg: '保存成功，可在试卷列表查看...'
+                                    //
+                                    //     }); //启动进度条
+                                    // }
+                                    nullForm();
+                                }, "json")
+                            }
+                        }
+                    }
+
+                }, "json")
+            } else {
+                alert("必须选择题");
+            }
+        });
+        $("#exampleInputPassword2").change(function () {
+            sumResult();
+        });
+    })
+    //设置初始值
+    function nullForm() {
+        var sumScore = $("#exampleInputPassword1").val("60");
+        var sumScore = $("#exampleInputPassword2").val("2");
+        var sumScore = $("#exampleInputPassword3").val("0");
+        $("#count").children().text("0");
+        $(".chooseSkillCX").val("0")
+        $("#test01").val(null)
+    }
+
+    //选总题数
+    function onblurSum() {
+
+        var count = 0;
+        var obj = $(".chooseSkillCX");
+        // var objPrev=0;
+        for (var i = 0; i < obj.length; i++) {
+            objVal=parseInt($(obj[i]).val());
+            count += objVal;
+            // objPrev=$(obj[i]).parent().prev().text()
+            // console.log(parseInt($(obj[i]).val()))
+            // if(objVal>objPrev) {
+            //     console.log(obj[i].val(parseInt(objPrev)));
+            // }
+        }
+        $("#count").children().text(count)
+        sumResult();
+    }
+
+    //算总分数
+    function sumResult() {
+
+        var fz = parseInt($("#exampleInputPassword2").val());
+        var counts = parseInt($("#count").children().text());
+        $("#exampleInputPassword3").val(counts * fz)
+    }
+
+</script>
+
+</body>
+</html>

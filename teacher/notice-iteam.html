@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>云校园·公告</title>
+    <style>
+        .container {
+            width: 70%;
+            margin: 0px auto;
+            height: auto;
+        }
+
+        .noticeTitle {
+            padding: 0px 5%;
+            width: 90%;
+            height: auto;
+            font-size: 22px;
+            border-bottom: 1px solid #eeeeee;
+            font-weight: bold;
+        }
+
+        .createTime {
+            padding: 10px 5%;
+            width: 90%;
+            height: 20px;
+            font-size: 12px;
+            color: #737373;
+        }
+
+        .content {
+            padding: 10px 5%;
+            width: 90%;
+            height: auto;
+        }
+
+        .acc {
+
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="noticeTitle">
+        <p>{{noticeIteam.noticeTitle}}</p>
+    </div>
+    <div class="createTime">
+        发布人：{{noticeIteam.teacherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{noticeIteam.createDate}}
+    </div>
+
+    <div class="content" v-html="noticeIteam.content">
+    </div>
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            noticeIteam: {},
+        },
+        created() {
+            var id = parseInt(sessionStorage.getItem("noticeIteamID"));
+            console.log("id" + id);
+            $.post("http://localhost:8080/notice/byid.do", {id: id}, function (result) {
+                app.noticeIteam = result;
+                console.log(app.noticeIteam);
+            }, "json");
+        }
+    });
+</script>
+</body>
+</html>

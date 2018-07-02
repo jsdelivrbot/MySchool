@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 导入link -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/radar.js"></script>
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="albbFont/iconfont.css">
+    <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    .container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        position: relative;
+        bottom: 190px;
+        left: 60px;
+    }
+
+    /*今日打卡--开始 */
+    .white-panel {
+        margin-left: 6px;
+        border: 1px solid #CCCCCC;
+        width: 435px;
+        background: #ffffff;
+        color: #6d726d;
+    }
+
+    .white-panel p {
+        font-weight: 700;
+    }
+
+    .white-panel .white-header {
+        background: #f4f4f4;
+        padding: 3px;
+        margin-bottom: 15px;
+        color: #c6c6c6;
+    }
+
+    .white-panel .small {
+        font-size: 15px;
+        color: #ccd1d9;
+    }
+
+    .container-fluid {
+
+    }
+
+    .white-panel i {
+        color: #68dff0;
+        padding-right: 4px;
+        font-size: 14px;
+    }
+
+    .pn {
+        display: inline-block;
+        height: 250px;
+
+
+    }
+
+    .pn:hover {
+
+    }
+
+    .mb {
+        width: 400px;
+        height: 300px;
+    }
+
+    /*今日打卡--结束 */
+
+
+</style>
+<body>
+<div class="container-fluid" style="width: 90%;padding-top: 10px;">
+    <form class="form-inline">
+
+
+        <label for="announcementTitle" style="margin-right: 1%">学生姓名</label>
+        <input type="text" class="form-control announcementTitle" id="announcementTitle" placeholder="请输入学生姓名">
+
+        &nbsp;&nbsp;&nbsp;
+
+        &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success radius" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索
+        </button>
+
+
+    </form>
+</div>
+<div class="tab-content" style="width: 90%;margin: 0 auto;padding-top: 10px;">
+    <div class="active  tab-pane" id="tab1">
+        <div class="container-fluid" style="margin-top: 10px;display: inline-block;">
+            <div class="white-panel pn">
+                <div  style="display: inline-block;width: 30%;text-align: center;float: left">
+                <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                width="80"></p>
+                <p><b style="margin-left: 12%">朱晓宇</b></p>
+                </div>
+                <div  style="width: 70%;float: left;margin-top: 30px">
+                    <div style="text-align: center"><b>就业情况</b></div>
+                    <div style="margin-top: 30px;margin-left: 8%">就业单位：<span>sdsddsds</span></div>
+                    <div style="margin-top: 10px;margin-left: 8%">实习薪资：6000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">转正薪资：8000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">职位：java软件工程师</div>
+                </div>
+
+            </div>
+
+
+            <div class="white-panel pn">
+                <div  style="display: inline-block;width: 30%;text-align: center;float: left">
+                    <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                    width="80"></p>
+                    <p><b style="margin-left: 12%">朱晓宇</b></p>
+                </div>
+                <div  style="width: 70%;float: left;margin-top: 30px">
+                    <div style="text-align: center;"><b>就业情况</b></div>
+                    <div style="margin-top: 30px;margin-left: 8%">就业单位：<span>sdsddsds</span></div>
+                    <div style="margin-top: 10px;margin-left: 8%">实习薪资：6000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">转正薪资：8000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">职位：java软件工程师</div>
+                </div>
+            </div>
+
+            <div class="white-panel pn">
+                <div  style="display: inline-block;width: 30%;text-align: center;float: left">
+                    <p style="margin-left:8%;margin-top: 30px"><img src="assets/images/ui-zac.jpg" class="img-circle"
+                                                                    width="80"></p>
+                    <p><b style="margin-left: 12%">朱晓宇</b></p>
+                </div>
+                <div  style="width: 70%;float: left;margin-top: 30px">
+                    <div style="text-align: center"><b>就业情况</b></div>
+                    <div style="margin-top: 30px;margin-left: 8%">就业单位：<span>sdsddsds</span></div>
+                    <div style="margin-top: 10px;margin-left: 8%">实习薪资：6000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">转正薪资：8000</div>
+                    <div style="margin-top: 10px;margin-left: 8%">职位：java软件工程师</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+</body>
+<script type=" text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+</html>

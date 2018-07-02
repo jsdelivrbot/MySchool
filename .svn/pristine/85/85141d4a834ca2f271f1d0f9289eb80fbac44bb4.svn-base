@@ -1,0 +1,180 @@
+java开发
+    java基础
+        封装
+        继承
+        多态
+        接口
+        异常
+        集合
+        多线程
+        File I/O
+        JDBC
+        JSP/Servlet
+        其他
+    MyBatis
+        MyBatis基础
+        SQL映射文件
+        动态SQL
+        其他
+    Spring
+        Spring基础
+        IOC和AOP
+        Spring自动装配
+        拆分配置文件
+        其他
+    SM整合
+        声明式事务
+        DBCP数据源
+        其他
+    SpringMVC
+        SpringMVC基础
+        SpringMVC标签
+        请求流程
+        MVC模式的概念和特点
+        异常处理
+        其他
+    SSM整合
+        SSM整合步骤
+        其他
+    Hibernate
+        Hibernate基础
+        Hibernate关联映射
+        HQL语句
+        其他
+    Struts2
+        Struts2基础
+        Struts2标签
+        OGNL表达式
+        拦截器
+        其他
+    SSH整合
+        SSH整合步骤
+        其他
+    SpringBoot
+    SpringCloud
+
+大数据
+    Hadoop
+        Hadoop体系结构
+        Hadoop集群的配置
+        Hadoop命令
+        Hadoop的数据类型
+        其他
+    HDFS实现分布式存储
+        HDFS体系结构
+        命令行操作
+        HDFS文件块
+        其他
+    MapReduce实现分布式计算
+        MapReduce架构设计
+        MapReduce编程模型
+        MapReduce工作原理
+        其他
+    HBase数据库
+        HBase体系结构
+        HBase数据模型
+        HBase数据存储管理API
+        其他
+Android移动端
+    Android 概述
+        Android 开发优势
+        Android 的特性
+        API 级别
+     Android 架构
+        Android程序库
+Database数据库
+    Oracle
+         SQL语句进行CRUD操作
+         SQL函数
+         数据类型
+         SQL操作符
+         事务，视图，索引
+         建库，建表，建约束
+         PL/SQL编程
+         其他
+    MySql
+         SQL语句进行CRUD操作
+         SQL函数
+         数据类型
+         SQL操作符
+         事务，视图，索引
+         建库，建表，建约束
+         SQL编程
+         其他
+    SqlServer
+         SQL语句进行CRUD操作
+         SQL函数
+         数据类型
+         SQL操作符
+         事务，视图，索引
+         建库，建表，建约束
+         SQL编程
+         其他
+    Redis
+        Redis命令
+        Redis高级
+        其他
+    MongoDB
+        MongoDB增删改查
+        MongoDB高级
+        MongoDB其他
+linux操作系统
+    Linux初级
+        Linux系统安装
+        Linux图形界面使用
+        Linux常用命令
+        其他
+    Linux中级
+        Linux用户和文件系统管理
+        Linux软件安装配置
+        Linux网络管理
+        Linux系统维护
+        Shell编程
+        其他
+    Linux高级
+        服务器维护
+        其他
+web前端
+    前端框架
+        响应式布局
+        移动web页面
+        移动web特效
+        Bootstrap
+        VUE
+        其他
+    JavaScript&jQuery
+        JS操作BOM
+        JS操作DOM
+        JS面向对象
+        jQuery选择器
+        jQuery中的事件与动画
+        jQuery操作DOM
+        表单校验
+        Ajax交互
+        其他
+    HTML5&CSS3
+        HTML5 标签
+        HTML5 属性
+        HTML5 事件
+        HTML5 视频/音频
+        HTML5 画布
+        HTML5 其他
+        CSS3 选择器
+        CSS3 盒模型
+        CSS3 背景和边框
+        CSS3 文字特效
+        CSS3 2D/3D转换
+        CSS3 动画
+        CSS3 多列布局
+        CSS3 用户界面
+        CSS3 其他
+    正则表达式
+        语法
+        元字符
+        运算符优先级
+        匹配规则
+        其他
+常用工具
+    SVN
+    Maven
+    Git
